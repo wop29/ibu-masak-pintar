@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
-  component: MasakApa;
+  component: MasakApa,
 });
 
 const CATS: { id: string; label: string }[] = [
