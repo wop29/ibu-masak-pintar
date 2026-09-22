@@ -6,8 +6,42 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { resolve } from "node:path";
 
 const BUILD_ID = String(Date.now());
+
+// The offline shell has dropped out of the build twice without anyone noticing.
+// This makes that a hard build failure instead of a silent loss of offline mode.
+const SHELL_FILE = "index.html";
+const assertOfflineShell = () => ({
+  name: "racik-assert-offline-shell",
+  apply: "build" as const,
+  enforce: "post" as const,
+  closeBundle() {
+    const clientDir = resolve(process.cwd(), "dist/client");
+    const swPath = resolve(clientDir, "sw.js");
+    const shellPath = resolve(clientDir, SHELL_FILE);
+    // Only the client build emits the worker; other environments skip this hook.
+    if (!existsSync(clientDir)) return;
+    const fail = (why: string) => {
+      throw new Error(
+        `[racik] offline shell assertion failed: ${why}. ` +
+          `The app would ship without offline support, so this build is rejected.`,
+      );
+    };
+    if (!existsSync(swPath)) fail("dist/client/sw.js was not emitted");
+    if (!existsSync(shellPath)) fail(`dist/client/${SHELL_FILE} was not emitted`);
+    if (statSync(shellPath).size < 512)
+      fail(`dist/client/${SHELL_FILE} is too small to be a real document`);
+    const sw = readFileSync(swPath, "utf8");
+    const entry = new RegExp(
+      `["'\\\`]?url["'\\\`]?\\s*:\\s*["'\\\`]/?${SHELL_FILE.replace(".", "\\.")}["'\\\`]`,
+    );
+    if (!entry.test(sw))
+      fail(`/${SHELL_FILE} is missing from the service worker precache manifest`);
+  },
+});
 
 
 export default defineConfig({
