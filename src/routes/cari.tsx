@@ -10,6 +10,7 @@ import { buildIndex, proteinPerPortion, search } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
 import type { Recipe } from "@/lib/racik/types";
 import { PHOTO } from "@/components/racik/photos";
+import { RecipePhoto } from "@/components/racik/RecipePhoto";
 
 export const Route = createFileRoute("/cari")({
   head: () => ({ meta: [{ title: "Cari Resep Nusantara — Racik" }, { name: "description", content: "Cari resep dari waktu, bahan utama, cara masak, protein, atau daerah." }, { property: "og:title", content: "Cari Resep Nusantara — Racik" }, { property: "og:description", content: "Cari resep Indonesia dengan kata dan nama bahan yang biasa dipakai di rumah." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/cari")({
 function Shelf({ title, items, onPick }: { title: string; items: { label: string; recipes: Recipe[] }[]; onPick: (label: string, recipes: Recipe[]) => void }) {
   const populated = items.filter((item) => item.recipes.length > 0);
   if (!populated.length) return null;
-  return <section className="mt-8"><h2 className="eyebrow-ink px-5">{title}</h2><div className="no-scrollbar mt-3 flex gap-3 overflow-x-auto px-5">{populated.map((item) => { const recipe = item.recipes[0]; const photo = recipe ? PHOTO[recipe.id] : undefined; return <Button key={item.label} variant="ghost" onClick={() => onPick(item.label, item.recipes)} className="relative h-36 w-40 shrink-0 overflow-hidden rounded-2xl bg-primary-deep p-0 text-primary-foreground">{photo ? <img src={photo} alt="" loading="lazy" width={1024} height={704} className="absolute inset-0 h-full w-full object-cover" /> : null}<span className="absolute inset-0 bg-dark/45" /><span className="relative mt-auto w-full px-3 pb-3 text-left"><b className="block text-body">{item.label}</b><small className="text-label font-normal">{item.recipes.length} resep</small></span></Button>; })}</div></section>;
+  return <section className="mt-8"><h2 className="eyebrow-ink px-5">{title}</h2><div className="no-scrollbar mt-3 flex gap-3 overflow-x-auto px-5">{populated.map((item) => { const recipe = item.recipes[0]; const photo = recipe ? PHOTO[recipe.id] : undefined; return <Button key={item.label} variant="ghost" onClick={() => onPick(item.label, item.recipes)} className="relative h-36 w-40 shrink-0 overflow-hidden rounded-2xl bg-primary-deep p-0 text-primary-foreground"><span className="absolute inset-0"><RecipePhoto src={photo} glyph={recipe?.glyph ?? "\u{1F372}"} /></span><span className="absolute inset-0 bg-dark/45" /><span className="relative mt-auto w-full px-3 pb-3 text-left"><b className="block text-body">{item.label}</b><small className="text-label font-normal">{item.recipes.length} resep</small></span></Button>; })}</div></section>;
 }
 
 function CariResep() {

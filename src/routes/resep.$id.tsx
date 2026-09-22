@@ -3,6 +3,7 @@ import { useState } from "react";
 import { HalalChip } from "@/components/racik/HalalChip";
 import { IngredientList } from "@/components/racik/IngredientList";
 import { PHOTO } from "@/components/racik/photos";
+import { RecipePhoto } from "@/components/racik/RecipePhoto";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { ProteinBlock } from "@/components/racik/ProteinBlock";
 import { Button } from "@/components/ui/button";
@@ -59,19 +60,7 @@ function DetailResep() {
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] pb-28">
       <div className="relative aspect-[4/3] w-full bg-primary-deep">
-        {photo ? (
-          <img
-            src={photo}
-            alt={recipe.title}
-            width={1024}
-            height={704}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-primary-deep text-[64px]">
-            <span aria-hidden>{recipe.glyph}</span>
-          </div>
-        )}
+        <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-[64px]" />
         <Button asChild variant="secondary" size="icon" className="absolute left-4 top-4"><Link to="/" aria-label="Kembali"><ArrowLeft /></Link></Button>
         <Button variant="secondary" size="icon" onClick={() => toggleSaved(recipe.id)} className="absolute right-4 top-4" aria-label={saved ? "Hapus dari simpanan" : "Simpan resep"}><Bookmark className={saved ? "fill-primary text-primary" : ""} /></Button>
       </div>

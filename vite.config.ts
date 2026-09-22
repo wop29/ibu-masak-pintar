@@ -11,6 +11,9 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
+      // The deployed public directory is dist/client; a worker emitted to dist/
+      // would never be served, and the app would silently lose offline support.
+      outDir: "dist/client",
       injectRegister: null,
       devOptions: { enabled: false },
       manifest: false,
@@ -26,6 +29,18 @@ export default defineConfig({
               cacheName: "racik-pages",
               networkTimeoutSeconds: 4,
               expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+          {
+            // Photographs live on the CDN under this path. First view stores them,
+            // every later view reads the cache, so a kitchen with no signal still
+            // shows the picture it has already seen.
+            urlPattern: ({ url }) => url.pathname.startsWith("/__l5e/assets-v1/"),
+            handler: "CacheFirst",
+            options: {
+              cacheName: "racik-photos",
+              expiration: { maxEntries: 220, maxAgeSeconds: 60 * 60 * 24 * 180 },
+              cacheableResponse: { statuses: [0, 200] },
             },
           },
           {

@@ -3,6 +3,7 @@ import { REG, SPICE_WORD } from "@/lib/racik/data";
 import { fmtProtein, fmtTime, proteinPerPortion } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { PHOTO } from "./photos";
+import { RecipePhoto } from "./RecipePhoto";
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   const photo = PHOTO[recipe.id];
@@ -14,20 +15,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
       className="hairline-b block bg-card"
     >
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-primary-deep">
-        {photo ? (
-          <img
-            src={photo}
-            alt={recipe.title}
-            loading="lazy"
-            width={1024}
-            height={704}
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-primary-deep text-[44px]">
-            <span aria-hidden>{recipe.glyph}</span>
-          </div>
-        )}
+        <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} />
       </div>
       <div className="px-5 py-4">
         <p className="eyebrow">{REG[recipe.region]?.name ?? recipe.region}</p>
