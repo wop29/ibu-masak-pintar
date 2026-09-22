@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/resep/$id_/masak")({
   loader: ({ params }) => {
-    const recipe = byId(params.id);
-    if (!recipe) throw notFound();
+    const recipe = byId(params.id) ?? null;
+    if (!recipe && !params.id.startsWith("import-")) throw notFound();
     return { recipe };
   },
   head: ({ loaderData }) => {
@@ -70,12 +70,22 @@ function Timer({ seconds, keyId }: { seconds: number; keyId: string }) {
 }
 
 function ModeMasak() {
-  const { recipe } = Route.useLoaderData();
+  const { recipe: shipped } = Route.useLoaderData();
+  const { id } = Route.useParams();
   const { state, logCooked } = useRacik();
   const navigate = useNavigate();
   const [i, setI] = useState(0);
-  const servings = state.servings[recipe.id] ?? state.household;
-  const perStep = useMemo(() => stepIngredients(recipe), [recipe]);
+  const recipe = shipped ?? state.imported.find((item) => item.id === id);
+  const servings = recipe ? state.servings[recipe.id] ?? state.household : state.household;
+  const perStep = useMemo(() => (recipe ? stepIngredients(recipe) : []), [recipe]);
+
+  if (!recipe) {
+    return (
+      <main className="min-h-dvh bg-dark p-6 text-primary-foreground">
+        <p className="text-body">Resep ini tidak ada di perangkat ini.</p>
+      </main>
+    );
+  }
 
   const step = recipe.steps[i];
   const needed = perStep[i] ?? [];
