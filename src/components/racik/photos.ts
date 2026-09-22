@@ -17,7 +17,6 @@ import sambal from "@/assets/resep/sambal_terasi.jpg";
 
 /** CDN-hosted photographs keyed by recipe: nothing binary enters the bundle. */
 const REMOTE = photosRaw as Record<string, string[]>;
-const PUBLIC_ASSET_ORIGIN = "https://project--404aa9e3-8685-40d9-ad45-482865bd6804-dev.lovable.app";
 
 /**
  * Photographs bundled with the app. These are the offline floor: they are
