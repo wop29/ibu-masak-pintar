@@ -23,7 +23,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
   const [error, setError] = useState("");
   const [needCaption, setNeedCaption] = useState(false);
   const valid = /https?:\/\/(www\.)?(tiktok\.com|instagram\.com|youtube\.com|youtu\.be)\//i.test(url);
-  const captionReady = caption.trim().length >= 20;
+  const captionReady = caption.trim().length > 0;
 
   const handle = (result: ImportResult) => {
     if (result.ok) {
