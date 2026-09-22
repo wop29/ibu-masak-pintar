@@ -89,4 +89,18 @@ export interface Recipe {
   timbang?: boolean;
 }
 
+export interface ImportedRecipe {
+  id: string;
+  sourceUrl: string;
+  title: string;
+  creator: string | null;
+  servings: number | null;
+  timeMinutes: number | null;
+  difficulty: "gampang" | "sedang" | "agak ribet" | null;
+  note: string | null;
+  ingredients: { name: string; quantity: number | null; unit: string | null; preparation: string | null }[];
+  steps: { text: string; seconds: number | null }[];
+  importedAt: number;
+}
+
 export type SatuanMode = "rumah" | "gram";

@@ -6,6 +6,7 @@ import { CompactRecipe } from "@/components/racik/CompactRecipe";
 import { Onboarding } from "@/components/racik/Onboarding";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { SearchField } from "@/components/racik/SearchField";
+import { PHOTO } from "@/components/racik/photos";
 import { Button } from "@/components/ui/button";
 import { RECIPES } from "@/lib/racik/data";
 import { buildIndex, search } from "@/lib/racik/engine";
@@ -35,9 +36,13 @@ export const Route = createFileRoute("/")({
 });
 
 const CATS = [
-  { id: "makan_siang", label: "Siang", icon: "☀️" }, { id: "makan_malam", label: "Malam", icon: "🌙" },
-  { id: "sarapan", label: "Sarapan", icon: "🌅" }, { id: "sayur", label: "Sayur", icon: "🥬" },
-  { id: "lauk", label: "Lauk", icon: "🍖" }, { id: "sambal", label: "Sambal", icon: "🌶️" }, { id: "jajan", label: "Jajan", icon: "🧁" },
+  { id: "makan_siang", label: "Siang", photo: PHOTO["gado_gado"] },
+  { id: "makan_malam", label: "Malam", photo: PHOTO["rendang_daging"] },
+  { id: "sarapan", label: "Sarapan", photo: PHOTO["nasi_goreng_kampung"] },
+  { id: "sayur", label: "Sayur", photo: PHOTO["sayur_asem"] },
+  { id: "lauk", label: "Lauk", photo: PHOTO["ayam_goreng_lengkuas"] },
+  { id: "sambal", label: "Sambal", photo: PHOTO["sambal_terasi"] },
+  { id: "jajan", label: "Jajan", photo: PHOTO["bolu_kukus_pandan"] },
 ] as const;
 const FILTERS = [{ id: "cepat", label: "< 30 menit" }, { id: "gampang", label: "Gampang" }, { id: "protein", label: "Protein tinggi" }, { id: "anak", label: "Tidak pedas" }, { id: "banyak", label: "Sekali masak banyak" }];
 
@@ -77,7 +82,11 @@ function MasakApa() {
       </header>
       <div className="hairline-t hairline-b no-scrollbar flex gap-3 overflow-x-auto px-5 py-5">
         {CATS.map((c) => (
-          <Button variant="outline" key={c.id} onClick={() => setCat(cat === c.id ? "" : c.id)} className={`h-24 w-24 shrink-0 flex-col gap-2 rounded-2xl px-2 ${cat === c.id ? "border-primary bg-secondary text-primary" : ""}`}><span className="text-title" aria-hidden>{c.icon}</span><span className="text-secondary">{c.label}</span></Button>
+          <Button variant="outline" key={c.id} onClick={() => setCat(cat === c.id ? "" : c.id)} className={`relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border-2 p-0 ${cat === c.id ? "border-primary" : "border-transparent"}`}>
+            <img src={c.photo} alt="" loading="lazy" width={1024} height={704} className="absolute inset-0 h-full w-full object-cover" />
+            <span className="absolute inset-0 bg-dark/45" />
+            <span className="relative mt-auto w-full px-2 pb-2 text-left text-secondary font-bold text-primary-foreground">{c.label}</span>
+          </Button>
         ))}
       </div>
       <div className="no-scrollbar flex gap-2 overflow-x-auto px-5 py-4">{FILTERS.map((f) => <Button key={f.id} variant="outline" size="sm" onClick={() => setFilter(filter === f.id ? "" : f.id)} className={filter === f.id ? "border-primary bg-secondary text-primary" : ""}>{f.label}</Button>)}</div>

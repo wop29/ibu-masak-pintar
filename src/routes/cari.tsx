@@ -17,7 +17,9 @@ export const Route = createFileRoute("/cari")({
 });
 
 function Shelf({ title, items, onPick }: { title: string; items: { label: string; recipes: Recipe[] }[]; onPick: (label: string, recipes: Recipe[]) => void }) {
-  return <section className="mt-8"><h2 className="eyebrow-ink px-5">{title}</h2><div className="no-scrollbar mt-3 flex gap-3 overflow-x-auto px-5">{items.map((item) => { const recipe = item.recipes[0]; const photo = recipe ? PHOTO[recipe.id] : undefined; return <Button key={item.label} variant="ghost" onClick={() => onPick(item.label, item.recipes)} className="relative h-36 w-40 shrink-0 overflow-hidden rounded-2xl bg-primary-deep p-0 text-primary-foreground"><span className="absolute inset-0 bg-dark/35" />{photo ? <img src={photo} alt="" className="absolute inset-0 h-full w-full object-cover" /> : null}<span className="absolute inset-0 bg-dark/35" /><span className="relative mt-auto w-full px-3 pb-3 text-left"><b className="block text-body">{item.label}</b><small className="text-label font-normal">{item.recipes.length} resep</small></span></Button>; })}</div></section>;
+  const populated = items.filter((item) => item.recipes.length > 0);
+  if (!populated.length) return null;
+  return <section className="mt-8"><h2 className="eyebrow-ink px-5">{title}</h2><div className="no-scrollbar mt-3 flex gap-3 overflow-x-auto px-5">{populated.map((item) => { const recipe = item.recipes[0]; const photo = recipe ? PHOTO[recipe.id] : undefined; return <Button key={item.label} variant="ghost" onClick={() => onPick(item.label, item.recipes)} className="relative h-36 w-40 shrink-0 overflow-hidden rounded-2xl bg-primary-deep p-0 text-primary-foreground">{photo ? <img src={photo} alt="" loading="lazy" width={1024} height={704} className="absolute inset-0 h-full w-full object-cover" /> : null}<span className="absolute inset-0 bg-dark/45" /><span className="relative mt-auto w-full px-3 pb-3 text-left"><b className="block text-body">{item.label}</b><small className="text-label font-normal">{item.recipes.length} resep</small></span></Button>; })}</div></section>;
 }
 
 function CariResep() {

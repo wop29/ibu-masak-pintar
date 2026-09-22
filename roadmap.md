@@ -41,11 +41,13 @@ Data contoh (15 resep, ~60 bahan, 7 daerah) sudah masuk. Ganti dengan ekspor
 - [x] Aman untuk layar ponsel: area kamera/bilah bawah, zoom teks, ikon layar utama
 - [x] Alur impor sebagai peragaan yang jujur disebut peragaan
 
-## Menunggu di luar kendali
+## Milestone 4 — impor resep dari tautan
 
-- Impor asli dari TikTok/Instagram perlu server (unduh video, salin suara,
-  baca tulisan di layar, cocokkan ke daftar bahan). Belum bisa dikerjakan di
-  sini.
+- [x] Aktifkan pemrosesan tautan TikTok, Instagram Reels, dan YouTube Shorts
+- [x] Susun bahan, langkah, waktu, porsi, dan kredit pembuat dari isi video
+- [x] Simpan hasil impor di Buku Resep dan buka resep yang sudah pernah diambil
+- [x] Tampilkan kegagalan dan batas pemrosesan secara jujur
+- [ ] Uji alur lengkap dari tautan hingga resep tersimpan
 
 ## Aturan tulisan
 

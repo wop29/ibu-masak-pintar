@@ -11,7 +11,7 @@ export function CompactRecipe({ recipe }: { recipe: Recipe }) {
   return (
     <Link to="/resep/$id" params={{ id: recipe.id }} className="flex min-h-28 items-center gap-4 border-b border-border py-4">
       <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-primary-deep">
-        {photo ? <img src={photo} alt="" className="h-full w-full object-cover" /> : <span className="flex h-full items-center justify-center text-28" aria-hidden>{recipe.glyph}</span>}
+        {photo ? <img src={photo} alt="" loading="lazy" width={1024} height={704} className="h-full w-full object-cover" /> : <span className="flex h-full items-center justify-center text-28" aria-hidden>{recipe.glyph}</span>}
       </div>
       <div className="min-w-0 flex-1">
         <h3 className="text-head font-bold leading-snug">{recipe.title}</h3>

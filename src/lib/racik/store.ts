@@ -1,3 +1,5 @@
+import type { ImportedRecipe } from "./types";
+
 const DB_NAME = "racik";
 const STORE = "state";
 const KEY = "app";
@@ -9,7 +11,7 @@ export interface RacikState {
   saved: string[];
   disliked: string[];
   log: { id: string; at: number }[];
-  imported: unknown[];
+  imported: ImportedRecipe[];
   servings: Record<string, number>;
   intro: boolean;
   plan: { id: string; servings: number }[];
@@ -53,7 +55,7 @@ export function normaliseState(raw: unknown): RacikState {
     saved: arr<string>(s.saved),
     disliked: arr<string>(s.disliked),
     log: arr<{ id: string; at: number }>(s.log).filter((l) => l && typeof l.id === "string"),
-    imported: arr<unknown>(s.imported),
+    imported: arr<ImportedRecipe>(s.imported).filter((item) => item && typeof item.id === "string" && typeof item.title === "string" && Array.isArray(item.ingredients) && Array.isArray(item.steps)),
     servings: obj<number>(s.servings),
     intro: s.intro === true,
     plan: arr<{ id: string; servings: number }>(s.plan).slice(0, 3),
