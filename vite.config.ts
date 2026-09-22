@@ -18,19 +18,13 @@ export default defineConfig({
       devOptions: { enabled: false },
       manifest: false,
       workbox: {
-        navigateFallback: null,
+        // Every page is the same prerendered shell, so one precached document
+        // answers any recipe URL, visited before or not, with no signal at all.
+        navigateFallback: "/_shell.html",
+        navigateFallbackDenylist: [/^\/api\//, /^\/~oauth/, /^\/_serverFn\//],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg}"],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         runtimeCaching: [
-          {
-            urlPattern: ({ request, url }) =>
-              request.mode === "navigate" && !url.pathname.startsWith("/~oauth"),
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "racik-pages",
-              networkTimeoutSeconds: 4,
-              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 30 },
-            },
-          },
           {
             // Photographs live on the CDN under this path. First view stores them,
             // every later view reads the cache, so a kitchen with no signal still
@@ -43,6 +37,7 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
+
           {
             urlPattern: ({ request, url }) =>
               url.origin === self.location.origin &&
