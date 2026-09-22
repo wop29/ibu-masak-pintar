@@ -6,7 +6,7 @@ import { CompactRecipe } from "@/components/racik/CompactRecipe";
 import { Onboarding } from "@/components/racik/Onboarding";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { SearchField } from "@/components/racik/SearchField";
-import { PHOTO } from "@/components/racik/photos";
+import { ART, PHOTO } from "@/components/racik/photos";
 import { Button } from "@/components/ui/button";
 import { RECIPES } from "@/lib/racik/data";
 import { buildIndex, search } from "@/lib/racik/engine";
