@@ -131,7 +131,7 @@ function ModeMasak() {
                 return (
                   <li key={line[0]} className="read-line flex gap-3">
                     <span aria-hidden className="w-6 shrink-0">
-                      {ing.emoji}
+                      {ing.em}
                     </span>
                     <span>
                       {qty == null ? (

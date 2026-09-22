@@ -2,13 +2,13 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { HalalChip } from "@/components/racik/HalalChip";
 import { IngredientList } from "@/components/racik/IngredientList";
-import { PHOTO } from "@/components/racik/photos";
+import { PHOTO, previewPhotoOf } from "@/components/racik/photos";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { ProteinBlock } from "@/components/racik/ProteinBlock";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Bookmark, CalendarPlus } from "lucide-react";
-import { byId, REG, SPICE_WORD } from "@/lib/racik/data";
+import { byId, REG } from "@/lib/racik/data";
 import { fmtSeconds, fmtTime } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
 
@@ -23,6 +23,7 @@ export const Route = createFileRoute("/resep/$id")({
     const r = loaderData?.recipe;
     const title = r ? `${r.title} — Racik` : "Resep — Racik";
     const desc = r ? r.note : "Resep rumahan dengan takaran yang ikut jumlah porsi.";
+    const image = r ? previewPhotoOf(r.id) : undefined;
     return {
       meta: [
         { title },
@@ -30,7 +31,11 @@ export const Route = createFileRoute("/resep/$id")({
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
         { property: "og:type", content: "article" },
-        { name: "twitter:card", content: "summary" },
+        { name: "twitter:card", content: image ? "summary_large_image" : "summary" },
+        ...(image ? [
+          { property: "og:image", content: image },
+          { name: "twitter:image", content: image },
+        ] : []),
       ],
     };
   },
@@ -74,9 +79,6 @@ function DetailResep() {
 
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <HalalChip recipe={recipe} />
-          <span className="text-label border border-rule bg-card px-3 py-1.5 uppercase tracking-[0.12em] text-ink-2">
-            {SPICE_WORD[recipe.spice]}
-          </span>
           {recipe.leftover ? (
             <span className="text-label border border-rule bg-card px-3 py-1.5 uppercase tracking-[0.12em] text-ink-2">
               sisa bisa dipakai

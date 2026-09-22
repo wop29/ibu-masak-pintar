@@ -45,7 +45,7 @@ const CATS = [
   { id: "jajan", label: "Jajan", photo: ART.bolu },
 ] as const;
 
-const FILTERS = [{ id: "cepat", label: "< 30 menit" }, { id: "gampang", label: "Gampang" }, { id: "protein", label: "Protein tinggi" }, { id: "anak", label: "Tidak pedas" }, { id: "banyak", label: "Sekali masak banyak" }];
+const FILTERS = [{ id: "cepat", label: "< 30 menit" }, { id: "gampang", label: "Gampang" }, { id: "protein", label: "Protein tinggi" }, { id: "banyak", label: "Sekali masak banyak" }];
 
 function greeting(hour: number) {
   if (hour < 10) return ["SELAMAT PAGI,", "Sarapan apa hari ini?"];

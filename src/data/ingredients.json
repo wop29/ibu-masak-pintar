@@ -1,2064 +1,2064 @@
 [
- {
-  "id": "bawang_merah",
-  "name": "Bawang merah",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "siung",
-  "staple": 1,
-  "aliases": [
-   "brambang",
-   "bawang beureum"
-  ],
-  "emoji": "🧅"
- },
- {
-  "id": "bawang_putih",
-  "name": "Bawang putih",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "siung",
-  "staple": 1,
-  "aliases": [
-   "bawang bodas"
-  ],
-  "emoji": "🧄"
- },
- {
-  "id": "bawang_bombay",
-  "name": "Bawang bombay",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "bombay"
-  ],
-  "emoji": "🧅"
- },
- {
-  "id": "cabai_merah",
-  "name": "Cabai merah keriting",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [
-   "lombok abang",
-   "rica",
-   "cabe merah",
-   "cabe",
-   "lombok"
-  ],
-  "emoji": "🌶️"
- },
- {
-  "id": "cabai_rawit",
-  "name": "Cabai rawit",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [
-   "cengek",
-   "lombok setan",
-   "cabe rawit",
-   "cabe"
-  ],
-  "emoji": "🌶️"
- },
- {
-  "id": "cabai_hijau",
-  "name": "Cabai hijau besar",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "lombok ijo"
-  ],
-  "emoji": "🫑"
- },
- {
-  "id": "kemiri",
-  "name": "Kemiri",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "butir",
-  "staple": 1,
-  "aliases": [
-   "muncang"
-  ],
-  "emoji": "🌰"
- },
- {
-  "id": "jahe",
-  "name": "Jahe",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "ruas",
-  "staple": 1,
-  "aliases": [
-   "jae",
-   "goraka"
-  ],
-  "emoji": "🫚"
- },
- {
-  "id": "kunyit",
-  "name": "Kunyit",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "ruas",
-  "staple": 1,
-  "aliases": [
-   "koneng",
-   "kunir"
-  ],
-  "emoji": "🫚"
- },
- {
-  "id": "lengkuas",
-  "name": "Lengkuas",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "ruas",
-  "staple": 1,
-  "aliases": [
-   "laos"
-  ],
-  "emoji": "🫚"
- },
- {
-  "id": "kencur",
-  "name": "Kencur",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "ruas",
-  "staple": 0,
-  "aliases": [
-   "cikur"
-  ],
-  "emoji": "🫚"
- },
- {
-  "id": "serai",
-  "name": "Serai",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "batang",
-  "staple": 1,
-  "aliases": [
-   "sereh"
-  ],
-  "emoji": "🌾"
- },
- {
-  "id": "daun_salam",
-  "name": "Daun salam",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "lembar",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🍃"
- },
- {
-  "id": "daun_jeruk",
-  "name": "Daun jeruk",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "lembar",
-  "staple": 1,
-  "aliases": [
-   "daun limau"
-  ],
-  "emoji": "🍃"
- },
- {
-  "id": "daun_kunyit",
-  "name": "Daun kunyit",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "lembar",
-  "staple": 0,
-  "aliases": [
-   "daun kunir"
-  ],
-  "emoji": "🍃"
- },
- {
-  "id": "kemangi",
-  "name": "Kemangi",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "surawung"
-  ],
-  "emoji": "🌿"
- },
- {
-  "id": "terasi",
-  "name": "Terasi",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 1,
-  "aliases": [
-   "belacan"
-  ],
-  "emoji": "🟫"
- },
- {
-  "id": "ketumbar",
-  "name": "Ketumbar",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🫘"
- },
- {
-  "id": "jinten",
-  "name": "Jinten",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 0,
-  "aliases": [
-   "jintan"
-  ],
-  "emoji": "🫘"
- },
- {
-  "id": "merica",
-  "name": "Merica",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 1,
-  "aliases": [
-   "lada"
-  ],
-  "emoji": "⚫"
- },
- {
-  "id": "pala",
-  "name": "Pala",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🌰"
- },
- {
-  "id": "kayu_manis",
-  "name": "Kayu manis",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "batang",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🪵"
- },
- {
-  "id": "cengkeh",
-  "name": "Cengkeh",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "butir",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🌾"
- },
- {
-  "id": "kapulaga",
-  "name": "Kapulaga",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "butir",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🫘"
- },
- {
-  "id": "kluwek",
-  "name": "Kluwek",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "butir",
-  "staple": 0,
-  "aliases": [
-   "keluak",
-   "pucung"
-  ],
-  "emoji": "⚫"
- },
- {
-  "id": "asam_jawa",
-  "name": "Asam jawa",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 1,
-  "aliases": [
-   "asem"
-  ],
-  "emoji": "🟤"
- },
- {
-  "id": "garam",
-  "name": "Garam",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 1,
-  "aliases": [
-   "uyah"
-  ],
-  "emoji": "🧂"
- },
- {
-  "id": "gula_pasir",
-  "name": "Gula pasir",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🍚"
- },
- {
-  "id": "gula_merah",
-  "name": "Gula merah",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 1,
-  "aliases": [
-   "gula jawa",
-   "gula aren"
-  ],
-  "emoji": "🟤"
- },
- {
-  "id": "minyak_goreng",
-  "name": "Minyak goreng",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 1,
-  "aliases": [
-   "minyak"
-  ],
-  "emoji": "🫗"
- },
- {
-  "id": "beras",
-  "name": "Beras",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gelas",
-  "staple": 1,
-  "aliases": [
-   "sekul"
-  ],
-  "emoji": "🍚"
- },
- {
-  "id": "kecap_manis",
-  "name": "Kecap manis",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 1,
-  "aliases": [
-   "kecap"
-  ],
-  "emoji": "🍶"
- },
- {
-  "id": "kecap_asin",
-  "name": "Kecap asin",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "soy sauce"
-  ],
-  "emoji": "🍶"
- },
- {
-  "id": "saus_tiram",
-  "name": "Saus tiram",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "oyster sauce"
-  ],
-  "emoji": "🍶"
- },
- {
-  "id": "santan",
-  "name": "Santan",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "ml",
-  "staple": 1,
-  "aliases": [
-   "santen"
-  ],
-  "emoji": "🥥"
- },
- {
-  "id": "tepung_terigu",
-  "name": "Tepung terigu",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 1,
-  "aliases": [
-   "terigu"
-  ],
-  "emoji": "🌾"
- },
- {
-  "id": "tepung_beras",
-  "name": "Tepung beras",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "tepung beras"
-  ],
-  "emoji": "🌾"
- },
- {
-  "id": "mie_telur",
-  "name": "Mie telur",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "bungkus",
-  "staple": 0,
-  "aliases": [
-   "mi telor",
-   "mi telur",
-   "mi kuning",
-   "mi basah"
-  ],
-  "emoji": "🍜"
- },
- {
-  "id": "air",
-  "name": "Air",
-  "cat": "lain",
-  "halal": "halal",
-  "unit": "ml",
-  "staple": 1,
-  "aliases": [
-   "banyu"
-  ],
-  "emoji": "💧"
- },
- {
-  "id": "air_jeruk_nipis",
-  "name": "Air jeruk nipis",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "jeruk nipis"
-  ],
-  "emoji": "🍋"
- },
- {
-  "id": "telur",
-  "name": "Telur ayam",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "butir",
-  "staple": 1,
-  "aliases": [
-   "endog",
-   "telor"
-  ],
-  "emoji": "🥚"
- },
- {
-  "id": "ayam",
-  "name": "Ayam",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "potong",
-  "staple": 1,
-  "aliases": [
-   "pitik",
-   "hayam",
-   "ayam potong",
-   "potongan ayam",
-   "ayam negeri",
-   "dada ayam",
-   "paha ayam",
-   "sayap ayam",
-   "daging ayam",
-   "fillet ayam",
-   "ayam fillet"
-  ],
-  "emoji": "🍗"
- },
- {
-  "id": "ayam_utuh",
-  "name": "Ayam utuh",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🐔"
- },
- {
-  "id": "daging_sapi",
-  "name": "Daging sapi",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "sapi"
-  ],
-  "emoji": "🥩"
- },
- {
-  "id": "ikan_teri",
-  "name": "Ikan teri",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 1,
-  "aliases": [
-   "teri"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_kembung",
-  "name": "Ikan kembung",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "kembung"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_patin",
-  "name": "Ikan patin",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "patin"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "udang",
-  "name": "Udang",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "urang"
-  ],
-  "emoji": "🦐"
- },
- {
-  "id": "tempe",
-  "name": "Tempe",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "papan",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🟨"
- },
- {
-  "id": "tahu",
-  "name": "Tahu",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "potong",
-  "staple": 1,
-  "aliases": [
-   "tofu"
-  ],
-  "emoji": "⬜"
- },
- {
-  "id": "bakso",
-  "name": "Bakso",
-  "cat": "daging",
-  "halal": "cert",
-  "unit": "butir",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🟠"
- },
- {
-  "id": "kangkung",
-  "name": "Kangkung",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🥬"
- },
- {
-  "id": "bayam",
-  "name": "Bayam",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🥬"
- },
- {
-  "id": "sawi_hijau",
-  "name": "Sawi hijau",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 1,
-  "aliases": [
-   "caisim"
-  ],
-  "emoji": "🥬"
- },
- {
-  "id": "kol",
-  "name": "Kol",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 1,
-  "aliases": [
-   "kubis"
-  ],
-  "emoji": "🥬"
- },
- {
-  "id": "wortel",
-  "name": "Wortel",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [
-   "bortol"
-  ],
-  "emoji": "🥕"
- },
- {
-  "id": "kentang",
-  "name": "Kentang",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🥔"
- },
- {
-  "id": "tomat",
-  "name": "Tomat",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🍅"
- },
- {
-  "id": "terong",
-  "name": "Terong",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [
-   "terung"
-  ],
-  "emoji": "🍆"
- },
- {
-  "id": "buncis",
-  "name": "Buncis",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🫛"
- },
- {
-  "id": "tauge",
-  "name": "Tauge",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 1,
-  "aliases": [
-   "toge",
-   "kecambah"
-  ],
-  "emoji": "🌱"
- },
- {
-  "id": "labu_siam",
-  "name": "Labu siam",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "jipang",
-   "manisa"
-  ],
-  "emoji": "🥒"
- },
- {
-  "id": "jagung_manis",
-  "name": "Jagung manis",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [
-   "jagung",
-   "milu"
-  ],
-  "emoji": "🌽"
- },
- {
-  "id": "nangka_muda",
-  "name": "Nangka muda",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "gori",
-   "tewel"
-  ],
-  "emoji": "🟢"
- },
- {
-  "id": "melinjo",
-  "name": "Melinjo",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "tangkil"
-  ],
-  "emoji": "🫘"
- },
- {
-  "id": "kacang_panjang",
-  "name": "Kacang panjang",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🫛"
- },
- {
-  "id": "daun_melinjo",
-  "name": "Daun melinjo",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "daun so",
-   "ganemo"
-  ],
-  "emoji": "🍃"
- },
- {
-  "id": "daun_bawang",
-  "name": "Daun bawang",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "batang",
-  "staple": 1,
-  "aliases": [
-   "loncang"
-  ],
-  "emoji": "🌿"
- },
- {
-  "id": "seledri",
-  "name": "Seledri",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "batang",
-  "staple": 0,
-  "aliases": [
-   "sledri"
-  ],
-  "emoji": "🌿"
- },
- {
-  "id": "timun",
-  "name": "Timun",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [
-   "ketimun",
-   "bonteng"
-  ],
-  "emoji": "🥒"
- },
- {
-  "id": "labu_kuning",
-  "name": "Labu kuning",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "waluh",
-   "sambiki"
-  ],
-  "emoji": "🎃"
- },
- {
-  "id": "ubi_jalar",
-  "name": "Ubi jalar",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🍠"
- },
- {
-  "id": "nasi_putih",
-  "name": "Nasi putih",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "piring",
-  "staple": 1,
-  "aliases": [
-   "sega",
-   "nasi"
-  ],
-  "emoji": "🍚"
- },
- {
-  "id": "kacang_tanah",
-  "name": "Kacang tanah",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 1,
-  "aliases": [
-   "kacang"
-  ],
-  "emoji": "🥜"
- },
- {
-  "id": "nanas_muda",
-  "name": "Nanas muda",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "nanas"
-  ],
-  "emoji": "🍍"
- },
- {
-  "id": "jeruk_limau",
-  "name": "Jeruk limau",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "limau",
-   "lemon cui",
-   "jeruk kasturi",
-   "calamansi"
-  ],
-  "emoji": "🍈"
- },
- {
-  "id": "daging_kambing",
-  "name": "Daging kambing",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "kambing"
-  ],
-  "emoji": "🥩"
- },
- {
-  "id": "ikan_mas",
-  "name": "Ikan mas",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "mas"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_tongkol",
-  "name": "Ikan tongkol",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "tongkol",
-   "cakalang"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "kelapa_parut",
-  "name": "Kelapa parut",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "kelapa"
-  ],
-  "emoji": "🥥"
- },
- {
-  "id": "sagu",
-  "name": "Tepung sagu",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 1,
-  "aliases": [
-   "sagu",
-   "tapioka",
-   "kanji"
-  ],
-  "emoji": "🌾"
- },
- {
-  "id": "andaliman",
-  "name": "Andaliman",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 0,
-  "aliases": [
-   "merica batak"
-  ],
-  "emoji": "🫘"
- },
- {
-  "id": "bawang_goreng",
-  "name": "Bawang goreng",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 1,
-  "aliases": [],
-  "emoji": "🧅"
- },
- {
-  "id": "cumi",
-  "name": "Cumi-cumi",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "sotong"
-  ],
-  "emoji": "🦑"
- },
- {
-  "id": "cumi_asin",
-  "name": "Cumi asin",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🦑"
- },
- {
-  "id": "ikan_asin",
-  "name": "Ikan asin",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "gabus asin",
-   "peda"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_tenggiri",
-  "name": "Ikan tenggiri",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "tenggiri"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_bandeng",
-  "name": "Ikan bandeng",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "bandeng"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "buntut_sapi",
-  "name": "Buntut sapi",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "oxtail"
-  ],
-  "emoji": "🍖"
- },
- {
-  "id": "iga_sapi",
-  "name": "Iga sapi",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "iga"
-  ],
-  "emoji": "🍖"
- },
- {
-  "id": "babat",
-  "name": "Babat sapi",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "jeroan"
-  ],
-  "emoji": "🍖"
- },
- {
-  "id": "daging_giling",
-  "name": "Daging giling",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "daging cincang"
-  ],
-  "emoji": "🥩"
- },
- {
-  "id": "susu_cair",
-  "name": "Susu cair",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "ml",
-  "staple": 0,
-  "aliases": [
-   "susu"
-  ],
-  "emoji": "🥛"
- },
- {
-  "id": "margarin",
-  "name": "Margarin",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "mentega",
-   "blueband"
-  ],
-  "emoji": "🧈"
- },
- {
-  "id": "lobak",
-  "name": "Lobak",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🥬"
- },
- {
-  "id": "kedelai",
-  "name": "Kacang kedelai",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "kedele"
-  ],
-  "emoji": "🫘"
- },
- {
-  "id": "lontong",
-  "name": "Lontong",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "ketupat",
-   "buras"
-  ],
-  "emoji": "🍙"
- },
- {
-  "id": "kerupuk_udang",
-  "name": "Kerupuk udang",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "kerupuk"
-  ],
-  "emoji": "🍘"
- },
- {
-  "id": "emping",
-  "name": "Emping melinjo",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🍘"
- },
- {
-  "id": "belimbing_wuluh",
-  "name": "Belimbing wuluh",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "belimbing sayur"
-  ],
-  "emoji": "🥒"
- },
- {
-  "id": "daun_singkong",
-  "name": "Daun singkong",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "daun ubi"
-  ],
-  "emoji": "🥬"
- },
- {
-  "id": "petai",
-  "name": "Petai",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "papan",
-  "staple": 0,
-  "aliases": [
-   "pete"
-  ],
-  "emoji": "🫛"
- },
- {
-  "id": "bumbu_kari",
-  "name": "Bumbu kari bubuk",
-  "cat": "bumbu",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "kari",
-   "kare"
-  ],
-  "emoji": "🍛"
- },
- {
-  "id": "bunga_lawang",
-  "name": "Bunga lawang",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "pekak",
-   "star anise"
-  ],
-  "emoji": "⭐"
- },
- {
-  "id": "daun_kari",
-  "name": "Daun kari",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "lembar",
-  "staple": 0,
-  "aliases": [
-   "daun salam koja",
-   "temurui"
-  ],
-  "emoji": "🍃"
- },
- {
-  "id": "saus_tomat",
-  "name": "Saus tomat",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🍅"
- },
- {
-  "id": "tepung_ketan",
-  "name": "Tepung ketan",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "ketan"
-  ],
-  "emoji": "🌾"
- },
- {
-  "id": "beras_ketan",
-  "name": "Beras ketan putih",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "ketan putih"
-  ],
-  "emoji": "🍚"
- },
- {
-  "id": "ketan_hitam",
-  "name": "Beras ketan hitam",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "ketan ireng"
-  ],
-  "emoji": "⚫"
- },
- {
-  "id": "tepung_maizena",
-  "name": "Tepung maizena",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "maizena",
-   "cornstarch"
-  ],
-  "emoji": "🌽"
- },
- {
-  "id": "tepung_hunkwe",
-  "name": "Tepung hunkwe",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "hunkue"
-  ],
-  "emoji": "🌾"
- },
- {
-  "id": "kacang_hijau",
-  "name": "Kacang hijau",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🫛"
- },
- {
-  "id": "kacang_merah",
-  "name": "Kacang merah",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "brenebon"
-  ],
-  "emoji": "🫘"
- },
- {
-  "id": "wijen",
-  "name": "Biji wijen",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "sesame"
-  ],
-  "emoji": "🌰"
- },
- {
-  "id": "singkong",
-  "name": "Singkong",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "ubi kayu",
-   "ketela"
-  ],
-  "emoji": "🥔"
- },
- {
-  "id": "oncom",
-  "name": "Oncom",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🟠"
- },
- {
-  "id": "pisang",
-  "name": "Pisang",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "pisang kepok",
-   "pisang raja"
-  ],
-  "emoji": "🍌"
- },
- {
-  "id": "nangka",
-  "name": "Nangka matang",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🟡"
- },
- {
-  "id": "alpukat",
-  "name": "Alpukat",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🥑"
- },
- {
-  "id": "kelapa_muda",
-  "name": "Kelapa muda",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "butir",
-  "staple": 0,
-  "aliases": [
-   "degan",
-   "dawegan"
-  ],
-  "emoji": "🥥"
- },
- {
-  "id": "tape_singkong",
-  "name": "Tape singkong",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "peuyeum"
-  ],
-  "emoji": "🍶"
- },
- {
-  "id": "kolang_kaling",
-  "name": "Kolang-kaling",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "⚪"
- },
- {
-  "id": "selasih",
-  "name": "Biji selasih",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "⚫"
- },
- {
-  "id": "sagu_mutiara",
-  "name": "Sagu mutiara",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "pacar cina",
-   "mutiara"
-  ],
-  "emoji": "🔴"
- },
- {
-  "id": "cincau",
-  "name": "Cincau hitam",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "camcau"
-  ],
-  "emoji": "⬛"
- },
- {
-  "id": "agar_agar",
-  "name": "Agar-agar bubuk",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "bungkus",
-  "staple": 0,
-  "aliases": [
-   "jelly"
-  ],
-  "emoji": "🍮"
- },
- {
-  "id": "vanili",
-  "name": "Vanili bubuk",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 0,
-  "aliases": [
-   "vanila"
-  ],
-  "emoji": "🤍"
- },
- {
-  "id": "air_kapur_sirih",
-  "name": "Air kapur sirih",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "kapur sirih"
-  ],
-  "emoji": "💧"
- },
- {
-  "id": "susu_kental_manis",
-  "name": "Susu kental manis",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "skm"
-  ],
-  "emoji": "🥛"
- },
- {
-  "id": "kopi_bubuk",
-  "name": "Kopi bubuk",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "kopi"
-  ],
-  "emoji": "☕"
- },
- {
-  "id": "teh",
-  "name": "Teh",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "kantong",
-  "staple": 0,
-  "aliases": [
-   "teh celup"
-  ],
-  "emoji": "🍵"
- },
- {
-  "id": "es_batu",
-  "name": "Es batu",
-  "cat": "lain",
-  "halal": "halal",
-  "unit": "gelas",
-  "staple": 0,
-  "aliases": [
-   "es"
-  ],
-  "emoji": "🧊"
- },
- {
-  "id": "gula_halus",
-  "name": "Gula halus",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "gula tepung"
-  ],
-  "emoji": "🍬"
- },
- {
-  "id": "mentega",
-  "name": "Mentega",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "butter"
-  ],
-  "emoji": "🧈"
- },
- {
-  "id": "keju_cheddar",
-  "name": "Keju cheddar",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "keju"
-  ],
-  "emoji": "🧀"
- },
- {
-  "id": "cokelat_bubuk",
-  "name": "Cokelat bubuk",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "kakao"
-  ],
-  "emoji": "🍫"
- },
- {
-  "id": "dark_cooking_chocolate",
-  "name": "Dark cooking chocolate",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "dcc",
-   "cokelat masak"
-  ],
-  "emoji": "🍫"
- },
- {
-  "id": "baking_powder",
-  "name": "Baking powder",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdt",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🥄"
- },
- {
-  "id": "ragi_instan",
-  "name": "Ragi instan",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdt",
-  "staple": 0,
-  "aliases": [
-   "fermipan",
-   "yeast"
-  ],
-  "emoji": "🫧"
- },
- {
-  "id": "susu_bubuk",
-  "name": "Susu bubuk",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🥛"
- },
- {
-  "id": "kepiting",
-  "name": "Kepiting",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "rajungan"
-  ],
-  "emoji": "🦀"
- },
- {
-  "id": "ikan_gurami",
-  "name": "Ikan gurami",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "gurame"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_gabus",
-  "name": "Ikan gabus",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "gabus",
-   "belida"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "telur_asin",
-  "name": "Telur asin",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "butir",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🥚"
- },
- {
-  "id": "mangga_muda",
-  "name": "Mangga muda",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "mangga mengkal"
-  ],
-  "emoji": "🥭"
- },
- {
-  "id": "cuka",
-  "name": "Cuka masak",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [
-   "vinegar"
-  ],
-  "emoji": "🧴"
- },
- {
-  "id": "tauco",
-  "name": "Tauco",
-  "cat": "sembako",
-  "halal": "cert",
-  "unit": "sdm",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🫙"
- },
- {
-  "id": "ebi",
-  "name": "Ebi",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "udang kering"
-  ],
-  "emoji": "🦐"
- },
- {
-  "id": "jamur_kuping",
-  "name": "Jamur kuping",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "jamur"
-  ],
-  "emoji": "🍄"
- },
- {
-  "id": "kucai",
-  "name": "Daun kucai",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "kucai",
-   "bawang kucai"
-  ],
-  "emoji": "🌿"
- },
- {
-  "id": "bengkuang",
-  "name": "Bengkuang",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "jicama"
-  ],
-  "emoji": "🥔"
- },
- {
-  "id": "cakalang_fufu",
-  "name": "Cakalang fufu",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "potong",
-  "staple": 0,
-  "aliases": [
-   "cakalang asap",
-   "ikan asap"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_roa",
-  "name": "Ikan roa",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "roa",
-   "galafea"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_kakap",
-  "name": "Ikan kakap",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "kakap"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "ikan_nike",
-  "name": "Ikan nike",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "nike"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "daun_gedi",
-  "name": "Daun gedi",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "gedi"
-  ],
-  "emoji": "🥬"
- },
- {
-  "id": "daun_leilem",
-  "name": "Daun leilem",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "leilem"
-  ],
-  "emoji": "🥬"
- },
- {
-  "id": "daun_katuk",
-  "name": "Daun katuk",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "katuk"
-  ],
-  "emoji": "🥬"
- },
- {
-  "id": "jantung_pisang",
-  "name": "Jantung pisang",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 0,
-  "aliases": [
-   "ontong"
-  ],
-  "emoji": "🌺"
- },
- {
-  "id": "pakis",
-  "name": "Daun pakis",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "ikat",
-  "staple": 0,
-  "aliases": [
-   "paku"
-  ],
-  "emoji": "🌿"
- },
- {
-  "id": "rebung",
-  "name": "Rebung",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "bambu muda"
-  ],
-  "emoji": "🎋"
- },
- {
-  "id": "bunga_pepaya",
-  "name": "Bunga pepaya",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "kembang pepaya"
-  ],
-  "emoji": "🌼"
- },
- {
-  "id": "makaroni",
-  "name": "Makaroni",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "macaroni"
-  ],
-  "emoji": "🍝"
- },
- {
-  "id": "brokoli",
-  "name": "Brokoli",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "kuntum",
-  "staple": 0,
-  "aliases": [
-   "kembang kol"
-  ],
-  "emoji": "🥦"
- },
- {
-  "id": "daun_pandan",
-  "name": "Daun pandan",
-  "cat": "bumbu",
-  "halal": "halal",
-  "unit": "lembar",
-  "staple": 0,
-  "aliases": [
-   "pandan",
-   "pandan wangi"
-  ],
-  "emoji": "🌿"
- },
- {
-  "id": "daun_pisang",
-  "name": "Daun pisang",
-  "cat": "lain",
-  "halal": "halal",
-  "unit": "lembar",
-  "staple": 0,
-  "aliases": [],
-  "emoji": "🍌"
- },
- {
-  "id": "bihun",
-  "name": "Bihun",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "bungkus",
-  "staple": 0,
-  "aliases": [
-   "soun"
-  ],
-  "emoji": "🍜"
- },
- {
-  "id": "kaldu_bubuk",
-  "name": "Kaldu bubuk",
-  "cat": "bumbu",
-  "halal": "cert",
-  "unit": "sdt",
-  "staple": 1,
-  "aliases": [
-   "penyedap",
-   "kaldu ayam bubuk"
-  ],
-  "emoji": "🧴"
- },
- {
-  "id": "soda_kue",
-  "name": "Soda kue",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "sdt",
-  "staple": 0,
-  "aliases": [
-   "baking soda",
-   "soda"
-  ],
-  "emoji": "🥄"
- },
- {
-  "id": "jeruk_nipis",
-  "name": "Jeruk nipis",
-  "cat": "sayur",
-  "halal": "halal",
-  "unit": "buah",
-  "staple": 1,
-  "aliases": [
-   "limau",
-   "jeruk peres"
-  ],
-  "emoji": "🍋"
- },
- {
-  "id": "ikan_cakalang",
-  "name": "Ikan cakalang",
-  "cat": "daging",
-  "halal": "halal",
-  "unit": "ekor",
-  "staple": 0,
-  "aliases": [
-   "cakalang",
-   "tongkol"
-  ],
-  "emoji": "🐟"
- },
- {
-  "id": "tepung_tapioka",
-  "name": "Tepung tapioka",
-  "cat": "sembako",
-  "halal": "halal",
-  "unit": "gram",
-  "staple": 0,
-  "aliases": [
-   "tepung kanji",
-   "aci",
-   "sagu tani"
-  ],
-  "emoji": "🌾"
- }
+  {
+    "id": "bawang_merah",
+    "name": "Bawang merah",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "siung",
+    "staple": 1,
+    "aliases": [
+      "brambang",
+      "bawang beureum"
+    ],
+    "em": "🧅"
+  },
+  {
+    "id": "bawang_putih",
+    "name": "Bawang putih",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "siung",
+    "staple": 1,
+    "aliases": [
+      "bawang bodas"
+    ],
+    "em": "🧄"
+  },
+  {
+    "id": "bawang_bombay",
+    "name": "Bawang bombay",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "bombay"
+    ],
+    "em": "🧅"
+  },
+  {
+    "id": "cabai_merah",
+    "name": "Cabai merah keriting",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [
+      "lombok abang",
+      "rica",
+      "cabe merah",
+      "cabe",
+      "lombok"
+    ],
+    "em": "🌶️"
+  },
+  {
+    "id": "cabai_rawit",
+    "name": "Cabai rawit",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [
+      "cengek",
+      "lombok setan",
+      "cabe rawit",
+      "cabe"
+    ],
+    "em": "🌶️"
+  },
+  {
+    "id": "cabai_hijau",
+    "name": "Cabai hijau besar",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "lombok ijo"
+    ],
+    "em": "🫑"
+  },
+  {
+    "id": "kemiri",
+    "name": "Kemiri",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "butir",
+    "staple": 1,
+    "aliases": [
+      "muncang"
+    ],
+    "em": "🌰"
+  },
+  {
+    "id": "jahe",
+    "name": "Jahe",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "ruas",
+    "staple": 1,
+    "aliases": [
+      "jae",
+      "goraka"
+    ],
+    "em": "🫚"
+  },
+  {
+    "id": "kunyit",
+    "name": "Kunyit",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "ruas",
+    "staple": 1,
+    "aliases": [
+      "koneng",
+      "kunir"
+    ],
+    "em": "🫚"
+  },
+  {
+    "id": "lengkuas",
+    "name": "Lengkuas",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "ruas",
+    "staple": 1,
+    "aliases": [
+      "laos"
+    ],
+    "em": "🫚"
+  },
+  {
+    "id": "kencur",
+    "name": "Kencur",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "ruas",
+    "staple": 0,
+    "aliases": [
+      "cikur"
+    ],
+    "em": "🫚"
+  },
+  {
+    "id": "serai",
+    "name": "Serai",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "batang",
+    "staple": 1,
+    "aliases": [
+      "sereh"
+    ],
+    "em": "🌾"
+  },
+  {
+    "id": "daun_salam",
+    "name": "Daun salam",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "lembar",
+    "staple": 1,
+    "aliases": [],
+    "em": "🍃"
+  },
+  {
+    "id": "daun_jeruk",
+    "name": "Daun jeruk",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "lembar",
+    "staple": 1,
+    "aliases": [
+      "daun limau"
+    ],
+    "em": "🍃"
+  },
+  {
+    "id": "daun_kunyit",
+    "name": "Daun kunyit",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "lembar",
+    "staple": 0,
+    "aliases": [
+      "daun kunir"
+    ],
+    "em": "🍃"
+  },
+  {
+    "id": "kemangi",
+    "name": "Kemangi",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "surawung"
+    ],
+    "em": "🌿"
+  },
+  {
+    "id": "terasi",
+    "name": "Terasi",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 1,
+    "aliases": [
+      "belacan"
+    ],
+    "em": "🟫"
+  },
+  {
+    "id": "ketumbar",
+    "name": "Ketumbar",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 1,
+    "aliases": [],
+    "em": "🫘"
+  },
+  {
+    "id": "jinten",
+    "name": "Jinten",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 0,
+    "aliases": [
+      "jintan"
+    ],
+    "em": "🫘"
+  },
+  {
+    "id": "merica",
+    "name": "Merica",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 1,
+    "aliases": [
+      "lada"
+    ],
+    "em": "⚫"
+  },
+  {
+    "id": "pala",
+    "name": "Pala",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 0,
+    "aliases": [],
+    "em": "🌰"
+  },
+  {
+    "id": "kayu_manis",
+    "name": "Kayu manis",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "batang",
+    "staple": 0,
+    "aliases": [],
+    "em": "🪵"
+  },
+  {
+    "id": "cengkeh",
+    "name": "Cengkeh",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "butir",
+    "staple": 0,
+    "aliases": [],
+    "em": "🌾"
+  },
+  {
+    "id": "kapulaga",
+    "name": "Kapulaga",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "butir",
+    "staple": 0,
+    "aliases": [],
+    "em": "🫘"
+  },
+  {
+    "id": "kluwek",
+    "name": "Kluwek",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "butir",
+    "staple": 0,
+    "aliases": [
+      "keluak",
+      "pucung"
+    ],
+    "em": "⚫"
+  },
+  {
+    "id": "asam_jawa",
+    "name": "Asam jawa",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 1,
+    "aliases": [
+      "asem"
+    ],
+    "em": "🟤"
+  },
+  {
+    "id": "garam",
+    "name": "Garam",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 1,
+    "aliases": [
+      "uyah"
+    ],
+    "em": "🧂"
+  },
+  {
+    "id": "gula_pasir",
+    "name": "Gula pasir",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 1,
+    "aliases": [],
+    "em": "🍚"
+  },
+  {
+    "id": "gula_merah",
+    "name": "Gula merah",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 1,
+    "aliases": [
+      "gula jawa",
+      "gula aren"
+    ],
+    "em": "🟤"
+  },
+  {
+    "id": "minyak_goreng",
+    "name": "Minyak goreng",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 1,
+    "aliases": [
+      "minyak"
+    ],
+    "em": "🫗"
+  },
+  {
+    "id": "beras",
+    "name": "Beras",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gelas",
+    "staple": 1,
+    "aliases": [
+      "sekul"
+    ],
+    "em": "🍚"
+  },
+  {
+    "id": "kecap_manis",
+    "name": "Kecap manis",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 1,
+    "aliases": [
+      "kecap"
+    ],
+    "em": "🍶"
+  },
+  {
+    "id": "kecap_asin",
+    "name": "Kecap asin",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "soy sauce"
+    ],
+    "em": "🍶"
+  },
+  {
+    "id": "saus_tiram",
+    "name": "Saus tiram",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "oyster sauce"
+    ],
+    "em": "🍶"
+  },
+  {
+    "id": "santan",
+    "name": "Santan",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "ml",
+    "staple": 1,
+    "aliases": [
+      "santen"
+    ],
+    "em": "🥥"
+  },
+  {
+    "id": "tepung_terigu",
+    "name": "Tepung terigu",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 1,
+    "aliases": [
+      "terigu"
+    ],
+    "em": "🌾"
+  },
+  {
+    "id": "tepung_beras",
+    "name": "Tepung beras",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "tepung beras"
+    ],
+    "em": "🌾"
+  },
+  {
+    "id": "mie_telur",
+    "name": "Mie telur",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "bungkus",
+    "staple": 0,
+    "aliases": [
+      "mi telor",
+      "mi telur",
+      "mi kuning",
+      "mi basah"
+    ],
+    "em": "🍜"
+  },
+  {
+    "id": "air",
+    "name": "Air",
+    "cat": "lain",
+    "halal": "halal",
+    "unit": "ml",
+    "staple": 1,
+    "aliases": [
+      "banyu"
+    ],
+    "em": "💧"
+  },
+  {
+    "id": "air_jeruk_nipis",
+    "name": "Air jeruk nipis",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "jeruk nipis"
+    ],
+    "em": "🍋"
+  },
+  {
+    "id": "telur",
+    "name": "Telur ayam",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "butir",
+    "staple": 1,
+    "aliases": [
+      "endog",
+      "telor"
+    ],
+    "em": "🥚"
+  },
+  {
+    "id": "ayam",
+    "name": "Ayam",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "potong",
+    "staple": 1,
+    "aliases": [
+      "pitik",
+      "hayam",
+      "ayam potong",
+      "potongan ayam",
+      "ayam negeri",
+      "dada ayam",
+      "paha ayam",
+      "sayap ayam",
+      "daging ayam",
+      "fillet ayam",
+      "ayam fillet"
+    ],
+    "em": "🍗"
+  },
+  {
+    "id": "ayam_utuh",
+    "name": "Ayam utuh",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [],
+    "em": "🐔"
+  },
+  {
+    "id": "daging_sapi",
+    "name": "Daging sapi",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "sapi"
+    ],
+    "em": "🥩"
+  },
+  {
+    "id": "ikan_teri",
+    "name": "Ikan teri",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 1,
+    "aliases": [
+      "teri"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_kembung",
+    "name": "Ikan kembung",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "kembung"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_patin",
+    "name": "Ikan patin",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "patin"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "udang",
+    "name": "Udang",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "urang"
+    ],
+    "em": "🦐"
+  },
+  {
+    "id": "tempe",
+    "name": "Tempe",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "papan",
+    "staple": 1,
+    "aliases": [],
+    "em": "🟨"
+  },
+  {
+    "id": "tahu",
+    "name": "Tahu",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "potong",
+    "staple": 1,
+    "aliases": [
+      "tofu"
+    ],
+    "em": "⬜"
+  },
+  {
+    "id": "bakso",
+    "name": "Bakso",
+    "cat": "daging",
+    "halal": "cert",
+    "unit": "butir",
+    "staple": 0,
+    "aliases": [],
+    "em": "🟠"
+  },
+  {
+    "id": "kangkung",
+    "name": "Kangkung",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 1,
+    "aliases": [],
+    "em": "🥬"
+  },
+  {
+    "id": "bayam",
+    "name": "Bayam",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 1,
+    "aliases": [],
+    "em": "🥬"
+  },
+  {
+    "id": "sawi_hijau",
+    "name": "Sawi hijau",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 1,
+    "aliases": [
+      "caisim"
+    ],
+    "em": "🥬"
+  },
+  {
+    "id": "kol",
+    "name": "Kol",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 1,
+    "aliases": [
+      "kubis"
+    ],
+    "em": "🥬"
+  },
+  {
+    "id": "wortel",
+    "name": "Wortel",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [
+      "bortol"
+    ],
+    "em": "🥕"
+  },
+  {
+    "id": "kentang",
+    "name": "Kentang",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [],
+    "em": "🥔"
+  },
+  {
+    "id": "tomat",
+    "name": "Tomat",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [],
+    "em": "🍅"
+  },
+  {
+    "id": "terong",
+    "name": "Terong",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [
+      "terung"
+    ],
+    "em": "🍆"
+  },
+  {
+    "id": "buncis",
+    "name": "Buncis",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 1,
+    "aliases": [],
+    "em": "🫛"
+  },
+  {
+    "id": "tauge",
+    "name": "Tauge",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 1,
+    "aliases": [
+      "toge",
+      "kecambah"
+    ],
+    "em": "🌱"
+  },
+  {
+    "id": "labu_siam",
+    "name": "Labu siam",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "jipang",
+      "manisa"
+    ],
+    "em": "🥒"
+  },
+  {
+    "id": "jagung_manis",
+    "name": "Jagung manis",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [
+      "jagung",
+      "milu"
+    ],
+    "em": "🌽"
+  },
+  {
+    "id": "nangka_muda",
+    "name": "Nangka muda",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "gori",
+      "tewel"
+    ],
+    "em": "🟢"
+  },
+  {
+    "id": "melinjo",
+    "name": "Melinjo",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "tangkil"
+    ],
+    "em": "🫘"
+  },
+  {
+    "id": "kacang_panjang",
+    "name": "Kacang panjang",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 1,
+    "aliases": [],
+    "em": "🫛"
+  },
+  {
+    "id": "daun_melinjo",
+    "name": "Daun melinjo",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "daun so",
+      "ganemo"
+    ],
+    "em": "🍃"
+  },
+  {
+    "id": "daun_bawang",
+    "name": "Daun bawang",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "batang",
+    "staple": 1,
+    "aliases": [
+      "loncang"
+    ],
+    "em": "🌿"
+  },
+  {
+    "id": "seledri",
+    "name": "Seledri",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "batang",
+    "staple": 0,
+    "aliases": [
+      "sledri"
+    ],
+    "em": "🌿"
+  },
+  {
+    "id": "timun",
+    "name": "Timun",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [
+      "ketimun",
+      "bonteng"
+    ],
+    "em": "🥒"
+  },
+  {
+    "id": "labu_kuning",
+    "name": "Labu kuning",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "waluh",
+      "sambiki"
+    ],
+    "em": "🎃"
+  },
+  {
+    "id": "ubi_jalar",
+    "name": "Ubi jalar",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "🍠"
+  },
+  {
+    "id": "nasi_putih",
+    "name": "Nasi putih",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "piring",
+    "staple": 1,
+    "aliases": [
+      "sega",
+      "nasi"
+    ],
+    "em": "🍚"
+  },
+  {
+    "id": "kacang_tanah",
+    "name": "Kacang tanah",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 1,
+    "aliases": [
+      "kacang"
+    ],
+    "em": "🥜"
+  },
+  {
+    "id": "nanas_muda",
+    "name": "Nanas muda",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "nanas"
+    ],
+    "em": "🍍"
+  },
+  {
+    "id": "jeruk_limau",
+    "name": "Jeruk limau",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "limau",
+      "lemon cui",
+      "jeruk kasturi",
+      "calamansi"
+    ],
+    "em": "🍈"
+  },
+  {
+    "id": "daging_kambing",
+    "name": "Daging kambing",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "kambing"
+    ],
+    "em": "🥩"
+  },
+  {
+    "id": "ikan_mas",
+    "name": "Ikan mas",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "mas"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_tongkol",
+    "name": "Ikan tongkol",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "tongkol",
+      "cakalang"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "kelapa_parut",
+    "name": "Kelapa parut",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "kelapa"
+    ],
+    "em": "🥥"
+  },
+  {
+    "id": "sagu",
+    "name": "Tepung sagu",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 1,
+    "aliases": [
+      "sagu",
+      "tapioka",
+      "kanji"
+    ],
+    "em": "🌾"
+  },
+  {
+    "id": "andaliman",
+    "name": "Andaliman",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 0,
+    "aliases": [
+      "merica batak"
+    ],
+    "em": "🫘"
+  },
+  {
+    "id": "bawang_goreng",
+    "name": "Bawang goreng",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 1,
+    "aliases": [],
+    "em": "🧅"
+  },
+  {
+    "id": "cumi",
+    "name": "Cumi-cumi",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "sotong"
+    ],
+    "em": "🦑"
+  },
+  {
+    "id": "cumi_asin",
+    "name": "Cumi asin",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "🦑"
+  },
+  {
+    "id": "ikan_asin",
+    "name": "Ikan asin",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "gabus asin",
+      "peda"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_tenggiri",
+    "name": "Ikan tenggiri",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "tenggiri"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_bandeng",
+    "name": "Ikan bandeng",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "bandeng"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "buntut_sapi",
+    "name": "Buntut sapi",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "oxtail"
+    ],
+    "em": "🍖"
+  },
+  {
+    "id": "iga_sapi",
+    "name": "Iga sapi",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "iga"
+    ],
+    "em": "🍖"
+  },
+  {
+    "id": "babat",
+    "name": "Babat sapi",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "jeroan"
+    ],
+    "em": "🍖"
+  },
+  {
+    "id": "daging_giling",
+    "name": "Daging giling",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "daging cincang"
+    ],
+    "em": "🥩"
+  },
+  {
+    "id": "susu_cair",
+    "name": "Susu cair",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "ml",
+    "staple": 0,
+    "aliases": [
+      "susu"
+    ],
+    "em": "🥛"
+  },
+  {
+    "id": "margarin",
+    "name": "Margarin",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "mentega",
+      "blueband"
+    ],
+    "em": "🧈"
+  },
+  {
+    "id": "lobak",
+    "name": "Lobak",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [],
+    "em": "🥬"
+  },
+  {
+    "id": "kedelai",
+    "name": "Kacang kedelai",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "kedele"
+    ],
+    "em": "🫘"
+  },
+  {
+    "id": "lontong",
+    "name": "Lontong",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "ketupat",
+      "buras"
+    ],
+    "em": "🍙"
+  },
+  {
+    "id": "kerupuk_udang",
+    "name": "Kerupuk udang",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "kerupuk"
+    ],
+    "em": "🍘"
+  },
+  {
+    "id": "emping",
+    "name": "Emping melinjo",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "🍘"
+  },
+  {
+    "id": "belimbing_wuluh",
+    "name": "Belimbing wuluh",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "belimbing sayur"
+    ],
+    "em": "🥒"
+  },
+  {
+    "id": "daun_singkong",
+    "name": "Daun singkong",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "daun ubi"
+    ],
+    "em": "🥬"
+  },
+  {
+    "id": "petai",
+    "name": "Petai",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "papan",
+    "staple": 0,
+    "aliases": [
+      "pete"
+    ],
+    "em": "🫛"
+  },
+  {
+    "id": "bumbu_kari",
+    "name": "Bumbu kari bubuk",
+    "cat": "bumbu",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "kari",
+      "kare"
+    ],
+    "em": "🍛"
+  },
+  {
+    "id": "bunga_lawang",
+    "name": "Bunga lawang",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "pekak",
+      "star anise"
+    ],
+    "em": "⭐"
+  },
+  {
+    "id": "daun_kari",
+    "name": "Daun kari",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "lembar",
+    "staple": 0,
+    "aliases": [
+      "daun salam koja",
+      "temurui"
+    ],
+    "em": "🍃"
+  },
+  {
+    "id": "saus_tomat",
+    "name": "Saus tomat",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [],
+    "em": "🍅"
+  },
+  {
+    "id": "tepung_ketan",
+    "name": "Tepung ketan",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "ketan"
+    ],
+    "em": "🌾"
+  },
+  {
+    "id": "beras_ketan",
+    "name": "Beras ketan putih",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "ketan putih"
+    ],
+    "em": "🍚"
+  },
+  {
+    "id": "ketan_hitam",
+    "name": "Beras ketan hitam",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "ketan ireng"
+    ],
+    "em": "⚫"
+  },
+  {
+    "id": "tepung_maizena",
+    "name": "Tepung maizena",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "maizena",
+      "cornstarch"
+    ],
+    "em": "🌽"
+  },
+  {
+    "id": "tepung_hunkwe",
+    "name": "Tepung hunkwe",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "hunkue"
+    ],
+    "em": "🌾"
+  },
+  {
+    "id": "kacang_hijau",
+    "name": "Kacang hijau",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "🫛"
+  },
+  {
+    "id": "kacang_merah",
+    "name": "Kacang merah",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "brenebon"
+    ],
+    "em": "🫘"
+  },
+  {
+    "id": "wijen",
+    "name": "Biji wijen",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "sesame"
+    ],
+    "em": "🌰"
+  },
+  {
+    "id": "singkong",
+    "name": "Singkong",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "ubi kayu",
+      "ketela"
+    ],
+    "em": "🥔"
+  },
+  {
+    "id": "oncom",
+    "name": "Oncom",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "🟠"
+  },
+  {
+    "id": "pisang",
+    "name": "Pisang",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "pisang kepok",
+      "pisang raja"
+    ],
+    "em": "🍌"
+  },
+  {
+    "id": "nangka",
+    "name": "Nangka matang",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "🟡"
+  },
+  {
+    "id": "alpukat",
+    "name": "Alpukat",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [],
+    "em": "🥑"
+  },
+  {
+    "id": "kelapa_muda",
+    "name": "Kelapa muda",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "butir",
+    "staple": 0,
+    "aliases": [
+      "degan",
+      "dawegan"
+    ],
+    "em": "🥥"
+  },
+  {
+    "id": "tape_singkong",
+    "name": "Tape singkong",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "peuyeum"
+    ],
+    "em": "🍶"
+  },
+  {
+    "id": "kolang_kaling",
+    "name": "Kolang-kaling",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "⚪"
+  },
+  {
+    "id": "selasih",
+    "name": "Biji selasih",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [],
+    "em": "⚫"
+  },
+  {
+    "id": "sagu_mutiara",
+    "name": "Sagu mutiara",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "pacar cina",
+      "mutiara"
+    ],
+    "em": "🔴"
+  },
+  {
+    "id": "cincau",
+    "name": "Cincau hitam",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "camcau"
+    ],
+    "em": "⬛"
+  },
+  {
+    "id": "agar_agar",
+    "name": "Agar-agar bubuk",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "bungkus",
+    "staple": 0,
+    "aliases": [
+      "jelly"
+    ],
+    "em": "🍮"
+  },
+  {
+    "id": "vanili",
+    "name": "Vanili bubuk",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 0,
+    "aliases": [
+      "vanila"
+    ],
+    "em": "🤍"
+  },
+  {
+    "id": "air_kapur_sirih",
+    "name": "Air kapur sirih",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "kapur sirih"
+    ],
+    "em": "💧"
+  },
+  {
+    "id": "susu_kental_manis",
+    "name": "Susu kental manis",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "skm"
+    ],
+    "em": "🥛"
+  },
+  {
+    "id": "kopi_bubuk",
+    "name": "Kopi bubuk",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "kopi"
+    ],
+    "em": "☕"
+  },
+  {
+    "id": "teh",
+    "name": "Teh",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "kantong",
+    "staple": 0,
+    "aliases": [
+      "teh celup"
+    ],
+    "em": "🍵"
+  },
+  {
+    "id": "es_batu",
+    "name": "Es batu",
+    "cat": "lain",
+    "halal": "halal",
+    "unit": "gelas",
+    "staple": 0,
+    "aliases": [
+      "es"
+    ],
+    "em": "🧊"
+  },
+  {
+    "id": "gula_halus",
+    "name": "Gula halus",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "gula tepung"
+    ],
+    "em": "🍬"
+  },
+  {
+    "id": "mentega",
+    "name": "Mentega",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "butter"
+    ],
+    "em": "🧈"
+  },
+  {
+    "id": "keju_cheddar",
+    "name": "Keju cheddar",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "keju"
+    ],
+    "em": "🧀"
+  },
+  {
+    "id": "cokelat_bubuk",
+    "name": "Cokelat bubuk",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "kakao"
+    ],
+    "em": "🍫"
+  },
+  {
+    "id": "dark_cooking_chocolate",
+    "name": "Dark cooking chocolate",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "dcc",
+      "cokelat masak"
+    ],
+    "em": "🍫"
+  },
+  {
+    "id": "baking_powder",
+    "name": "Baking powder",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdt",
+    "staple": 0,
+    "aliases": [],
+    "em": "🥄"
+  },
+  {
+    "id": "ragi_instan",
+    "name": "Ragi instan",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdt",
+    "staple": 0,
+    "aliases": [
+      "fermipan",
+      "yeast"
+    ],
+    "em": "🫧"
+  },
+  {
+    "id": "susu_bubuk",
+    "name": "Susu bubuk",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [],
+    "em": "🥛"
+  },
+  {
+    "id": "kepiting",
+    "name": "Kepiting",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "rajungan"
+    ],
+    "em": "🦀"
+  },
+  {
+    "id": "ikan_gurami",
+    "name": "Ikan gurami",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "gurame"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_gabus",
+    "name": "Ikan gabus",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "gabus",
+      "belida"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "telur_asin",
+    "name": "Telur asin",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "butir",
+    "staple": 0,
+    "aliases": [],
+    "em": "🥚"
+  },
+  {
+    "id": "mangga_muda",
+    "name": "Mangga muda",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "mangga mengkal"
+    ],
+    "em": "🥭"
+  },
+  {
+    "id": "cuka",
+    "name": "Cuka masak",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [
+      "vinegar"
+    ],
+    "em": "🧴"
+  },
+  {
+    "id": "tauco",
+    "name": "Tauco",
+    "cat": "sembako",
+    "halal": "cert",
+    "unit": "sdm",
+    "staple": 0,
+    "aliases": [],
+    "em": "🫙"
+  },
+  {
+    "id": "ebi",
+    "name": "Ebi",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "udang kering"
+    ],
+    "em": "🦐"
+  },
+  {
+    "id": "jamur_kuping",
+    "name": "Jamur kuping",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "jamur"
+    ],
+    "em": "🍄"
+  },
+  {
+    "id": "kucai",
+    "name": "Daun kucai",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "kucai",
+      "bawang kucai"
+    ],
+    "em": "🌿"
+  },
+  {
+    "id": "bengkuang",
+    "name": "Bengkuang",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "jicama"
+    ],
+    "em": "🥔"
+  },
+  {
+    "id": "cakalang_fufu",
+    "name": "Cakalang fufu",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "potong",
+    "staple": 0,
+    "aliases": [
+      "cakalang asap",
+      "ikan asap"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_roa",
+    "name": "Ikan roa",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "roa",
+      "galafea"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_kakap",
+    "name": "Ikan kakap",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "kakap"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "ikan_nike",
+    "name": "Ikan nike",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "nike"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "daun_gedi",
+    "name": "Daun gedi",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "gedi"
+    ],
+    "em": "🥬"
+  },
+  {
+    "id": "daun_leilem",
+    "name": "Daun leilem",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "leilem"
+    ],
+    "em": "🥬"
+  },
+  {
+    "id": "daun_katuk",
+    "name": "Daun katuk",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "katuk"
+    ],
+    "em": "🥬"
+  },
+  {
+    "id": "jantung_pisang",
+    "name": "Jantung pisang",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 0,
+    "aliases": [
+      "ontong"
+    ],
+    "em": "🌺"
+  },
+  {
+    "id": "pakis",
+    "name": "Daun pakis",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "ikat",
+    "staple": 0,
+    "aliases": [
+      "paku"
+    ],
+    "em": "🌿"
+  },
+  {
+    "id": "rebung",
+    "name": "Rebung",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "bambu muda"
+    ],
+    "em": "🎋"
+  },
+  {
+    "id": "bunga_pepaya",
+    "name": "Bunga pepaya",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "kembang pepaya"
+    ],
+    "em": "🌼"
+  },
+  {
+    "id": "makaroni",
+    "name": "Makaroni",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "macaroni"
+    ],
+    "em": "🍝"
+  },
+  {
+    "id": "brokoli",
+    "name": "Brokoli",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "kuntum",
+    "staple": 0,
+    "aliases": [
+      "kembang kol"
+    ],
+    "em": "🥦"
+  },
+  {
+    "id": "daun_pandan",
+    "name": "Daun pandan",
+    "cat": "bumbu",
+    "halal": "halal",
+    "unit": "lembar",
+    "staple": 0,
+    "aliases": [
+      "pandan",
+      "pandan wangi"
+    ],
+    "em": "🌿"
+  },
+  {
+    "id": "daun_pisang",
+    "name": "Daun pisang",
+    "cat": "lain",
+    "halal": "halal",
+    "unit": "lembar",
+    "staple": 0,
+    "aliases": [],
+    "em": "🍌"
+  },
+  {
+    "id": "bihun",
+    "name": "Bihun",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "bungkus",
+    "staple": 0,
+    "aliases": [
+      "soun"
+    ],
+    "em": "🍜"
+  },
+  {
+    "id": "kaldu_bubuk",
+    "name": "Kaldu bubuk",
+    "cat": "bumbu",
+    "halal": "cert",
+    "unit": "sdt",
+    "staple": 1,
+    "aliases": [
+      "penyedap",
+      "kaldu ayam bubuk"
+    ],
+    "em": "🧴"
+  },
+  {
+    "id": "soda_kue",
+    "name": "Soda kue",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "sdt",
+    "staple": 0,
+    "aliases": [
+      "baking soda",
+      "soda"
+    ],
+    "em": "🥄"
+  },
+  {
+    "id": "jeruk_nipis",
+    "name": "Jeruk nipis",
+    "cat": "sayur",
+    "halal": "halal",
+    "unit": "buah",
+    "staple": 1,
+    "aliases": [
+      "limau",
+      "jeruk peres"
+    ],
+    "em": "🍋"
+  },
+  {
+    "id": "ikan_cakalang",
+    "name": "Ikan cakalang",
+    "cat": "daging",
+    "halal": "halal",
+    "unit": "ekor",
+    "staple": 0,
+    "aliases": [
+      "cakalang",
+      "tongkol"
+    ],
+    "em": "🐟"
+  },
+  {
+    "id": "tepung_tapioka",
+    "name": "Tepung tapioka",
+    "cat": "sembako",
+    "halal": "halal",
+    "unit": "gram",
+    "staple": 0,
+    "aliases": [
+      "tepung kanji",
+      "aci",
+      "sagu tani"
+    ],
+    "em": "🌾"
+  }
 ]

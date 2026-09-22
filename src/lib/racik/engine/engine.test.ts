@@ -64,6 +64,15 @@ describe("catalogue", () => {
     expect(INGREDIENTS.find((i) => i.id === "saus_tiram")?.halal).toBe("cert");
   });
 
+  it("uses the delivered em field for every ingredient icon", () => {
+    const checked = ["saus_tiram", "ikan_cakalang", "jeruk_nipis", "kaldu_bubuk", "soda_kue", "tepung_tapioka"];
+    for (const ing of INGREDIENTS) {
+      expect(ing.em, ing.id).toBeTruthy();
+      expect("emoji" in ing, ing.id).toBe(false);
+    }
+    for (const id of checked) expect(INGREDIENTS.find((ing) => ing.id === id)?.em).toBeTruthy();
+  });
+
   it("can turn every non-gram protein source into grams", () => {
     for (const ing of INGREDIENTS) {
       if ((PROT100[ing.id] ?? 0) > 0 && ing.unit !== "gram" && ing.unit !== "ml") {
@@ -108,6 +117,16 @@ describe("scaleFactor", () => {
     expect(isSeasoning("gula_merah")).toBe(true);
     expect(isSeasoning("minyak_goreng")).toBe(true);
     expect(isSeasoning("daging_sapi")).toBe(false);
+  });
+
+  it("scales Ayam Betutu oil from 5 tbsp at 6 portions to 4 tbsp at 4", () => {
+    const r = recipe("ayam_betutu");
+    const oil = line(r, "minyak_goreng");
+    const ratio = 4 / 6;
+    expect(oil[1]).toBe(5);
+    expect(scaleFactor("minyak_goreng", ratio, r)).toBeCloseTo(ratio ** 0.6);
+    expect((oil[1] ?? 0) * scaleFactor("minyak_goreng", ratio, r)).toBeCloseTo(3.92, 2);
+    expect(scaledQty(oil, r, 4)).toBe(4);
   });
 });
 
@@ -161,6 +180,10 @@ describe("roundQty", () => {
   it("sends spoons to halves", () => {
     expect(roundQty(2.3, "sdt")).toBe(2.5);
     expect(roundQty(0.1, "sdt")).toBe(0.5);
+  });
+
+  it("rounds 3.92 tablespoons to 4", () => {
+    expect(roundQty(3.92, "sdm")).toBe(4);
   });
 });
 

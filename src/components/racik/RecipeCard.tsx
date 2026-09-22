@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { REG, SPICE_WORD } from "@/lib/racik/data";
+import { REG } from "@/lib/racik/data";
 import { fmtProtein, fmtTime, proteinPerPortion } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { PHOTO } from "./photos";
@@ -21,7 +21,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         <p className="eyebrow">{REG[recipe.region]?.name ?? recipe.region}</p>
         <h3 className="font-display text-head mt-1 leading-snug">{recipe.title}</h3>
         <p className="text-secondary text-ink-3 mt-1">
-          {fmtTime(recipe.time)} · {recipe.diff} · {SPICE_WORD[recipe.spice]}
+          {fmtTime(recipe.time)} · {recipe.diff}
           {protein ? ` · perkiraan ${protein} protein` : ""}
         </p>
       </div>
