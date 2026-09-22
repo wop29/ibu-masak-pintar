@@ -10,7 +10,7 @@ const tabs = [
 export function AppTabs() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <nav aria-label="Menu utama" className="fixed inset-x-0 bottom-0 z-40 mx-auto flex h-[76px] w-full max-w-[430px] border-t border-border bg-card px-2 pb-[env(safe-area-inset-bottom)]">
+    <nav aria-label="Menu utama" className="fixed inset-x-0 bottom-0 z-40 mx-auto flex h-[calc(76px+env(safe-area-inset-bottom))] w-full max-w-[430px] border-t border-border bg-card px-2 pb-[env(safe-area-inset-bottom)]">
       {tabs.map(({ to, label, icon: Icon }) => {
         const active = to === "/" ? path === "/" : path.startsWith(to);
         return (

@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { RacikProvider } from "../lib/racik/state";
 import { Button } from "@/components/ui/button";
+import { registerRacikPwa } from "@/lib/register-pwa";
 
 function NotFoundComponent() {
   return (
@@ -80,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       {
         name: "viewport",
-        content: "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no",
+        content: "width=device-width, initial-scale=1, viewport-fit=cover",
       },
       { title: "Racik" },
       {
@@ -89,6 +90,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Resep rumahan Indonesia dengan takaran yang ikut jumlah porsi di rumah. Tanpa akun, bisa dibuka tanpa sinyal.",
       },
       { name: "theme-color", content: "#FAFAF8" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "apple-mobile-web-app-title", content: "Racik" },
       { property: "og:title", content: "Racik" },
       {
         property: "og:description",
@@ -100,6 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -132,7 +138,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   useEffect(() => {
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+    void registerRacikPwa();
   }, []);
 
   return (

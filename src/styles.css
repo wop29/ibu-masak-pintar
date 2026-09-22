@@ -102,6 +102,7 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+    background-color: var(--color-ground);
   }
 
   body {
@@ -112,6 +113,7 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overscroll-behavior-y: none;
+    min-width: 320px;
   }
 
   button, a {
