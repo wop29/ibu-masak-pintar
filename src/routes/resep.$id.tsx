@@ -9,6 +9,7 @@ import { ProteinBlock } from "@/components/racik/ProteinBlock";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Bookmark, CalendarPlus } from "lucide-react";
 import { byId, REG } from "@/lib/racik/data";
+import { requestOrigin } from "@/lib/racik/origin";
 import { fmtSeconds, fmtTime } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
 
