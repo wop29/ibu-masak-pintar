@@ -14,6 +14,8 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
   const [stage, setStage] = useState<"form" | "working" | "done">("form");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
+  const [caption, setCaption] = useState("");
+  const [needCaption, setNeedCaption] = useState(false);
   const valid = /https?:\/\/(www\.)?(tiktok\.com|instagram\.com|youtube\.com|youtu\.be)\//i.test(url);
   const submit = async () => {
     if (!valid) return;
@@ -26,13 +28,21 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
     setError("");
     setStage("working");
     try {
-      const recipe = await importRecipe({ data: { url: url.trim() } });
+      const recipe = await importRecipe({ data: { url: url.trim(), caption: caption.trim() || undefined } });
       update((current) => ({ imported: [recipe, ...current.imported] }));
       setTitle(recipe.title);
       setStage("done");
+      setCaption("");
+      setNeedCaption(false);
       onImported?.();
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Resep belum bisa diambil dari tautan ini.");
+      const message = caught instanceof Error ? caught.message : "Resep belum bisa diambil dari tautan ini.";
+      if (message.includes(CAPTION_NEEDED)) {
+        setNeedCaption(true);
+        setError("Keterangan video ini tidak bisa dibaca dari luar aplikasinya. Salin keterangan videonya, lalu tempel di bawah.");
+      } else {
+        setError(message);
+      }
       setStage("form");
     }
   };
