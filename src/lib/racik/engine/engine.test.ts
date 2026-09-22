@@ -41,18 +41,18 @@ describe("unit resolution", () => {
 
 describe("scaleFactor", () => {
   it("scales mains linearly", () => {
-    const r = recipe("rendang_daging");
+    const r = recipe("rendang");
     expect(scaleFactor("daging_sapi", 1.5, r)).toBeCloseTo(1.5);
   });
 
   it("curves seasonings up and down", () => {
-    const r = recipe("rendang_daging");
+    const r = recipe("rendang");
     expect(scaleFactor("cabai_merah", 1.5, r)).toBeCloseTo(1.5 ** 0.75);
     expect(scaleFactor("cabai_merah", 0.5, r)).toBeCloseTo(0.5 ** 0.6);
   });
 
   it("keeps baking linear", () => {
-    const bolu = recipe("bolu_kukus_pandan");
+    const bolu = recipe("kue_ku");
     expect(bolu.precise).toBe(true);
     expect(scaleFactor("gula_pasir", 2, bolu)).toBe(2);
   });
@@ -66,21 +66,21 @@ describe("scaleFactor", () => {
 
 describe("rendang, the worked example", () => {
   it("gives 34 chillies at 12 portions, not 51", () => {
-    expect(qty("rendang_daging", "cabai_merah", 12)).toBe(34);
+    expect(qty("rendang", "cabai_merah", 12)).toBe(34);
   });
 
   it("gives about 8 chillies at 1 portion, not 15", () => {
-    expect(qty("rendang_daging", "cabai_merah", 1)).toBe(8);
+    expect(qty("rendang", "cabai_merah", 1)).toBe(8);
   });
 
   it("scales the beef linearly", () => {
-    expect(qty("rendang_daging", "daging_sapi", 4)).toBe(500);
-    expect(qty("rendang_daging", "daging_sapi", 12)).toBe(1500);
-    expect(qty("rendang_daging", "daging_sapi", 1)).toBe(125);
+    expect(qty("rendang", "daging_sapi", 8)).toBe(1000);
+    expect(qty("rendang", "daging_sapi", 12)).toBe(1500);
+    expect(qty("rendang", "daging_sapi", 1)).toBe(125);
   });
 
   it("scales the santan linearly", () => {
-    expect(qty("rendang_daging", "santan", 4)).toBe(800);
+    expect(qty("rendang", "santan", 8)).toBe(1500);
   });
 });
 
@@ -161,7 +161,7 @@ describe("protein", () => {
   });
 
   it("puts rendang and mendoan in the right range", () => {
-    expect(proteinPerPortion(recipe("rendang_daging"))).toBeGreaterThan(25);
+    expect(proteinPerPortion(recipe("rendang"))).toBeGreaterThan(25);
     expect(proteinPerPortion(recipe("tempe_mendoan"))).toBeGreaterThan(15);
   });
 
@@ -183,14 +183,14 @@ describe("protein", () => {
 
 describe("halal", () => {
   it("flags recipes with brand-dependent ingredients", () => {
-    expect(analyseHalal(recipe("semur_daging_betawi")).label).toBe("perlu dicek");
+    expect(analyseHalal(recipe("semur_daging")).label).toBe("perlu dicek");
     expect(analyseHalal(recipe("gado_gado")).label).toBe("bahan halal");
   });
 });
 
 describe("undividable", () => {
   it("flags a whole chicken cooked for one", () => {
-    const r = recipe("ayam_goreng_lengkuas");
+    const r = recipe("opor_ayam");
     expect(undividable(r, 1).map((l) => l[0])).toEqual(["ayam_utuh"]);
     expect(undividable(r, 6)).toEqual([]);
   });
@@ -213,14 +213,14 @@ describe("search", () => {
   });
 
   it("tolerates typos from four characters", () => {
-    expect(titles("rendhang")).toContain("rendang_daging");
+    expect(titles("rendhang")).toContain("rendang");
     expect(titles("sotoo ayam")).toContain("soto_ayam_lamongan");
   });
 
   it("matches every recipe containing bawang, not just the first", () => {
     const results = titles("bawang");
     expect(results.length).toBeGreaterThan(5);
-    expect(results).toContain("rendang_daging");
+    expect(results).toContain("rendang");
     expect(results).toContain("sayur_asem");
   });
 
@@ -245,7 +245,7 @@ describe("stepIngredients", () => {
   });
 
   it("expands bumbu halus to the haluskan lines", () => {
-    const r = recipe("rawon_daging");
+    const r = recipe("rawon");
     const perStep = stepIngredients(r);
     const step2 = (perStep[1] ?? []).map((l) => l[0]);
     expect(step2).toContain("bawang_merah");

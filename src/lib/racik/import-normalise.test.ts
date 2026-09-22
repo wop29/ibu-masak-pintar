@@ -27,7 +27,7 @@ const RAW = {
 
 describe("import normalisation", () => {
   it("resolves names to real ontology ids", () => {
-    expect(matchIngredient("Dada ayam")).toBe("ayam_potong");
+    expect(matchIngredient("Dada ayam")).toBe("ayam");
     expect(matchIngredient("Kaldu bubuk")).toBe("kaldu_bubuk");
     expect(matchIngredient("Lada bubuk")).toBe("merica");
     expect(matchIngredient("Saus XO impor")).toBeNull();
@@ -42,14 +42,14 @@ describe("import normalisation", () => {
   it("converts units and keeps an override", () => {
     expect(parseUnit("kg")).toEqual({ unit: "gram", factor: 1000 });
     const recipe = normaliseImported(RAW, "https://x", "import-1");
-    const chicken = recipe.ings.find((l) => l[0] === "ayam_potong");
+    const chicken = recipe.ings.find((l) => l[0] === "ayam");
     expect(chicken?.[5]).toBe("gram");
     expect(unitOf(chicken!)).toBe("gram");
   });
 
   it("scales like a shipped recipe", () => {
     const recipe = normaliseImported(RAW, "https://x", "import-1");
-    const chicken = recipe.ings.find((l) => l[0] === "ayam_potong")!;
+    const chicken = recipe.ings.find((l) => l[0] === "ayam")!;
     const chilli = recipe.ings.find((l) => l[0] === "cabai_rawit")!;
     expect(scaledQty(chicken, recipe, 4)).toBe(350);
     expect(scaledQty(chicken, recipe, 12)).toBe(1050);
