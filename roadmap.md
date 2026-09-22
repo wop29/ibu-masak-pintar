@@ -43,10 +43,10 @@ Data contoh (15 resep, ~60 bahan, 7 daerah) sudah masuk. Ganti dengan ekspor
 
 ## Milestone 4 — impor resep dari tautan
 
-- [ ] Aktifkan pemrosesan tautan TikTok, Instagram Reels, dan YouTube Shorts
-- [ ] Susun bahan, langkah, waktu, porsi, dan kredit pembuat dari isi video
-- [ ] Simpan hasil impor di Buku Resep dan buka resep yang sudah pernah diambil
-- [ ] Tampilkan kegagalan dan batas pemrosesan secara jujur
+- [x] Aktifkan pemrosesan tautan TikTok, Instagram Reels, dan YouTube Shorts
+- [x] Susun bahan, langkah, waktu, porsi, dan kredit pembuat dari isi video
+- [x] Simpan hasil impor di Buku Resep dan buka resep yang sudah pernah diambil
+- [x] Tampilkan kegagalan dan batas pemrosesan secara jujur
 - [ ] Uji alur lengkap dari tautan hingga resep tersimpan
 
 ## Aturan tulisan
