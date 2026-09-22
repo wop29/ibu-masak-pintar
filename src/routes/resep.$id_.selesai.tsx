@@ -4,7 +4,7 @@ import { byId } from "@/lib/racik/data";
 import { useRacik } from "@/lib/racik/state";
 import { shrinkPhoto } from "@/lib/racik/store";
 
-export const Route = createFileRoute("/resep/$id/selesai")({
+export const Route = createFileRoute("/resep/$id_/selesai")({
   loader: ({ params }) => {
     const recipe = byId(params.id);
     if (!recipe) throw notFound();

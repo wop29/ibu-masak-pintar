@@ -4,7 +4,7 @@ import { byId, ING } from "@/lib/racik/data";
 import { fmtQty, scaledQty, stepIngredients, takaran, unitOf } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
 
-export const Route = createFileRoute("/resep/$id/masak")({
+export const Route = createFileRoute("/resep/$id_/masak")({
   loader: ({ params }) => {
     const recipe = byId(params.id);
     if (!recipe) throw notFound();

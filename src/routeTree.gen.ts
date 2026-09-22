@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResepIdRouteImport } from './routes/resep.$id'
-import { Route as ResepIdMasakRouteImport } from './routes/resep.$id.masak'
-import { Route as ResepIdSelesaiRouteImport } from './routes/resep.$id.selesai'
+import { Route as ResepIdMasakRouteImport } from './routes/resep.$id_.masak'
+import { Route as ResepIdSelesaiRouteImport } from './routes/resep.$id_.selesai'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -25,34 +25,34 @@ const ResepIdRoute = ResepIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResepIdMasakRoute = ResepIdMasakRouteImport.update({
-  id: '/masak',
-  path: '/masak',
-  getParentRoute: () => ResepIdRoute,
+  id: '/resep/$id_/masak',
+  path: '/resep/$id/masak',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ResepIdSelesaiRoute = ResepIdSelesaiRouteImport.update({
-  id: '/selesai',
-  path: '/selesai',
-  getParentRoute: () => ResepIdRoute,
+  id: '/resep/$id_/selesai',
+  path: '/resep/$id/selesai',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/resep/$id': typeof ResepIdRouteWithChildren
+  '/resep/$id': typeof ResepIdRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/resep/$id': typeof ResepIdRouteWithChildren
+  '/resep/$id': typeof ResepIdRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/resep/$id': typeof ResepIdRouteWithChildren
-  '/resep/$id/masak': typeof ResepIdMasakRoute
-  '/resep/$id/selesai': typeof ResepIdSelesaiRoute
+  '/resep/$id': typeof ResepIdRoute
+  '/resep/$id_/masak': typeof ResepIdMasakRoute
+  '/resep/$id_/selesai': typeof ResepIdSelesaiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -60,12 +60,18 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/resep/$id' | '/resep/$id/masak' | '/resep/$id/selesai'
   id:
-    '__root__' | '/' | '/resep/$id' | '/resep/$id/masak' | '/resep/$id/selesai'
+    | '__root__'
+    | '/'
+    | '/resep/$id'
+    | '/resep/$id_/masak'
+    | '/resep/$id_/selesai'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ResepIdRoute: typeof ResepIdRouteWithChildren
+  ResepIdRoute: typeof ResepIdRoute
+  ResepIdMasakRoute: typeof ResepIdMasakRoute
+  ResepIdSelesaiRoute: typeof ResepIdSelesaiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -84,39 +90,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResepIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/resep/$id/masak': {
-      id: '/resep/$id/masak'
-      path: '/masak'
+    '/resep/$id_/masak': {
+      id: '/resep/$id_/masak'
+      path: '/resep/$id/masak'
       fullPath: '/resep/$id/masak'
       preLoaderRoute: typeof ResepIdMasakRouteImport
-      parentRoute: typeof ResepIdRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/resep/$id/selesai': {
-      id: '/resep/$id/selesai'
-      path: '/selesai'
+    '/resep/$id_/selesai': {
+      id: '/resep/$id_/selesai'
+      path: '/resep/$id/selesai'
       fullPath: '/resep/$id/selesai'
       preLoaderRoute: typeof ResepIdSelesaiRouteImport
-      parentRoute: typeof ResepIdRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface ResepIdRouteChildren {
-  ResepIdMasakRoute: typeof ResepIdMasakRoute
-  ResepIdSelesaiRoute: typeof ResepIdSelesaiRoute
-}
-
-const ResepIdRouteChildren: ResepIdRouteChildren = {
-  ResepIdMasakRoute: ResepIdMasakRoute,
-  ResepIdSelesaiRoute: ResepIdSelesaiRoute,
-}
-
-const ResepIdRouteWithChildren =
-  ResepIdRoute._addFileChildren(ResepIdRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ResepIdRoute: ResepIdRouteWithChildren,
+  ResepIdRoute: ResepIdRoute,
+  ResepIdMasakRoute: ResepIdMasakRoute,
+  ResepIdSelesaiRoute: ResepIdSelesaiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
