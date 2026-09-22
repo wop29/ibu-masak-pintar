@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { INGREDIENTS, PROT100, RECIPES, byId } from "../data";
+import { BERAT, INGREDIENTS, PROT100, RECIPES, byId } from "../data";
 import type { IngLine, Recipe } from "../types";
 import { analyseHalal } from "./halal";
 import { fmtQty, roundQty, takaran } from "./format";
@@ -25,6 +25,45 @@ const qty = (id: string, ingId: string, servings: number) => {
   const r = recipe(id);
   return scaledQty(line(r, ingId), r, servings);
 };
+
+describe("catalogue", () => {
+  it("ships exactly the delivered dataset, with nothing left over", () => {
+    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(199);
+    expect(INGREDIENTS).toHaveLength(172);
+  });
+
+  it("has no duplicate ids", () => {
+    expect(new Set(RECIPES.map((r) => r.id)).size).toBe(RECIPES.length);
+    expect(new Set(INGREDIENTS.map((i) => i.id)).size).toBe(INGREDIENTS.length);
+  });
+
+  it("resolves every ingredient a recipe refers to", () => {
+    const known = new Set(INGREDIENTS.map((i) => i.id));
+    for (const r of RECIPES) for (const l of r.ings) expect(known.has(l[0])).toBe(true);
+  });
+
+  it("keeps the merged ids reachable by their old wording", () => {
+    const index = buildIndex(RECIPES);
+    expect(INGREDIENTS.find((i) => i.id === "ayam_potong")).toBeUndefined();
+    expect(INGREDIENTS.find((i) => i.id === "ayam")?.aliases).toContain("ayam potong");
+    expect(INGREDIENTS.find((i) => i.id === "mie_telur")?.aliases).toContain("mi telur");
+    expect(INGREDIENTS.find((i) => i.id === "daun_pandan")?.aliases).toContain("pandan");
+    expect(search(index, "ayam potong").length).toBeGreaterThan(0);
+  });
+
+  it("gives the label-check value to stock powder and oyster sauce", () => {
+    expect(INGREDIENTS.find((i) => i.id === "kaldu_bubuk")?.halal).toBe("cert");
+    expect(INGREDIENTS.find((i) => i.id === "saus_tiram")?.halal).toBe("cert");
+  });
+
+  it("can turn every non-gram protein source into grams", () => {
+    for (const ing of INGREDIENTS) {
+      if ((PROT100[ing.id] ?? 0) > 0 && ing.unit !== "gram" && ing.unit !== "ml") {
+        expect(BERAT[ing.id], ing.id).toBeGreaterThan(0);
+      }
+    }
+  });
+});
 
 describe("unit resolution", () => {
   it("prefers the line override over the ontology unit", () => {
@@ -247,9 +286,9 @@ describe("stepIngredients", () => {
   it("expands bumbu halus to the haluskan lines", () => {
     const r = recipe("rawon");
     const perStep = stepIngredients(r);
-    const step2 = (perStep[1] ?? []).map((l) => l[0]);
-    expect(step2).toContain("bawang_merah");
-    expect(step2).toContain("kemiri");
+    const step3 = (perStep[2] ?? []).map((l) => l[0]);
+    expect(step3).toContain("bawang_merah");
+    expect(step3).toContain("kemiri");
   });
 
   it("leaves some steps empty", () => {
