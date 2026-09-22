@@ -50,10 +50,14 @@ export const photosOf = (id: string): string[] => {
   return remote.length > 0 ? remote : local ? [local] : [];
 };
 
-/** Absolute CDN-backed image URL for external link preview crawlers. */
-export const previewPhotoOf = (id: string): string | undefined => {
+/**
+ * Absolute image URL for external link preview crawlers. The origin is the one
+ * serving this request, so previews keep working on any domain.
+ */
+export const previewPhotoOf = (id: string, origin: string): string | undefined => {
   const photo = REMOTE[id]?.[0];
-  return photo ? new URL(photo, PUBLIC_ASSET_ORIGIN).href : undefined;
+  if (!photo || !origin) return undefined;
+  return new URL(photo, origin).href;
 };
 
 /** Photographs are the primary visual material. Everything else falls back to a warm ground. */
