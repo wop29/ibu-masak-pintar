@@ -2,7 +2,11 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import type { ImportedRecipe } from "./types";
 
-const inputSchema = z.object({ url: z.string().url().max(2_000) });
+const inputSchema = z.object({
+  url: z.string().url().max(2_000),
+  caption: z.string().max(20_000).optional(),
+});
+export const CAPTION_NEEDED = "CAPTION_NEEDED";
 const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
 
 const recipeSchema = {
