@@ -5,6 +5,8 @@ import { IngredientList } from "@/components/racik/IngredientList";
 import { PHOTO } from "@/components/racik/photos";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { ProteinBlock } from "@/components/racik/ProteinBlock";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Bookmark, CalendarPlus } from "lucide-react";
 import { byId, REG, SPICE_WORD } from "@/lib/racik/data";
 import { fmtSeconds, fmtTime } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
@@ -25,6 +27,8 @@ export const Route = createFileRoute("/resep/$id")({
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary" },
       ],
     };
   },
@@ -33,15 +37,16 @@ export const Route = createFileRoute("/resep/$id")({
 
 function DetailResep() {
   const { recipe } = Route.useLoaderData();
-  const { state, setServings, toggleSaved } = useRacik();
+  const { state, update, setServings, toggleSaved } = useRacik();
   const [tab, setTab] = useState<"bahan" | "langkah">("bahan");
   const servings = state.servings[recipe.id] ?? state.household;
   const photo = PHOTO[recipe.id];
   const saved = state.saved.includes(recipe.id);
+  const planned = state.plan.some((p) => p.id === recipe.id);
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] pb-28">
-      <div className="relative aspect-[4/3] w-full bg-mag-deep">
+      <div className="relative aspect-[4/3] w-full bg-primary-deep">
         {photo ? (
           <img
             src={photo}
@@ -51,27 +56,17 @@ function DetailResep() {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-mag-deep to-onb text-[64px]">
+          <div className="flex h-full w-full items-center justify-center bg-primary-deep text-[64px]">
             <span aria-hidden>{recipe.glyph}</span>
           </div>
         )}
-        <Link
-          to="/"
-          className="text-label absolute left-4 top-4 bg-ground px-3 py-2 uppercase tracking-[0.12em]"
-        >
-          Kembali
-        </Link>
-        <button
-          onClick={() => toggleSaved(recipe.id)}
-          className="text-label absolute right-4 top-4 bg-ground px-3 py-2 uppercase tracking-[0.12em]"
-        >
-          {saved ? "Tersimpan" : "Simpan"}
-        </button>
+        <Button asChild variant="secondary" size="icon" className="absolute left-4 top-4"><Link to="/" aria-label="Kembali"><ArrowLeft /></Link></Button>
+        <Button variant="secondary" size="icon" onClick={() => toggleSaved(recipe.id)} className="absolute right-4 top-4" aria-label={saved ? "Hapus dari simpanan" : "Simpan resep"}><Bookmark className={saved ? "fill-primary text-primary" : ""} /></Button>
       </div>
 
       <div className="px-5 pt-5">
         <p className="eyebrow">{REG[recipe.region]?.name ?? recipe.region}</p>
-        <h1 className="font-display text-28 mt-1 leading-[1.15]">{recipe.title}</h1>
+        <h1 className="font-display text-28 mt-1 font-extrabold leading-[1.15]">{recipe.title}</h1>
         <p className="text-caption text-ink-3 mt-2">
           {REG[recipe.region]?.desc}
         </p>
@@ -88,7 +83,7 @@ function DetailResep() {
           ) : null}
         </div>
 
-        <p className="read-line mt-4 font-serif text-ink-2">{recipe.note}</p>
+        <p className="read-line mt-4 font-medium text-ink-2">{recipe.note}</p>
       </div>
 
       <div className="hairline-t hairline-b mt-5 flex">
@@ -101,7 +96,7 @@ function DetailResep() {
             key={cell.k}
             className={`flex-1 px-4 py-4 ${i < 2 ? "border-r border-rule" : ""}`}
           >
-            <p className="text-micro text-ink-3 uppercase tracking-[0.14em]">{cell.k}</p>
+            <p className="text-micro text-ink-3 uppercase tracking-[0.1em]">{cell.k}</p>
             <p className="text-body mt-1 font-semibold">{cell.v}</p>
           </div>
         ))}
@@ -109,6 +104,8 @@ function DetailResep() {
 
       <div className="px-5">
         <ProteinBlock recipe={recipe} />
+
+        <Button variant="outline" className="mt-4 w-full" disabled={planned || state.plan.length >= 3} onClick={() => update((s) => ({ plan: [...s.plan, { id: recipe.id, servings }] }))}><CalendarPlus />{planned ? "Sudah dalam rencana" : state.plan.length >= 3 ? "Rencana sudah penuh" : "Tambahkan ke rencana"}</Button>
 
         <div className="hairline-b flex items-center justify-between gap-3 py-4">
           <div>
@@ -125,17 +122,17 @@ function DetailResep() {
 
         <div className="flex gap-6 pt-4">
           {(["bahan", "langkah"] as const).map((t) => (
-            <button
+            <Button variant="ghost"
               key={t}
               onClick={() => setTab(t)}
-              className={`text-label pb-2 uppercase tracking-[0.14em] ${
+              className={`h-auto rounded-none border-b-2 px-0 pb-2 text-label uppercase tracking-[0.1em] ${
                 tab === t
-                  ? "border-b-2 border-mag-fill text-mag-text"
-                  : "border-b-2 border-transparent text-ink-3"
+                  ? "border-primary text-primary"
+                  : "border-transparent text-ink-3"
               }`}
             >
               {t === "bahan" ? "Bahan" : "Langkah"}
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -158,7 +155,7 @@ function DetailResep() {
           <ol className="pt-2">
             {recipe.steps.map(([text, seconds], i) => (
               <li key={i} className="hairline-b flex gap-4 py-4">
-                <span className="text-label text-mag-text w-6 shrink-0 pt-1 tabular-nums">
+                <span className="w-6 shrink-0 pt-1 text-label text-primary tabular-nums">
                   {i + 1}
                 </span>
                 <div className="flex-1">
@@ -174,13 +171,7 @@ function DetailResep() {
       </div>
 
       <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 border-t border-rule bg-ground px-5 py-3">
-        <Link
-          to="/resep/$id/masak"
-          params={{ id: recipe.id }}
-          className="text-body block w-full bg-mag-fill py-4 text-center font-semibold text-white"
-        >
-          Mulai masak · {servings} porsi
-        </Link>
+        <Button asChild size="lg" className="w-full"><Link to="/resep/$id/masak" params={{ id: recipe.id }}>Mulai masak · {servings} porsi</Link></Button>
       </div>
     </main>
   );

@@ -3,6 +3,7 @@ import { ING } from "@/lib/racik/data";
 import { fmtProtein, proteinParts, proteinPerPortion } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
+import { Button } from "@/components/ui/button";
 
 /** No macro charts, no scores. One number, one bar, and the word "perkiraan". */
 export function ProteinBlock({ recipe }: { recipe: Recipe }) {
@@ -19,17 +20,17 @@ export function ProteinBlock({ recipe }: { recipe: Recipe }) {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="hairline-b block w-full py-4 text-left">
+      <Button variant="ghost" onClick={() => setOpen(true)} className="hairline-b block h-auto w-full rounded-none px-0 py-4 text-left">
         <div className="flex items-baseline justify-between">
           <span className="text-body">
-            Protein <span className="font-semibold">± {text}</span> per porsi
+            Perkiraan protein <span className="font-semibold">{text}</span> per porsi
           </span>
-          <span className="text-label text-ink-3">perkiraan ⓘ</span>
+          <span className="text-label text-ink-3">ⓘ</span>
         </div>
         <div className="mt-2 h-[6px] w-full bg-rule">
-          <div className="h-[6px] bg-mag-fill" style={{ width: `${pct}%` }} />
+          <div className="h-[6px] bg-primary" style={{ width: `${pct}%` }} />
         </div>
-      </button>
+      </Button>
 
       <Sheet open={open} onClose={() => setOpen(false)} title="Dari mana angkanya">
         <ul className="mb-4">

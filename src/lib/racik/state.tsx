@@ -77,7 +77,11 @@ export function RacikProvider({ children }: { children: ReactNode }) {
     [state, ready, update, toggleSaved, setServings, logCooked, rate],
   );
 
-  return <RacikContext.Provider value={value}>{children}</RacikContext.Provider>;
+  return (
+    <RacikContext.Provider value={value}>
+      <div className={state.teks === "besar" ? "[font-size:17px]" : state.teks === "paling_besar" ? "[font-size:18px]" : ""}>{children}</div>
+    </RacikContext.Provider>
+  );
 }
 
 export function useRacik(): Ctx {

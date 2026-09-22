@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { byId } from "@/lib/racik/data";
 import { useRacik } from "@/lib/racik/state";
 import { shrinkPhoto } from "@/lib/racik/store";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/resep/$id_/selesai")({
   loader: ({ params }) => {
@@ -27,6 +28,8 @@ export const Route = createFileRoute("/resep/$id_/selesai")({
           property: "og:description",
           content: "Catat hasilnya sekali, lain kali resepnya sudah lebih jujur.",
         },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary" },
       ],
     };
   },
@@ -57,16 +60,16 @@ function Selesai() {
       <p className="eyebrow">Sudah dimasak</p>
       <h1 className="font-display text-28 mt-1 leading-[1.15]">{recipe.title}</h1>
 
-      <button
+      <Button variant="outline"
         onClick={() => fileRef.current?.click()}
-        className="mt-6 block aspect-[4/3] w-full border border-rule bg-card"
+        className="mt-6 aspect-[4/3] h-auto w-full overflow-hidden p-0"
       >
         {photo ? (
           <img src={photo} alt="Hasil masakan" className="h-full w-full object-cover" />
         ) : (
           <span className="text-body text-ink-3">Simpan foto hasilnya</span>
         )}
-      </button>
+      </Button>
       <input
         ref={fileRef}
         type="file"
@@ -89,14 +92,14 @@ function Selesai() {
       <h2 className="eyebrow-ink mt-8">Tadi seberapa ribet</h2>
       <div className="mt-3">
         {tally.map((v) => (
-          <button
+          <Button variant="ghost"
             key={v.id}
             onClick={() => rate(recipe.id, v.id)}
-            className="hairline-b flex w-full items-center justify-between py-4 text-left"
+            className="hairline-b h-auto w-full justify-between rounded-none px-0 py-4 text-left"
           >
             <span className="text-body">{v.label}</span>
             <span className="text-label text-ink-3 tabular-nums">{v.n > 0 ? v.n : ""}</span>
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -119,9 +122,7 @@ function Selesai() {
         >
           Lihat resep
         </Link>
-        <Link to="/" className="text-body flex-1 bg-mag-fill py-4 text-center font-semibold text-white">
-          Selesai
-        </Link>
+        <Button asChild className="flex-1"><Link to="/">Selesai</Link></Button>
       </div>
     </main>
   );

@@ -4,32 +4,19 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Racik design system.
- *
- * Colour: T-Mobile magenta, split in two because #E20074 only reaches 4.5:1 on
- * a near-white ground — too thin for 11-12px uppercase labels.
- *   --mag-fill  #E20074  fills: buttons, active tab, selected chips, progress
- *   --mag-text  #A6085A  magenta TEXT on light grounds (7.3:1)
- *   --mag-deep  #7A0042  solid dark panels
- *
- * Type: twelve steps, no half-pixels, floor 11px. Ingredient lines and cooking
- * steps sit at 18px (--text-read) because the phone is propped up across a
- * counter. Do not quietly drop them to 16.
- */
+/* Racik: Plus Jakarta Sans, green actions, 16px body, 18px cooking text. */
 
 @theme inline {
-  --radius-sm: 2px;
-  --radius-md: 3px;
-  --radius-lg: 3px;
-  --radius-xl: 4px;
-  --radius-2xl: 4px;
-  --radius-3xl: 6px;
-  --radius-4xl: 8px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+  --radius-4xl: 32px;
 
-  --font-display: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
-  --font-serif: "Libre Caslon Text", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
 
   --text-micro: 11px;
   --text-label: 12px;
@@ -42,7 +29,7 @@
   --text-title: 24px;
   --text-28: 28px;
   --text-34: 34px;
-  --text-display: 40px;
+  --text-display: 36px;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -64,34 +51,27 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-mag-fill: var(--mag-fill);
-  --color-mag-text: var(--mag-text);
-  --color-mag-deep: var(--mag-deep);
+  --color-primary-deep: var(--primary-deep);
   --color-ground: var(--ground);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
   --color-rule: var(--rule);
   --color-tint: var(--tint);
-  --color-onb: var(--onb);
   --color-dark: var(--dark);
   --color-notice: var(--notice);
 }
 
 :root {
-  --radius: 3px;
-
-  --mag-fill: oklch(0.5901 0.2386 1.31);
-  --mag-text: oklch(0.4734 0.1885 358.65);
-  --mag-deep: oklch(0.3769 0.1537 357.42);
-  --ground: oklch(0.9861 0.0034 67.78);
-  --tint: oklch(0.9497 0.0084 56.31);
-  --rule: oklch(0.9091 0.0128 56.24);
-  --ink: oklch(0.1772 0.0355 346.88);
-  --ink-2: oklch(0.3113 0.0325 346.28);
-  --ink-3: oklch(0.4897 0.0289 345.23);
-  --onb: oklch(0.1971 0.0812 353.72);
-  --dark: oklch(0.1623 0.0401 350.42);
+  --radius: 12px;
+  --ground: oklch(0.985 0.003 106);
+  --tint: oklch(0.962 0.004 106);
+  --rule: oklch(0.925 0.004 106);
+  --ink: oklch(0.178 0 0);
+  --ink-2: oklch(0.35 0 0);
+  --ink-3: oklch(0.69 0.018 255);
+  --primary-deep: oklch(0.31 0.1 150);
+  --dark: oklch(0.14 0.012 150);
   --notice: oklch(0.965 0.05 95);
 
   --background: var(--ground);
@@ -100,7 +80,7 @@
   --card-foreground: var(--ink);
   --popover: var(--ground);
   --popover-foreground: var(--ink);
-  --primary: var(--mag-fill);
+  --primary: oklch(0.44 0.135 150);
   --primary-foreground: oklch(1 0 0);
   --secondary: var(--tint);
   --secondary-foreground: var(--ink);
@@ -112,7 +92,7 @@
   --destructive-foreground: oklch(1 0 0);
   --border: var(--rule);
   --input: var(--rule);
-  --ring: var(--mag-fill);
+  --ring: var(--primary);
 }
 
 @layer base {
@@ -129,9 +109,13 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 16px;
-    line-height: 1.45;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overscroll-behavior-y: none;
+  }
+
+  button, a {
+    -webkit-tap-highlight-color: transparent;
   }
 
   button {
@@ -142,16 +126,16 @@
 /* Uppercase letterspaced section head. */
 @utility eyebrow {
   font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-mag-text);
+  color: var(--color-primary);
 }
 
 @utility eyebrow-ink {
   font-size: var(--text-label);
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-ink-3);
 }
