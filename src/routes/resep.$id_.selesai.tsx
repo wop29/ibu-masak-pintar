@@ -76,7 +76,7 @@ function Selesai() {
         {photo ? (
           <img src={photo} alt="Hasil masakan" className="h-full w-full object-cover" />
         ) : (
-          <span className="text-body text-ink-3">Simpan foto hasilnya</span>
+          <span className="text-body text-ink-3">Foto hasil masakan</span>
         )}
       </Button>
       <input
@@ -93,8 +93,7 @@ function Selesai() {
       />
       {state.photoFull ? (
         <p className="text-caption text-ink-3 mt-2">
-          Penyimpanan di perangkat sudah penuh, jadi foto tidak bisa disimpan. Resep dan
-          rencana masak tetap aman.
+          Penyimpanan HP sudah penuh, jadi foto lama terpaksa dihapus. Resep dan rencana masak tetap aman.
         </p>
       ) : null}
 
