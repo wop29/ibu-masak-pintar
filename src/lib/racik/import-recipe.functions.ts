@@ -2,12 +2,23 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import type { ImportedRecipe } from "./types";
 
-const inputSchema = z.object({
-  url: z.string().url().max(2_000),
-  caption: z.string().max(20_000).optional(),
-});
-export const CAPTION_NEEDED = "CAPTION_NEEDED";
-export type ImportResult = ImportedRecipe | { needCaption: true };
+const inputSchema = z
+  .object({
+    url: z.string().url().max(2_000).optional(),
+    caption: z.string().max(20_000).optional(),
+    listen: z.boolean().optional(),
+  })
+  .refine((data) => Boolean(data.url) || Boolean(data.caption?.trim()), {
+    message: "Tempel tautan videonya, atau tempel keterangannya.",
+  });
+
+/** A caption shorter than this never carries both ingredients and steps. */
+export const MIN_CAPTION_CHARS = 120;
+
+export type ImportResult =
+  | { ok: true; recipe: ImportedRecipe }
+  | { ok: false; needCaption: true; partial: string }
+  | { ok: false; noRecipe: true };
 const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
 
 const recipeSchema = {
@@ -231,23 +242,24 @@ async function transcribe(media: Blob, filename: string, key: string) {
 }
 
 async function fetchOembed(url: string) {
+  const empty = { parts: [] as string[], caption: "" };
   const host = new URL(url).hostname.toLowerCase();
   const endpoint = host.includes("tiktok")
     ? `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`
     : host.includes("youtu")
       ? `https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`
       : null;
-  if (!endpoint) return [];
+  if (!endpoint) return empty;
   try {
     const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
-    if (!response.ok) return [];
+    if (!response.ok) return empty;
     const body = await response.json() as { title?: string; author_name?: string };
-    const out: string[] = [];
-    if (body.title) out.push(`judul video: ${body.title}`);
-    if (body.author_name) out.push(`pembuat: ${body.author_name}`);
-    return out;
+    const parts: string[] = [];
+    if (body.title) parts.push(`keterangan: ${body.title}`);
+    if (body.author_name) parts.push(`pembuat: ${body.author_name}`);
+    return { parts, caption: (body.title ?? "").replace(/\s+/g, " ").trim() };
   } catch {
-    return [];
+    return empty;
   }
 }
 
@@ -328,13 +340,12 @@ function requireKey() {
   return key;
 }
 
-async function buildRecipe(url: string, evidence: string, key: string, spokenOrPasted: boolean): Promise<ImportResult> {
+async function buildRecipe(url: string, evidence: string, key: string): Promise<ImportResult> {
   const result = await extractRecipe(evidence, key);
   if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
-    if (spokenOrPasted) throw new Error("Bahan dan langkahnya belum terbaca cukup jelas dari video ini. Racik tidak menebak bagian yang tidak disebut.");
-    return { needCaption: true };
+    return { ok: false, noRecipe: true };
   }
-  const imported: ImportedRecipe = {
+  const recipe: ImportedRecipe = {
     id: `import-${crypto.randomUUID()}`,
     sourceUrl: url,
     title: result.title,
@@ -347,38 +358,47 @@ async function buildRecipe(url: string, evidence: string, key: string, spokenOrP
     steps: result.steps,
     importedAt: Date.now(),
   };
-  return imported;
+  return { ok: true, recipe };
 }
 
 export const importRecipeFromVideo = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => inputSchema.parse(input))
-  .handler(async ({ data }) => {
-    if (!isAllowedUrl(data.url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
-    const caption = data.caption?.trim() ?? "";
+  .handler(async ({ data }): Promise<ImportResult> => {
     const key = requireKey();
-    const [html, oembed] = await Promise.all([fetchHtml(data.url), fetchOembed(data.url)]);
-    const parts = [...oembed, ...pageEvidence(html)];
+    const caption = data.caption?.trim() ?? "";
+    const url = data.url?.trim() ?? "";
 
-    const captions = await youtubeCaptions(data.url, html);
-    if (captions) parts.push(`takarir video: ${captions}`);
+    // Pasted text is its own entry point: no platform request at all.
+    if (caption) {
+      if (caption.length < MIN_CAPTION_CHARS) return { ok: false, noRecipe: true };
+      return buildRecipe(url, usableEvidence([`keterangan yang ditempel pembaca: ${caption}`]), key);
+    }
 
-    let spoken = captions;
-    if (!spoken && !caption) {
+    if (!isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+    const oembed = await fetchOembed(url);
+
+    if (!data.listen) {
+      if (oembed.caption.length >= MIN_CAPTION_CHARS) return buildRecipe(url, usableEvidence(oembed.parts), key);
+      return { ok: false, needCaption: true, partial: oembed.caption };
+    }
+
+    // Listening is slow and costly, so it only runs when the reader asks for it.
+    const html = await fetchHtml(url);
+    const parts = [...oembed.parts, ...pageEvidence(html)];
+    let spoken = await youtubeCaptions(url, html);
+    if (spoken) parts.push(`takarir video: ${spoken}`);
+    else {
       const mediaUrl = mediaUrlFromHtml(html);
       if (mediaUrl) {
-        const media = await fetchMedia(mediaUrl, data.url);
+        const media = await fetchMedia(mediaUrl, url);
         if (media) {
           spoken = await transcribe(media, "video.mp4", key);
           if (spoken) parts.push(`suara video: ${spoken}`);
         }
       }
     }
-    if (caption) parts.push(`keterangan yang ditempel pembaca: ${caption}`);
-
-    const evidence = usableEvidence(parts);
-    const hasRecipeSignal = Boolean(caption) || Boolean(spoken) || /keterangan|ingredient|bahan/i.test(evidence);
-    if (evidence.length < 80 || !hasRecipeSignal) return { needCaption: true } as ImportResult;
-    return buildRecipe(data.url, evidence, key, Boolean(caption) || Boolean(spoken));
+    if (!spoken) return { ok: false, needCaption: true, partial: oembed.caption };
+    return buildRecipe(url, usableEvidence(parts), key);
   });
 
 export const importRecipeFromUpload = createServerFn({ method: "POST" })
@@ -386,16 +406,15 @@ export const importRecipeFromUpload = createServerFn({ method: "POST" })
     if (!(input instanceof FormData)) throw new Error("Berkas video belum terkirim.");
     return input;
   })
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<ImportResult> => {
     const url = String(data.get("url") ?? "");
     const file = data.get("file");
-    if (!isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+    if (url && !isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
     if (!(file instanceof File) || file.size === 0) throw new Error("Pilih berkas video atau rekaman suaranya dulu.");
     if (file.size > MAX_MEDIA_BYTES) throw new Error("Berkasnya terlalu besar. Pakai video di bawah 24 MB atau rekaman suaranya saja.");
     const key = requireKey();
     const spoken = await transcribe(file, file.name || "video.mp4", key);
     if (!spoken) throw new Error("Suara di berkas itu tidak terbaca. Coba berkas lain atau tempel keterangan videonya.");
-    const [html, oembed] = await Promise.all([fetchHtml(url), fetchOembed(url)]);
-    const evidence = usableEvidence([...oembed, ...pageEvidence(html), `suara video: ${spoken}`]);
-    return buildRecipe(url, evidence, key, true);
+    const oembed = url ? await fetchOembed(url) : { parts: [] as string[], caption: "" };
+    return buildRecipe(url, usableEvidence([...oembed.parts, `suara video: ${spoken}`]), key);
   });
