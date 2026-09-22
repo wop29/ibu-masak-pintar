@@ -36,13 +36,13 @@ export const Route = createFileRoute("/")({
 });
 
 const CATS = [
-  { id: "makan_siang", label: "Siang", photo: PHOTO.gado_gado },
-  { id: "makan_malam", label: "Malam", photo: PHOTO.rendang_daging },
-  { id: "sarapan", label: "Sarapan", photo: PHOTO.nasi_goreng_kampung },
-  { id: "sayur", label: "Sayur", photo: PHOTO.sayur_asem },
-  { id: "lauk", label: "Lauk", photo: PHOTO.ayam_goreng_lengkuas },
-  { id: "sambal", label: "Sambal", photo: PHOTO.sambal_terasi },
-  { id: "jajan", label: "Jajan", photo: PHOTO.bolu_kukus_pandan },
+  { id: "makan_siang", label: "Siang", photo: PHOTO["gado_gado"] },
+  { id: "makan_malam", label: "Malam", photo: PHOTO["rendang_daging"] },
+  { id: "sarapan", label: "Sarapan", photo: PHOTO["nasi_goreng_kampung"] },
+  { id: "sayur", label: "Sayur", photo: PHOTO["sayur_asem"] },
+  { id: "lauk", label: "Lauk", photo: PHOTO["ayam_goreng_lengkuas"] },
+  { id: "sambal", label: "Sambal", photo: PHOTO["sambal_terasi"] },
+  { id: "jajan", label: "Jajan", photo: PHOTO["bolu_kukus_pandan"] },
 ] as const;
 const FILTERS = [{ id: "cepat", label: "< 30 menit" }, { id: "gampang", label: "Gampang" }, { id: "protein", label: "Protein tinggi" }, { id: "anak", label: "Tidak pedas" }, { id: "banyak", label: "Sekali masak banyak" }];
 
