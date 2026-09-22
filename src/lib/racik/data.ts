@@ -34,6 +34,10 @@ export const CREATORS = tables.CREATORS;
 
 export const byId = (id: string): Recipe | undefined => RECIPES.find((r) => r.id === id);
 
+/** Shipped recipes and imported ones answer to the same lookup. */
+export const findRecipe = (id: string, imported: Recipe[] = []): Recipe | undefined =>
+  byId(id) ?? imported.find((r) => r.id === id);
+
 export const SLOT_LABEL: Record<string, string> = {
   sarapan: "Sarapan",
   makan_siang: "Makan siang",

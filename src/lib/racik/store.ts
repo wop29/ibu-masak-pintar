@@ -55,7 +55,9 @@ export function normaliseState(raw: unknown): RacikState {
     saved: arr<string>(s.saved),
     disliked: arr<string>(s.disliked),
     log: arr<{ id: string; at: number }>(s.log).filter((l) => l && typeof l.id === "string"),
-    imported: arr<ImportedRecipe>(s.imported).filter((item) => item && typeof item.id === "string" && typeof item.title === "string" && Array.isArray(item.ingredients) && Array.isArray(item.steps)),
+    imported: arr<ImportedRecipe>(s.imported)
+      .filter((item) => item && typeof item.id === "string" && typeof item.title === "string" && Array.isArray(item.ings) && Array.isArray(item.steps))
+      .map((item) => ({ ...item, unmatched: Array.isArray(item.unmatched) ? item.unmatched : [], serv: typeof item.serv === "number" && item.serv > 0 ? item.serv : 4 })),
     servings: obj<number>(s.servings),
     intro: s.intro === true,
     plan: arr<{ id: string; servings: number }>(s.plan).slice(0, 3),

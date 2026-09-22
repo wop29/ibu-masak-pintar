@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/resep/$id_/selesai")({
   loader: ({ params }) => {
-    const recipe = byId(params.id);
-    if (!recipe) throw notFound();
+    const recipe = byId(params.id) ?? null;
+    if (!recipe && !params.id.startsWith("import-")) throw notFound();
     return { recipe };
   },
   head: ({ loaderData }) => {
@@ -43,9 +43,18 @@ const VERDICTS = [
 ] as const;
 
 function Selesai() {
-  const { recipe } = Route.useLoaderData();
+  const { recipe: shipped } = Route.useLoaderData();
+  const { id } = Route.useParams();
   const { state, update, rate } = useRacik();
   const fileRef = useRef<HTMLInputElement>(null);
+  const recipe = shipped ?? state.imported.find((item) => item.id === id);
+  if (!recipe) {
+    return (
+      <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16">
+        <p className="read-line">Resep ini tidak ada di perangkat ini.</p>
+      </main>
+    );
+  }
   const photo = state.photos[recipe.id];
   const ratings = state.ratings[recipe.id] ?? [];
 

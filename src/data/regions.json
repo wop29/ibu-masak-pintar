@@ -1,9 +1,42 @@
 [
-  { "id": "minang", "name": "Minang", "desc": "Santan pekat, cabai, rempah berlapis." },
-  { "id": "jawa_tengah", "name": "Jawa Tengah", "desc": "Manis gurih, bawang dan gula jawa." },
-  { "id": "jawa_timur", "name": "Jawa Timur", "desc": "Asin tajam, petis dan bawang goreng." },
-  { "id": "sunda", "name": "Sunda", "desc": "Segar, banyak sayur mentah dan sambal." },
-  { "id": "betawi", "name": "Betawi", "desc": "Gurih santan, kecap, dan rempah lembut." },
-  { "id": "palembang", "name": "Palembang", "desc": "Asam pedas, ikan sungai, nanas." },
-  { "id": "manado", "name": "Manado", "desc": "Pedas terang, rica dan daun kemangi." }
+  {
+    "id": "minang",
+    "name": "Minang",
+    "desc": "Santan pekat, cabai, rempah berlapis."
+  },
+  {
+    "id": "jawa_tengah",
+    "name": "Jawa Tengah",
+    "desc": "Manis gurih, bawang dan gula jawa."
+  },
+  {
+    "id": "jawa_timur",
+    "name": "Jawa Timur",
+    "desc": "Asin tajam, petis dan bawang goreng."
+  },
+  {
+    "id": "sunda",
+    "name": "Sunda",
+    "desc": "Segar, banyak sayur mentah dan sambal."
+  },
+  {
+    "id": "betawi",
+    "name": "Betawi",
+    "desc": "Gurih santan, kecap, dan rempah lembut."
+  },
+  {
+    "id": "palembang",
+    "name": "Palembang",
+    "desc": "Asam pedas, ikan sungai, nanas."
+  },
+  {
+    "id": "manado",
+    "name": "Manado",
+    "desc": "Pedas terang, rica dan daun kemangi."
+  },
+  {
+    "id": "impor",
+    "name": "Dari video",
+    "desc": "Resep yang diambil sendiri dari video."
+  }
 ]

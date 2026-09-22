@@ -13,8 +13,9 @@ import { useRacik } from "@/lib/racik/state";
 
 export const Route = createFileRoute("/resep/$id")({
   loader: ({ params }) => {
-    const recipe = byId(params.id);
-    if (!recipe) throw notFound();
+    const recipe = byId(params.id) ?? null;
+    // Imported recipes live on the device, so they resolve in the component.
+    if (!recipe && !params.id.startsWith("import-")) throw notFound();
     return { recipe };
   },
   head: ({ loaderData }) => {
@@ -36,9 +37,20 @@ export const Route = createFileRoute("/resep/$id")({
 });
 
 function DetailResep() {
-  const { recipe } = Route.useLoaderData();
+  const { recipe: shipped } = Route.useLoaderData();
+  const { id } = Route.useParams();
   const { state, update, setServings, toggleSaved } = useRacik();
   const [tab, setTab] = useState<"bahan" | "langkah">("bahan");
+  const imported = state.imported.find((item) => item.id === id);
+  const recipe = shipped ?? imported;
+  if (!recipe) {
+    return (
+      <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16">
+        <p className="read-line">Resep ini tidak ada di perangkat ini.</p>
+        <Button asChild className="mt-5 w-full"><Link to="/buku">Buka Buku Resep</Link></Button>
+      </main>
+    );
+  }
   const servings = state.servings[recipe.id] ?? state.household;
   const photo = PHOTO[recipe.id];
   const saved = state.saved.includes(recipe.id);
@@ -84,7 +96,31 @@ function DetailResep() {
         </div>
 
         <p className="read-line mt-4 font-medium text-ink-2">{recipe.note}</p>
+
+        {imported ? (
+          <>
+            {imported.unmatched.length ? (
+              <div className="mt-4 border border-rule bg-notice p-4">
+                <p className="text-label uppercase tracking-[0.1em] text-ink">Ada yang tidak terbaca</p>
+                <p className="read-line mt-2 text-ink-2">
+                  Bahan ini disebut di videonya tapi belum ada di daftar Racik: {imported.unmatched.join(", ")}. Silakan tambahkan sendiri waktu memasak.
+                </p>
+              </div>
+            ) : null}
+            {imported.servAssumed ? (
+              <p className="text-caption text-ink-3 mt-3">
+                Jumlah porsi tidak disebut di videonya. Racik memakai {imported.serv} porsi sebagai dasar hitungan.
+              </p>
+            ) : null}
+            {imported.sourceUrl ? (
+              <a href={imported.sourceUrl} target="_blank" rel="noreferrer" className="text-body mt-3 inline-block font-bold text-primary">
+                Buka video aslinya
+              </a>
+            ) : null}
+          </>
+        ) : null}
       </div>
+
 
       <div className="hairline-t hairline-b mt-5 flex">
         {[

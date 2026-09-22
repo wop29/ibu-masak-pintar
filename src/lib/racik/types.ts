@@ -89,18 +89,14 @@ export interface Recipe {
   timbang?: boolean;
 }
 
-export interface ImportedRecipe {
-  id: string;
+/** Same shape as a shipped recipe, plus where it came from. */
+export interface ImportedRecipe extends Recipe {
   sourceUrl: string;
-  title: string;
-  creator: string | null;
-  servings: number | null;
-  timeMinutes: number | null;
-  difficulty: "gampang" | "sedang" | "agak ribet" | null;
-  note: string | null;
-  ingredients: { name: string; quantity: number | null; unit: string | null; preparation: string | null }[];
-  steps: { text: string; seconds: number | null }[];
   importedAt: number;
+  /** Named in the video but absent from the ontology. Never dropped. */
+  unmatched: string[];
+  /** The video never said the portion count, so serv is Racik's assumption. */
+  servAssumed: boolean;
 }
 
 export type SatuanMode = "rumah" | "gram";

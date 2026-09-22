@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import type { ImportedRecipe } from "./types";
+import { normaliseImported } from "./import-normalise";
 
 const inputSchema = z
   .object({
@@ -13,10 +13,10 @@ const inputSchema = z
   });
 
 /** A caption shorter than this never carries both ingredients and steps. */
-export const MIN_CAPTION_CHARS = 120;
+export const MIN_CAPTION_CHARS = 80;
 
 export type ImportResult =
-  | { ok: true; recipe: ImportedRecipe }
+  | { ok: true; recipe: ImportedRecipe; unmatched: string[] }
   | { ok: false; needCaption: true; partial: string }
   | { ok: false; noRecipe: true };
 const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
@@ -345,20 +345,13 @@ async function buildRecipe(url: string, evidence: string, key: string): Promise<
   if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
     return { ok: false, noRecipe: true };
   }
-  const recipe: ImportedRecipe = {
-    id: `import-${crypto.randomUUID()}`,
-    sourceUrl: url,
-    title: result.title,
-    creator: result.creator,
-    servings: result.servings,
-    timeMinutes: result.timeMinutes,
-    difficulty: result.difficulty,
-    note: result.note,
-    ingredients: result.ingredients,
-    steps: result.steps,
-    importedAt: Date.now(),
-  };
-  return { ok: true, recipe };
+  const recipe = normaliseImported(
+    { ...result, title: result.title },
+    url,
+    `import-${crypto.randomUUID()}`,
+  );
+  if (recipe.ings.length < 2) return { ok: false, noRecipe: true };
+  return { ok: true, recipe, unmatched: recipe.unmatched };
 }
 
 export const importRecipeFromVideo = createServerFn({ method: "POST" })

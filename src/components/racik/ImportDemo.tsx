@@ -21,6 +21,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
   const [stage, setStage] = useState<"form" | "working" | "listening" | "done" | "kosong">("form");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
+  const [unmatched, setUnmatched] = useState<string[]>([]);
   const [needCaption, setNeedCaption] = useState(false);
   const valid = /https?:\/\/(www\.)?(tiktok\.com|instagram\.com|youtube\.com|youtu\.be)\//i.test(url);
   const captionReady = caption.trim().length > 0;
@@ -29,6 +30,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
     if (result.ok) {
       update((current) => ({ imported: [result.recipe, ...current.imported] }));
       setTitle(result.recipe.title);
+      setUnmatched(result.unmatched);
       setCaption("");
       setNeedCaption(false);
       setStage("done");
@@ -160,6 +162,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
         <p className="eyebrow">RESEP TERSIMPAN</p>
         <h3 className="mt-2 text-title font-bold">{title}</h3>
         <p className="mt-3 text-body text-muted-foreground">Bahan dan langkahnya sudah masuk ke tab Diambil. Periksa kembali takaran sebelum mulai memasak.</p>
+        {unmatched.length ? <div className="mt-4 rounded-xl border border-border bg-notice p-4"><p className="text-label uppercase">Ada yang tidak terbaca</p><p className="mt-2 text-body">Bahan ini disebut di videonya tapi belum ada di daftar Racik: {unmatched.join(", ")}. Silakan tambahkan sendiri waktu memasak.</p></div> : null}
         <Button className="mt-5 w-full" onClick={() => setOpen(false)}>Lihat di Buku Resep</Button>
       </div>}
     </Sheet>
