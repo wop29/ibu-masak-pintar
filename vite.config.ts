@@ -34,7 +34,7 @@ export default defineConfig({
             handler: "NetworkFirst",
             options: {
               cacheName: "racik-pages",
-              networkTimeoutSeconds: 3,
+              networkTimeoutSeconds: 1.5,
               expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [0, 200] },
               precacheFallback: { fallbackURL: "/_shell.html" },
