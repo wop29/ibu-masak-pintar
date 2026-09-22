@@ -14,7 +14,7 @@ export const ING: Record<string, Ingredient> = Object.fromEntries(
 
 export const REG: Record<string, Region> = Object.fromEntries(REGIONS.map((r) => [r.id, r]));
 
-const tables = tablesRaw as {
+const tables = tablesRaw as unknown as {
   TAKAR: Record<string, [number, string]>;
   BERAT: Record<string, number>;
   PROT100: Record<string, number>;

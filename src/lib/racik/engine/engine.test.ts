@@ -240,14 +240,14 @@ describe("stepIngredients", () => {
     const perStep = stepIngredients(r);
     const ids = perStep.flat().map((l) => l[0]);
     expect(new Set(ids).size).toBe(ids.length);
-    expect(perStep[0].map((l) => l[0])).toContain("tepung_terigu");
-    expect(perStep[3].map((l) => l[0])).toContain("tempe");
+    expect((perStep[0] ?? []).map((l) => l[0])).toContain("tepung_terigu");
+    expect((perStep[3] ?? []).map((l) => l[0])).toContain("tempe");
   });
 
   it("expands bumbu halus to the haluskan lines", () => {
     const r = recipe("rawon_daging");
     const perStep = stepIngredients(r);
-    const step2 = perStep[1].map((l) => l[0]);
+    const step2 = (perStep[1] ?? []).map((l) => l[0]);
     expect(step2).toContain("bawang_merah");
     expect(step2).toContain("kemiri");
   });

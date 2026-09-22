@@ -54,19 +54,24 @@ function tolerance(len: number): number {
 function withinDistance(a: string, b: string, max: number): boolean {
   if (max === 0) return a === b;
   if (Math.abs(a.length - b.length) > max) return false;
-  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  let prev: number[] = Array.from({ length: b.length + 1 }, (_, i) => i);
   for (let i = 1; i <= a.length; i++) {
-    const row = [i];
+    const row: number[] = [i];
     let best = i;
     for (let j = 1; j <= b.length; j++) {
       const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      row[j] = Math.min(prev[j] + 1, row[j - 1] + 1, prev[j - 1] + cost);
-      best = Math.min(best, row[j]);
+      const value = Math.min(
+        (prev[j] ?? Infinity) + 1,
+        (row[j - 1] ?? Infinity) + 1,
+        (prev[j - 1] ?? Infinity) + cost,
+      );
+      row[j] = value;
+      best = Math.min(best, value);
     }
     if (best > max) return false;
     prev = row;
   }
-  return prev[b.length] <= max;
+  return (prev[b.length] ?? Infinity) <= max;
 }
 
 export function searchScore(entry: SearchIndex, rawQuery: string): number {
