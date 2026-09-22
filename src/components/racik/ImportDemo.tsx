@@ -41,10 +41,29 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
       const message = caught instanceof Error ? caught.message : "Resep belum bisa diambil dari tautan ini.";
       if (message.includes(CAPTION_NEEDED)) {
         setNeedCaption(true);
-        setError("Keterangan video ini tidak bisa dibaca dari luar aplikasinya. Salin keterangan videonya, lalu tempel di bawah.");
+        setError("Suara dan keterangan video ini tidak bisa dibaca dari luar aplikasinya. Unggah videonya, atau tempel keterangannya di bawah.");
       } else {
         setError(message);
       }
+      setStage("form");
+    }
+  };
+  const submitFile = async (file: File) => {
+    setError("");
+    setStage("working");
+    try {
+      const form = new FormData();
+      form.append("url", url.trim());
+      form.append("file", file);
+      const recipe = await importUpload({ data: form });
+      update((current) => ({ imported: [recipe, ...current.imported] }));
+      setTitle(recipe.title);
+      setStage("done");
+      setCaption("");
+      setNeedCaption(false);
+      onImported?.();
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message.replace(CAPTION_NEEDED, "Suara di berkas itu belum memuat bahan dan langkah.") : "Berkas itu belum bisa dibaca.");
       setStage("form");
     }
   };
