@@ -25,7 +25,7 @@ function QtyText({
       <span className="font-semibold tabular-nums">
         {fmtQty(qty)} {unit}
       </span>
-      {rumah ? <span className="text-mag-text"> {rumah}</span> : null}
+      {rumah ? <span className="text-primary"> {rumah}</span> : null}
     </span>
   );
 }

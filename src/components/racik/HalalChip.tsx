@@ -17,7 +17,7 @@ export function HalalChip({ recipe }: { recipe: Recipe }) {
         onClick={() => setOpen(true)}
         className="text-label uppercase tracking-[0.1em] text-ink-2"
       >
-        {label} <span className="text-mag-text">ⓘ</span>
+        {label} <span className="text-primary">ⓘ</span>
       </Button>
 
       <Sheet open={open} onClose={() => setOpen(false)} title="Soal halal">

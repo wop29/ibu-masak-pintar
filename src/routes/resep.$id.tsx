@@ -46,7 +46,7 @@ function DetailResep() {
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] pb-28">
-      <div className="relative aspect-[4/3] w-full bg-mag-deep">
+      <div className="relative aspect-[4/3] w-full bg-primary-deep">
         {photo ? (
           <img
             src={photo}
@@ -96,7 +96,7 @@ function DetailResep() {
             key={cell.k}
             className={`flex-1 px-4 py-4 ${i < 2 ? "border-r border-rule" : ""}`}
           >
-            <p className="text-micro text-ink-3 uppercase tracking-[0.14em]">{cell.k}</p>
+            <p className="text-micro text-ink-3 uppercase tracking-[0.1em]">{cell.k}</p>
             <p className="text-body mt-1 font-semibold">{cell.v}</p>
           </div>
         ))}
@@ -155,7 +155,7 @@ function DetailResep() {
           <ol className="pt-2">
             {recipe.steps.map(([text, seconds], i) => (
               <li key={i} className="hairline-b flex gap-4 py-4">
-                <span className="text-label text-mag-text w-6 shrink-0 pt-1 tabular-nums">
+                <span className="w-6 shrink-0 pt-1 text-label text-primary tabular-nums">
                   {i + 1}
                 </span>
                 <div className="flex-1">

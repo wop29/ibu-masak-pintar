@@ -13,7 +13,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
       params={{ id: recipe.id }}
       className="hairline-b block bg-card"
     >
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-mag-deep">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-primary-deep">
         {photo ? (
           <img
             src={photo}

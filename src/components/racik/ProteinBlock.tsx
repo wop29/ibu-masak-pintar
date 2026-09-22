@@ -28,7 +28,7 @@ export function ProteinBlock({ recipe }: { recipe: Recipe }) {
           <span className="text-label text-ink-3">ⓘ</span>
         </div>
         <div className="mt-2 h-[6px] w-full bg-rule">
-          <div className="h-[6px] bg-mag-fill" style={{ width: `${pct}%` }} />
+          <div className="h-[6px] bg-primary" style={{ width: `${pct}%` }} />
         </div>
       </Button>
 
