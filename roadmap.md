@@ -38,6 +38,7 @@ Data contoh (15 resep, ~60 bahan, 7 daerah) sudah masuk. Ganti dengan ekspor
 - [x] Empat slide, urutan: skala porsi (angka rendang) → takaran rumah →
       perkiraan protein → impor
 - [x] Kulit PWA: manifest, service worker, portrait saja
+- [x] Aman untuk layar ponsel: area kamera/bilah bawah, zoom teks, ikon layar utama
 - [x] Alur impor sebagai peragaan yang jujur disebut peragaan
 
 ## Menunggu di luar kendali

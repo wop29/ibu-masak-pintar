@@ -69,10 +69,10 @@ function MasakApa() {
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card pb-24">
-      <header className="px-5 pb-5 pt-10">
+      <header className="px-5 pb-5 pt-[calc(2.5rem+env(safe-area-inset-top))]">
         <p className="eyebrow">{words[0]}</p>
-        <h1 className="mt-1 text-display font-extrabold leading-[1.08] tracking-[-0.03em]">{words[1]}</h1>
-        <div className="mt-2 flex items-center justify-between gap-3"><p className="text-body text-muted-foreground">Untuk {state.household} orang</p><PortionStepper value={state.household} onChange={(v) => update({ household: v })} /></div>
+        <h1 className="mt-1 text-display font-extrabold leading-[1.08]">{words[1]}</h1>
+        <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><p className="min-w-0 text-body text-muted-foreground">Untuk {state.household} orang</p><div className="shrink-0"><PortionStepper value={state.household} onChange={(v) => update({ household: v })} /></div></div>
         <div className="mt-5"><SearchField value={query} onChange={setQuery} placeholder="Cari resep atau bahan…" /></div>
       </header>
       <div className="hairline-t hairline-b no-scrollbar flex gap-3 overflow-x-auto px-5 py-5">
