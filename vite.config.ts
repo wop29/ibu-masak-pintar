@@ -21,6 +21,9 @@ export default defineConfig({
       workbox: {
         // The server renders each online URL. This shell only answers when a
         // navigation cannot reach the server within the short timeout below.
+        // Navigations go through the NetworkFirst route below, which already
+        // falls back to the precached shell, so no blanket fallback route here.
+        navigateFallback: null,
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg}"],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         runtimeCaching: [
