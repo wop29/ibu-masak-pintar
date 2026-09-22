@@ -70,30 +70,105 @@ function decodeHtml(value: string) {
     .replace(/&gt;/g, ">");
 }
 
-function pageEvidence(html: string) {
+const WANTED_META = ["description", "og:description", "og:title", "twitter:description", "twitter:title", "author", "title"];
+
+function metaEvidence(html: string) {
   const snippets: string[] = [];
-  const metaPattern = /<meta\s+[^>]*(?:name|property)=["'](?:description|og:description|og:title|twitter:description|author)["'][^>]*content=["']([^"']+)["'][^>]*>/gi;
-  for (const match of html.matchAll(metaPattern)) snippets.push(decodeHtml(match[1] ?? ""));
-  const jsonLdPattern = /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
-  for (const match of html.matchAll(jsonLdPattern)) snippets.push(decodeHtml(match[1] ?? "").slice(0, 25_000));
-  const hydration = html.match(/<script[^>]+id=["'](?:SIGI_STATE|__NEXT_DATA__)["'][^>]*>([\s\S]*?)<\/script>/i)?.[1];
-  if (hydration) snippets.push(decodeHtml(hydration).slice(0, 80_000));
-  return snippets.join("\n").replace(/\s+/g, " ").slice(0, 110_000);
+  for (const tag of html.matchAll(/<meta\b[^>]*>/gi)) {
+    const raw = tag[0];
+    const key = raw.match(/(?:name|property|itemprop)=["']([^"']+)["']/i)?.[1]?.toLowerCase();
+    const content = raw.match(/content=["']([^"']*)["']/i)?.[1];
+    if (!key || !content) continue;
+    if (!WANTED_META.includes(key)) continue;
+    snippets.push(`${key}: ${decodeHtml(content)}`);
+  }
+  return snippets;
+}
+
+function tiktokEvidence(html: string) {
+  const raw = html.match(/<script[^>]+id=["']__UNIVERSAL_DATA_FOR_REHYDRATION__["'][^>]*>([\s\S]*?)<\/script>/i)?.[1];
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    const scope = (parsed["__DEFAULT_SCOPE__"] ?? {}) as Record<string, unknown>;
+    const detail = scope["webapp.video-detail"] as { itemInfo?: { itemStruct?: Record<string, unknown> } } | undefined;
+    const item = detail?.itemInfo?.itemStruct;
+    if (!item) return [];
+    const author = item["author"] as { uniqueId?: string; nickname?: string } | undefined;
+    const out: string[] = [];
+    if (typeof item["desc"] === "string" && item["desc"]) out.push(`keterangan: ${item["desc"]}`);
+    if (author?.nickname || author?.uniqueId) out.push(`pembuat: ${author?.nickname ?? ""} ${author?.uniqueId ? `@${author.uniqueId}` : ""}`.trim());
+    return out;
+  } catch {
+    return [];
+  }
+}
+
+function youtubeEvidence(html: string) {
+  const match = html.match(/"shortDescription":"((?:\\.|[^"\\])*)"/);
+  if (!match?.[1]) return [];
+  try {
+    return [`keterangan: ${JSON.parse(`"${match[1]}"`) as string}`];
+  } catch {
+    return [];
+  }
+}
+
+function jsonLdEvidence(html: string) {
+  const out: string[] = [];
+  for (const match of html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
+    out.push(decodeHtml(match[1] ?? "").slice(0, 25_000));
+  }
+  return out;
 }
 
 async function fetchPage(url: string) {
-  const response = await fetch(url, {
-    redirect: "follow",
-    headers: {
-      "User-Agent": "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36",
-      Accept: "text/html,application/xhtml+xml",
-    },
-  });
-  if (!response.ok) throw new Error("Video tidak bisa dibaca. Pastikan tautannya publik dan masih tersedia.");
-  if (!isAllowedUrl(response.url)) throw new Error("Tautan dialihkan ke situs yang tidak didukung.");
-  const length = Number(response.headers.get("content-length") ?? "0");
-  if (length > 3_000_000) throw new Error("Halaman video terlalu besar untuk dibaca.");
-  return pageEvidence((await response.text()).slice(0, 3_000_000));
+  try {
+    const response = await fetch(url, {
+      redirect: "follow",
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36",
+        Accept: "text/html,application/xhtml+xml",
+        "Accept-Language": "id,en;q=0.8",
+      },
+    });
+    if (!response.ok) return [];
+    if (!isAllowedUrl(response.url)) return [];
+    const html = (await response.text()).slice(0, 3_000_000);
+    return [...metaEvidence(html), ...youtubeEvidence(html), ...tiktokEvidence(html), ...jsonLdEvidence(html)];
+  } catch {
+    return [];
+  }
+}
+
+async function fetchOembed(url: string) {
+  const host = new URL(url).hostname.toLowerCase();
+  const endpoint = host.includes("tiktok")
+    ? `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`
+    : host.includes("youtu")
+      ? `https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`
+      : null;
+  if (!endpoint) return [];
+  try {
+    const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
+    if (!response.ok) return [];
+    const body = await response.json() as { title?: string; author_name?: string };
+    const out: string[] = [];
+    if (body.title) out.push(`judul video: ${body.title}`);
+    if (body.author_name) out.push(`pembuat: ${body.author_name}`);
+    return out;
+  } catch {
+    return [];
+  }
+}
+
+function usableEvidence(parts: string[]) {
+  // Platform boilerplate carries no recipe signal, so it must not count as evidence.
+  const junk = /(video'?s? delen|share your videos|enjoy the videos|log in|masuk untuk)/i;
+  const kept = parts
+    .map((part) => part.replace(/\s+/g, " ").trim())
+    .filter((part) => part.length > 0 && !junk.test(part));
+  return [...new Set(kept)].join("\n").slice(0, 110_000);
 }
 
 async function readGatewayError(response: Response) {
