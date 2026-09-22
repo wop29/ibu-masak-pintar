@@ -10,7 +10,7 @@ import woku from "@/assets/resep/ayam_woku.jpg";
 const slides = [
   { image: rendang, label: "Takaran ikut porsi", title: "4 jadi 12 porsi, cabai 17 jadi 34", body: "Daging mengikuti jumlah porsi. Bumbu naik lebih pelan, supaya rasa tidak berlebihan." },
   { image: mendoan, label: "BAHASA DAPUR KITA", title: "Gram atau sendok, pilih yang ada", body: "800 ml santan itu kira-kira 4 gelas belimbing. Racik menulis dua-duanya, jadi tidak perlu timbangan atau gelas ukur." },
-  { image: gado, label: "Perkiraan protein", title: "Tahu perkiraan protein di setiap porsi", body: "Perkiraan protein per porsi, supaya tahu masakannya sudah cukup mengenyangkan atau belum. Perkiraan, bukan hasil uji lab." },
+  { image: gado, label: "Perkiraan protein", title: "Tahu isinya berapa", body: "Perkiraan protein per porsi, supaya tahu masakannya sudah cukup mengenyangkan atau belum. Perkiraan, bukan hasil uji lab." },
   { image: woku, label: "Dari video ke resep", title: "Dari video ke resep", body: "Tempel tautan atau keterangan videonya. Racik merapikan bahan dan langkahnya." },
 ] as const;
 
