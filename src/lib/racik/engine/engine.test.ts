@@ -29,7 +29,15 @@ const qty = (id: string, ingId: string, servings: number) => {
 describe("catalogue", () => {
   it("ships exactly the delivered dataset, with nothing left over", () => {
     expect(RECIPES.filter((r) => !r.imported)).toHaveLength(199);
-    expect(INGREDIENTS).toHaveLength(172);
+    // 167 delivered ingredients, plus five kept only so pasted captions can map
+    // onto a real id instead of landing in the unmatched panel.
+    const importOnly = ["ikan_cakalang", "jeruk_nipis", "kaldu_bubuk", "soda_kue", "tepung_tapioka"];
+    expect(INGREDIENTS).toHaveLength(167 + importOnly.length);
+    const used = new Set(RECIPES.flatMap((r) => r.ings.map((l) => l[0])));
+    for (const id of importOnly) {
+      expect(INGREDIENTS.some((i) => i.id === id)).toBe(true);
+      expect(used.has(id)).toBe(false);
+    }
   });
 
   it("has no duplicate ids", () => {
