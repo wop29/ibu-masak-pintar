@@ -122,22 +122,110 @@ function jsonLdEvidence(html: string) {
   return out;
 }
 
-async function fetchPage(url: string) {
+const BROWSER_UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36";
+const TRANSCRIBE_MODEL = "google/gemini-3.5-transcribe";
+const MAX_MEDIA_BYTES = 24_000_000;
+
+async function fetchHtml(url: string) {
   try {
     const response = await fetch(url, {
       redirect: "follow",
       headers: {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36",
+        "User-Agent": BROWSER_UA,
         Accept: "text/html,application/xhtml+xml",
         "Accept-Language": "id,en;q=0.8",
       },
     });
-    if (!response.ok) return [];
-    if (!isAllowedUrl(response.url)) return [];
-    const html = (await response.text()).slice(0, 3_000_000);
-    return [...metaEvidence(html), ...youtubeEvidence(html), ...tiktokEvidence(html), ...jsonLdEvidence(html)];
+    if (!response.ok) return "";
+    if (!isAllowedUrl(response.url)) return "";
+    return (await response.text()).slice(0, 3_000_000);
   } catch {
-    return [];
+    return "";
+  }
+}
+
+function pageEvidence(html: string) {
+  if (!html) return [];
+  return [...metaEvidence(html), ...youtubeEvidence(html), ...tiktokEvidence(html), ...jsonLdEvidence(html)];
+}
+
+function unescapeSlashes(value: string) {
+  return value.replace(/\\u002F/gi, "/").replace(/\\\//g, "/").replace(/&amp;/g, "&");
+}
+
+/** Spoken words are where most video recipes live, so subtitles come before audio. */
+async function youtubeCaptions(url: string, html: string) {
+  const path = html.match(/"(\/api\/timedtext\?[^"]+)"/)?.[1];
+  if (!path) return "";
+  const endpoint = `https://www.youtube.com${unescapeSlashes(path).replace(/\\u0026/gi, "&")}&fmt=json3`;
+  try {
+    const response = await fetch(endpoint, { headers: { "User-Agent": BROWSER_UA, Referer: url } });
+    if (!response.ok) return "";
+    const body = await response.text();
+    if (!body.trim()) return "";
+    const parsed = JSON.parse(body) as { events?: { segs?: { utf8?: string }[] }[] };
+    return (parsed.events ?? [])
+      .flatMap((event) => event.segs ?? [])
+      .map((seg) => seg.utf8 ?? "")
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 40_000);
+  } catch {
+    return "";
+  }
+}
+
+function mediaUrlFromHtml(html: string) {
+  const candidates = [
+    html.match(/"playAddr":"([^"]+)"/)?.[1],
+    html.match(/"downloadAddr":"([^"]+)"/)?.[1],
+    html.match(/"video_url":"([^"]+)"/)?.[1],
+    html.match(/<meta[^>]+(?:property|name)=["']og:video(?::secure_url|:url)?["'][^>]+content=["']([^"']+)["']/i)?.[1],
+    html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']og:video(?::secure_url|:url)?["']/i)?.[1],
+  ];
+  for (const candidate of candidates) {
+    if (!candidate) continue;
+    const resolved = decodeHtml(unescapeSlashes(candidate));
+    if (/^https:\/\//i.test(resolved)) return resolved;
+  }
+  return "";
+}
+
+async function fetchMedia(mediaUrl: string, referer: string) {
+  try {
+    const response = await fetch(mediaUrl, {
+      redirect: "follow",
+      headers: { "User-Agent": BROWSER_UA, Referer: referer, Accept: "*/*" },
+    });
+    if (!response.ok) return null;
+    const type = response.headers.get("content-type") ?? "";
+    if (!/^(video|audio|application\/octet-stream)/i.test(type)) return null;
+    const length = Number(response.headers.get("content-length") ?? 0);
+    if (length > MAX_MEDIA_BYTES) return null;
+    const bytes = await response.arrayBuffer();
+    if (bytes.byteLength === 0 || bytes.byteLength > MAX_MEDIA_BYTES) return null;
+    return new Blob([bytes], { type: type.split(";")[0] || "video/mp4" });
+  } catch {
+    return null;
+  }
+}
+
+async function transcribe(media: Blob, filename: string, key: string) {
+  const form = new FormData();
+  form.append("file", media, filename);
+  form.append("model", TRANSCRIBE_MODEL);
+  try {
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/audio/transcriptions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${key}`, "X-Lovable-AIG-SDK": "fetch" },
+      body: form,
+    });
+    if (!response.ok) return "";
+    const body = await response.json() as { text?: string };
+    return (body.text ?? "").replace(/\s+/g, " ").trim().slice(0, 40_000);
+  } catch {
+    return "";
   }
 }
 
@@ -233,38 +321,81 @@ async function extractRecipe(evidence: string, key: string) {
   }).parse(JSON.parse(output));
 }
 
+function requireKey() {
+  const key = process.env['LOVABLE_API_KEY'];
+  if (!key) throw new Error("Pemrosesan resep belum tersambung.");
+  return key;
+}
+
+async function buildRecipe(url: string, evidence: string, key: string, spokenOrPasted: boolean) {
+  const result = await extractRecipe(evidence, key);
+  if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
+    throw new Error(spokenOrPasted
+      ? "Bahan dan langkahnya belum terbaca cukup jelas dari video ini. Racik tidak menebak bagian yang tidak disebut."
+      : CAPTION_NEEDED);
+  }
+  const imported: ImportedRecipe = {
+    id: `import-${crypto.randomUUID()}`,
+    sourceUrl: url,
+    title: result.title,
+    creator: result.creator,
+    servings: result.servings,
+    timeMinutes: result.timeMinutes,
+    difficulty: result.difficulty,
+    note: result.note,
+    ingredients: result.ingredients,
+    steps: result.steps,
+    importedAt: Date.now(),
+  };
+  return imported;
+}
+
 export const importRecipeFromVideo = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => inputSchema.parse(input))
   .handler(async ({ data }) => {
     if (!isAllowedUrl(data.url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
     const caption = data.caption?.trim() ?? "";
-    const [page, oembed] = await Promise.all([fetchPage(data.url), fetchOembed(data.url)]);
-    const parts = [...oembed, ...page];
+    const key = requireKey();
+    const [html, oembed] = await Promise.all([fetchHtml(data.url), fetchOembed(data.url)]);
+    const parts = [...oembed, ...pageEvidence(html)];
+
+    const captions = await youtubeCaptions(data.url, html);
+    if (captions) parts.push(`takarir video: ${captions}`);
+
+    let spoken = captions;
+    if (!spoken && !caption) {
+      const mediaUrl = mediaUrlFromHtml(html);
+      if (mediaUrl) {
+        const media = await fetchMedia(mediaUrl, data.url);
+        if (media) {
+          spoken = await transcribe(media, "video.mp4", key);
+          if (spoken) parts.push(`suara video: ${spoken}`);
+        }
+      }
+    }
     if (caption) parts.push(`keterangan yang ditempel pembaca: ${caption}`);
+
     const evidence = usableEvidence(parts);
-    if (evidence.length < 80 || (!caption && !/keterangan|ingredient|bahan/i.test(evidence))) {
-      throw new Error(CAPTION_NEEDED);
-    }
-    const key = process.env['LOVABLE_API_KEY'];
-    if (!key) throw new Error("Pemrosesan resep belum tersambung.");
-    const result = await extractRecipe(evidence, key);
-    if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
-      throw new Error(caption
-        ? "Keterangan itu belum memuat cukup bahan dan langkah. Racik tidak menebak bagian yang tidak disebut."
-        : CAPTION_NEEDED);
-    }
-    const imported: ImportedRecipe = {
-      id: `import-${crypto.randomUUID()}`,
-      sourceUrl: data.url,
-      title: result.title,
-      creator: result.creator,
-      servings: result.servings,
-      timeMinutes: result.timeMinutes,
-      difficulty: result.difficulty,
-      note: result.note,
-      ingredients: result.ingredients,
-      steps: result.steps,
-      importedAt: Date.now(),
-    };
-    return imported;
+    const hasRecipeSignal = Boolean(caption) || Boolean(spoken) || /keterangan|ingredient|bahan/i.test(evidence);
+    if (evidence.length < 80 || !hasRecipeSignal) throw new Error(CAPTION_NEEDED);
+    return buildRecipe(data.url, evidence, key, Boolean(caption) || Boolean(spoken));
+  });
+
+export const importRecipeFromUpload = createServerFn({ method: "POST" })
+  .inputValidator((input: unknown) => {
+    if (!(input instanceof FormData)) throw new Error("Berkas video belum terkirim.");
+    return input;
+  })
+  .handler(async ({ data }) => {
+    const url = String(data.get("url") ?? "");
+    const file = data.get("file");
+    if (!isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+    if (!(file instanceof File) || file.size === 0) throw new Error("Pilih berkas video atau rekaman suaranya dulu.");
+    if (file.size > MAX_MEDIA_BYTES) throw new Error("Berkasnya terlalu besar. Pakai video di bawah 24 MB atau rekaman suaranya saja.");
+    const key = requireKey();
+    const spoken = await transcribe(file, file.name || "video.mp4", key);
+    if (!spoken) throw new Error("Suara di berkas itu tidak terbaca. Coba berkas lain atau tempel keterangan videonya.");
+    const [html, oembed] = await Promise.all([fetchHtml(url), fetchOembed(url)]);
+    const evidence = usableEvidence([...oembed, ...pageEvidence(html), `suara video: ${spoken}`]);
+    return buildRecipe(url, evidence, key, true);
   });
