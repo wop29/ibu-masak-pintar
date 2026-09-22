@@ -2,12 +2,13 @@ import { INGREDIENTS, ING } from "./data";
 import { normalise } from "./engine/search";
 import type { ImportedRecipe, IngLine, Step, Unit } from "./types";
 
-/** Every phrase that can name an ontology ingredient, longest first. */
-const PHRASES: { phrase: string; id: string }[] = INGREDIENTS.flatMap((ing) =>
-  [ing.name, ...ing.aliases].map((phrase) => ({ phrase: normalise(phrase), id: ing.id })),
-)
+/** Every phrase that can name an ontology ingredient, longest first, names before aliases. */
+const PHRASES: { phrase: string; id: string; canonical: boolean }[] = INGREDIENTS.flatMap((ing) => [
+  { phrase: normalise(ing.name), id: ing.id, canonical: true },
+  ...ing.aliases.map((phrase) => ({ phrase: normalise(phrase), id: ing.id, canonical: false })),
+])
   .filter((entry) => entry.phrase.length > 2)
-  .sort((a, b) => b.phrase.length - a.phrase.length);
+  .sort((a, b) => b.phrase.length - a.phrase.length || Number(b.canonical) - Number(a.canonical));
 
 /**
  * The model never supplies an id. Names are resolved here against the
@@ -15,12 +16,21 @@ const PHRASES: { phrase: string; id: string }[] = INGREDIENTS.flatMap((ing) =>
  * to the reader as unmatched.
  */
 export function matchIngredient(raw: string): string | null {
-  const text = ` ${normalise(raw)} `;
+  const exact = normalise(raw);
+  // An exact name beats a longer phrase that merely contains this one.
+  for (const { phrase, id, canonical } of PHRASES) {
+    if (canonical && phrase === exact) return id;
+  }
+  for (const { phrase, id } of PHRASES) {
+    if (phrase === exact) return id;
+  }
+  const text = ` ${exact} `;
   for (const { phrase, id } of PHRASES) {
     if (text.includes(` ${phrase} `)) return id;
   }
   return null;
 }
+
 
 const UNIT_ALIAS: Record<string, { unit: Unit; factor: number }> = {
   gram: { unit: "gram", factor: 1 },
