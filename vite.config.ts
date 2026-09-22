@@ -20,16 +20,26 @@ export default defineConfig({
       devOptions: { enabled: false },
       manifest: false,
       workbox: {
-        // Every page is the same prerendered shell, so one precached document
-        // answers any recipe URL, visited before or not, with no signal at all.
-        navigateFallback: "/_shell.html",
+        // The server renders each online URL. This shell only answers when a
+        // navigation cannot reach the server within the short timeout below.
         // The shell is written by the prerender step, after this plugin globs the
         // output directory, so it is added to the precache list by hand.
         additionalManifestEntries: [{ url: "/_shell.html", revision: BUILD_ID }],
-        navigateFallbackDenylist: [/^\/api\//, /^\/~oauth/, /^\/_serverFn\//],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg}"],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         runtimeCaching: [
+          {
+            urlPattern: ({ request, url }) =>
+              request.mode === "navigate" && url.origin === self.location.origin,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "racik-pages",
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [0, 200] },
+              precacheFallback: { fallbackURL: "/_shell.html" },
+            },
+          },
           {
             // Photographs live on the CDN under this path. First view stores them,
             // every later view reads the cache, so a kitchen with no signal still
@@ -58,10 +68,9 @@ export default defineConfig({
     }),
   ],
   tanstackStart: {
-    // A prerendered, route-agnostic shell. When the phone has no signal and the
-    // requested page was never visited, the worker serves this shell and the app
-    // renders the recipe from the dataset already on the device.
-    spa: { enabled: true, prerender: { enabled: true, outputPath: "/_shell", crawlLinks: true } },
+    // Keep normal SSR for link previews, and additionally prerender one route-
+    // agnostic shell that Workbox can serve when a navigation is offline.
+    pages: [{ path: "/", prerender: { enabled: true, outputPath: "/_shell", crawlLinks: false } }],
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },

@@ -35,6 +35,5 @@ export function matchesFilter(recipe: Recipe, filter: string) {
   if (filter === "gampang") return recipe.diff === "gampang";
   if (filter === "protein") return proteinPerPortion(recipe) >= 15;
   if (filter === "banyak") return Boolean(recipe.leftover);
-  if (filter === "anak") return recipe.spice === 0;
   return true;
 }

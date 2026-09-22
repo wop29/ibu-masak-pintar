@@ -55,7 +55,7 @@ export function IngredientList({
             <li key={line[0]} className="hairline-b py-3">
               <div className="read-line flex items-start gap-3">
                 <span aria-hidden className="w-6 shrink-0">
-                  {ing.emoji}
+                  {ing.em}
                 </span>
                 <div className="flex-1">
                   <QtyText line={line} recipe={recipe} servings={servings} satuan={satuan} />{" "}

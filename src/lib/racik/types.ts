@@ -30,7 +30,7 @@ export interface Ingredient {
   unit: Unit;
   staple: 0 | 1;
   aliases: string[];
-  emoji: string;
+  em: string;
 }
 
 export interface Region {

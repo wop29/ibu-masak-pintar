@@ -51,11 +51,3 @@ export const SLOT_LABEL: Record<string, string> = {
   minuman: "Minuman",
   kue: "Kue",
 };
-
-export const SPICE_WORD = [
-  "tidak pedas",
-  "sedikit pedas",
-  "agak pedas",
-  "pedas",
-  "pedas sekali",
-] as const;
