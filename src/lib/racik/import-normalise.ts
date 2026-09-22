@@ -134,9 +134,9 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
     steps,
     precise: false,
     imported: true,
-    creator: raw.creator ?? undefined,
     sourceUrl,
     importedAt: Date.now(),
     unmatched,
+    ...(raw.creator ? { creator: raw.creator } : {}),
   };
 }

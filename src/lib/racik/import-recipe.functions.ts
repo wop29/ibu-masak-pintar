@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { normaliseImported } from "./import-normalise";
+import type { ImportedRecipe } from "./types";
 
 const inputSchema = z
   .object({
