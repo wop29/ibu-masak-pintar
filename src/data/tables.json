@@ -1,125 +1,406 @@
 {
-  "TAKAR": {
-    "santan": [200, "gelas belimbing"],
-    "air": [200, "gelas belimbing"],
-    "daging_sapi": [100, "ons"],
-    "udang": [100, "ons"],
-    "tauge": [100, "ons"],
-    "kol": [100, "ons"],
-    "tepung_terigu": [130, "gelas belimbing"],
-    "tepung_beras": [140, "gelas belimbing"],
-    "tepung_tapioka": [120, "gelas belimbing"],
-    "kacang_tanah": [100, "ons"],
-    "es_batu": [100, "ons"]
-  },
-  "BERAT": {
-    "bawang_merah": 10,
-    "bawang_putih": 5,
-    "cabai_merah": 5,
-    "cabai_rawit": 2,
-    "kemiri": 3,
-    "lengkuas": 20,
-    "jahe": 15,
-    "kunyit": 10,
-    "kencur": 10,
-    "serai": 15,
-    "daun_salam": 1,
-    "daun_jeruk": 1,
-    "kluwek": 8,
-    "gula_merah": 12,
-    "gula_pasir": 12,
-    "minyak_goreng": 10,
-    "kecap_manis": 15,
-    "asam_jawa": 15,
-    "terasi": 5,
-    "pandan": 3,
-    "jeruk_nipis": 50,
-    "kacang_panjang": 100,
-    "kentang": 150,
-    "tomat": 100,
-    "timun": 120,
-    "wortel": 80,
-    "bayam": 200,
-    "daun_singkong": 200,
-    "jagung_manis": 200,
-    "labu_siam": 250,
-    "kemangi": 50,
-    "daun_bawang": 15,
-    "ayam_utuh": 900,
-    "ayam_potong": 90,
-    "ikan_kembung": 200,
-    "ikan_cakalang": 400,
-    "telur": 55,
-    "tempe": 200,
-    "tahu": 80,
-    "beras": 180,
-    "bihun": 50,
-    "mi_telur": 80
-  },
-  "PROT100": {
-    "daging_sapi": 20,
-    "ayam_utuh": 18,
-    "ayam_potong": 18,
-    "ikan_kembung": 20,
-    "ikan_cakalang": 22,
-    "udang": 18,
-    "telur": 12.6,
-    "tempe": 19,
-    "tahu": 8,
-    "santan": 2,
-    "beras": 7,
-    "tepung_terigu": 9,
-    "tepung_beras": 7,
-    "tepung_tapioka": 0.3,
-    "kacang_tanah": 25,
-    "bihun": 0.5,
-    "mi_telur": 8,
-    "kacang_panjang": 2.8,
-    "tauge": 3,
-    "kol": 1.4,
-    "kentang": 2,
-    "bayam": 2.9,
-    "daun_singkong": 6.8,
-    "jagung_manis": 3.3,
-    "wortel": 0.9,
-    "tomat": 0.9,
-    "kemiri": 15,
-    "kluwek": 10
-  },
-  "SUBS": {
-    "kemiri": "Ganti kacang tanah sangrai, jumlahnya sama.",
-    "terasi": "Ganti sedikit garam dan ikan asin yang digoreng lalu diulek.",
-    "lengkuas": "Tambah jahe satu ruas. Rasanya beda sedikit, tapi jalan.",
-    "kencur": "Pakai jahe muda, setengah dari jumlah kencurnya.",
-    "santan": "Kelapa parut diperas sendiri, atau santan instan satu bungkus dengan air.",
-    "asam_jawa": "Air jeruk nipis satu sendok makan.",
-    "kecap_manis": "Gula merah dilelehkan dengan sedikit kecap asin.",
-    "daun_jeruk": "Kulit jeruk limau diserut halus.",
-    "gula_merah": "Gula pasir, kurangi sedikit supaya tidak terlalu manis.",
-    "kluwek": "Tidak ada penggantinya. Kalau tidak ada, masakannya jadi semur, bukan rawon.",
-    "tepung_tapioka": "Tepung sagu atau maizena.",
-    "kaldu_bubuk": "Boleh dilewati. Tambah garam sedikit dan masak kuahnya lebih lama."
-  },
-  "SUBS_LN": {
-    "santan": "Santan kaleng, ambil bagian yang kental di atas.",
-    "terasi": "Pasta ikan bili atau anchovy paste, seujung sendok.",
-    "kemiri": "Macadamia, jumlahnya sama.",
-    "lengkuas": "Galangal beku di toko Asia.",
-    "daun_salam": "Daun salam kering, dua kali jumlahnya.",
-    "tempe": "Tempe beku di toko Asia. Cairkan dulu di kulkas.",
-    "kluwek": "Kluwek kemasan vakum di toko Indonesia.",
-    "gula_merah": "Palm sugar atau jaggery.",
-    "kencur": "Lewati saja, ganti dengan jahe."
-  },
-  "ALAT": {
-    "kukusan": "Kukusan atau dandang",
-    "cetakan_bolu": "Cetakan bolu kukus",
-    "wajan": "Wajan cekung",
-    "cobek": "Cobek dan mutu"
-  },
-  "CREATORS": {
-    "dapurmamaay": { "handle": "@dapurmamaay", "name": "Dapur Mama Ay", "stats": "412 rb pengikut" },
-    "koki_harian": { "handle": "@koki.harian", "name": "Koki Harian", "stats": "128 rb pengikut" },
-    "rasaminang": { "handle": "@rasaminang", "name": "Rasa Minang", "stats": "89 rb pengikut" }
-  }
+"TAKAR": {
+"santan": [
+200,
+"gelas belimbing"
+],
+"air": [
+200,
+"gelas belimbing"
+],
+"daging_sapi": [
+100,
+"ons"
+],
+"udang": [
+100,
+"ons"
+],
+"tauge": [
+80,
+"genggam"
+],
+"kol": [
+1200,
+"kol sedang"
+],
+"tepung_terigu": [
+130,
+"gelas belimbing"
+],
+"tepung_beras": [
+140,
+"gelas belimbing"
+],
+"tepung_tapioka": [
+120,
+"gelas belimbing"
+],
+"kacang_tanah": [
+150,
+"gelas belimbing"
+],
+"es_batu": [
+100,
+"ons"
+],
+"daging_kambing": [
+100,
+"ons"
+],
+"ikan_patin": [
+100,
+"ons"
+],
+"nangka_muda": [
+100,
+"ons"
+],
+"melinjo": [
+100,
+"ons"
+],
+"labu_kuning": [
+100,
+"ons"
+],
+"ubi_jalar": [
+100,
+"ons"
+],
+"nanas_muda": [
+100,
+"ons"
+],
+"ikan_teri": [
+30,
+"genggam kecil"
+],
+"buncis": [
+100,
+"genggam"
+],
+"kelapa_parut": [
+400,
+"butir kelapa"
+],
+"sagu": [
+130,
+"gelas belimbing"
+]
+},
+"BERAT": {
+"bawang_merah": 10,
+"bawang_putih": 5,
+"cabai_merah": 5,
+"cabai_rawit": 2,
+"kemiri": 3,
+"lengkuas": 20,
+"jahe": 15,
+"kunyit": 10,
+"kencur": 10,
+"serai": 15,
+"daun_salam": 1,
+"daun_jeruk": 1,
+"kluwek": 8,
+"gula_merah": 12,
+"gula_pasir": 12,
+"minyak_goreng": 10,
+"kecap_manis": 15,
+"asam_jawa": 15,
+"terasi": 5,
+"pandan": 3,
+"jeruk_nipis": 50,
+"kacang_panjang": 100,
+"kentang": 120,
+"tomat": 100,
+"timun": 120,
+"wortel": 80,
+"bayam": 100,
+"daun_singkong": 100,
+"jagung_manis": 150,
+"labu_siam": 250,
+"kemangi": 50,
+"daun_bawang": 15,
+"ayam_utuh": 900,
+"ayam_potong": 90,
+"ikan_kembung": 100,
+"ikan_cakalang": 400,
+"telur": 55,
+"tempe": 200,
+"tahu": 50,
+"beras": 200,
+"bihun": 50,
+"mi_telur": 80,
+"telur_asin": 60,
+"ayam": 60,
+"bakso": 20,
+"ikan_mas": 150,
+"ikan_tongkol": 200,
+"ikan_bandeng": 180,
+"ikan_gurami": 250,
+"kepiting": 90,
+"ikan_roa": 40,
+"cakalang_fufu": 80,
+"petai": 60,
+"kerupuk_udang": 5,
+"mie_telur": 70,
+"nasi_putih": 150,
+"lontong": 100,
+"tepung_terigu": 8,
+"tepung_beras": 9,
+"kecap_asin": 15,
+"saus_tiram": 16,
+"tauco": 15,
+"susu_kental_manis": 20,
+"kopi_bubuk": 5,
+"daun_katuk": 80,
+"kangkung": 150,
+"pakis": 100,
+"brokoli": 150
+},
+"PROT100": {
+"daging_sapi": 26,
+"ayam_utuh": 13,
+"ayam_potong": 18,
+"ikan_kembung": 21,
+"ikan_cakalang": 22,
+"udang": 20,
+"telur": 12.6,
+"tempe": 19,
+"tahu": 8,
+"santan": 2,
+"beras": 7,
+"tepung_terigu": 10,
+"tepung_beras": 7,
+"tepung_tapioka": 0.3,
+"kacang_tanah": 26,
+"bihun": 6,
+"mi_telur": 8,
+"kacang_panjang": 3,
+"tauge": 3,
+"kol": 1.4,
+"kentang": 2,
+"bayam": 3,
+"daun_singkong": 5,
+"jagung_manis": 3.3,
+"wortel": 0.9,
+"tomat": 0.9,
+"kemiri": 15,
+"kluwek": 10,
+"daging_kambing": 27,
+"daging_giling": 19,
+"iga_sapi": 18,
+"buntut_sapi": 19,
+"babat": 12,
+"ayam": 18,
+"telur_asin": 14,
+"bakso": 12,
+"cumi": 16,
+"cumi_asin": 55,
+"ebi": 62,
+"kepiting": 18,
+"ikan_patin": 17,
+"ikan_tenggiri": 21,
+"ikan_kakap": 20,
+"ikan_gabus": 19,
+"ikan_nike": 16,
+"ikan_mas": 16,
+"ikan_tongkol": 22,
+"ikan_bandeng": 20,
+"ikan_gurami": 18,
+"ikan_asin": 42,
+"ikan_teri": 33,
+"ikan_roa": 30,
+"cakalang_fufu": 30,
+"oncom": 13,
+"kedelai": 36,
+"kacang_hijau": 22,
+"kacang_merah": 23,
+"wijen": 18,
+"keju_cheddar": 25,
+"susu_bubuk": 26,
+"susu_cair": 3.2,
+"susu_kental_manis": 3,
+"nasi_putih": 2.7,
+"beras_ketan": 7,
+"ketan_hitam": 8,
+"tepung_ketan": 6,
+"makaroni": 13,
+"mie_telur": 12,
+"lontong": 2,
+"kecap_manis": 1.5,
+"kecap_asin": 2,
+"saus_tiram": 1,
+"tauco": 3,
+"kopi_bubuk": 4,
+"kelapa_parut": 3.3,
+"emping": 12,
+"tape_singkong": 1.4,
+"kerupuk_udang": 6,
+"daun_katuk": 5,
+"petai": 10,
+"kangkung": 3,
+"brokoli": 2.8,
+"buncis": 2,
+"jamur_kuping": 3,
+"nangka_muda": 2,
+"melinjo": 5,
+"rebung": 2.6,
+"pakis": 3,
+"bunga_pepaya": 4
+},
+"SUBS": {
+"kemiri": "Kacang mete atau almond, jumlah sama. Sangrai dulu supaya wangi.",
+"terasi": "Ebi sangrai yang dihaluskan. Atau lewati saja — rasanya jadi lebih ringan, bukan salah.",
+"lengkuas": "Jahe, tapi pakai setengahnya saja — jahe jauh lebih tajam.",
+"kencur": "Jahe ditambah sedikit air jeruk nipis.",
+"santan": "Susu cair ditambah 1 sdm minyak kelapa. Kuahnya lebih encer tapi tetap gurih.",
+"asam_jawa": "Air jeruk nipis, mulai dari setengahnya lalu dicicip.",
+"kecap_manis": "Gula merah dilelehkan dengan sedikit kecap asin.",
+"daun_jeruk": "Kulit jeruk nipis diserut halus.",
+"gula_merah": "Gula pasir ditambah sedikit kecap manis untuk warnanya.",
+"kluwek": "Tidak ada gantinya. Rawon tanpa kluwek bukan rawon — lebih baik ditunda.",
+"tepung_tapioka": "Tepung sagu atau maizena.",
+"kaldu_bubuk": "Boleh dilewati. Tambah garam sedikit dan masak kuahnya lebih lama.",
+"daun_salam": "Daun jeruk, atau lewati. Jangan diganti bay leaf — beda pohon, beda rasa.",
+"saus_tiram": "Kecap asin ditambah sejumput gula.",
+"kecap_asin": "Garam, tapi kurangi banyak — lebih gampang keasinan.",
+"andaliman": "Merica ditambah sedikit kulit jeruk limau. Getirnya tidak sama, tapi mendekati.",
+"bakso": "Sosis ayam diiris, atau tambah satu telur.",
+"mie_telur": "Bihun, atau mie instan yang bumbunya dibuang.",
+"bihun": "Mie telur atau soun.",
+"tepung_beras": "Tepung terigu. Hasilnya sedikit lebih lembek, masih enak.",
+"kelapa_parut": "Kelapa parut kering, rendam air hangat 10 menit dulu.",
+"ikan_teri": "Ebi, atau ikan asin yang disuwir kecil-kecil.",
+"kemangi": "Daun basil, tapi masukkan lebih sedikit — basil lebih kuat.",
+"jeruk_limau": "Jeruk nipis. Wanginya beda, asamnya sama.",
+"air_jeruk_nipis": "Cuka masak, setengahnya saja.",
+"sagu": "Tepung tapioka atau kanji.",
+"daging_kambing": "Daging sapi. Waktu masaknya perlu lebih lama sedikit.",
+"udang": "Ayam dipotong kecil, atau tahu.",
+"ikan_kembung": "Ikan tongkol atau kembung asin — apa pun yang ada di pasar pagi itu.",
+"kayu_manis": "Bubuk kayu manis, ¼ sdt untuk tiap batang.",
+"jinten": "Lewati saja. Jangan diganti ketumbar — rasanya berlawanan.",
+"tepung_terigu": "Tepung beras, atau maizena setengahnya.",
+"bawang_bombay": "Bawang merah, tiga kali lipat jumlahnya.",
+"andaliman_": ""
+},
+"SUBS_LN": {
+"santan": "Santan kaleng, ambil bagian yang kental di atas.",
+"terasi": "Pasta ikan bili atau anchovy paste, seujung sendok.",
+"kemiri": "Macadamia, jumlahnya sama.",
+"lengkuas": "Galangal beku di toko Asia.",
+"daun_salam": "Daun salam kering, dua kali jumlahnya.",
+"tempe": "Tempe beku di toko Asia. Cairkan dulu di kulkas.",
+"kluwek": "Kluwek kemasan vakum di toko Indonesia.",
+"gula_merah": "Palm sugar atau jaggery.",
+"kencur": "Lewati saja, ganti dengan jahe."
+},
+"ALAT": {
+"kukusan": "Kukusan",
+"cetakan_bolu": "Cetakan bolu kukus",
+"wajan": "Wajan",
+"cobek": "Cobek dan mutu",
+"oven": "Oven",
+"panci": "Panci",
+"cetakan": "Cetakan",
+"blender": "Blender",
+"dingin": "Tanpa dimasak"
+},
+"CREATORS": {
+"dapurmamaay": {
+"handle": "@dapurmamaay",
+"name": "Dapur Mama Ay",
+"stats": "412 rb pengikut"
+},
+"koki_harian": {
+"handle": "@koki.harian",
+"name": "Koki Harian",
+"stats": "128 rb pengikut"
+},
+"rasaminang": {
+"handle": "@rasaminang",
+"name": "Rasa Minang",
+"stats": "89 rb pengikut"
+}
+},
+"ALAT_ICON": {
+"oven": "🔥",
+"kukusan": "♨️",
+"wajan": "🍳",
+"panci": "🥘",
+"cetakan": "🧁",
+"blender": "🌀",
+"dingin": "🧊"
+},
+"BELANJA": [
+[
+"sayur",
+"Sayur & Buah",
+"🥬"
+],
+[
+"daging",
+"Daging, Ikan & Telur",
+"🐟"
+],
+[
+"bumbu",
+"Bumbu",
+"🧄"
+],
+[
+"sembako",
+"Sembako & Kering",
+"🌾"
+],
+[
+"lain",
+"Lain-lain",
+"🧺"
+]
+],
+"CATS": [
+[
+"makan_siang",
+"☀️",
+"Siang"
+],
+[
+"makan_malam",
+"🌙",
+"Malam"
+],
+[
+"sarapan",
+"🍳",
+"Sarapan"
+],
+[
+"sayur",
+"🥬",
+"Sayur"
+],
+[
+"lauk",
+"🍗",
+"Lauk"
+],
+[
+"sambal",
+"🌶️",
+"Sambal"
+],
+[
+"jajan",
+"🍡",
+"Jajan"
+],
+[
+"minuman",
+"🥤",
+"Minuman"
+]
+]
 }
