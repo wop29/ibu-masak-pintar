@@ -9,6 +9,8 @@ import { Sheet } from "./Sheet";
 export function ImportDemo({ compact = false, onImported }: { compact?: boolean; onImported?: () => void }) {
   const { state, update } = useRacik();
   const importRecipe = useServerFn(importRecipeFromVideo);
+  const importUpload = useServerFn(importRecipeFromUpload);
+  const fileRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState("");
   const [stage, setStage] = useState<"form" | "working" | "done">("form");
