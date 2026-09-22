@@ -1,3 +1,6 @@
+import { Minus, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 export function PortionStepper({
   value,
   onChange,
@@ -9,30 +12,26 @@ export function PortionStepper({
   min?: number;
   max?: number;
 }) {
-  const btn =
-    "flex h-11 w-11 items-center justify-center text-head text-ink disabled:text-rule";
   return (
-    <div className="flex items-center gap-1 border border-rule rounded-sm bg-card">
-      <button
-        className={btn}
+    <div className="flex items-center gap-1 rounded-xl border border-rule bg-card">
+      <Button variant="ghost" size="icon"
         onClick={() => onChange(Math.max(min, value - 1))}
         disabled={value <= min}
         aria-label="Kurangi porsi"
       >
-        −
-      </button>
+        <Minus />
+      </Button>
       <div className="w-16 text-center">
         <span className="text-head font-semibold tabular-nums">{value}</span>
         <span className="text-label text-ink-3"> porsi</span>
       </div>
-      <button
-        className={btn}
+      <Button variant="ghost" size="icon"
         onClick={() => onChange(Math.min(max, value + 1))}
         disabled={value >= max}
         aria-label="Tambah porsi"
       >
-        +
-      </button>
+        <Plus />
+      </Button>
     </div>
   );
 }

@@ -1,0 +1,11 @@
+{
+  "name": "Racik — Resep Rumahan Indonesia",
+  "short_name": "Racik",
+  "description": "Resep rumahan dengan takaran yang mengikuti jumlah porsi.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FAFAF8",
+  "theme_color": "#1A6B3C",
+  "icons": [{ "src": "/favicon.ico", "sizes": "48x48", "type": "image/x-icon" }]
+}

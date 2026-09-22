@@ -10,6 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BukuRouteImport } from './routes/buku'
+import { Route as CariRouteImport } from './routes/cari'
+import { Route as PengaturanRouteImport } from './routes/pengaturan'
 import { Route as ResepIdRouteImport } from './routes/resep.$id'
 import { Route as ResepIdMasakRouteImport } from './routes/resep.$id_.masak'
 import { Route as ResepIdSelesaiRouteImport } from './routes/resep.$id_.selesai'
@@ -17,6 +20,21 @@ import { Route as ResepIdSelesaiRouteImport } from './routes/resep.$id_.selesai'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BukuRoute = BukuRouteImport.update({
+  id: '/buku',
+  path: '/buku',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CariRoute = CariRouteImport.update({
+  id: '/cari',
+  path: '/cari',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PengaturanRoute = PengaturanRouteImport.update({
+  id: '/pengaturan',
+  path: '/pengaturan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResepIdRoute = ResepIdRouteImport.update({
@@ -37,12 +55,18 @@ const ResepIdSelesaiRoute = ResepIdSelesaiRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/buku': typeof BukuRoute
+  '/cari': typeof CariRoute
+  '/pengaturan': typeof PengaturanRoute
   '/resep/$id': typeof ResepIdRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/buku': typeof BukuRoute
+  '/cari': typeof CariRoute
+  '/pengaturan': typeof PengaturanRoute
   '/resep/$id': typeof ResepIdRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
@@ -50,18 +74,38 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/buku': typeof BukuRoute
+  '/cari': typeof CariRoute
+  '/pengaturan': typeof PengaturanRoute
   '/resep/$id': typeof ResepIdRoute
   '/resep/$id_/masak': typeof ResepIdMasakRoute
   '/resep/$id_/selesai': typeof ResepIdSelesaiRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/resep/$id' | '/resep/$id/masak' | '/resep/$id/selesai'
+  fullPaths:
+    | '/'
+    | '/buku'
+    | '/cari'
+    | '/pengaturan'
+    | '/resep/$id'
+    | '/resep/$id/masak'
+    | '/resep/$id/selesai'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/resep/$id' | '/resep/$id/masak' | '/resep/$id/selesai'
+  to:
+    | '/'
+    | '/buku'
+    | '/cari'
+    | '/pengaturan'
+    | '/resep/$id'
+    | '/resep/$id/masak'
+    | '/resep/$id/selesai'
   id:
     | '__root__'
     | '/'
+    | '/buku'
+    | '/cari'
+    | '/pengaturan'
     | '/resep/$id'
     | '/resep/$id_/masak'
     | '/resep/$id_/selesai'
@@ -69,6 +113,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BukuRoute: typeof BukuRoute
+  CariRoute: typeof CariRoute
+  PengaturanRoute: typeof PengaturanRoute
   ResepIdRoute: typeof ResepIdRoute
   ResepIdMasakRoute: typeof ResepIdMasakRoute
   ResepIdSelesaiRoute: typeof ResepIdSelesaiRoute
@@ -81,6 +128,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buku': {
+      id: '/buku'
+      path: '/buku'
+      fullPath: '/buku'
+      preLoaderRoute: typeof BukuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cari': {
+      id: '/cari'
+      path: '/cari'
+      fullPath: '/cari'
+      preLoaderRoute: typeof CariRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pengaturan': {
+      id: '/pengaturan'
+      path: '/pengaturan'
+      fullPath: '/pengaturan'
+      preLoaderRoute: typeof PengaturanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resep/$id': {
@@ -109,6 +177,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BukuRoute: BukuRoute,
+  CariRoute: CariRoute,
+  PengaturanRoute: PengaturanRoute,
   ResepIdRoute: ResepIdRoute,
   ResepIdMasakRoute: ResepIdMasakRoute,
   ResepIdSelesaiRoute: ResepIdSelesaiRoute,

@@ -19,6 +19,7 @@ export interface RacikState {
   photoFull: boolean;
   satuan: "rumah" | "gram";
   teks: "normal" | "besar" | "paling_besar";
+  suggestionSeed: number;
 }
 
 export const defaultState: RacikState = {
@@ -37,6 +38,7 @@ export const defaultState: RacikState = {
   photoFull: false,
   satuan: "rumah",
   teks: "normal",
+  suggestionSeed: 1,
 };
 
 /** A stale payload must never crash the app. Guard every field. */
@@ -61,6 +63,7 @@ export function normaliseState(raw: unknown): RacikState {
     photoFull: s.photoFull === true,
     satuan: s.satuan === "gram" ? "gram" : "rumah",
     teks: s.teks === "besar" || s.teks === "paling_besar" ? s.teks : "normal",
+    suggestionSeed: typeof s.suggestionSeed === "number" ? s.suggestionSeed : 1,
   };
 }
 

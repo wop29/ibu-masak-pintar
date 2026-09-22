@@ -3,6 +3,7 @@ import { ING, SUBS, SUBS_LN } from "@/lib/racik/data";
 import { fmtQty, scaledQty, takaran, undividable, unitOf } from "@/lib/racik/engine";
 import type { IngLine, Recipe, SatuanMode } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
+import { Button } from "@/components/ui/button";
 
 function QtyText({
   line,
@@ -62,12 +63,12 @@ export function IngredientList({
                   {line[2] ? <span className="text-ink-3">, {line[2]}</span> : null}
                 </div>
                 {hasSub ? (
-                  <button
+                  <Button variant="ghost" size="sm"
                     onClick={() => setSub(line)}
-                    className="text-label text-mag-text shrink-0 pt-1 uppercase tracking-[0.12em]"
+                    className="shrink-0 px-2 text-label uppercase tracking-[0.1em] text-primary"
                   >
                     Ganti
-                  </button>
+                  </Button>
                 ) : null}
               </div>
               {cantSplit.includes(line) ? (

@@ -24,7 +24,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-mag-deep to-onb text-[44px]">
+          <div className="flex h-full w-full items-center justify-center bg-primary-deep text-[44px]">
             <span aria-hidden>{recipe.glyph}</span>
           </div>
         )}
@@ -34,7 +34,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         <h3 className="font-display text-head mt-1 leading-snug">{recipe.title}</h3>
         <p className="text-secondary text-ink-3 mt-1">
           {fmtTime(recipe.time)} · {recipe.diff} · {SPICE_WORD[recipe.spice]}
-          {protein ? ` · protein ± ${protein}` : ""}
+          {protein ? ` · perkiraan ${protein} protein` : ""}
         </p>
       </div>
     </Link>
