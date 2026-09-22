@@ -295,7 +295,7 @@ async function extractRecipe(evidence: string, key: string) {
       stream: true,
       reasoning: { effort: "medium", summary: "auto" },
       text: { format: { type: "json_schema", name: "racik_recipe", strict: true, schema: recipeSchema } },
-      input: `Susun resep Bahasa Indonesia hanya dari bukti halaman video berikut. Jangan menebak bahan, jumlah, waktu, atau langkah yang tidak disebut. Jika bukti tidak cukup untuk menghasilkan sedikitnya 2 bahan dan 2 langkah yang dapat diikuti, isi status sebagai insufficient, array kosong, dan kolom lain null. Gunakan kalimat pendek. Creator adalah nama atau handle pembuat jika terlihat.\n\nBUKTI:\n${evidence}`,
+      input: `Susun resep Bahasa Indonesia hanya dari bukti halaman video berikut. Kutip, jangan mengarang: setiap bahan harus benar-benar tertulis di BUKTI. Jangan menambahkan bahan yang biasa dipakai tapi tidak disebut, termasuk minyak goreng, garam, gula, air, penyedap. Jangan melengkapi resep agar terasa utuh. Jangan menebak jumlah, satuan, waktu, atau langkah yang tidak disebut. Sebutkan setiap bahan yang disebut, satu baris per bahan, tanpa menggabungkan atau melewati satu pun. Jika bukti tidak cukup untuk menghasilkan sedikitnya 2 bahan dan 2 langkah yang dapat diikuti, isi status sebagai insufficient, array kosong, dan kolom lain null. Gunakan kalimat pendek. Creator adalah nama atau handle pembuat jika terlihat.\n\nBUKTI:\n${evidence}`,
     }),
   });
   if (!response.ok) throw new Error(await readGatewayError(response));
