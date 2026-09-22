@@ -7,6 +7,7 @@ const inputSchema = z.object({
   caption: z.string().max(20_000).optional(),
 });
 export const CAPTION_NEEDED = "CAPTION_NEEDED";
+export type ImportResult = ImportedRecipe | { needCaption: true };
 const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
 
 const recipeSchema = {
@@ -327,12 +328,11 @@ function requireKey() {
   return key;
 }
 
-async function buildRecipe(url: string, evidence: string, key: string, spokenOrPasted: boolean) {
+async function buildRecipe(url: string, evidence: string, key: string, spokenOrPasted: boolean): Promise<ImportResult> {
   const result = await extractRecipe(evidence, key);
   if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
-    throw new Error(spokenOrPasted
-      ? "Bahan dan langkahnya belum terbaca cukup jelas dari video ini. Racik tidak menebak bagian yang tidak disebut."
-      : CAPTION_NEEDED);
+    if (spokenOrPasted) throw new Error("Bahan dan langkahnya belum terbaca cukup jelas dari video ini. Racik tidak menebak bagian yang tidak disebut.");
+    return { needCaption: true };
   }
   const imported: ImportedRecipe = {
     id: `import-${crypto.randomUUID()}`,
@@ -377,7 +377,7 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
 
     const evidence = usableEvidence(parts);
     const hasRecipeSignal = Boolean(caption) || Boolean(spoken) || /keterangan|ingredient|bahan/i.test(evidence);
-    if (evidence.length < 80 || !hasRecipeSignal) throw new Error(CAPTION_NEEDED);
+    if (evidence.length < 80 || !hasRecipeSignal) return { needCaption: true } as ImportResult;
     return buildRecipe(data.url, evidence, key, Boolean(caption) || Boolean(spoken));
   });
 
