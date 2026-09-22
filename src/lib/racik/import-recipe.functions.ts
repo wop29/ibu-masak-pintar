@@ -237,13 +237,21 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => inputSchema.parse(input))
   .handler(async ({ data }) => {
     if (!isAllowedUrl(data.url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
-    const evidence = await fetchPage(data.url);
-    if (evidence.length < 80) throw new Error("Keterangan video tidak cukup untuk menyusun resep. Coba tautan publik yang memuat bahan dan langkah.");
+    const caption = data.caption?.trim() ?? "";
+    const [page, oembed] = await Promise.all([fetchPage(data.url), fetchOembed(data.url)]);
+    const parts = [...oembed, ...page];
+    if (caption) parts.push(`keterangan yang ditempel pembaca: ${caption}`);
+    const evidence = usableEvidence(parts);
+    if (evidence.length < 80 || (!caption && !/keterangan|ingredient|bahan/i.test(evidence))) {
+      throw new Error(CAPTION_NEEDED);
+    }
     const key = process.env['LOVABLE_API_KEY'];
     if (!key) throw new Error("Pemrosesan resep belum tersambung.");
     const result = await extractRecipe(evidence, key);
     if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
-      throw new Error("Video ini belum memuat cukup bahan dan langkah untuk disusun tanpa menebak.");
+      throw new Error(caption
+        ? "Keterangan itu belum memuat cukup bahan dan langkah. Racik tidak menebak bagian yang tidak disebut."
+        : CAPTION_NEEDED);
     }
     const imported: ImportedRecipe = {
       id: `import-${crypto.randomUUID()}`,
