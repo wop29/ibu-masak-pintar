@@ -104,6 +104,7 @@ export default defineConfig({
         ],
       },
     }),
+    assertOfflineShell(),
   ],
   tanstackStart: {
     // Keep normal SSR for link previews, and additionally prerender one route-
