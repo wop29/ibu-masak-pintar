@@ -14,34 +14,51 @@ const BUILD_ID = String(Date.now());
 // The offline shell has dropped out of the build twice without anyone noticing.
 // This makes that a hard build failure instead of a silent loss of offline mode.
 const SHELL_FILE = "index.html";
-const assertOfflineShell = () => ({
-  name: "racik-assert-offline-shell",
-  apply: "build" as const,
-  enforce: "post" as const,
-  closeBundle() {
-    const clientDir = resolve(process.cwd(), "dist/client");
-    const swPath = resolve(clientDir, "sw.js");
-    const shellPath = resolve(clientDir, SHELL_FILE);
-    // Only the client build emits the worker; other environments skip this hook.
-    if (!existsSync(clientDir)) return;
-    const fail = (why: string) => {
-      throw new Error(
-        `[racik] offline shell assertion failed: ${why}. ` +
-          `The app would ship without offline support, so this build is rejected.`,
-      );
-    };
-    if (!existsSync(swPath)) fail("dist/client/sw.js was not emitted");
-    if (!existsSync(shellPath)) fail(`dist/client/${SHELL_FILE} was not emitted`);
-    if (statSync(shellPath).size < 512)
-      fail(`dist/client/${SHELL_FILE} is too small to be a real document`);
-    const sw = readFileSync(swPath, "utf8");
-    const entry = new RegExp(
-      `["'\\\`]?url["'\\\`]?\\s*:\\s*["'\\\`]/?${SHELL_FILE.replace(".", "\\.")}["'\\\`]`,
-    );
-    if (!entry.test(sw))
-      fail(`/${SHELL_FILE} is missing from the service worker precache manifest`);
-  },
-});
+const checkOfflineShell = () => {
+  const clientDir = resolve(process.cwd(), "dist/client");
+  const swPath = resolve(clientDir, "sw.js");
+  const shellPath = resolve(clientDir, SHELL_FILE);
+  if (!existsSync(swPath)) return "dist/client/sw.js was not emitted";
+  if (!existsSync(shellPath)) return `dist/client/${SHELL_FILE} was not emitted`;
+  if (statSync(shellPath).size < 512)
+    return `dist/client/${SHELL_FILE} is too small to be a real document`;
+  const sw = readFileSync(swPath, "utf8");
+  const entry = new RegExp(
+    `["'\`]?url["'\`]?\\s*:\\s*["'\`]/?${SHELL_FILE.replace(".", "\\.")}["'\`]`,
+  );
+  if (!entry.test(sw))
+    return `/${SHELL_FILE} is missing from the service worker precache manifest`;
+  return null;
+};
+
+const assertOfflineShell = () => {
+  let armed = false;
+  return {
+    name: "racik-assert-offline-shell",
+    apply: "build" as const,
+    enforce: "post" as const,
+    // The shell document is written by the prerender step, which runs after the
+    // client bundle closes, so the check has to happen when the build process
+    // is finished. A failure here sets a non-zero exit code: the build fails.
+    closeBundle() {
+      if (armed) return;
+      armed = true;
+      process.on("exit", (code) => {
+        if (code !== 0) return;
+        const why = checkOfflineShell();
+        if (!why) {
+          console.log(`[racik] offline shell OK: /${SHELL_FILE} is precached`);
+          return;
+        }
+        console.error(
+          `\n[racik] offline shell assertion failed: ${why}.\n` +
+            `The app would ship without offline support, so this build is rejected.\n`,
+        );
+        process.exitCode = 1;
+      });
+    },
+  };
+};
 
 
 export default defineConfig({
