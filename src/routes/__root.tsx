@@ -10,8 +10,8 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
-import { RacikProvider } from "../lib/racik/state";
+import { reportLovableError } from "@/lib/lovable-error-reporting";
+import { RacikProvider } from "@/lib/racik/state";
 import { Button } from "@/components/ui/button";
 import { registerRacikPwa } from "@/lib/register-pwa";
 

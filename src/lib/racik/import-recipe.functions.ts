@@ -3,17 +3,7 @@ import { z } from "zod";
 import type { ImportedRecipe } from "./types";
 
 const inputSchema = z.object({ url: z.string().url().max(2_000) });
-const allowedHosts = new Set([
-  "tiktok.com",
-  "www.tiktok.com",
-  "vm.tiktok.com",
-  "vt.tiktok.com",
-  "instagram.com",
-  "www.instagram.com",
-  "youtube.com",
-  "www.youtube.com",
-  "youtu.be",
-]);
+const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
 
 const recipeSchema = {
   type: "object",
@@ -59,7 +49,9 @@ const recipeSchema = {
 function isAllowedUrl(value: string) {
   try {
     const url = new URL(value);
-    return url.protocol === "https:" && allowedHosts.has(url.hostname.toLowerCase());
+    if (url.protocol !== "https:") return false;
+    const host = url.hostname.toLowerCase();
+    return allowedDomains.some((domain) => host === domain || host.endsWith(`.${domain}`));
   } catch {
     return false;
   }
