@@ -16,7 +16,6 @@
   --radius-4xl: 32px;
 
   --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-serif: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
 
   --text-micro: 11px;
@@ -52,9 +51,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-mag-fill: var(--primary);
-  --color-mag-text: var(--primary);
-  --color-mag-deep: var(--primary-deep);
   --color-primary-deep: var(--primary-deep);
   --color-ground: var(--ground);
   --color-ink: var(--ink);
@@ -62,7 +58,6 @@
   --color-ink-3: var(--ink-3);
   --color-rule: var(--rule);
   --color-tint: var(--tint);
-  --color-onb: var(--onb);
   --color-dark: var(--dark);
   --color-notice: var(--notice);
 }
@@ -76,7 +71,6 @@
   --ink-2: oklch(0.35 0 0);
   --ink-3: oklch(0.69 0.018 255);
   --primary-deep: oklch(0.31 0.1 150);
-  --onb: oklch(0.13 0.025 150);
   --dark: oklch(0.14 0.012 150);
   --notice: oklch(0.965 0.05 95);
 
