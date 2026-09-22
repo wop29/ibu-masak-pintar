@@ -162,7 +162,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
         <p className="eyebrow">RESEP TERSIMPAN</p>
         <h3 className="mt-2 text-title font-bold">{title}</h3>
         <p className="mt-3 text-body text-muted-foreground">Bahan dan langkahnya sudah masuk ke tab Diambil. Periksa kembali takaran sebelum mulai memasak.</p>
-        {unmatched.length ? <div className="mt-4 rounded-xl border border-border bg-notice p-4"><p className="text-label uppercase">Ada yang tidak terbaca</p><p className="mt-2 text-body">Bahan ini disebut di videonya tapi belum ada di daftar Racik: {unmatched.join(", ")}. Silakan Ibu tambahkan sendiri waktu memasak.</p></div> : null}
+        {unmatched.length ? <div className="mt-4 rounded-xl border border-border bg-notice p-4"><p className="text-label uppercase">Ada yang tidak terbaca</p><p className="mt-2 text-body">Bahan ini disebut di videonya tapi belum ada di daftar Racik: {unmatched.join(", ")}. Silakan tambahkan sendiri waktu memasak.</p></div> : null}
         <Button className="mt-5 w-full" onClick={() => setOpen(false)}>Lihat di Buku Resep</Button>
       </div>}
     </Sheet>
