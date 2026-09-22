@@ -26,14 +26,11 @@ export const Route = createFileRoute("/")({
   component: MasakApa,
 });
 
+const CAT_IDS = ["lauk", "sayur", "sambal", "camilan", "minuman", "kue"] as const;
+
 const CATS: { id: string; label: string }[] = [
   { id: "semua", label: "Semua" },
-  { id: "lauk", label: SLOT_LABEL.lauk },
-  { id: "sayur", label: SLOT_LABEL.sayur },
-  { id: "sambal", label: SLOT_LABEL.sambal },
-  { id: "camilan", label: SLOT_LABEL.camilan },
-  { id: "minuman", label: SLOT_LABEL.minuman },
-  { id: "kue", label: SLOT_LABEL.kue },
+  ...CAT_IDS.map((id) => ({ id, label: SLOT_LABEL[id] ?? id })),
 ];
 
 function greeting(hour: number): string {

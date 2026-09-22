@@ -28,7 +28,7 @@ export function stepIngredients(recipe: Recipe): IngLine[][] {
   for (const l of recipe.ings) {
     const ing = ING[l[0]];
     if (!ing) continue;
-    const head = norm(ing.name).split(" ")[0];
+    const head = norm(ing.name).split(" ")[0] ?? "";
     headCount.set(head, (headCount.get(head) ?? 0) + 1);
   }
 
@@ -53,7 +53,7 @@ export function stepIngredients(recipe: Recipe): IngLine[][] {
       for (const phrase of [ing.name, ...ing.aliases]) {
         candidates.push({ line, phrase: norm(phrase) });
       }
-      const head = norm(ing.name).split(" ")[0];
+      const head = norm(ing.name).split(" ")[0] ?? "";
       if (head.length > 3 && !STOP_HEADS.has(head) && headCount.get(head) === 1) {
         candidates.push({ line, phrase: head });
       }
