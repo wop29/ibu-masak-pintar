@@ -31,6 +31,12 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
     setStage("working");
     try {
       const recipe = await importRecipe({ data: { url: url.trim(), caption: caption.trim() || undefined } });
+      if ("needCaption" in recipe) {
+        setNeedCaption(true);
+        setError("Suara dan keterangan video ini tidak bisa dibaca dari luar aplikasinya. Unggah videonya, atau tempel keterangannya di bawah.");
+        setStage("form");
+        return;
+      }
       update((current) => ({ imported: [recipe, ...current.imported] }));
       setTitle(recipe.title);
       setStage("done");
@@ -56,6 +62,12 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
       form.append("url", url.trim());
       form.append("file", file);
       const recipe = await importUpload({ data: form });
+      if ("needCaption" in recipe) {
+        setError("Suara di berkas itu belum memuat bahan dan langkah. Tempel keterangan videonya di bawah.");
+        setNeedCaption(true);
+        setStage("form");
+        return;
+      }
       update((current) => ({ imported: [recipe, ...current.imported] }));
       setTitle(recipe.title);
       setStage("done");
