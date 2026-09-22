@@ -6,8 +6,59 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
+import { existsSync, readFileSync, statSync } from "node:fs";
+import { resolve } from "node:path";
 
 const BUILD_ID = String(Date.now());
+
+// The offline shell has dropped out of the build twice without anyone noticing.
+// This makes that a hard build failure instead of a silent loss of offline mode.
+const SHELL_FILE = "index.html";
+const checkOfflineShell = () => {
+  const clientDir = resolve(process.cwd(), "dist/client");
+  const swPath = resolve(clientDir, "sw.js");
+  const shellPath = resolve(clientDir, SHELL_FILE);
+  if (!existsSync(swPath)) return "dist/client/sw.js was not emitted";
+  if (!existsSync(shellPath)) return `dist/client/${SHELL_FILE} was not emitted`;
+  if (statSync(shellPath).size < 512)
+    return `dist/client/${SHELL_FILE} is too small to be a real document`;
+  const sw = readFileSync(swPath, "utf8");
+  const entry = new RegExp(
+    `["'\`]?url["'\`]?\\s*:\\s*["'\`]/?${SHELL_FILE.replace(".", "\\.")}["'\`]`,
+  );
+  if (!entry.test(sw))
+    return `/${SHELL_FILE} is missing from the service worker precache manifest`;
+  return null;
+};
+
+const assertOfflineShell = () => {
+  let armed = false;
+  return {
+    name: "racik-assert-offline-shell",
+    apply: "build" as const,
+    enforce: "post" as const,
+    // The shell document is written by the prerender step, which runs after the
+    // client bundle closes, so the check has to happen when the build process
+    // is finished. A failure here sets a non-zero exit code: the build fails.
+    closeBundle() {
+      if (armed) return;
+      armed = true;
+      process.on("exit", (code) => {
+        if (code !== 0) return;
+        const why = checkOfflineShell();
+        if (!why) {
+          console.log(`[racik] offline shell OK: /${SHELL_FILE} is precached`);
+          return;
+        }
+        console.error(
+          `\n[racik] offline shell assertion failed: ${why}.\n` +
+            `The app would ship without offline support, so this build is rejected.\n`,
+        );
+        process.exitCode = 1;
+      });
+    },
+  };
+};
 
 
 export default defineConfig({
@@ -70,6 +121,7 @@ export default defineConfig({
         ],
       },
     }),
+    assertOfflineShell(),
   ],
   tanstackStart: {
     // Keep normal SSR for link previews, and additionally prerender one route-
