@@ -9,6 +9,7 @@ import { ProteinBlock } from "@/components/racik/ProteinBlock";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Bookmark, CalendarPlus } from "lucide-react";
 import { byId, REG } from "@/lib/racik/data";
+import { requestOrigin } from "@/lib/racik/origin";
 import { fmtSeconds, fmtTime } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
 
@@ -17,13 +18,13 @@ export const Route = createFileRoute("/resep/$id")({
     const recipe = byId(params.id) ?? null;
     // Imported recipes live on the device, so they resolve in the component.
     if (!recipe && !params.id.startsWith("import-")) throw notFound();
-    return { recipe };
+    return { recipe, origin: requestOrigin() };
   },
   head: ({ loaderData }) => {
     const r = loaderData?.recipe;
     const title = r ? `${r.title} — Racik` : "Resep — Racik";
     const desc = r ? r.note : "Resep rumahan dengan takaran yang ikut jumlah porsi.";
-    const image = r ? previewPhotoOf(r.id) : undefined;
+    const image = r ? previewPhotoOf(r.id, loaderData?.origin ?? "") : undefined;
     return {
       meta: [
         { title },
