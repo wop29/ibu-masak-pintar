@@ -11,7 +11,7 @@ const slides = [
   { image: rendang, label: "Takaran ikut porsi", title: "4 jadi 12 porsi, cabai 17 jadi 34", body: "Daging mengikuti jumlah porsi. Bumbu naik lebih pelan, supaya rasa tidak berlebihan." },
   { image: mendoan, label: "Takaran yang familiar", title: "Gram atau sendok, pilih yang ada", body: "Takaran rumah muncul bila ada padanannya. Beberapa kue tetap perlu timbangan agar hasilnya tidak meleset." },
   { image: gado, label: "Perkiraan protein", title: "Tahu perkiraan protein di setiap porsi", body: "Angkanya dihitung dari berat rata-rata bahan. Ini perkiraan, bukan hasil uji laboratorium." },
-  { image: woku, label: "Demo dari video", title: "Lihat alur video menjadi resep", body: "Versi ini memperagakan alurnya. Tautan TikTok atau Instagram belum benar-benar diproses." },
+  { image: woku, label: "Dari video ke resep", title: "Dari video ke resep", body: "Tempel tautan atau keterangan videonya. Racik merapikan bahan dan langkahnya." },
 ] as const;
 
 export function Onboarding() {
