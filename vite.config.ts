@@ -7,7 +7,6 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 
-const BUILD_ID = String(Date.now());
 
 export default defineConfig({
   plugins: [
