@@ -49,7 +49,9 @@ const recipeSchema = {
 function isAllowedUrl(value: string) {
   try {
     const url = new URL(value);
-    return url.protocol === "https:" && allowedHosts.has(url.hostname.toLowerCase());
+    if (url.protocol !== "https:") return false;
+    const host = url.hostname.toLowerCase();
+    return allowedDomains.some((domain) => host === domain || host.endsWith(`.${domain}`));
   } catch {
     return false;
   }
