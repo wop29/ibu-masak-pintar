@@ -7,6 +7,8 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 
+const BUILD_ID = String(Date.now());
+
 
 export default defineConfig({
   plugins: [
@@ -21,6 +23,9 @@ export default defineConfig({
       workbox: {
         // The server renders each online URL. This shell only answers when a
         // navigation cannot reach the server within the short timeout below.
+        // The prerendered shell is written after this plugin globs the output
+        // directory, so it is added to the precache list by hand.
+        additionalManifestEntries: [{ url: "/index.html", revision: BUILD_ID }],
         // Navigations go through the NetworkFirst route below, which already
         // falls back to the precached shell, so no blanket fallback route here.
         navigateFallback: null,
