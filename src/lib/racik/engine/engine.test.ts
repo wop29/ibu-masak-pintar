@@ -30,12 +30,12 @@ describe("unit resolution", () => {
   it("prefers the line override over the ontology unit", () => {
     const cendol = recipe("es_cendol");
     expect(unitOf(line(cendol, "gula_merah"))).toBe("gram");
-    expect(gramsOfLine(line(cendol, "gula_merah"))).toBe(250);
+    expect(gramsOfLine(line(cendol, "gula_merah"))).toBe(line(cendol, "gula_merah")[1]);
   });
 
   it("resolves countable lines to grams through BERAT", () => {
     const gado = recipe("gado_gado");
-    expect(gramsOfLine(line(gado, "telur"))).toBe(3 * 55);
+    expect(gramsOfLine(line(gado, "telur"))).toBe((line(gado, "telur")[1] ?? 0) * 55);
   });
 });
 
@@ -240,8 +240,8 @@ describe("stepIngredients", () => {
     const perStep = stepIngredients(r);
     const ids = perStep.flat().map((l) => l[0]);
     expect(new Set(ids).size).toBe(ids.length);
-    expect((perStep[0] ?? []).map((l) => l[0])).toContain("tepung_terigu");
-    expect((perStep[3] ?? []).map((l) => l[0])).toContain("tempe");
+    expect((perStep[0] ?? []).map((l) => l[0])).toContain("tempe");
+    expect((perStep[1] ?? []).map((l) => l[0])).toContain("tepung_terigu");
   });
 
   it("expands bumbu halus to the haluskan lines", () => {
