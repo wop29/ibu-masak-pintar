@@ -12,22 +12,12 @@ import { byId, REG } from "@/lib/racik/data";
 import { fmtSeconds, fmtTime } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
 
-/**
- * The origin serving this request. Link previews must be absolute, and the host
- * is never hardcoded so previews survive a move to another domain.
- */
-async function requestOrigin(): Promise<string> {
-  if (typeof window !== "undefined") return window.location.origin;
-  const { getRequestUrl } = await import("@tanstack/react-start/server");
-  return getRequestUrl().origin;
-}
-
 export const Route = createFileRoute("/resep/$id")({
-  loader: async ({ params }) => {
+  loader: ({ params }) => {
     const recipe = byId(params.id) ?? null;
     // Imported recipes live on the device, so they resolve in the component.
     if (!recipe && !params.id.startsWith("import-")) throw notFound();
-    return { recipe, origin: await requestOrigin() };
+    return { recipe, origin: requestOrigin() };
   },
   head: ({ loaderData }) => {
     const r = loaderData?.recipe;
