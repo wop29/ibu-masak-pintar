@@ -103,7 +103,7 @@ function DetailResep() {
               <div className="mt-4 border border-rule bg-notice p-4">
                 <p className="text-label uppercase tracking-[0.1em] text-ink">Ada yang tidak terbaca</p>
                 <p className="read-line mt-2 text-ink-2">
-                  Bahan ini disebut di videonya tapi belum ada di daftar Racik: {imported.unmatched.join(", ")}. Silakan tambahkan sendiri waktu memasak.
+                  Bahan ini disebut di videonya tapi belum ada di daftar Racik: {imported.unmatched.join(", ")}. Silakan Ibu tambahkan sendiri waktu memasak.
                 </p>
               </div>
             ) : null}

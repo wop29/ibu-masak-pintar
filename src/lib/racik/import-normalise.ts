@@ -114,9 +114,24 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
     ings.push([matchedId, qty, item.preparation, null, null, override]);
   }
 
+  // Invariant: every line the model returned is either a recipe ingredient or
+  // is shown to the reader as unmatched. Nothing is ever dropped silently.
+  if (ings.length + unmatched.length !== raw.ingredients.length) {
+    console.error(
+      `[racik] import lost ingredients: model ${raw.ingredients.length}, ings ${ings.length}, unmatched ${unmatched.length}`,
+      raw.ingredients.map((item) => item.name),
+    );
+    const accounted = new Set([...ings.map((line) => line[0]), ...unmatched]);
+    for (const item of raw.ingredients) {
+      const id = matchIngredient(item.name);
+      if (!(id && accounted.has(id)) && !accounted.has(writtenAs(item))) unmatched.push(writtenAs(item));
+    }
+  }
+
   const steps: Step[] = raw.steps.map((step) => [step.text, step.seconds]);
   const fromSteps = Math.round(raw.steps.reduce((sum, s) => sum + (s.seconds ?? 0), 0) / 60);
   const spiceLines = ings.filter((line) => SPICY.has(line[0])).length;
+
 
   return {
     id,
