@@ -22,9 +22,6 @@ export default defineConfig({
       workbox: {
         // The server renders each online URL. This shell only answers when a
         // navigation cannot reach the server within the short timeout below.
-        // The shell is written by the prerender step, after this plugin globs the
-        // output directory, so it is added to the precache list by hand.
-        additionalManifestEntries: [{ url: "/_shell.html", revision: BUILD_ID }],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg}"],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         runtimeCaching: [
@@ -37,7 +34,7 @@ export default defineConfig({
               networkTimeoutSeconds: 1.5,
               expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 30 },
               cacheableResponse: { statuses: [0, 200] },
-              precacheFallback: { fallbackURL: "/_shell.html" },
+              precacheFallback: { fallbackURL: "/index.html" },
             },
           },
           {
@@ -70,7 +67,7 @@ export default defineConfig({
   tanstackStart: {
     // Keep normal SSR for link previews, and additionally prerender one route-
     // agnostic shell that Workbox can serve when a navigation is offline.
-    pages: [{ path: "/", prerender: { enabled: true, outputPath: "/_shell", crawlLinks: false } }],
+    pages: [{ path: "/", prerender: { enabled: true, crawlLinks: false } }],
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
