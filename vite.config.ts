@@ -61,7 +61,7 @@ export default defineConfig({
     // A prerendered, route-agnostic shell. When the phone has no signal and the
     // requested page was never visited, the worker serves this shell and the app
     // renders the recipe from the dataset already on the device.
-    spa: { enabled: true, prerender: { enabled: true, outputPath: "/_shell", crawlLinks: false } },
+    spa: { enabled: true, prerender: { enabled: true, outputPath: "/_shell", crawlLinks: true } },
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
