@@ -6,7 +6,7 @@ import { CompactRecipe } from "@/components/racik/CompactRecipe";
 import { Onboarding } from "@/components/racik/Onboarding";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { SearchField } from "@/components/racik/SearchField";
-import { PHOTO } from "@/components/racik/photos";
+import { ART, PHOTO } from "@/components/racik/photos";
 import { Button } from "@/components/ui/button";
 import { RECIPES } from "@/lib/racik/data";
 import { buildIndex, search } from "@/lib/racik/engine";
@@ -37,13 +37,14 @@ export const Route = createFileRoute("/")({
 
 const CATS = [
   { id: "makan_siang", label: "Siang", photo: PHOTO["gado_gado"] },
-  { id: "makan_malam", label: "Malam", photo: PHOTO["rendang_daging"] },
+  { id: "makan_malam", label: "Malam", photo: PHOTO["rendang"] },
   { id: "sarapan", label: "Sarapan", photo: PHOTO["nasi_goreng_kampung"] },
   { id: "sayur", label: "Sayur", photo: PHOTO["sayur_asem"] },
-  { id: "lauk", label: "Lauk", photo: PHOTO["ayam_goreng_lengkuas"] },
+  { id: "lauk", label: "Lauk", photo: ART.ayamLengkuas },
   { id: "sambal", label: "Sambal", photo: PHOTO["sambal_terasi"] },
-  { id: "jajan", label: "Jajan", photo: PHOTO["bolu_kukus_pandan"] },
+  { id: "jajan", label: "Jajan", photo: ART.bolu },
 ] as const;
+
 const FILTERS = [{ id: "cepat", label: "< 30 menit" }, { id: "gampang", label: "Gampang" }, { id: "protein", label: "Protein tinggi" }, { id: "anak", label: "Tidak pedas" }, { id: "banyak", label: "Sekali masak banyak" }];
 
 function greeting(hour: number) {

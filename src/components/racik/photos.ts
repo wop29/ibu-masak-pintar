@@ -6,7 +6,7 @@ import mendoan from "@/assets/resep/tempe_mendoan.jpg";
 import cendol from "@/assets/resep/es_cendol.jpg";
 import woku from "@/assets/resep/ayam_woku.jpg";
 import ayamLengkuas from "@/assets/resep/ayam_goreng_lengkuas.jpg";
-import boluPandan from "@/assets/resep/bolu_kukus_pandan.jpg";
+import bolu from "@/assets/resep/bolu_kukus_pandan.jpg";
 import nasiGoreng from "@/assets/resep/nasi_goreng_kampung.jpg";
 import sayurAsem from "@/assets/resep/sayur_asem.jpg";
 import tinutuan from "@/assets/resep/tinutuan.jpg";
@@ -18,24 +18,29 @@ import sambal from "@/assets/resep/sambal_terasi.jpg";
 /** CDN-hosted photographs keyed by recipe: nothing binary enters the bundle. */
 const REMOTE = photosRaw as Record<string, string[]>;
 
-/** Photographs that still ship with the app from the first sample set. */
+/**
+ * Photographs bundled with the app. These are the offline floor: they are
+ * precached with the app shell, so they show even on the first run with no
+ * signal, whatever the CDN does.
+ */
 const LOCAL: Record<string, string> = {
-  rendang_daging: rendang,
+  rendang: rendang,
   gado_gado: gado,
   soto_ayam_lamongan: soto,
   tempe_mendoan: mendoan,
   es_cendol: cendol,
   ayam_woku: woku,
-  ayam_goreng_lengkuas: ayamLengkuas,
-  bolu_kukus_pandan: boluPandan,
   nasi_goreng_kampung: nasiGoreng,
   sayur_asem: sayurAsem,
   tinutuan,
-  pindang_ikan: pindang,
-  rawon_daging: rawon,
-  semur_daging_betawi: semur,
+  pindang_patin: pindang,
+  rawon: rawon,
+  semur_daging: semur,
   sambal_terasi: sambal,
 };
+
+/** Bundled artwork used by the interface itself, not tied to one recipe. */
+export const ART = { rendang, mendoan, gado, woku, bolu, ayamLengkuas } as const;
 
 /** Every photograph for one recipe, hero first. */
 export const photosOf = (id: string): string[] => {

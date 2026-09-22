@@ -7,6 +7,8 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 
+const BUILD_ID = String(Date.now());
+
 export default defineConfig({
   plugins: [
     VitePWA({
@@ -18,19 +20,16 @@ export default defineConfig({
       devOptions: { enabled: false },
       manifest: false,
       workbox: {
-        navigateFallback: null,
+        // Every page is the same prerendered shell, so one precached document
+        // answers any recipe URL, visited before or not, with no signal at all.
+        navigateFallback: "/_shell.html",
+        // The shell is written by the prerender step, after this plugin globs the
+        // output directory, so it is added to the precache list by hand.
+        additionalManifestEntries: [{ url: "/_shell.html", revision: BUILD_ID }],
+        navigateFallbackDenylist: [/^\/api\//, /^\/~oauth/, /^\/_serverFn\//],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg}"],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         runtimeCaching: [
-          {
-            urlPattern: ({ request, url }) =>
-              request.mode === "navigate" && !url.pathname.startsWith("/~oauth"),
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "racik-pages",
-              networkTimeoutSeconds: 4,
-              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 30 },
-            },
-          },
           {
             // Photographs live on the CDN under this path. First view stores them,
             // every later view reads the cache, so a kitchen with no signal still
@@ -43,6 +42,7 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
+
           {
             urlPattern: ({ request, url }) =>
               url.origin === self.location.origin &&
@@ -58,6 +58,10 @@ export default defineConfig({
     }),
   ],
   tanstackStart: {
+    // A prerendered, route-agnostic shell. When the phone has no signal and the
+    // requested page was never visited, the worker serves this shell and the app
+    // renders the recipe from the dataset already on the device.
+    spa: { enabled: true, prerender: { enabled: true, outputPath: "/_shell", crawlLinks: true } },
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
