@@ -7,6 +7,8 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import { VitePWA } from "vite-plugin-pwa";
 
+const BUILD_ID = String(Date.now());
+
 export default defineConfig({
   plugins: [
     VitePWA({
@@ -21,6 +23,9 @@ export default defineConfig({
         // Every page is the same prerendered shell, so one precached document
         // answers any recipe URL, visited before or not, with no signal at all.
         navigateFallback: "/_shell.html",
+        // The shell is written by the prerender step, after this plugin globs the
+        // output directory, so it is added to the precache list by hand.
+        additionalManifestEntries: [{ url: "/_shell.html", revision: BUILD_ID }],
         navigateFallbackDenylist: [/^\/api\//, /^\/~oauth/, /^\/_serverFn\//],
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2,jpg,jpeg}"],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
