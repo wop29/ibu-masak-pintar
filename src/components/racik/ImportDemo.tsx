@@ -142,9 +142,9 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
             <Button variant="outline" className="mt-5 w-full" disabled={!valid} onClick={() => void submitLink(true)}><Volume2 /> Coba baca suaranya</Button>
             <p className="mt-2 text-secondary text-muted-foreground">Racik mendengarkan suara videonya. Bisa sampai satu menit.</p>
             <Button variant="outline" className="mt-3 w-full" onClick={() => fileRef.current?.click()}><Upload /> Unggah videonya</Button>
-            <input ref={fileRef} type="file" accept="video/*,audio/*" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; e.target.value = ""; if (file) void submitFile(file); }} />
             <p className="mt-2 text-secondary text-muted-foreground">Maksimal 24 MB.</p>
           </> : null}
+
         </>}
         <p className="mt-4 text-secondary text-muted-foreground">Hanya video publik yang bisa dibaca dari tautan. Racik tidak menebak bagian yang tidak disebut.</p>
       </> : stage === "working" ? <div className="py-10 text-center">
