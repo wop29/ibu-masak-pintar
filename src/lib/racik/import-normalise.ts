@@ -52,6 +52,24 @@ const SERVING_HINT = /(paling enak (pakai|sama|dengan)|temen(nya|an)?\b|cocok (s
 
 
 
+/**
+ * A recipe whose method leans on a bumbu the video only showed on screen
+ * cannot be cooked from what was captured. Say so instead of hiding the gap.
+ */
+const ON_SCREEN =
+  /((hanya|cuma|sekadar)[^.]{0,40}(di|pada) ?(layar|video))|(ter)?tulis[a-z]* di (layar|video)|tampil[a-z]* di (layar|video)|tidak (terbaca|terlihat|tertulis|disebut)/i;
+const BUMBU_COMPONENT = /bumbu\s+(ungkep|halus|hitam|dasar|marinasi|rendam|kuning|merah|rempah|racik)/gi;
+
+function namesBumbuWithoutContents(ings: IngLine[], steps: Step[]): boolean {
+  const preps = normalise(ings.map((line) => line[2] ?? "").join(" "));
+  const method = steps.map((step) => step[0]).join(" . ");
+  for (const match of method.matchAll(BUMBU_COMPONENT)) {
+    const word = normalise(match[1] ?? "").slice(0, 5);
+    if (word && !preps.includes(word)) return true;
+  }
+  return false;
+}
+
 const UNIT_ALIAS: Record<string, { unit: Unit; factor: number }> = {
   gram: { unit: "gram", factor: 1 },
   gr: { unit: "gram", factor: 1 },
@@ -169,6 +187,7 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
   const steps: Step[] = raw.steps.map((step) => [step.text, step.seconds]);
   const fromSteps = Math.round(raw.steps.reduce((sum, s) => sum + (s.seconds ?? 0), 0) / 60);
   const spiceLines = ings.filter((line) => SPICY.has(line[0])).length;
+  const incomplete = ON_SCREEN.test(raw.note ?? "") || namesBumbuWithoutContents(ings, steps);
 
 
   return {
@@ -193,6 +212,7 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
     steps,
     precise: false,
     imported: true,
+    ...(incomplete ? { incomplete: true } : {}),
     sourceUrl,
     importedAt: Date.now(),
     unmatched,
