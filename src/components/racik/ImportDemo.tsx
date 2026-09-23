@@ -115,7 +115,9 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
       </div>
       <Button variant="secondary" className="mt-4 w-full" onClick={() => { setOpen(true); setStage("form"); setError(""); }}>Ambil resep</Button>
     </section>
+    <input ref={fileRef} type="file" accept="video/*,audio/*" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; e.target.value = ""; if (file) void submitFile(file); }} />
     <Sheet open={open} onClose={() => setOpen(false)} title="Ambil Resep dari Video">
+
       {stage === "form" ? <>
         <div className="flex gap-2">{tabButton("tautan", "Tempel tautan")}{tabButton("keterangan", "Tempel keterangan")}</div>
         {tab === "tautan" ? <>
