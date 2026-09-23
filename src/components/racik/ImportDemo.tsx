@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { Clipboard, Link2, Upload, Volume2 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
-import { importRecipeFromUpload, importRecipeFromVideo, MIN_CAPTION_CHARS } from "@/lib/racik/import-recipe.functions";
-import type { ImportResult } from "@/lib/racik/import-recipe.functions";
+import { canonicalUrl, importRecipeFromUpload, importRecipeFromVideo, MIN_CAPTION_CHARS } from "@/lib/racik/import-recipe.functions";
+import type { ImportDiag, ImportResult } from "@/lib/racik/import-recipe.functions";
 import { useRacik } from "@/lib/racik/state";
 import { Sheet } from "./Sheet";
 
