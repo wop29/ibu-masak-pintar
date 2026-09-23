@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ING } from "@/lib/racik/data";
-import { fmtProtein, proteinParts, proteinPerPortion } from "@/lib/racik/engine";
+import { fmtProtein, proteinParts, proteinPerPortion, proteinUncertain } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,13 @@ export function ProteinBlock({ recipe }: { recipe: Recipe }) {
   const [open, setOpen] = useState(false);
   const grams = proteinPerPortion(recipe);
   const text = fmtProtein(grams);
+  if (proteinUncertain(recipe)) {
+    return (
+      <p className="hairline-b py-4 text-body text-ink-2">
+        Perkiraan protein belum bisa dihitung — resepnya belum lengkap.
+      </p>
+    );
+  }
   if (!text) return null;
 
   const parts = proteinParts(recipe)

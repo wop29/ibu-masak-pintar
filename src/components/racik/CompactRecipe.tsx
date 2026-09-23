@@ -4,12 +4,12 @@ import { PHOTO } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
 import { IncompleteBadge } from "./IncompleteBadge";
 import { REG } from "@/lib/racik/data";
-import { fmtProtein, fmtTime, proteinPerPortion } from "@/lib/racik/engine";
+import { fmtProtein, fmtTime, proteinPerPortion, proteinUncertain } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 
 export function CompactRecipe({ recipe }: { recipe: Recipe }) {
   const photo = PHOTO[recipe.id];
-  const protein = fmtProtein(proteinPerPortion(recipe));
+  const protein = proteinUncertain(recipe) ? null : fmtProtein(proteinPerPortion(recipe));
   return (
     <Link to="/resep/$id" params={{ id: recipe.id }} className="flex min-h-28 items-center gap-4 border-b border-border py-4">
       <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-primary-deep">
