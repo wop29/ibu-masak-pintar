@@ -97,9 +97,13 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
 
   const submitLink = async (listen = false) => {
     if (!valid) return;
-    const duplicate = state.imported.find((recipe) => recipe.sourceUrl === url.trim());
-    if (duplicate) {
+    // The duplicate check compares canonical links, not pasted ones.
+    const canon = canonicalUrl(url).url;
+    const duplicate = state.imported.find((recipe) => canonicalUrl(recipe.sourceUrl ?? "").url === canon);
+    if (duplicate && !listen) {
       setTitle(duplicate.title);
+      setUnmatched(duplicate.unmatched ?? []);
+      setDiag({ platform: canonicalUrl(url).platform, canonicalUrl: canon, status: null, captionLength: 0, branch: "tautan ini sudah pernah diambil, resep lama dibuka" });
       setStage("done");
       return;
     }
