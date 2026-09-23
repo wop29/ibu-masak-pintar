@@ -19,6 +19,7 @@ export const MIN_CAPTION_CHARS = 80;
 export type ImportResult =
   | { ok: true; recipe: ImportedRecipe; unmatched: string[] }
   | { ok: false; needCaption: true; partial: string }
+  | { ok: false; unavailable: true }
   | { ok: false; noRecipe: true };
 const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
 
