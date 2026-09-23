@@ -28,6 +28,14 @@ export function proteinPerPortion(recipe: Recipe): number {
   return proteinParts(recipe).reduce((sum, p) => sum + p.grams, 0);
 }
 
+/**
+ * Two guesses stacked on top of each other — an assumed portion count and a
+ * partial ingredient list — is not an estimate worth printing.
+ */
+export function proteinUncertain(recipe: Recipe): boolean {
+  return recipe.incomplete === true && (recipe as Recipe & { servAssumed?: boolean }).servAssumed === true;
+}
+
 /** "< 10 g to the nearest half, >= 10 g as a whole number, nothing below 1 g." */
 export function fmtProtein(grams: number): string | null {
   if (grams < 1) return null;
