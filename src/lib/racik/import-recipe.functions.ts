@@ -411,9 +411,10 @@ async function fetchJsonOembed(endpoint: string): Promise<Caption> {
         last = { parts: [], caption: "", status, limited: true };
         continue;
       }
+      // A 400 from oEmbed means the id names nothing playable.
+      if (status === 400) return { ...GONE, status };
       if (!response.ok) {
-        // A 400 from oEmbed means the id names nothing playable.
-        last = status === 400 ? { ...GONE, status } : { parts: [], caption: "", status };
+        last = { parts: [], caption: "", status };
         continue;
       }
       const text = await response.text();
