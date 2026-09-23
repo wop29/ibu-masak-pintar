@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { PHOTO } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
+import { IncompleteBadge } from "./IncompleteBadge";
 import { REG } from "@/lib/racik/data";
 import { fmtProtein, fmtTime, proteinPerPortion } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
@@ -16,6 +17,7 @@ export function CompactRecipe({ recipe }: { recipe: Recipe }) {
       </div>
       <div className="min-w-0 flex-1">
         <h3 className="text-head font-bold leading-snug">{recipe.title}</h3>
+        {recipe.incomplete ? <p className="mt-1"><IncompleteBadge recipe={recipe} /></p> : null}
         <p className="mt-1 text-label leading-relaxed text-muted-foreground">{REG[recipe.region]?.name ?? recipe.region} · {fmtTime(recipe.time)} · {recipe.diff}{protein ? ` · perkiraan ${protein} protein` : ""}</p>
       </div>
       <ChevronRight aria-hidden className="shrink-0 text-border" />

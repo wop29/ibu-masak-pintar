@@ -113,7 +113,31 @@ describe("spoken import", () => {
     expect(matchIngredient("Gula")).toBe("gula_pasir");
     expect(matchIngredient("Minyak")).toBe("minyak_goreng");
     expect(matchIngredient("Kecap")).toBe("kecap_manis");
-    expect(matchIngredient("Bebek peking")).toBeNull();
+    expect(matchIngredient("Bebek peking")).toBe("bebek");
+    expect(matchIngredient("1 ekor bebek kampung")).toBe("bebek");
+  });
+
+  it("flags an import whose bumbu was only shown on screen", () => {
+    const recipe = normaliseImported(
+      {
+        ...RAW,
+        note: "Daftar bumbu ungkep hanya tampil di layar videonya.",
+        ingredients: [{ name: "Bebek peking", quantity: 1, unit: "ekor", preparation: null }],
+        steps: [{ text: "Ungkep bebek dengan bumbu ungkep sampai meresap.", seconds: 1500 }],
+      },
+      "https://x",
+      "import-3",
+    );
+    expect(recipe.incomplete).toBe(true);
+    expect(recipe.ings.map((line) => line[0])).toEqual(["bebek"]);
+    expect(recipe.unmatched).toEqual([]);
+    expect(shoppingList([{ recipe, servings: 4 }])).toEqual([]);
+  });
+
+  it("leaves a complete import unflagged", () => {
+    const recipe = normaliseImported(RAW, "https://x", "import-4");
+    expect(recipe.incomplete).toBeUndefined();
+    expect(shoppingList([{ recipe, servings: 4 }]).length).toBeGreaterThan(0);
   });
 
   it("keeps serving suggestions out of the ingredient list", () => {

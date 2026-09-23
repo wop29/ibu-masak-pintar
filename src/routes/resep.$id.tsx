@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { HalalChip } from "@/components/racik/HalalChip";
+import { IncompleteBadge } from "@/components/racik/IncompleteBadge";
 import { IngredientList } from "@/components/racik/IngredientList";
 import { PHOTO, previewPhotoOf } from "@/components/racik/photos";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
@@ -87,6 +88,21 @@ function DetailResep() {
           ) : null}
         </div>
 
+        {recipe.incomplete ? (
+          <div className="mt-4 border border-rule bg-notice p-4">
+            <IncompleteBadge recipe={recipe} />
+            <p className="text-label mt-2 uppercase tracking-[0.1em] text-ink">Resepnya belum lengkap</p>
+            <p className="read-line mt-2 text-ink-2">
+              Takaran bumbunya cuma ditulis di layar videonya, jadi Racik belum bisa membacanya. Buka videonya untuk melihat takarannya.
+            </p>
+            {imported?.sourceUrl ? (
+              <a href={imported.sourceUrl} target="_blank" rel="noreferrer" className="text-body mt-3 inline-block font-bold text-primary">
+                Buka videonya
+              </a>
+            ) : null}
+          </div>
+        ) : null}
+
         <p className="read-line mt-4 font-medium text-ink-2">{recipe.note}</p>
 
         {imported ? (
@@ -133,7 +149,7 @@ function DetailResep() {
       <div className="px-5">
         <ProteinBlock recipe={recipe} />
 
-        <Button variant="outline" className="mt-4 w-full" disabled={planned || state.plan.length >= 3} onClick={() => update((s) => ({ plan: [...s.plan, { id: recipe.id, servings }] }))}><CalendarPlus />{planned ? "Sudah dalam rencana" : state.plan.length >= 3 ? "Rencana sudah penuh" : "Tambahkan ke rencana"}</Button>
+        <Button variant="outline" className="mt-4 w-full" disabled={recipe.incomplete || planned || state.plan.length >= 3} onClick={() => update((s) => ({ plan: [...s.plan, { id: recipe.id, servings }] }))}><CalendarPlus />{recipe.incomplete ? "Belum bisa masuk rencana" : planned ? "Sudah dalam rencana" : state.plan.length >= 3 ? "Rencana sudah penuh" : "Tambahkan ke rencana"}</Button>
 
         <div className="hairline-b flex items-center justify-between gap-3 py-4">
           <div>

@@ -81,6 +81,8 @@ export interface Recipe {
   precise: boolean;
   leftover?: string;
   imported: boolean;
+  /** The method names a bumbu whose contents the video never showed. Not cookable as saved. */
+  incomplete?: boolean;
   creator?: string;
   alat?: string[];
   suhu?: string;
