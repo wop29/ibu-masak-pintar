@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ING } from "@/lib/racik/data";
-import { fmtProtein, proteinParts, proteinPerPortion } from "@/lib/racik/engine";
+import { fmtProtein, proteinParts, proteinPerPortion, proteinUncertain } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
 import { Button } from "@/components/ui/button";
