@@ -417,6 +417,8 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
 
     if (!isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
     const oembed = await fetchOembed(url);
+    // A removed or private video is a different problem from a thin caption.
+    if (oembed.unavailable) return { ok: false, unavailable: true };
 
     if (!data.listen) {
       if (oembed.caption.length >= MIN_CAPTION_CHARS) return buildRecipe(url, usableEvidence(oembed.parts), key);
