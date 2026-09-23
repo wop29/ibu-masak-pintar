@@ -182,7 +182,13 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
     diff: raw.difficulty ?? "sedang",
     spice: spiceLines >= 2 ? 3 : spiceLines === 1 ? 2 : 0,
     glyph: "🍳",
-    note: raw.note ?? "Resep ini disusun dari keterangan videonya. Periksa takarannya dengan video aslinya.",
+    note: [
+      raw.note ?? "Resep ini disusun dari keterangan videonya. Periksa takarannya dengan video aslinya.",
+      serving.length ? `Enak dimakan dengan ${serving.join(", ")}.` : "",
+    ]
+      .filter(Boolean)
+      .join(" "),
+
     ings,
     steps,
     precise: false,
