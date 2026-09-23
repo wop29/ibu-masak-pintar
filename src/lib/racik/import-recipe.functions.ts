@@ -136,7 +136,7 @@ function jsonLdEvidence(html: string) {
 }
 
 const BROWSER_UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36";
-const TRANSCRIBE_MODEL = "google/gemini-3.5-transcribe";
+const TRANSCRIBE_MODEL = "openai/gpt-4o-transcribe";
 const MAX_MEDIA_BYTES = 24_000_000;
 
 async function fetchHtml(url: string) {
