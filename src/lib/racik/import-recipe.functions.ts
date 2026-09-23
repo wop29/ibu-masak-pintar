@@ -381,20 +381,21 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
     }
 
     // Listening is slow and costly, so it only runs when the reader asks for it.
-    const html = await fetchHtml(url);
+    const { html, cookie } = await fetchHtml(url);
     const parts = [...oembed.parts, ...pageEvidence(html)];
     let spoken = await youtubeCaptions(url, html);
     if (spoken) parts.push(`takarir video: ${spoken}`);
     else {
       const mediaUrl = mediaUrlFromHtml(html);
       if (mediaUrl) {
-        const media = await fetchMedia(mediaUrl, url);
+        const media = await fetchMedia(mediaUrl, url, cookie);
         if (media) {
           spoken = await transcribe(media, "video.mp4", key);
           if (spoken) parts.push(`suara video: ${spoken}`);
         }
       }
     }
+
     if (!spoken) return { ok: false, needCaption: true, partial: oembed.caption };
     return buildRecipe(url, usableEvidence(parts), key);
   });
