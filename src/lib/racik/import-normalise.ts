@@ -148,7 +148,8 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
   const ings: IngLine[] = [];
   const unmatched: string[] = [];
   const serving: string[] = [];
-  const seen = new Set<string>();
+  /** A named-twice ingredient (dish and acar) folds into one line; it is not unknown. */
+  let merged = 0;
 
   for (const item of raw.ingredients) {
     if (SERVING_HINT.test(`${item.name} ${item.preparation ?? ""}`)) {
@@ -156,22 +157,34 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
       continue;
     }
     const matchedId = matchIngredient(item.name);
-    if (!matchedId || seen.has(matchedId)) {
+    if (!matchedId) {
       unmatched.push(writtenAs(item));
       continue;
     }
-    seen.add(matchedId);
     const parsed = parseUnit(item.unit);
     const qty = item.quantity == null ? null : item.quantity * (parsed?.factor ?? 1);
     const override = parsed && parsed.unit !== ING[matchedId]?.unit ? parsed.unit : null;
+    const existing = ings.find((line) => line[0] === matchedId);
+    if (existing) {
+      merged += 1;
+      if (existing[1] == null) {
+        existing[1] = qty;
+        existing[5] = override;
+      } else if (qty != null && existing[5] === override) {
+        existing[1] += qty;
+      }
+      const preps = [existing[2], item.preparation].filter((prep): prep is string => Boolean(prep));
+      existing[2] = preps.length ? [...new Set(preps)].join(", ") : null;
+      continue;
+    }
     ings.push([matchedId, qty, item.preparation, null, null, override]);
   }
 
   // Invariant: every line the model returned is either a recipe ingredient, a
   // serving suggestion in the note, or shown as unmatched. Nothing is dropped.
-  if (ings.length + unmatched.length + serving.length !== raw.ingredients.length) {
+  if (ings.length + merged + unmatched.length + serving.length !== raw.ingredients.length) {
     console.error(
-      `[racik] import lost ingredients: model ${raw.ingredients.length}, ings ${ings.length}, unmatched ${unmatched.length}, sajian ${serving.length}`,
+      `[racik] import lost ingredients: model ${raw.ingredients.length}, ings ${ings.length}, merged ${merged}, unmatched ${unmatched.length}, sajian ${serving.length}`,
       raw.ingredients.map((item) => item.name),
     );
     const accounted = new Set([...ings.map((line) => line[0]), ...unmatched, ...serving]);
