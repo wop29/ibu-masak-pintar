@@ -7,6 +7,8 @@ export interface ShoppingItem { key: string; id: string; name: string; qty: numb
 export function shoppingList(plan: { recipe: Recipe; servings: number }[]): ShoppingItem[] {
   const rows = new Map<string, ShoppingItem>();
   for (const { recipe, servings } of plan) {
+    // A recipe with an uncaptured bumbu would make the list wrong, so it is left out.
+    if (recipe.incomplete) continue;
     for (const line of recipe.ings.filter((x) => !x[4])) {
       const ingredient = ING[line[0]];
       if (!ingredient) continue;
