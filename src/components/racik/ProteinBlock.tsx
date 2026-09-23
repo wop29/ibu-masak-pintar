@@ -10,6 +10,13 @@ export function ProteinBlock({ recipe }: { recipe: Recipe }) {
   const [open, setOpen] = useState(false);
   const grams = proteinPerPortion(recipe);
   const text = fmtProtein(grams);
+  if (proteinUncertain(recipe)) {
+    return (
+      <p className="hairline-b py-4 text-body text-ink-2">
+        Perkiraan protein belum bisa dihitung — resepnya belum lengkap.
+      </p>
+    );
+  }
   if (!text) return null;
 
   const parts = proteinParts(recipe)
