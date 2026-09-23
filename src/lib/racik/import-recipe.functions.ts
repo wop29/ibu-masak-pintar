@@ -268,7 +268,7 @@ async function transcribe(media: Blob, filename: string, key: string) {
     });
     if (!response.ok) return "";
     const body = await response.json() as { text?: string };
-    return (body.text ?? "").replace(/\s+/g, " ").trim().slice(0, 40_000);
+    return fixSpokenTerms((body.text ?? "").replace(/\s+/g, " ").trim().slice(0, 40_000));
   } catch {
     return "";
   }
