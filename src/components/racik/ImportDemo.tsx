@@ -49,7 +49,13 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
   };
 
   const fail = (caught: unknown) => {
-    setError(caught instanceof Error ? caught.message : "Resep belum bisa diambil dari tautan ini.");
+    const raw = caught instanceof Error ? caught.message : "";
+    const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+    if (offline || /failed to fetch|networkerror|load failed/i.test(raw)) {
+      setError("Tautan butuh internet. Resep yang sudah tersimpan tetap bisa dibuka tanpa internet.");
+    } else {
+      setError(raw || "Resep belum bisa diambil dari tautan ini.");
+    }
     setStage("form");
   };
 
