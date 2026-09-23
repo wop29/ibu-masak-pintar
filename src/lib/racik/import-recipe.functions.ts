@@ -16,11 +16,21 @@ const inputSchema = z
 /** A caption shorter than this never carries both ingredients and steps. */
 export const MIN_CAPTION_CHARS = 80;
 
+/** Read off the reader's own screen when something fails. */
+export type ImportDiag = {
+  platform: string;
+  canonicalUrl: string;
+  status: number | null;
+  captionLength: number;
+  branch: string;
+};
+
 export type ImportResult =
-  | { ok: true; recipe: ImportedRecipe; unmatched: string[] }
-  | { ok: false; needCaption: true; partial: string }
-  | { ok: false; unavailable: true }
-  | { ok: false; noRecipe: true };
+  | { ok: true; recipe: ImportedRecipe; unmatched: string[]; diag: ImportDiag }
+  | { ok: false; needCaption: true; partial: string; diag: ImportDiag }
+  | { ok: false; unavailable: true; diag: ImportDiag }
+  | { ok: false; limited: true; diag: ImportDiag }
+  | { ok: false; noRecipe: true; diag: ImportDiag };
 const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
 
 const recipeSchema = {
