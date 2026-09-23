@@ -389,6 +389,7 @@ function requireKey() {
 
 async function buildRecipe(url: string, evidence: string, key: string): Promise<ImportResult> {
   const result = await extractRecipe(evidence, key);
+  console.log("[RACIK-TEST] extractor", JSON.stringify(result));
   if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
     return { ok: false, noRecipe: true };
   }
@@ -432,7 +433,9 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
       if (mediaUrl) {
         const media = await fetchMedia(mediaUrl, url, cookie);
         if (media) {
+          console.log("[RACIK-TEST] media bytes", media.size, media.type);
           spoken = await transcribe(media, "video.mp4", key);
+          console.log("[RACIK-TEST] transcript raw >>>", spoken, "<<<");
           if (spoken) parts.push(`suara video: ${spoken}`);
         }
       }
