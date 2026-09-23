@@ -31,7 +31,7 @@ describe("catalogue", () => {
     expect(RECIPES.filter((r) => !r.imported)).toHaveLength(199);
     // 167 delivered ingredients, plus five kept only so pasted captions can map
     // onto a real id instead of landing in the unmatched panel.
-    const importOnly = ["ikan_cakalang", "jeruk_nipis", "kaldu_bubuk", "soda_kue", "tepung_tapioka"];
+    const importOnly = ["ikan_cakalang", "jeruk_nipis", "kaldu_bubuk", "soda_kue", "tepung_tapioka", "bebek"];
     expect(INGREDIENTS).toHaveLength(167 + importOnly.length);
     const used = new Set(RECIPES.flatMap((r) => r.ings.map((l) => l[0])));
     for (const id of importOnly) {
