@@ -10,6 +10,20 @@ const PHRASES: { phrase: string; id: string; canonical: boolean }[] = INGREDIENT
   .filter((entry) => entry.phrase.length > 2)
   .sort((a, b) => b.phrase.length - a.phrase.length || Number(b.canonical) - Number(a.canonical));
 
+/** Canonical names handed to the extractor so it speaks the ontology's words. */
+export const ONTOLOGY_NAMES: string[] = INGREDIENTS.map((ing) => ing.name);
+
+/**
+ * A bare head word names a family, not an ingredient. Only the readings a
+ * home cook means by default are listed; anything ambiguous stays unmatched.
+ */
+const HEAD_DEFAULTS: Record<string, string> = {
+  gula: "gula_pasir",
+  tepung: "tepung_terigu",
+  kecap: "kecap_manis",
+  santan: "santan",
+};
+
 /**
  * The model never supplies an id. Names are resolved here against the
  * ontology, so an imported line either is a real ingredient or is surfaced
@@ -28,8 +42,14 @@ export function matchIngredient(raw: string): string | null {
   for (const { phrase, id } of PHRASES) {
     if (text.includes(` ${phrase} `)) return id;
   }
+  const head = HEAD_DEFAULTS[exact] ?? HEAD_DEFAULTS[exact.split(" ")[0] ?? ""];
+  if (head && ING[head]) return head;
   return null;
 }
+
+/** Things a dish is eaten with are not things it is cooked with. */
+const SERVING_HINT = /(paling enak (pakai|sama|dengan)|temen(nya|an)?\b|cocok (sama|dengan)|pelengkap|pendamping|disajikan|sajikan|untuk cocolan|buat cocolan)/i;
+
 
 
 const UNIT_ALIAS: Record<string, { unit: Unit; factor: number }> = {
