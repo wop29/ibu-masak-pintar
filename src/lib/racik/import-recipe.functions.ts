@@ -529,18 +529,27 @@ function requireKey() {
   return key;
 }
 
-async function buildRecipe(url: string, evidence: string, key: string): Promise<ImportResult> {
+async function buildRecipe(url: string, evidence: string, key: string, diag: ImportDiag): Promise<ImportResult> {
   const result = await extractRecipe(evidence, key);
   if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
-    return { ok: false, noRecipe: true };
+    return { ok: false, noRecipe: true, diag: { ...diag, branch: `${diag.branch} → extractor: insufficient` } };
   }
   const recipe = normaliseImported(
     { ...result, title: result.title },
     url,
     `import-${crypto.randomUUID()}`,
   );
-  if (recipe.ings.length < 2) return { ok: false, noRecipe: true };
-  return { ok: true, recipe, unmatched: recipe.unmatched };
+  if (recipe.ings.length < 2) return { ok: false, noRecipe: true, diag: { ...diag, branch: `${diag.branch} → bahan < 2` } };
+  return { ok: true, recipe, unmatched: recipe.unmatched, diag: { ...diag, branch: `${diag.branch} → resep tersusun` } };
+}
+
+/** oEmbed sometimes hands back a trimmed caption while the page holds all of it. */
+function pageCaption(html: string) {
+  const parts = [...tiktokEvidence(html), ...metaEvidence(html)];
+  const longest = parts
+    .map((part) => part.replace(/^(keterangan|description|og:description|twitter:description|og:title|title):\s*/i, "").trim())
+    .sort((a, b) => b.length - a.length)[0] ?? "";
+  return { parts, caption: longest };
 }
 
 export const importRecipeFromVideo = createServerFn({ method: "POST" })
@@ -548,33 +557,80 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<ImportResult> => {
     const key = requireKey();
     const caption = data.caption?.trim() ?? "";
-    const url = data.url?.trim() ?? "";
+    const raw = data.url?.trim() ?? "";
 
     // Pasted text is its own entry point: no platform request at all.
     if (caption) {
-      if (caption.length < MIN_CAPTION_CHARS) return { ok: false, noRecipe: true };
-      return buildRecipe(url, usableEvidence([`keterangan yang ditempel pembaca: ${caption}`]), key);
+      const canon = raw ? canonicalUrl(raw) : { url: "", platform: "tempelan" };
+      const diag: ImportDiag = {
+        platform: canon.platform,
+        canonicalUrl: canon.url,
+        status: null,
+        captionLength: caption.length,
+        branch: "keterangan ditempel, tanpa panggilan platform",
+      };
+      if (caption.length < MIN_CAPTION_CHARS) {
+        return { ok: false, noRecipe: true, diag: { ...diag, branch: `${diag.branch} → di bawah ${MIN_CAPTION_CHARS} karakter` } };
+      }
+      return buildRecipe(canon.url, usableEvidence([`keterangan yang ditempel pembaca: ${caption}`]), key, diag);
     }
 
+    if (!isAllowedUrl(raw)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+    // Query strings and short links must go before oEmbed, before everything.
+    const canon = canonicalUrl(await resolveShortLink(raw));
+    const url = canon.url;
     if (!isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+
     const oembed = await fetchOembed(url);
-    // A removed or private video is a different problem from a thin caption.
-    if (oembed.unavailable) return { ok: false, unavailable: true };
+    const diag: ImportDiag = {
+      platform: canon.platform,
+      canonicalUrl: url,
+      status: oembed.status,
+      captionLength: oembed.caption.length,
+      branch: "oEmbed",
+    };
+    // Three different failures, three different screens.
+    if (oembed.limited) {
+      return { ok: false, limited: true, diag: { ...diag, branch: `oEmbed ${oembed.status} setelah 3 percobaan: dibatasi platform` } };
+    }
+    if (oembed.unavailable) {
+      return { ok: false, unavailable: true, diag: { ...diag, branch: `oEmbed ${oembed.status}: video tidak ada atau privat` } };
+    }
 
     if (!data.listen) {
-      if (oembed.caption.length >= MIN_CAPTION_CHARS) return buildRecipe(url, usableEvidence(oembed.parts), key);
-      return { ok: false, needCaption: true, partial: oembed.caption };
+      if (oembed.caption.length >= MIN_CAPTION_CHARS) {
+        return buildRecipe(url, usableEvidence(oembed.parts), key, { ...diag, branch: "oEmbed 200, keterangan cukup panjang" });
+      }
+      // Before asking the reader for anything, read the page itself.
+      const page = pageCaption((await fetchHtml(url)).html);
+      const best = Math.max(oembed.caption.length, page.caption.length);
+      if (page.caption.length >= MIN_CAPTION_CHARS) {
+        return buildRecipe(url, usableEvidence([...oembed.parts, ...page.parts]), key, {
+          ...diag,
+          captionLength: best,
+          branch: "oEmbed pendek, keterangan halaman dipakai",
+        });
+      }
+      return {
+        ok: false,
+        needCaption: true,
+        partial: oembed.caption.length >= page.caption.length ? oembed.caption : page.caption,
+        diag: { ...diag, captionLength: best, branch: `keterangan ${best} karakter, di bawah ${MIN_CAPTION_CHARS}: belum ada resep untuk dibaca` },
+      };
     }
 
     // Listening is slow and costly, so it only runs when the reader asks for it.
     const { html, cookie } = await fetchHtml(url);
     const parts = [...oembed.parts, ...pageEvidence(html)];
     let spoken = await youtubeCaptions(url, html);
+    let source = "takarir";
     if (spoken) parts.push(`takarir video: ${spoken}`);
     else {
       const mediaUrl = mediaUrlFromHtml(html);
+      source = mediaUrl ? "berkas video" : "tidak ada berkas video di halaman";
       if (mediaUrl) {
         const media = await fetchMedia(mediaUrl, url, cookie);
+        source = media ? "berkas video" : "berkas video tidak bisa diunduh";
         if (media) {
           spoken = await transcribe(media, "video.mp4", key);
           if (spoken) parts.push(`suara video: ${spoken}`);
@@ -582,8 +638,15 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
       }
     }
 
-    if (!spoken) return { ok: false, needCaption: true, partial: oembed.caption };
-    return buildRecipe(url, usableEvidence(parts), key);
+    if (!spoken) {
+      return {
+        ok: false,
+        needCaption: true,
+        partial: oembed.caption,
+        diag: { ...diag, branch: `baca suara gagal (${source})` },
+      };
+    }
+    return buildRecipe(url, usableEvidence(parts), key, { ...diag, captionLength: spoken.length, branch: `suara video terbaca (${source})` });
   });
 
 export const importRecipeFromUpload = createServerFn({ method: "POST" })
@@ -592,14 +655,22 @@ export const importRecipeFromUpload = createServerFn({ method: "POST" })
     return input;
   })
   .handler(async ({ data }): Promise<ImportResult> => {
-    const url = String(data.get("url") ?? "");
+    const raw = String(data.get("url") ?? "");
     const file = data.get("file");
-    if (url && !isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+    if (raw && !isAllowedUrl(raw)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
     if (!(file instanceof File) || file.size === 0) throw new Error("Pilih berkas video atau rekaman suaranya dulu.");
     if (file.size > MAX_MEDIA_BYTES) throw new Error("Berkasnya terlalu besar. Pakai video di bawah 24 MB atau rekaman suaranya saja.");
     const key = requireKey();
+    const canon = raw ? canonicalUrl(raw) : { url: "", platform: "berkas" };
     const spoken = await transcribe(file, file.name || "video.mp4", key);
     if (!spoken) throw new Error("Suara di berkas itu tidak terbaca. Coba berkas lain atau tempel keterangan videonya.");
-    const oembed = url ? await fetchOembed(url) : { parts: [] as string[], caption: "" };
-    return buildRecipe(url, usableEvidence([...oembed.parts, `suara video: ${spoken}`]), key);
+    const oembed = canon.url ? await fetchOembed(canon.url) : NO_CAPTION;
+    return buildRecipe(canon.url, usableEvidence([...oembed.parts, `suara video: ${spoken}`]), key, {
+      platform: canon.platform,
+      canonicalUrl: canon.url,
+      status: oembed.status,
+      captionLength: spoken.length,
+      branch: "berkas diunggah, suara ditranskrip",
+    });
+  });
   });
