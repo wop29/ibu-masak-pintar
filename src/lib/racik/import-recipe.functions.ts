@@ -278,26 +278,91 @@ async function transcribe(media: Blob, filename: string, key: string) {
   }
 }
 
-async function fetchOembed(url: string) {
-  const empty = { parts: [] as string[], caption: "" };
-  const host = new URL(url).hostname.toLowerCase();
-  const endpoint = host.includes("tiktok")
-    ? `https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`
-    : host.includes("youtu")
-      ? `https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`
-      : null;
-  if (!endpoint) return empty;
+type Caption = { parts: string[]; caption: string; unavailable?: boolean };
+const NO_CAPTION: Caption = { parts: [], caption: "" };
+const GONE: Caption = { parts: [], caption: "", unavailable: true };
+
+function captionFrom(title: string, author: string | null): Caption {
+  const parts: string[] = [];
+  if (title) parts.push(`keterangan: ${title}`);
+  if (author) parts.push(`pembuat: ${author}`);
+  return { parts, caption: title.replace(/\s+/g, " ").trim() };
+}
+
+/** Every shape a reader can paste: watch?v=, youtu.be/, /shorts/, /embed/. */
+export function youtubeVideoId(url: string) {
   try {
-    const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
-    if (!response.ok) return empty;
-    const body = await response.json() as { title?: string; author_name?: string };
-    const parts: string[] = [];
-    if (body.title) parts.push(`keterangan: ${body.title}`);
-    if (body.author_name) parts.push(`pembuat: ${body.author_name}`);
-    return { parts, caption: (body.title ?? "").replace(/\s+/g, " ").trim() };
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase();
+    const id = host.endsWith("youtu.be")
+      ? parsed.pathname.split("/")[1]
+      : parsed.searchParams.get("v") ?? parsed.pathname.match(/\/(?:shorts|embed|live|v)\/([^/?#]+)/)?.[1];
+    return id && /^[A-Za-z0-9_-]{11}$/.test(id) ? id : "";
   } catch {
-    return empty;
+    return "";
   }
+}
+
+/** The recipe lives in the description, and only the Data API returns it. */
+async function fetchYoutube(url: string): Promise<Caption> {
+  const id = youtubeVideoId(url);
+  const key = process.env['YOUTUBE_API_KEY'];
+  if (!id) return NO_CAPTION;
+  if (key) {
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&key=${key}`,
+        { headers: { Accept: "application/json" } },
+      );
+      if (response.ok) {
+        const body = await response.json() as {
+          items?: { snippet?: { title?: string; description?: string; channelTitle?: string } }[];
+        };
+        const snippet = body.items?.[0]?.snippet;
+        // An id that resolves to nothing is a deleted or private video.
+        if (!snippet) return GONE;
+        const title = [snippet.title, snippet.description].filter(Boolean).join("\n");
+        return captionFrom(title, snippet.channelTitle ?? null);
+      }
+    } catch {
+      // Fall through to oEmbed, which at least returns the title.
+    }
+  }
+  return fetchJsonOembed(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`);
+}
+
+/** Instagram's own oEmbed returns the whole caption and needs no token. */
+async function fetchInstagram(url: string): Promise<Caption> {
+  const own = await fetchJsonOembed(`https://www.instagram.com/api/v1/oembed/?url=${encodeURIComponent(url)}`);
+  if (own.caption || own.unavailable) return own;
+  // Graph carries no caption, but it still tells us whether the post exists.
+  return fetchJsonOembed(
+    `https://graph.facebook.com/v23.0/instagram_oembed?url=${encodeURIComponent(url)}&omitscript=true`,
+  );
+}
+
+async function fetchJsonOembed(endpoint: string): Promise<Caption> {
+  try {
+    const response = await fetch(endpoint, {
+      headers: { Accept: "application/json", "User-Agent": BROWSER_UA },
+    });
+    if (response.status === 400 || response.status === 404 || response.status === 410) return GONE;
+    if (!response.ok) return NO_CAPTION;
+    const body = await response.json() as { title?: string; author_name?: string };
+    return captionFrom(body.title ?? "", body.author_name ?? null);
+  } catch {
+    return NO_CAPTION;
+  }
+}
+
+async function fetchOembed(url: string): Promise<Caption> {
+  const host = new URL(url).hostname.toLowerCase();
+  if (host.includes("tiktok")) {
+    return fetchJsonOembed(`https://www.tiktok.com/oembed?url=${encodeURIComponent(url)}`);
+  }
+  if (host.includes("instagram")) return fetchInstagram(url);
+  if (host.includes("youtu")) return fetchYoutube(url);
+  return NO_CAPTION;
 }
 
 function usableEvidence(parts: string[]) {
