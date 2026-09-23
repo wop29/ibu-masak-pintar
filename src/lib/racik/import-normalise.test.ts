@@ -94,7 +94,7 @@ describe("nothing is dropped", () => {
     expect(recipe.unmatched).toContain("1 sdm Saus XO impor");
   });
 
-  it("sends a duplicate match to unmatched instead of losing it", () => {
+  it("folds a second mention into one line instead of calling it unknown", () => {
     const recipe = normaliseImported(
       { ...RAW, ingredients: [
         { name: "Dada ayam", quantity: 300, unit: "gram", preparation: null },
@@ -104,7 +104,23 @@ describe("nothing is dropped", () => {
       "import-5",
     );
     expect(recipe.ings).toHaveLength(1);
-    expect(recipe.unmatched).toEqual(["200 gram Paha ayam"]);
+    expect(recipe.ings[0]?.[1]).toBe(500);
+    expect(recipe.unmatched).toEqual([]);
+  });
+
+  it("keeps a twice-named ingredient out of unmatched and keeps both preparations", () => {
+    const recipe = normaliseImported(
+      { ...RAW, ingredients: [
+        { name: "Bawang merah", quantity: 8, unit: "siung", preparation: "haluskan" },
+        { name: "Bawang merah", quantity: 4, unit: "siung", preparation: "untuk acar" },
+      ] },
+      "https://x",
+      "import-6",
+    );
+    expect(recipe.unmatched).toEqual([]);
+    expect(recipe.ings).toHaveLength(1);
+    expect(recipe.ings[0]?.[1]).toBe(12);
+    expect(recipe.ings[0]?.[2]).toBe("haluskan, untuk acar");
   });
 });
 
