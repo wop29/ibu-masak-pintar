@@ -134,6 +134,24 @@ describe("spoken import", () => {
     expect(shoppingList([{ recipe, servings: 4 }])).toEqual([]);
   });
 
+  it("puts a whole duck near 31 g protein a portion, not 67", () => {
+    const recipe = normaliseImported(
+      {
+        ...RAW,
+        servings: null,
+        ingredients: [
+          { name: "Bebek peking", quantity: 1, unit: "ekor", preparation: null },
+          { name: "Garam", quantity: 1, unit: "sdt", preparation: null },
+        ],
+      },
+      "https://x",
+      "import-bebek",
+    );
+    const grams = proteinPerPortion(recipe);
+    expect(grams).toBeGreaterThan(25);
+    expect(grams).toBeLessThan(40);
+  });
+
   it("leaves a complete import unflagged", () => {
     const recipe = normaliseImported(RAW, "https://x", "import-4");
     expect(recipe.incomplete).toBeUndefined();

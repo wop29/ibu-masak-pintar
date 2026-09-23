@@ -245,6 +245,12 @@ describe("protein", () => {
     }
   });
 
+  it("keeps every recipe under 60 g a portion, the ceiling for a home dish", () => {
+    for (const r of RECIPES) {
+      expect(proteinPerPortion(r), r.id).toBeLessThan(60);
+    }
+  });
+
   it("does not wobble when the portion stepper moves", () => {
     const r = recipe("gado_gado");
     expect(proteinPerPortion(r)).toBe(proteinPerPortion(r));
