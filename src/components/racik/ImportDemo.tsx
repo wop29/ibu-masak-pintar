@@ -37,6 +37,13 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
       onImported?.();
       return;
     }
+    if ("unavailable" in result) {
+      setNeedCaption(true);
+      setTab("keterangan");
+      setError("Videonya tidak bisa dibuka. Mungkin sudah dihapus atau disetel privat.");
+      setStage("form");
+      return;
+    }
     if ("needCaption" in result) {
       setNeedCaption(true);
       setTab("keterangan");
