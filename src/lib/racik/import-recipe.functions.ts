@@ -228,7 +228,35 @@ async function fetchMedia(mediaUrl: string, referer: string, cookie: string) {
   }
 }
 
+/** Speech-to-text mishears kitchen words, so the common ones are repaired first. */
+const SPOKEN_FIXES: [RegExp, string][] = [
+  [/\bbebek pack?ing\b/gi, "bebek peking"],
+  [/\bpeck?ing duck\b/gi, "bebek peking"],
+  [/\bsere+h?\b/gi, "serai"],
+  [/\blengkoas\b/gi, "lengkuas"],
+  [/\bkemiring?i\b/gi, "kemiri"],
+  [/\bken[cs]ur\b/gi, "kencur"],
+  [/\bdaun jerok\b/gi, "daun jeruk"],
+  [/\bdaun salem\b/gi, "daun salam"],
+  [/\bketumber\b/gi, "ketumbar"],
+  [/\bpenyede?p\b/gi, "penyedap"],
+  [/\bkaldu buble?k\b/gi, "kaldu bubuk"],
+  [/\bsante?n\b/gi, "santan"],
+  [/\bkecap ingg?ris\b/gi, "kecap inggris"],
+  [/\bbawang bomba?[iy]\b/gi, "bawang bombay"],
+  [/\bgule pasir\b/gi, "gula pasir"],
+  [/\bgule me?rah\b/gi, "gula merah"],
+  [/\btauco?\b/gi, "tauco"],
+  [/\bterasi?h\b/gi, "terasi"],
+  [/\basem jawa\b/gi, "asam jawa"],
+];
+
+function fixSpokenTerms(text: string) {
+  return SPOKEN_FIXES.reduce((out, [pattern, replacement]) => out.replace(pattern, replacement), text);
+}
+
 async function transcribe(media: Blob, filename: string, key: string) {
+
   const form = new FormData();
   form.append("file", media, filename);
   form.append("model", TRANSCRIBE_MODEL);
