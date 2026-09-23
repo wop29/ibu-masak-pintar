@@ -16,11 +16,21 @@ const inputSchema = z
 /** A caption shorter than this never carries both ingredients and steps. */
 export const MIN_CAPTION_CHARS = 80;
 
+/** Read off the reader's own screen when something fails. */
+export type ImportDiag = {
+  platform: string;
+  canonicalUrl: string;
+  status: number | null;
+  captionLength: number;
+  branch: string;
+};
+
 export type ImportResult =
-  | { ok: true; recipe: ImportedRecipe; unmatched: string[] }
-  | { ok: false; needCaption: true; partial: string }
-  | { ok: false; unavailable: true }
-  | { ok: false; noRecipe: true };
+  | { ok: true; recipe: ImportedRecipe; unmatched: string[]; diag: ImportDiag }
+  | { ok: false; needCaption: true; partial: string; diag: ImportDiag }
+  | { ok: false; unavailable: true; diag: ImportDiag }
+  | { ok: false; limited: true; diag: ImportDiag }
+  | { ok: false; noRecipe: true; diag: ImportDiag };
 const allowedDomains = ["tiktok.com", "instagram.com", "youtube.com", "youtu.be", "cdninstagram.com", "fb.watch", "youtube-nocookie.com"];
 
 const recipeSchema = {
@@ -284,15 +294,54 @@ async function transcribe(media: Blob, filename: string, key: string) {
   }
 }
 
-type Caption = { parts: string[]; caption: string; unavailable?: boolean };
-const NO_CAPTION: Caption = { parts: [], caption: "" };
-const GONE: Caption = { parts: [], caption: "", unavailable: true };
+type Caption = { parts: string[]; caption: string; status: number | null; unavailable?: boolean; limited?: boolean };
+const NO_CAPTION: Caption = { parts: [], caption: "", status: null };
+const GONE: Caption = { parts: [], caption: "", status: 404, unavailable: true };
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function captionFrom(title: string, author: string | null): Caption {
+function captionFrom(title: string, author: string | null, status: number | null): Caption {
   const parts: string[] = [];
   if (title) parts.push(`keterangan: ${title}`);
   if (author) parts.push(`pembuat: ${author}`);
-  return { parts, caption: title.replace(/\s+/g, " ").trim() };
+  return { parts, caption: title.replace(/\s+/g, " ").trim(), status };
+}
+
+/** A pasted link carries tracking noise; only the video id is the video. */
+export function canonicalUrl(raw: string): { url: string; platform: string } {
+  try {
+    const parsed = new URL(raw.trim());
+    const host = parsed.hostname.toLowerCase();
+    if (host.endsWith("tiktok.com")) {
+      const match = parsed.pathname.match(/@([^/]+)\/(video|photo)\/(\d+)/);
+      if (match) return { url: `https://www.tiktok.com/@${match[1]}/${match[2]}/${match[3]}`, platform: "tiktok" };
+      return { url: `https://www.tiktok.com${parsed.pathname.replace(/\/+$/, "")}`, platform: "tiktok" };
+    }
+    if (host.endsWith("youtube.com") || host.endsWith("youtu.be") || host.endsWith("youtube-nocookie.com")) {
+      const id = youtubeVideoId(raw);
+      return { url: id ? `https://www.youtube.com/watch?v=${id}` : `https://www.youtube.com${parsed.pathname}`, platform: "youtube" };
+    }
+    if (host.endsWith("instagram.com")) {
+      const match = parsed.pathname.match(/\/(reels?|p|tv)\/([A-Za-z0-9_-]+)/);
+      if (match) return { url: `https://www.instagram.com/${match[1] === "reels" ? "reel" : match[1]}/${match[2]}/`, platform: "instagram" };
+      return { url: `https://www.instagram.com${parsed.pathname}`, platform: "instagram" };
+    }
+    return { url: `${parsed.origin}${parsed.pathname}`, platform: host };
+  } catch {
+    return { url: raw.trim(), platform: "tidak dikenal" };
+  }
+}
+
+/** vt./vm. links name no video until the redirect is followed. */
+async function resolveShortLink(url: string) {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    const short = /^(vt|vm|m)\.tiktok\.com$/.test(host) || (host.endsWith("instagram.com") && /\/share\//.test(new URL(url).pathname));
+    if (!short) return url;
+    const response = await fetch(url, { redirect: "follow", headers: { "User-Agent": BROWSER_UA, Accept: "text/html" } });
+    return isAllowedUrl(response.url) ? response.url : url;
+  } catch {
+    return url;
+  }
 }
 
 /** Every shape a reader can paste: watch?v=, youtu.be/, /shorts/, /embed/. */
@@ -328,7 +377,7 @@ async function fetchYoutube(url: string): Promise<Caption> {
         // An id that resolves to nothing is a deleted or private video.
         if (!snippet) return GONE;
         const title = [snippet.title, snippet.description].filter(Boolean).join("\n");
-        return captionFrom(title, snippet.channelTitle ?? null);
+        return captionFrom(title, snippet.channelTitle ?? null, response.status);
       }
     } catch {
       // Fall through to oEmbed, which at least returns the title.
@@ -347,18 +396,39 @@ async function fetchInstagram(url: string): Promise<Caption> {
   );
 }
 
+/** Bursts from one address get throttled, so a refusal is worth two retries. */
 async function fetchJsonOembed(endpoint: string): Promise<Caption> {
-  try {
-    const response = await fetch(endpoint, {
-      headers: { Accept: "application/json", "User-Agent": BROWSER_UA },
-    });
-    if (response.status === 400 || response.status === 404 || response.status === 410) return GONE;
-    if (!response.ok) return NO_CAPTION;
-    const body = await response.json() as { title?: string; author_name?: string };
-    return captionFrom(body.title ?? "", body.author_name ?? null);
-  } catch {
-    return NO_CAPTION;
+  let last: Caption = NO_CAPTION;
+  for (const wait of [0, 1_000, 3_000]) {
+    if (wait) await sleep(wait);
+    try {
+      const response = await fetch(endpoint, {
+        headers: { Accept: "application/json", "User-Agent": BROWSER_UA },
+      });
+      const status = response.status;
+      if (status === 404 || status === 410) return { ...GONE, status };
+      if (status === 429 || status === 403) {
+        last = { parts: [], caption: "", status, limited: true };
+        continue;
+      }
+      // A 400 from oEmbed means the id names nothing playable.
+      if (status === 400) return { ...GONE, status };
+      if (!response.ok) {
+        last = { parts: [], caption: "", status };
+        continue;
+      }
+      const text = await response.text();
+      if (!text.trim()) {
+        last = { parts: [], caption: "", status };
+        continue;
+      }
+      const body = JSON.parse(text) as { title?: string; author_name?: string };
+      return captionFrom(body.title ?? "", body.author_name ?? null, status);
+    } catch {
+      last = NO_CAPTION;
+    }
   }
+  return last;
 }
 
 async function fetchOembed(url: string): Promise<Caption> {
@@ -459,18 +529,27 @@ function requireKey() {
   return key;
 }
 
-async function buildRecipe(url: string, evidence: string, key: string): Promise<ImportResult> {
+async function buildRecipe(url: string, evidence: string, key: string, diag: ImportDiag): Promise<ImportResult> {
   const result = await extractRecipe(evidence, key);
   if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
-    return { ok: false, noRecipe: true };
+    return { ok: false, noRecipe: true, diag: { ...diag, branch: `${diag.branch} → extractor: insufficient` } };
   }
   const recipe = normaliseImported(
     { ...result, title: result.title },
     url,
     `import-${crypto.randomUUID()}`,
   );
-  if (recipe.ings.length < 2) return { ok: false, noRecipe: true };
-  return { ok: true, recipe, unmatched: recipe.unmatched };
+  if (recipe.ings.length < 2) return { ok: false, noRecipe: true, diag: { ...diag, branch: `${diag.branch} → bahan < 2` } };
+  return { ok: true, recipe, unmatched: recipe.unmatched, diag: { ...diag, branch: `${diag.branch} → resep tersusun` } };
+}
+
+/** oEmbed sometimes hands back a trimmed caption while the page holds all of it. */
+function pageCaption(html: string) {
+  const parts = [...tiktokEvidence(html), ...metaEvidence(html)];
+  const longest = parts
+    .map((part) => part.replace(/^(keterangan|description|og:description|twitter:description|og:title|title):\s*/i, "").trim())
+    .sort((a, b) => b.length - a.length)[0] ?? "";
+  return { parts, caption: longest };
 }
 
 export const importRecipeFromVideo = createServerFn({ method: "POST" })
@@ -478,33 +557,80 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<ImportResult> => {
     const key = requireKey();
     const caption = data.caption?.trim() ?? "";
-    const url = data.url?.trim() ?? "";
+    const raw = data.url?.trim() ?? "";
 
     // Pasted text is its own entry point: no platform request at all.
     if (caption) {
-      if (caption.length < MIN_CAPTION_CHARS) return { ok: false, noRecipe: true };
-      return buildRecipe(url, usableEvidence([`keterangan yang ditempel pembaca: ${caption}`]), key);
+      const canon = raw ? canonicalUrl(raw) : { url: "", platform: "tempelan" };
+      const diag: ImportDiag = {
+        platform: canon.platform,
+        canonicalUrl: canon.url,
+        status: null,
+        captionLength: caption.length,
+        branch: "keterangan ditempel, tanpa panggilan platform",
+      };
+      if (caption.length < MIN_CAPTION_CHARS) {
+        return { ok: false, noRecipe: true, diag: { ...diag, branch: `${diag.branch} → di bawah ${MIN_CAPTION_CHARS} karakter` } };
+      }
+      return buildRecipe(canon.url, usableEvidence([`keterangan yang ditempel pembaca: ${caption}`]), key, diag);
     }
 
+    if (!isAllowedUrl(raw)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+    // Query strings and short links must go before oEmbed, before everything.
+    const canon = canonicalUrl(await resolveShortLink(raw));
+    const url = canon.url;
     if (!isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+
     const oembed = await fetchOembed(url);
-    // A removed or private video is a different problem from a thin caption.
-    if (oembed.unavailable) return { ok: false, unavailable: true };
+    const diag: ImportDiag = {
+      platform: canon.platform,
+      canonicalUrl: url,
+      status: oembed.status,
+      captionLength: oembed.caption.length,
+      branch: "oEmbed",
+    };
+    // Three different failures, three different screens.
+    if (oembed.limited) {
+      return { ok: false, limited: true, diag: { ...diag, branch: `oEmbed ${oembed.status} setelah 3 percobaan: dibatasi platform` } };
+    }
+    if (oembed.unavailable) {
+      return { ok: false, unavailable: true, diag: { ...diag, branch: `oEmbed ${oembed.status}: video tidak ada atau privat` } };
+    }
 
     if (!data.listen) {
-      if (oembed.caption.length >= MIN_CAPTION_CHARS) return buildRecipe(url, usableEvidence(oembed.parts), key);
-      return { ok: false, needCaption: true, partial: oembed.caption };
+      if (oembed.caption.length >= MIN_CAPTION_CHARS) {
+        return buildRecipe(url, usableEvidence(oembed.parts), key, { ...diag, branch: "oEmbed 200, keterangan cukup panjang" });
+      }
+      // Before asking the reader for anything, read the page itself.
+      const page = pageCaption((await fetchHtml(url)).html);
+      const best = Math.max(oembed.caption.length, page.caption.length);
+      if (page.caption.length >= MIN_CAPTION_CHARS) {
+        return buildRecipe(url, usableEvidence([...oembed.parts, ...page.parts]), key, {
+          ...diag,
+          captionLength: best,
+          branch: "oEmbed pendek, keterangan halaman dipakai",
+        });
+      }
+      return {
+        ok: false,
+        needCaption: true,
+        partial: oembed.caption.length >= page.caption.length ? oembed.caption : page.caption,
+        diag: { ...diag, captionLength: best, branch: `keterangan ${best} karakter, di bawah ${MIN_CAPTION_CHARS}: belum ada resep untuk dibaca` },
+      };
     }
 
     // Listening is slow and costly, so it only runs when the reader asks for it.
     const { html, cookie } = await fetchHtml(url);
     const parts = [...oembed.parts, ...pageEvidence(html)];
     let spoken = await youtubeCaptions(url, html);
+    let source = "takarir";
     if (spoken) parts.push(`takarir video: ${spoken}`);
     else {
       const mediaUrl = mediaUrlFromHtml(html);
+      source = mediaUrl ? "berkas video" : "tidak ada berkas video di halaman";
       if (mediaUrl) {
         const media = await fetchMedia(mediaUrl, url, cookie);
+        source = media ? "berkas video" : "berkas video tidak bisa diunduh";
         if (media) {
           spoken = await transcribe(media, "video.mp4", key);
           if (spoken) parts.push(`suara video: ${spoken}`);
@@ -512,8 +638,15 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
       }
     }
 
-    if (!spoken) return { ok: false, needCaption: true, partial: oembed.caption };
-    return buildRecipe(url, usableEvidence(parts), key);
+    if (!spoken) {
+      return {
+        ok: false,
+        needCaption: true,
+        partial: oembed.caption,
+        diag: { ...diag, branch: `baca suara gagal (${source})` },
+      };
+    }
+    return buildRecipe(url, usableEvidence(parts), key, { ...diag, captionLength: spoken.length, branch: `suara video terbaca (${source})` });
   });
 
 export const importRecipeFromUpload = createServerFn({ method: "POST" })
@@ -522,14 +655,21 @@ export const importRecipeFromUpload = createServerFn({ method: "POST" })
     return input;
   })
   .handler(async ({ data }): Promise<ImportResult> => {
-    const url = String(data.get("url") ?? "");
+    const raw = String(data.get("url") ?? "");
     const file = data.get("file");
-    if (url && !isAllowedUrl(url)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
+    if (raw && !isAllowedUrl(raw)) throw new Error("Gunakan tautan TikTok, Instagram Reels, atau YouTube Shorts yang memakai https.");
     if (!(file instanceof File) || file.size === 0) throw new Error("Pilih berkas video atau rekaman suaranya dulu.");
     if (file.size > MAX_MEDIA_BYTES) throw new Error("Berkasnya terlalu besar. Pakai video di bawah 24 MB atau rekaman suaranya saja.");
     const key = requireKey();
+    const canon = raw ? canonicalUrl(raw) : { url: "", platform: "berkas" };
     const spoken = await transcribe(file, file.name || "video.mp4", key);
     if (!spoken) throw new Error("Suara di berkas itu tidak terbaca. Coba berkas lain atau tempel keterangan videonya.");
-    const oembed = url ? await fetchOembed(url) : { parts: [] as string[], caption: "" };
-    return buildRecipe(url, usableEvidence([...oembed.parts, `suara video: ${spoken}`]), key);
+    const oembed = canon.url ? await fetchOembed(canon.url) : NO_CAPTION;
+    return buildRecipe(canon.url, usableEvidence([...oembed.parts, `suara video: ${spoken}`]), key, {
+      platform: canon.platform,
+      canonicalUrl: canon.url,
+      status: oembed.status,
+      captionLength: spoken.length,
+      branch: "berkas diunggah, suara ditranskrip",
+    });
   });
