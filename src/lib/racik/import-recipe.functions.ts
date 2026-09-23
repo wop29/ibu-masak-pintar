@@ -212,7 +212,9 @@ export function looksLikeMediaUrl(value: string) {
   try {
     if (/\.(mp4|m4a|mp3|webm|mov)(\?|$)/i.test(value)) return true;
     const host = new URL(value).hostname.toLowerCase();
-    return !/(^|\.)(tiktok\.com|youtube\.com|youtube-nocookie\.com|youtu\.be|instagram\.com|facebook\.com)$/.test(host);
+    const bare = host.replace(/^(www|m|vt|vm)\./, "");
+    // CDN subdomains carry the file; the bare page host never does.
+    return !["tiktok.com", "youtube.com", "youtube-nocookie.com", "youtu.be", "instagram.com", "facebook.com"].includes(bare);
   } catch {
     return false;
   }
