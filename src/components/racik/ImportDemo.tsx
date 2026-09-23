@@ -23,10 +23,12 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
   const [error, setError] = useState("");
   const [unmatched, setUnmatched] = useState<string[]>([]);
   const [needCaption, setNeedCaption] = useState(false);
-  const valid = /https?:\/\/(www\.)?(tiktok\.com|instagram\.com|youtube\.com|youtu\.be)\//i.test(url);
+  const [diag, setDiag] = useState<ImportDiag | null>(null);
+  const valid = /https?:\/\/(www\.|vt\.|vm\.|m\.)?(tiktok\.com|instagram\.com|youtube\.com|youtu\.be)\//i.test(url);
   const captionReady = caption.trim().length > 0;
 
   const handle = (result: ImportResult) => {
+    setDiag(result.diag);
     if (result.ok) {
       update((current) => ({ imported: [result.recipe, ...current.imported] }));
       setTitle(result.recipe.title);
@@ -35,6 +37,13 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
       setNeedCaption(false);
       setStage("done");
       onImported?.();
+      return;
+    }
+    if ("limited" in result) {
+      setNeedCaption(true);
+      setTab("keterangan");
+      setError("TikTok sedang menahan permintaan dari Racik. Tunggu sebentar lalu coba lagi, atau tempel keterangannya di bawah.");
+      setStage("form");
       return;
     }
     if ("unavailable" in result) {
@@ -63,8 +72,28 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
     } else {
       setError(raw || "Resep belum bisa diambil dari tautan ini.");
     }
+    setDiag({
+      platform: url ? canonicalUrl(url).platform : "tempelan",
+      canonicalUrl: url ? canonicalUrl(url).url : "",
+      status: null,
+      captionLength: caption.trim().length,
+      branch: `gagal sebelum jawaban platform: ${offline ? "perangkat offline" : raw || "penyebab tidak disebut"}`,
+    });
     setStage("form");
   };
+
+  const why = diag ? (
+    <details className="mt-2">
+      <summary className="text-secondary text-muted-foreground underline">Kenapa?</summary>
+      <div className="mt-2 space-y-1 text-secondary text-muted-foreground">
+        <p>platform: {diag.platform}</p>
+        <p className="break-all">tautan: {diag.canonicalUrl || "tidak ada"}</p>
+        <p>status HTTP: {diag.status ?? "tidak ada"}</p>
+        <p>panjang keterangan: {diag.captionLength} karakter</p>
+        <p>cabang: {diag.branch}</p>
+      </div>
+    </details>
+  ) : null;
 
   const submitLink = async (listen = false) => {
     if (!valid) return;
