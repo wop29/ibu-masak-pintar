@@ -181,13 +181,16 @@ async function youtubeCaptions(url: string, html: string) {
     const body = await response.text();
     if (!body.trim()) return "";
     const parsed = JSON.parse(body) as { events?: { segs?: { utf8?: string }[] }[] };
-    return (parsed.events ?? [])
-      .flatMap((event) => event.segs ?? [])
-      .map((seg) => seg.utf8 ?? "")
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 40_000);
+    return fixSpokenTerms(
+      (parsed.events ?? [])
+        .flatMap((event) => event.segs ?? [])
+        .map((seg) => seg.utf8 ?? "")
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 40_000),
+    );
+
   } catch {
     return "";
   }
