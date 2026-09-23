@@ -197,6 +197,11 @@ async function youtubeCaptions(url: string, html: string) {
   }
 }
 
+/** An embed or watch page is a page, not a file, however it is advertised. */
+function looksLikeMediaUrl(value: string) {
+  return !/\/(embed|watch|shorts|reel|video)\//i.test(new URL(value).pathname) || /\.(mp4|m4a|mp3|webm|mov)(\?|$)/i.test(value);
+}
+
 function mediaUrlFromHtml(html: string) {
   const candidates = [
     html.match(/"playAddr":"([^"]+)"/)?.[1],
@@ -208,7 +213,7 @@ function mediaUrlFromHtml(html: string) {
   for (const candidate of candidates) {
     if (!candidate) continue;
     const resolved = decodeHtml(unescapeSlashes(candidate));
-    if (/^https:\/\//i.test(resolved)) return resolved;
+    if (/^https:\/\//i.test(resolved) && looksLikeMediaUrl(resolved)) return resolved;
   }
   return "";
 }
@@ -221,7 +226,8 @@ async function fetchMedia(mediaUrl: string, referer: string, cookie: string) {
 
     if (!response.ok) return null;
     const type = response.headers.get("content-type") ?? "";
-    if (!/^(video|audio|application\/octet-stream)/i.test(type)) return null;
+    // Only real media is media. A page served here would be transcribed as silence.
+    if (!/^(video|audio)\//i.test(type)) return null;
     const length = Number(response.headers.get("content-length") ?? 0);
     if (length > MAX_MEDIA_BYTES) return null;
     const bytes = await response.arrayBuffer();
