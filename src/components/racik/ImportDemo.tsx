@@ -173,7 +173,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
             <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="Tempel tautan videonya di sini…" className="h-14 w-full rounded-xl border border-border bg-secondary px-4 text-body outline-none focus:border-primary" />
           </label>
           {url && !valid ? <p className="mt-2 text-secondary text-destructive">Gunakan tautan TikTok, Instagram, atau YouTube.</p> : null}
-          {error ? <p role="alert" className="mt-3 text-body text-destructive">{error}</p> : null}
+          {error ? <><p role="alert" className="mt-3 text-body text-destructive">{error}</p>{why}</> : null}
           <Button variant="outline" className="mt-3 w-full" onClick={async () => { try { setUrl(await navigator.clipboard.readText()); } catch { setError("Clipboard tidak bisa dibaca. Tempel tautan langsung di kolom."); } }}><Clipboard /> Tempel dari clipboard</Button>
           <Button className="mt-3 w-full" disabled={!valid} onClick={() => void submitLink(false)}>Ambil resepnya</Button>
         </> : <>
@@ -182,7 +182,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
             <textarea value={caption} onChange={(e) => setCaption(e.target.value)} rows={9} placeholder="Tempel keterangan videonya di sini…" className="w-full rounded-xl border border-border bg-secondary p-4 text-body leading-relaxed outline-none focus:border-primary" />
           </label>
           <p className="mt-2 text-secondary text-muted-foreground">Buka videonya, tahan keterangannya, lalu Salin. Tempel di sini.</p>
-          {error ? <p role="alert" className="mt-3 text-body text-destructive">{error}</p> : null}
+          {error ? <><p role="alert" className="mt-3 text-body text-destructive">{error}</p>{why}</> : null}
           <Button variant="outline" className="mt-3 w-full" onClick={async () => { try { setCaption(await navigator.clipboard.readText()); } catch { setError("Clipboard tidak bisa dibaca. Tempel keterangannya langsung di kolom."); } }}><Clipboard /> Tempel dari clipboard</Button>
           <Button className="mt-3 w-full" disabled={!captionReady} onClick={() => void submitCaption()}>Rapikan</Button>
           {caption.trim().length > 0 && caption.trim().length < MIN_CAPTION_CHARS ? <p className="mt-2 text-secondary text-muted-foreground">Keterangan sependek ini biasanya belum memuat bahan dan langkah.</p> : null}
@@ -205,6 +205,7 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
         <p className="eyebrow">TIDAK ADA RESEP</p>
         <h3 className="mt-2 text-title font-bold">Videonya tidak berisi resep</h3>
         <p className="mt-3 text-body text-muted-foreground">Bahan dan langkahnya tidak disebut di teks yang masuk. Racik tidak menebak bagian yang tidak ada.</p>
+        {why}
         <Button className="mt-5 w-full" disabled={!valid} onClick={() => void submitLink(true)}><Volume2 /> Coba baca suaranya</Button>
         <p className="mt-2 text-secondary text-muted-foreground">Racik mendengarkan suara videonya. Bisa sampai satu menit.</p>
         <Button variant="outline" className="mt-3 w-full" onClick={() => fileRef.current?.click()}><Upload /> Unggah videonya</Button>
