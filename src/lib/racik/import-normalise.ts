@@ -129,9 +129,14 @@ function writtenAs(item: RawImported["ingredients"][number]) {
 export function normaliseImported(raw: RawImported, sourceUrl: string, id: string): ImportedRecipe {
   const ings: IngLine[] = [];
   const unmatched: string[] = [];
+  const serving: string[] = [];
   const seen = new Set<string>();
 
   for (const item of raw.ingredients) {
+    if (SERVING_HINT.test(`${item.name} ${item.preparation ?? ""}`)) {
+      serving.push(item.name.trim());
+      continue;
+    }
     const matchedId = matchIngredient(item.name);
     if (!matchedId || seen.has(matchedId)) {
       unmatched.push(writtenAs(item));
@@ -144,19 +149,22 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
     ings.push([matchedId, qty, item.preparation, null, null, override]);
   }
 
-  // Invariant: every line the model returned is either a recipe ingredient or
-  // is shown to the reader as unmatched. Nothing is ever dropped silently.
-  if (ings.length + unmatched.length !== raw.ingredients.length) {
+  // Invariant: every line the model returned is either a recipe ingredient, a
+  // serving suggestion in the note, or shown as unmatched. Nothing is dropped.
+  if (ings.length + unmatched.length + serving.length !== raw.ingredients.length) {
     console.error(
-      `[racik] import lost ingredients: model ${raw.ingredients.length}, ings ${ings.length}, unmatched ${unmatched.length}`,
+      `[racik] import lost ingredients: model ${raw.ingredients.length}, ings ${ings.length}, unmatched ${unmatched.length}, sajian ${serving.length}`,
       raw.ingredients.map((item) => item.name),
     );
-    const accounted = new Set([...ings.map((line) => line[0]), ...unmatched]);
+    const accounted = new Set([...ings.map((line) => line[0]), ...unmatched, ...serving]);
     for (const item of raw.ingredients) {
       const id = matchIngredient(item.name);
-      if (!(id && accounted.has(id)) && !accounted.has(writtenAs(item))) unmatched.push(writtenAs(item));
+      if (!(id && accounted.has(id)) && !accounted.has(writtenAs(item)) && !accounted.has(item.name.trim())) {
+        unmatched.push(writtenAs(item));
+      }
     }
   }
+
 
   const steps: Step[] = raw.steps.map((step) => [step.text, step.seconds]);
   const fromSteps = Math.round(raw.steps.reduce((sum, s) => sum + (s.seconds ?? 0), 0) / 60);
