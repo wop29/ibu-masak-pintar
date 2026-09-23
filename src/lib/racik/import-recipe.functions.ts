@@ -299,7 +299,18 @@ async function extractRecipe(evidence: string, key: string) {
       stream: true,
       reasoning: { effort: "medium", summary: "auto" },
       text: { format: { type: "json_schema", name: "racik_recipe", strict: true, schema: recipeSchema } },
-      input: `Susun resep Bahasa Indonesia hanya dari bukti halaman video berikut. Kutip, jangan mengarang: setiap bahan harus benar-benar tertulis di BUKTI. Jangan menambahkan bahan yang biasa dipakai tapi tidak disebut, termasuk minyak goreng, garam, gula, air, penyedap. Jangan melengkapi resep agar terasa utuh. Jangan menebak jumlah, satuan, waktu, atau langkah yang tidak disebut. Sebutkan setiap bahan yang disebut, satu baris per bahan, tanpa menggabungkan atau melewati satu pun. Jika bukti tidak cukup untuk menghasilkan sedikitnya 2 bahan dan 2 langkah yang dapat diikuti, isi status sebagai insufficient, array kosong, dan kolom lain null. Gunakan kalimat pendek. Creator adalah nama atau handle pembuat jika terlihat.\n\nBUKTI:\n${evidence}`,
+      input: `Susun resep Bahasa Indonesia hanya dari bukti halaman video berikut. Kutip, jangan mengarang: setiap bahan harus benar-benar tertulis atau terucap di BUKTI. Jangan menambahkan bahan yang biasa dipakai tapi tidak disebut, termasuk minyak goreng, garam, gula, air, penyedap. Jangan melengkapi resep agar terasa utuh. Jangan menebak jumlah, satuan, waktu, atau langkah yang tidak disebut. Sebutkan setiap bahan yang disebut, satu baris per bahan, tanpa menggabungkan atau melewati satu pun.
+
+Nama bahan: kalau bahan yang disebut ada di DAFTAR BAHAN, tulis namanya persis seperti di daftar. Kalau tidak ada di daftar, tulis apa adanya. Jangan memakai nama campuran seperti "bumbu ungkep" atau "bumbu halus" sebagai satu bahan; pecah jadi bahan-bahannya kalau terucap, dan kalau isinya tidak terdengar, catat di note bahwa daftar bumbunya hanya tampil di layar video.
+
+Bahan pendamping bukan bahan resep: apa pun yang disebut sebagai saran penyajian ("paling enak pakai", "temennya", "cocok sama", "pelengkap") masuk ke note, bukan ke daftar bahan.
+
+Judul ditulis dengan Huruf Kapital Tiap Kata, misalnya "Bebek Bumbu Hitam Madura".
+
+Jika bukti tidak cukup untuk menghasilkan sedikitnya 2 bahan dan 2 langkah yang dapat diikuti, isi status sebagai insufficient, array kosong, dan kolom lain null. Gunakan kalimat pendek. Creator adalah nama atau handle pembuat jika terlihat.
+
+DAFTAR BAHAN:\n${ONTOLOGY_NAMES.join(", ")}\n\nBUKTI:\n${evidence}`,
+
     }),
   });
   if (!response.ok) throw new Error(await readGatewayError(response));
