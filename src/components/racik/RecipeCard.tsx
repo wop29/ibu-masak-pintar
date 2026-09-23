@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { REG } from "@/lib/racik/data";
-import { fmtProtein, fmtTime, proteinPerPortion } from "@/lib/racik/engine";
+import { fmtProtein, fmtTime, proteinPerPortion, proteinUncertain } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { PHOTO } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
@@ -8,7 +8,7 @@ import { IncompleteBadge } from "./IncompleteBadge";
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   const photo = PHOTO[recipe.id];
-  const protein = fmtProtein(proteinPerPortion(recipe));
+  const protein = proteinUncertain(recipe) ? null : fmtProtein(proteinPerPortion(recipe));
   return (
     <Link
       to="/resep/$id"
