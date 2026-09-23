@@ -209,12 +209,12 @@ function mediaUrlFromHtml(html: string) {
   return "";
 }
 
-async function fetchMedia(mediaUrl: string, referer: string) {
+async function fetchMedia(mediaUrl: string, referer: string, cookie: string) {
   try {
-    const response = await fetch(mediaUrl, {
-      redirect: "follow",
-      headers: { "User-Agent": BROWSER_UA, Referer: referer, Accept: "*/*" },
-    });
+    const headers: Record<string, string> = { "User-Agent": BROWSER_UA, Referer: referer, Accept: "*/*" };
+    if (cookie) headers["Cookie"] = cookie;
+    const response = await fetch(mediaUrl, { redirect: "follow", headers });
+
     if (!response.ok) return null;
     const type = response.headers.get("content-type") ?? "";
     if (!/^(video|audio|application\/octet-stream)/i.test(type)) return null;
