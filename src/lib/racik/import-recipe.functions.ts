@@ -377,7 +377,7 @@ async function fetchYoutube(url: string): Promise<Caption> {
         // An id that resolves to nothing is a deleted or private video.
         if (!snippet) return GONE;
         const title = [snippet.title, snippet.description].filter(Boolean).join("\n");
-        return captionFrom(title, snippet.channelTitle ?? null);
+        return captionFrom(title, snippet.channelTitle ?? null, response.status);
       }
     } catch {
       // Fall through to oEmbed, which at least returns the title.
@@ -396,18 +396,38 @@ async function fetchInstagram(url: string): Promise<Caption> {
   );
 }
 
+/** Bursts from one address get throttled, so a refusal is worth two retries. */
 async function fetchJsonOembed(endpoint: string): Promise<Caption> {
-  try {
-    const response = await fetch(endpoint, {
-      headers: { Accept: "application/json", "User-Agent": BROWSER_UA },
-    });
-    if (response.status === 400 || response.status === 404 || response.status === 410) return GONE;
-    if (!response.ok) return NO_CAPTION;
-    const body = await response.json() as { title?: string; author_name?: string };
-    return captionFrom(body.title ?? "", body.author_name ?? null);
-  } catch {
-    return NO_CAPTION;
+  let last: Caption = NO_CAPTION;
+  for (const wait of [0, 1_000, 3_000]) {
+    if (wait) await sleep(wait);
+    try {
+      const response = await fetch(endpoint, {
+        headers: { Accept: "application/json", "User-Agent": BROWSER_UA },
+      });
+      const status = response.status;
+      if (status === 404 || status === 410) return { ...GONE, status };
+      if (status === 429 || status === 403) {
+        last = { parts: [], caption: "", status, limited: true };
+        continue;
+      }
+      if (!response.ok) {
+        // A 400 from oEmbed means the id names nothing playable.
+        last = status === 400 ? { ...GONE, status } : { parts: [], caption: "", status };
+        continue;
+      }
+      const text = await response.text();
+      if (!text.trim()) {
+        last = { parts: [], caption: "", status };
+        continue;
+      }
+      const body = JSON.parse(text) as { title?: string; author_name?: string };
+      return captionFrom(body.title ?? "", body.author_name ?? null, status);
+    } catch {
+      last = NO_CAPTION;
+    }
   }
+  return last;
 }
 
 async function fetchOembed(url: string): Promise<Caption> {
