@@ -136,10 +136,11 @@ function jsonLdEvidence(html: string) {
 }
 
 const BROWSER_UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/124 Mobile Safari/537.36";
-const TRANSCRIBE_MODEL = "google/gemini-3.5-transcribe";
+const TRANSCRIBE_MODEL = "openai/gpt-4o-transcribe";
 const MAX_MEDIA_BYTES = 24_000_000;
 
 async function fetchHtml(url: string) {
+  const empty = { html: "", cookie: "" };
   try {
     const response = await fetch(url, {
       redirect: "follow",
@@ -149,13 +150,16 @@ async function fetchHtml(url: string) {
         "Accept-Language": "id,en;q=0.8",
       },
     });
-    if (!response.ok) return "";
-    if (!isAllowedUrl(response.url)) return "";
-    return (await response.text()).slice(0, 3_000_000);
+    if (!response.ok) return empty;
+    if (!isAllowedUrl(response.url)) return empty;
+    // The media CDN rejects requests that lack the cookies this page hands out.
+    const cookie = (response.headers.getSetCookie?.() ?? []).map((entry) => entry.split(";")[0]).join("; ");
+    return { html: (await response.text()).slice(0, 3_000_000), cookie };
   } catch {
-    return "";
+    return empty;
   }
 }
+
 
 function pageEvidence(html: string) {
   if (!html) return [];
@@ -205,12 +209,12 @@ function mediaUrlFromHtml(html: string) {
   return "";
 }
 
-async function fetchMedia(mediaUrl: string, referer: string) {
+async function fetchMedia(mediaUrl: string, referer: string, cookie: string) {
   try {
-    const response = await fetch(mediaUrl, {
-      redirect: "follow",
-      headers: { "User-Agent": BROWSER_UA, Referer: referer, Accept: "*/*" },
-    });
+    const headers: Record<string, string> = { "User-Agent": BROWSER_UA, Referer: referer, Accept: "*/*" };
+    if (cookie) headers["Cookie"] = cookie;
+    const response = await fetch(mediaUrl, { redirect: "follow", headers });
+
     if (!response.ok) return null;
     const type = response.headers.get("content-type") ?? "";
     if (!/^(video|audio|application\/octet-stream)/i.test(type)) return null;
@@ -377,20 +381,21 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
     }
 
     // Listening is slow and costly, so it only runs when the reader asks for it.
-    const html = await fetchHtml(url);
+    const { html, cookie } = await fetchHtml(url);
     const parts = [...oembed.parts, ...pageEvidence(html)];
     let spoken = await youtubeCaptions(url, html);
     if (spoken) parts.push(`takarir video: ${spoken}`);
     else {
       const mediaUrl = mediaUrlFromHtml(html);
       if (mediaUrl) {
-        const media = await fetchMedia(mediaUrl, url);
+        const media = await fetchMedia(mediaUrl, url, cookie);
         if (media) {
           spoken = await transcribe(media, "video.mp4", key);
           if (spoken) parts.push(`suara video: ${spoken}`);
         }
       }
     }
+
     if (!spoken) return { ok: false, needCaption: true, partial: oembed.caption };
     return buildRecipe(url, usableEvidence(parts), key);
   });

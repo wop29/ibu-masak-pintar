@@ -115,7 +115,9 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
       </div>
       <Button variant="secondary" className="mt-4 w-full" onClick={() => { setOpen(true); setStage("form"); setError(""); }}>Ambil resep</Button>
     </section>
+    <input ref={fileRef} type="file" accept="video/*,audio/*" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; e.target.value = ""; if (file) void submitFile(file); }} />
     <Sheet open={open} onClose={() => setOpen(false)} title="Ambil Resep dari Video">
+
       {stage === "form" ? <>
         <div className="flex gap-2">{tabButton("tautan", "Tempel tautan")}{tabButton("keterangan", "Tempel keterangan")}</div>
         {tab === "tautan" ? <>
@@ -142,9 +144,9 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
             <Button variant="outline" className="mt-5 w-full" disabled={!valid} onClick={() => void submitLink(true)}><Volume2 /> Coba baca suaranya</Button>
             <p className="mt-2 text-secondary text-muted-foreground">Racik mendengarkan suara videonya. Bisa sampai satu menit.</p>
             <Button variant="outline" className="mt-3 w-full" onClick={() => fileRef.current?.click()}><Upload /> Unggah videonya</Button>
-            <input ref={fileRef} type="file" accept="video/*,audio/*" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; e.target.value = ""; if (file) void submitFile(file); }} />
             <p className="mt-2 text-secondary text-muted-foreground">Maksimal 24 MB.</p>
           </> : null}
+
         </>}
         <p className="mt-4 text-secondary text-muted-foreground">Hanya video publik yang bisa dibaca dari tautan. Racik tidak menebak bagian yang tidak disebut.</p>
       </> : stage === "working" ? <div className="py-10 text-center">
@@ -157,8 +159,13 @@ export function ImportDemo({ compact = false, onImported }: { compact?: boolean;
         <p className="eyebrow">TIDAK ADA RESEP</p>
         <h3 className="mt-2 text-title font-bold">Videonya tidak berisi resep</h3>
         <p className="mt-3 text-body text-muted-foreground">Bahan dan langkahnya tidak disebut di teks yang masuk. Racik tidak menebak bagian yang tidak ada.</p>
-        <Button className="mt-5 w-full" onClick={() => { setStage("form"); setTab("keterangan"); }}>Tempel keterangan lagi</Button>
+        <Button className="mt-5 w-full" disabled={!valid} onClick={() => void submitLink(true)}><Volume2 /> Coba baca suaranya</Button>
+        <p className="mt-2 text-secondary text-muted-foreground">Racik mendengarkan suara videonya. Bisa sampai satu menit.</p>
+        <Button variant="outline" className="mt-3 w-full" onClick={() => fileRef.current?.click()}><Upload /> Unggah videonya</Button>
+        <p className="mt-2 text-secondary text-muted-foreground">Maksimal 24 MB.</p>
+        <button type="button" className="mt-5 w-full text-body text-muted-foreground underline" onClick={() => { setStage("form"); setTab("keterangan"); }}>Tempel keterangan lagi</button>
       </div> : <div className="py-5">
+
         <p className="eyebrow">RESEP TERSIMPAN</p>
         <h3 className="mt-2 text-title font-bold">{title}</h3>
         <p className="mt-3 text-body text-muted-foreground">Bahan dan langkahnya sudah masuk ke tab Diambil. Periksa kembali takaran sebelum mulai memasak.</p>
