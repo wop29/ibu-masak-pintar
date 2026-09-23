@@ -142,6 +142,7 @@ const MAX_MEDIA_BYTES = 24_000_000;
 async function fetchHtml(url: string) {
   const empty = { html: "", cookie: "" };
   try {
+    console.log(`[ACC] fetchHtml GET ${url}`);
     const response = await fetch(url, {
       redirect: "follow",
       headers: {
@@ -150,6 +151,7 @@ async function fetchHtml(url: string) {
         "Accept-Language": "id,en;q=0.8",
       },
     });
+    console.log(`[ACC] fetchHtml status=${response.status} final=${response.url}`);
     if (!response.ok) return empty;
     if (!isAllowedUrl(response.url)) return empty;
     // The media CDN rejects requests that lack the cookies this page hands out.
@@ -217,13 +219,14 @@ async function fetchMedia(mediaUrl: string, referer: string, cookie: string) {
     const headers: Record<string, string> = { "User-Agent": BROWSER_UA, Referer: referer, Accept: "*/*" };
     if (cookie) headers["Cookie"] = cookie;
     const response = await fetch(mediaUrl, { redirect: "follow", headers });
-
+    console.log(`[ACC] fetchMedia status=${response.status} type=${response.headers.get("content-type")} len=${response.headers.get("content-length")} url=${mediaUrl.slice(0, 90)}`);
     if (!response.ok) return null;
     const type = response.headers.get("content-type") ?? "";
     if (!/^(video|audio|application\/octet-stream)/i.test(type)) return null;
     const length = Number(response.headers.get("content-length") ?? 0);
     if (length > MAX_MEDIA_BYTES) return null;
     const bytes = await response.arrayBuffer();
+    console.log(`[ACC] fetchMedia bytes=${bytes.byteLength}`);
     if (bytes.byteLength === 0 || bytes.byteLength > MAX_MEDIA_BYTES) return null;
     return new Blob([bytes], { type: type.split(";")[0] || "video/mp4" });
   } catch {
@@ -269,8 +272,10 @@ async function transcribe(media: Blob, filename: string, key: string) {
       headers: { Authorization: `Bearer ${key}`, "X-Lovable-AIG-SDK": "fetch" },
       body: form,
     });
-    if (!response.ok) return "";
+    console.log(`[ACC] transcribe status=${response.status} model=${TRANSCRIBE_MODEL} bytes=${media.size}`);
+    if (!response.ok) { console.log(`[ACC] transcribe error body=${(await response.text()).slice(0, 500)}`); return ""; }
     const body = await response.json() as { text?: string };
+    console.log(`[ACC] transcript RAW >>>${body.text ?? ""}<<<`);
     return fixSpokenTerms((body.text ?? "").replace(/\s+/g, " ").trim().slice(0, 40_000));
   } catch {
     return "";
@@ -285,14 +290,17 @@ async function fetchOembed(url: string) {
     : host.includes("youtu")
       ? `https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(url)}`
       : null;
-  if (!endpoint) return empty;
+  if (!endpoint) { console.log(`[ACC] oembed NONE for host=${host} (no endpoint implemented)`); return empty; }
   try {
+    console.log(`[ACC] oembed GET ${endpoint}`);
     const response = await fetch(endpoint, { headers: { Accept: "application/json" } });
+    console.log(`[ACC] oembed status=${response.status}`);
     if (!response.ok) return empty;
     const body = await response.json() as { title?: string; author_name?: string };
     const parts: string[] = [];
     if (body.title) parts.push(`keterangan: ${body.title}`);
     if (body.author_name) parts.push(`pembuat: ${body.author_name}`);
+    console.log(`[ACC] oembed captionLen=${(body.title ?? "").length} author=${body.author_name ?? ""}`);
     return { parts, caption: (body.title ?? "").replace(/\s+/g, " ").trim() };
   } catch {
     return empty;
@@ -388,7 +396,11 @@ function requireKey() {
 }
 
 async function buildRecipe(url: string, evidence: string, key: string): Promise<ImportResult> {
+  console.log(`[ACC] extract evidenceLen=${evidence.length}`);
+  const t0 = Date.now();
   const result = await extractRecipe(evidence, key);
+  console.log(`[ACC] extract done in ${((Date.now() - t0) / 1000).toFixed(1)}s status=${result.status} title=${result.title} ings=${result.ingredients.length} steps=${result.steps.length} serv=${result.servings} time=${result.timeMinutes} diff=${result.difficulty}`);
+  console.log(`[ACC] extract RAW ${JSON.stringify(result).slice(0, 2500)}`);
   if (result.status === "insufficient" || !result.title || result.ingredients.length < 2 || result.steps.length < 2) {
     return { ok: false, noRecipe: true };
   }
@@ -408,8 +420,10 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
     const caption = data.caption?.trim() ?? "";
     const url = data.url?.trim() ?? "";
 
+    console.log(`[ACC] === call url=${url || "(none)"} captionLen=${caption.length} listen=${String(Boolean(data.listen))} ===`);
     // Pasted text is its own entry point: no platform request at all.
     if (caption) {
+      console.log("[ACC] branch=caption-only (no platform request)");
       if (caption.length < MIN_CAPTION_CHARS) return { ok: false, noRecipe: true };
       return buildRecipe(url, usableEvidence([`keterangan yang ditempel pembaca: ${caption}`]), key);
     }
@@ -418,17 +432,21 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
     const oembed = await fetchOembed(url);
 
     if (!data.listen) {
+      console.log(`[ACC] branch=link-no-listen captionLen=${oembed.caption.length} threshold=${MIN_CAPTION_CHARS}`);
       if (oembed.caption.length >= MIN_CAPTION_CHARS) return buildRecipe(url, usableEvidence(oembed.parts), key);
       return { ok: false, needCaption: true, partial: oembed.caption };
     }
 
     // Listening is slow and costly, so it only runs when the reader asks for it.
+    console.log("[ACC] branch=listen");
     const { html, cookie } = await fetchHtml(url);
     const parts = [...oembed.parts, ...pageEvidence(html)];
     let spoken = await youtubeCaptions(url, html);
+    console.log(`[ACC] htmlLen=${html.length} cookieLen=${cookie.length} ytCaptionsLen=${spoken.length}`);
     if (spoken) parts.push(`takarir video: ${spoken}`);
     else {
       const mediaUrl = mediaUrlFromHtml(html);
+      console.log(`[ACC] mediaUrlFound=${String(Boolean(mediaUrl))}`);
       if (mediaUrl) {
         const media = await fetchMedia(mediaUrl, url, cookie);
         if (media) {
@@ -438,7 +456,7 @@ export const importRecipeFromVideo = createServerFn({ method: "POST" })
       }
     }
 
-    if (!spoken) return { ok: false, needCaption: true, partial: oembed.caption };
+    if (!spoken) { console.log("[ACC] listen produced no words -> needCaption"); return { ok: false, needCaption: true, partial: oembed.caption }; }
     return buildRecipe(url, usableEvidence(parts), key);
   });
 
