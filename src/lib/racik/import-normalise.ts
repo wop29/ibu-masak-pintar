@@ -10,6 +10,20 @@ const PHRASES: { phrase: string; id: string; canonical: boolean }[] = INGREDIENT
   .filter((entry) => entry.phrase.length > 2)
   .sort((a, b) => b.phrase.length - a.phrase.length || Number(b.canonical) - Number(a.canonical));
 
+/** Canonical names handed to the extractor so it speaks the ontology's words. */
+export const ONTOLOGY_NAMES: string[] = INGREDIENTS.map((ing) => ing.name);
+
+/**
+ * A bare head word names a family, not an ingredient. Only the readings a
+ * home cook means by default are listed; anything ambiguous stays unmatched.
+ */
+const HEAD_DEFAULTS: Record<string, string> = {
+  gula: "gula_pasir",
+  tepung: "tepung_terigu",
+  kecap: "kecap_manis",
+  santan: "santan",
+};
+
 /**
  * The model never supplies an id. Names are resolved here against the
  * ontology, so an imported line either is a real ingredient or is surfaced
@@ -28,8 +42,14 @@ export function matchIngredient(raw: string): string | null {
   for (const { phrase, id } of PHRASES) {
     if (text.includes(` ${phrase} `)) return id;
   }
+  const head = HEAD_DEFAULTS[exact] ?? HEAD_DEFAULTS[exact.split(" ")[0] ?? ""];
+  if (head && ING[head]) return head;
   return null;
 }
+
+/** Things a dish is eaten with are not things it is cooked with. */
+const SERVING_HINT = /(paling enak (pakai|sama|dengan)|temen(nya|an)?\b|cocok (sama|dengan)|pelengkap|pendamping|disajikan|sajikan|untuk cocolan|buat cocolan)/i;
+
 
 
 const UNIT_ALIAS: Record<string, { unit: Unit; factor: number }> = {
@@ -109,9 +129,14 @@ function writtenAs(item: RawImported["ingredients"][number]) {
 export function normaliseImported(raw: RawImported, sourceUrl: string, id: string): ImportedRecipe {
   const ings: IngLine[] = [];
   const unmatched: string[] = [];
+  const serving: string[] = [];
   const seen = new Set<string>();
 
   for (const item of raw.ingredients) {
+    if (SERVING_HINT.test(`${item.name} ${item.preparation ?? ""}`)) {
+      serving.push(item.name.trim());
+      continue;
+    }
     const matchedId = matchIngredient(item.name);
     if (!matchedId || seen.has(matchedId)) {
       unmatched.push(writtenAs(item));
@@ -124,19 +149,22 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
     ings.push([matchedId, qty, item.preparation, null, null, override]);
   }
 
-  // Invariant: every line the model returned is either a recipe ingredient or
-  // is shown to the reader as unmatched. Nothing is ever dropped silently.
-  if (ings.length + unmatched.length !== raw.ingredients.length) {
+  // Invariant: every line the model returned is either a recipe ingredient, a
+  // serving suggestion in the note, or shown as unmatched. Nothing is dropped.
+  if (ings.length + unmatched.length + serving.length !== raw.ingredients.length) {
     console.error(
-      `[racik] import lost ingredients: model ${raw.ingredients.length}, ings ${ings.length}, unmatched ${unmatched.length}`,
+      `[racik] import lost ingredients: model ${raw.ingredients.length}, ings ${ings.length}, unmatched ${unmatched.length}, sajian ${serving.length}`,
       raw.ingredients.map((item) => item.name),
     );
-    const accounted = new Set([...ings.map((line) => line[0]), ...unmatched]);
+    const accounted = new Set([...ings.map((line) => line[0]), ...unmatched, ...serving]);
     for (const item of raw.ingredients) {
       const id = matchIngredient(item.name);
-      if (!(id && accounted.has(id)) && !accounted.has(writtenAs(item))) unmatched.push(writtenAs(item));
+      if (!(id && accounted.has(id)) && !accounted.has(writtenAs(item)) && !accounted.has(item.name.trim())) {
+        unmatched.push(writtenAs(item));
+      }
     }
   }
+
 
   const steps: Step[] = raw.steps.map((step) => [step.text, step.seconds]);
   const fromSteps = Math.round(raw.steps.reduce((sum, s) => sum + (s.seconds ?? 0), 0) / 60);
@@ -154,7 +182,13 @@ export function normaliseImported(raw: RawImported, sourceUrl: string, id: strin
     diff: raw.difficulty ?? "sedang",
     spice: spiceLines >= 2 ? 3 : spiceLines === 1 ? 2 : 0,
     glyph: "🍳",
-    note: raw.note ?? "Resep ini disusun dari keterangan videonya. Periksa takarannya dengan video aslinya.",
+    note: [
+      raw.note ?? "Resep ini disusun dari keterangan videonya. Periksa takarannya dengan video aslinya.",
+      serving.length ? `Enak dimakan dengan ${serving.join(", ")}.` : "",
+    ]
+      .filter(Boolean)
+      .join(" "),
+
     ings,
     steps,
     precise: false,

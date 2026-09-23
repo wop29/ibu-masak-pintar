@@ -107,3 +107,35 @@ describe("nothing is dropped", () => {
     expect(recipe.unmatched).toEqual(["200 gram Paha ayam"]);
   });
 });
+
+describe("spoken import", () => {
+  it("resolves bare head words a cook means by default", () => {
+    expect(matchIngredient("Gula")).toBe("gula_pasir");
+    expect(matchIngredient("Minyak")).toBe("minyak_goreng");
+    expect(matchIngredient("Kecap")).toBe("kecap_manis");
+    expect(matchIngredient("Bebek peking")).toBeNull();
+  });
+
+  it("keeps serving suggestions out of the ingredient list", () => {
+    const recipe = normaliseImported(
+      {
+        ...RAW,
+        servings: null,
+        timeMinutes: null,
+        difficulty: null,
+        ingredients: [
+          { name: "Garam", quantity: 1, unit: "sdt", preparation: null },
+          { name: "Gula", quantity: 1, unit: "sdt", preparation: null },
+          { name: "Sambel ijo", quantity: null, unit: null, preparation: "paling enak pakai ini" },
+        ],
+      },
+      "https://x",
+      "import-2",
+    );
+    expect(recipe.ings.map((line) => line[0])).toEqual(["garam", "gula_pasir"]);
+    expect(recipe.unmatched).toEqual([]);
+    expect(recipe.note).toContain("Sambel ijo");
+    expect(recipe.serv).toBe(4);
+    expect(recipe.servAssumed).toBe(true);
+  });
+});

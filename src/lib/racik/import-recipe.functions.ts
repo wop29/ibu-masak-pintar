@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { normaliseImported } from "./import-normalise";
+import { normaliseImported, ONTOLOGY_NAMES } from "./import-normalise";
 import type { ImportedRecipe } from "./types";
 
 const inputSchema = z
@@ -181,13 +181,16 @@ async function youtubeCaptions(url: string, html: string) {
     const body = await response.text();
     if (!body.trim()) return "";
     const parsed = JSON.parse(body) as { events?: { segs?: { utf8?: string }[] }[] };
-    return (parsed.events ?? [])
-      .flatMap((event) => event.segs ?? [])
-      .map((seg) => seg.utf8 ?? "")
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .slice(0, 40_000);
+    return fixSpokenTerms(
+      (parsed.events ?? [])
+        .flatMap((event) => event.segs ?? [])
+        .map((seg) => seg.utf8 ?? "")
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 40_000),
+    );
+
   } catch {
     return "";
   }
@@ -228,7 +231,35 @@ async function fetchMedia(mediaUrl: string, referer: string, cookie: string) {
   }
 }
 
+/** Speech-to-text mishears kitchen words, so the common ones are repaired first. */
+const SPOKEN_FIXES: [RegExp, string][] = [
+  [/\bbebek pack?ing\b/gi, "bebek peking"],
+  [/\bpeck?ing duck\b/gi, "bebek peking"],
+  [/\bsere+h?\b/gi, "serai"],
+  [/\blengkoas\b/gi, "lengkuas"],
+  [/\bkemiring?i\b/gi, "kemiri"],
+  [/\bken[cs]ur\b/gi, "kencur"],
+  [/\bdaun jerok\b/gi, "daun jeruk"],
+  [/\bdaun salem\b/gi, "daun salam"],
+  [/\bketumber\b/gi, "ketumbar"],
+  [/\bpenyede?p\b/gi, "penyedap"],
+  [/\bkaldu buble?k\b/gi, "kaldu bubuk"],
+  [/\bsante?n\b/gi, "santan"],
+  [/\bkecap ingg?ris\b/gi, "kecap inggris"],
+  [/\bbawang bomba?[iy]\b/gi, "bawang bombay"],
+  [/\bgule pasir\b/gi, "gula pasir"],
+  [/\bgule me?rah\b/gi, "gula merah"],
+  [/\btauco?\b/gi, "tauco"],
+  [/\bterasi?h\b/gi, "terasi"],
+  [/\basem jawa\b/gi, "asam jawa"],
+];
+
+function fixSpokenTerms(text: string) {
+  return SPOKEN_FIXES.reduce((out, [pattern, replacement]) => out.replace(pattern, replacement), text);
+}
+
 async function transcribe(media: Blob, filename: string, key: string) {
+
   const form = new FormData();
   form.append("file", media, filename);
   form.append("model", TRANSCRIBE_MODEL);
@@ -240,7 +271,7 @@ async function transcribe(media: Blob, filename: string, key: string) {
     });
     if (!response.ok) return "";
     const body = await response.json() as { text?: string };
-    return (body.text ?? "").replace(/\s+/g, " ").trim().slice(0, 40_000);
+    return fixSpokenTerms((body.text ?? "").replace(/\s+/g, " ").trim().slice(0, 40_000));
   } catch {
     return "";
   }
@@ -299,7 +330,18 @@ async function extractRecipe(evidence: string, key: string) {
       stream: true,
       reasoning: { effort: "medium", summary: "auto" },
       text: { format: { type: "json_schema", name: "racik_recipe", strict: true, schema: recipeSchema } },
-      input: `Susun resep Bahasa Indonesia hanya dari bukti halaman video berikut. Kutip, jangan mengarang: setiap bahan harus benar-benar tertulis di BUKTI. Jangan menambahkan bahan yang biasa dipakai tapi tidak disebut, termasuk minyak goreng, garam, gula, air, penyedap. Jangan melengkapi resep agar terasa utuh. Jangan menebak jumlah, satuan, waktu, atau langkah yang tidak disebut. Sebutkan setiap bahan yang disebut, satu baris per bahan, tanpa menggabungkan atau melewati satu pun. Jika bukti tidak cukup untuk menghasilkan sedikitnya 2 bahan dan 2 langkah yang dapat diikuti, isi status sebagai insufficient, array kosong, dan kolom lain null. Gunakan kalimat pendek. Creator adalah nama atau handle pembuat jika terlihat.\n\nBUKTI:\n${evidence}`,
+      input: `Susun resep Bahasa Indonesia hanya dari bukti halaman video berikut. Kutip, jangan mengarang: setiap bahan harus benar-benar tertulis atau terucap di BUKTI. Jangan menambahkan bahan yang biasa dipakai tapi tidak disebut, termasuk minyak goreng, garam, gula, air, penyedap. Jangan melengkapi resep agar terasa utuh. Jangan menebak jumlah, satuan, waktu, atau langkah yang tidak disebut. Sebutkan setiap bahan yang disebut, satu baris per bahan, tanpa menggabungkan atau melewati satu pun.
+
+Nama bahan: kalau bahan yang disebut ada di DAFTAR BAHAN, tulis namanya persis seperti di daftar. Kalau tidak ada di daftar, tulis apa adanya. Jangan memakai nama campuran seperti "bumbu ungkep" atau "bumbu halus" sebagai satu bahan; pecah jadi bahan-bahannya kalau terucap, dan kalau isinya tidak terdengar, catat di note bahwa daftar bumbunya hanya tampil di layar video.
+
+Bahan pendamping bukan bahan resep: apa pun yang disebut sebagai saran penyajian ("paling enak pakai", "temennya", "cocok sama", "pelengkap") masuk ke note, bukan ke daftar bahan.
+
+Judul ditulis dengan Huruf Kapital Tiap Kata, misalnya "Bebek Bumbu Hitam Madura".
+
+Jika bukti tidak cukup untuk menghasilkan sedikitnya 2 bahan dan 2 langkah yang dapat diikuti, isi status sebagai insufficient, array kosong, dan kolom lain null. Gunakan kalimat pendek. Creator adalah nama atau handle pembuat jika terlihat.
+
+DAFTAR BAHAN:\n${ONTOLOGY_NAMES.join(", ")}\n\nBUKTI:\n${evidence}`,
+
     }),
   });
   if (!response.ok) throw new Error(await readGatewayError(response));
