@@ -207,9 +207,15 @@ async function youtubeCaptions(url: string, html: string) {
   }
 }
 
-/** An embed or watch page is a page, not a file, however it is advertised. */
-function looksLikeMediaUrl(value: string) {
-  return !/\/(embed|watch|shorts|reel|video)\//i.test(new URL(value).pathname) || /\.(mp4|m4a|mp3|webm|mov)(\?|$)/i.test(value);
+/** Media lives on a CDN host. The platform's own host only serves pages. */
+export function looksLikeMediaUrl(value: string) {
+  try {
+    if (/\.(mp4|m4a|mp3|webm|mov)(\?|$)/i.test(value)) return true;
+    const host = new URL(value).hostname.toLowerCase();
+    return !/(^|\.)(tiktok\.com|youtube\.com|youtube-nocookie\.com|youtu\.be|instagram\.com|facebook\.com)$/.test(host);
+  } catch {
+    return false;
+  }
 }
 
 function mediaUrlFromHtml(html: string) {
