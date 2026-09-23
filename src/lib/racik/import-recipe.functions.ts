@@ -140,6 +140,7 @@ const TRANSCRIBE_MODEL = "google/gemini-3.5-transcribe";
 const MAX_MEDIA_BYTES = 24_000_000;
 
 async function fetchHtml(url: string) {
+  const empty = { html: "", cookie: "" };
   try {
     const response = await fetch(url, {
       redirect: "follow",
@@ -149,13 +150,16 @@ async function fetchHtml(url: string) {
         "Accept-Language": "id,en;q=0.8",
       },
     });
-    if (!response.ok) return "";
-    if (!isAllowedUrl(response.url)) return "";
-    return (await response.text()).slice(0, 3_000_000);
+    if (!response.ok) return empty;
+    if (!isAllowedUrl(response.url)) return empty;
+    // The media CDN rejects requests that lack the cookies this page hands out.
+    const cookie = (response.headers.getSetCookie?.() ?? []).map((entry) => entry.split(";")[0]).join("; ");
+    return { html: (await response.text()).slice(0, 3_000_000), cookie };
   } catch {
-    return "";
+    return empty;
   }
 }
+
 
 function pageEvidence(html: string) {
   if (!html) return [];
