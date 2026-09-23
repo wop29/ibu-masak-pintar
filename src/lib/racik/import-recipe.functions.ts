@@ -294,15 +294,54 @@ async function transcribe(media: Blob, filename: string, key: string) {
   }
 }
 
-type Caption = { parts: string[]; caption: string; unavailable?: boolean };
-const NO_CAPTION: Caption = { parts: [], caption: "" };
-const GONE: Caption = { parts: [], caption: "", unavailable: true };
+type Caption = { parts: string[]; caption: string; status: number | null; unavailable?: boolean; limited?: boolean };
+const NO_CAPTION: Caption = { parts: [], caption: "", status: null };
+const GONE: Caption = { parts: [], caption: "", status: 404, unavailable: true };
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function captionFrom(title: string, author: string | null): Caption {
+function captionFrom(title: string, author: string | null, status: number | null): Caption {
   const parts: string[] = [];
   if (title) parts.push(`keterangan: ${title}`);
   if (author) parts.push(`pembuat: ${author}`);
-  return { parts, caption: title.replace(/\s+/g, " ").trim() };
+  return { parts, caption: title.replace(/\s+/g, " ").trim(), status };
+}
+
+/** A pasted link carries tracking noise; only the video id is the video. */
+export function canonicalUrl(raw: string): { url: string; platform: string } {
+  try {
+    const parsed = new URL(raw.trim());
+    const host = parsed.hostname.toLowerCase();
+    if (host.endsWith("tiktok.com")) {
+      const match = parsed.pathname.match(/@([^/]+)\/(video|photo)\/(\d+)/);
+      if (match) return { url: `https://www.tiktok.com/@${match[1]}/${match[2]}/${match[3]}`, platform: "tiktok" };
+      return { url: `https://www.tiktok.com${parsed.pathname.replace(/\/+$/, "")}`, platform: "tiktok" };
+    }
+    if (host.endsWith("youtube.com") || host.endsWith("youtu.be") || host.endsWith("youtube-nocookie.com")) {
+      const id = youtubeVideoId(raw);
+      return { url: id ? `https://www.youtube.com/watch?v=${id}` : `https://www.youtube.com${parsed.pathname}`, platform: "youtube" };
+    }
+    if (host.endsWith("instagram.com")) {
+      const match = parsed.pathname.match(/\/(reels?|p|tv)\/([A-Za-z0-9_-]+)/);
+      if (match) return { url: `https://www.instagram.com/${match[1] === "reels" ? "reel" : match[1]}/${match[2]}/`, platform: "instagram" };
+      return { url: `https://www.instagram.com${parsed.pathname}`, platform: "instagram" };
+    }
+    return { url: `${parsed.origin}${parsed.pathname}`, platform: host };
+  } catch {
+    return { url: raw.trim(), platform: "tidak dikenal" };
+  }
+}
+
+/** vt./vm. links name no video until the redirect is followed. */
+async function resolveShortLink(url: string) {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    const short = /^(vt|vm|m)\.tiktok\.com$/.test(host) || (host.endsWith("instagram.com") && /\/share\//.test(new URL(url).pathname));
+    if (!short) return url;
+    const response = await fetch(url, { redirect: "follow", headers: { "User-Agent": BROWSER_UA, Accept: "text/html" } });
+    return isAllowedUrl(response.url) ? response.url : url;
+  } catch {
+    return url;
+  }
 }
 
 /** Every shape a reader can paste: watch?v=, youtu.be/, /shorts/, /embed/. */
