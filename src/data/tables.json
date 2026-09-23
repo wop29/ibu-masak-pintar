@@ -155,7 +155,8 @@
   "kangkung": 150,
   "pakis": 100,
   "brokoli": 150,
-  "daun_pandan": 3
+  "daun_pandan": 3,
+  "bebek": 1400
  },
  "PROT100": {
   "daging_sapi": 26,
@@ -244,7 +245,8 @@
   "melinjo": 5,
   "rebung": 2.6,
   "pakis": 3,
-  "bunga_pepaya": 4
+  "bunga_pepaya": 4,
+  "bebek": 19
  },
  "SUBS": {
   "kemiri": "Kacang mete atau almond, jumlah sama. Sangrai dulu supaya wangi.",
