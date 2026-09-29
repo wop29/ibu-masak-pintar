@@ -14,19 +14,28 @@ const BUILD_ID = String(Date.now());
 // The offline shell has dropped out of the build twice without anyone noticing.
 // This makes that a hard build failure instead of a silent loss of offline mode.
 const SHELL_FILE = "index.html";
+// Nitro publishes .output/public. The worker and the prerendered shell must
+// both land there, or the deployed site gets a service worker that precaches
+// nothing and offline silently dies.
+const PUBLIC_DIR = ".output/public";
 const checkOfflineShell = () => {
-  const clientDir = resolve(process.cwd(), "dist/client");
+  const clientDir = resolve(process.cwd(), PUBLIC_DIR);
   const swPath = resolve(clientDir, "sw.js");
   const shellPath = resolve(clientDir, SHELL_FILE);
-  if (!existsSync(swPath)) return "dist/client/sw.js was not emitted";
-  if (!existsSync(shellPath)) return `dist/client/${SHELL_FILE} was not emitted`;
+  if (!existsSync(swPath)) return `${PUBLIC_DIR}/sw.js was not emitted`;
+  if (!existsSync(shellPath)) return `${PUBLIC_DIR}/${SHELL_FILE} was not emitted`;
   if (statSync(shellPath).size < 512)
-    return `dist/client/${SHELL_FILE} is too small to be a real document`;
-  const sw = readFileSync(swPath, "utf8");
+    return `${PUBLIC_DIR}/${SHELL_FILE} is too small to be a real document`;
+  // The generated worker is minified, so keys appear unquoted: {revision:"..",url:".."}.
+  // Count revisions — one per precached file — and accept either quoting style.
+  const swSource = readFileSync(swPath, "utf8");
+  const manifestCount = (swSource.match(/["'`]?revision["'`]?\s*:/g) || []).length;
+  if (manifestCount < 10)
+    return `the service worker precaches only ${manifestCount} files, so offline would not work`;
   const entry = new RegExp(
     `["'\`]?url["'\`]?\\s*:\\s*["'\`]/?${SHELL_FILE.replace(".", "\\.")}["'\`]`,
   );
-  if (!entry.test(sw))
+  if (!entry.test(swSource))
     return `/${SHELL_FILE} is missing from the service worker precache manifest`;
   return null;
 };
@@ -65,9 +74,9 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: "autoUpdate",
-      // The deployed public directory is dist/client; a worker emitted to dist/
-      // would never be served, and the app would silently lose offline support.
-      outDir: "dist/client",
+      // Nitro serves .output/public. A worker written anywhere else is never
+      // served, and globbing the wrong folder yields an empty precache list.
+      outDir: PUBLIC_DIR,
       injectRegister: null,
       devOptions: { enabled: false },
       manifest: false,
