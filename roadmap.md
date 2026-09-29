@@ -1,7 +1,6 @@
 # Racik — roadmap
 
-Data contoh (15 resep, ~60 bahan, 7 daerah) sudah masuk. Ganti dengan ekspor
-199 resep nanti: cukup tukar file JSON di `src/data/`.
+Katalog lengkap 199 resep sudah masuk dan tersimpan di perangkat.
 
 ## Milestone 1 — mesin masak, halaman resep, mode masak (selesai)
 
@@ -47,7 +46,7 @@ Data contoh (15 resep, ~60 bahan, 7 daerah) sudah masuk. Ganti dengan ekspor
 - [x] Susun bahan, langkah, waktu, porsi, dan kredit pembuat dari isi video
 - [x] Simpan hasil impor di Buku Resep dan buka resep yang sudah pernah diambil
 - [x] Tampilkan kegagalan dan batas pemrosesan secara jujur
-- [ ] Uji alur lengkap dari tautan hingga resep tersimpan
+- [x] Uji alur lengkap dari tautan hingga resep tersimpan
 
 ## Aturan tulisan
 
@@ -56,3 +55,9 @@ Data contoh (15 resep, ~60 bahan, 7 daerah) sudah masuk. Ganti dengan ekspor
 - Tanpa tanda seru, tanpa emoji di teks sistem (emoji hanya lambang bahan).
 - Pedas ditulis dengan kata, bukan ikon cabai. Halal tidak pernah tanda centang.
   Protein selalu disebut perkiraan.
+
+## Perbaikan katalog
+
+- [ ] Bahan lengkap pada halaman resep dan pengaman 199 resep
+- [ ] Copy onboarding pertama dan Tentang Racik diperbarui
+- [ ] Badge publikasi disembunyikan
