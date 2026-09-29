@@ -5,7 +5,7 @@ import { useRacik } from "@/lib/racik/state";
 import { ART } from "@/components/racik/photos";
 
 const slides = [
-  { image: ART.rendang, label: "SELAMAT DATANG DI", title: "Racik", body: "Daging mengikuti jumlah porsi. Bumbu naik lebih pelan, supaya rasa tidak berlebihan." },
+  { image: ART.rendang, label: "SELAMAT DATANG DI", title: "Racik", body: "Naikkan rendang dari 4 ke 12 porsi. Dagingnya memang jadi tiga kali lipat. Tapi cabainya 34, bukan 51 — karena bumbu tidak pernah dikali seperti itu." },
   { image: ART.mendoan, label: "BAHASA DAPUR KITA", title: "Gelas belimbing, bukan mililiter", body: "800 ml santan itu kira-kira 4 gelas belimbing. Racik menulis dua-duanya, jadi tidak perlu timbangan atau gelas ukur." },
   { image: ART.gado, label: "YANG JARANG ADA", title: "Tahu isinya berapa", body: "Perkiraan protein per porsi, supaya tahu masakannya sudah cukup mengenyangkan atau belum. Perkiraan, bukan hasil uji lab." },
   { image: ART.woku, label: "KALAU KETEMU DI HP", title: "Tempel tautannya, selesai", body: "Tempel tautan atau keterangan videonya. Racik merapikan bahan dan langkahnya." },
