@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Production builds run the all-recipe ingredient rendering regression test so catalogue lines cannot disappear silently.

@@ -41,18 +41,17 @@ export function IngredientList({
 }) {
   const [sub, setSub] = useState<IngLine | null>(null);
   const cantSplit = undividable(recipe, servings);
-  const visible = recipe.ings.filter((l) => !l[4]);
   const subIng = sub ? ING[sub[0]] : null;
 
   return (
     <div>
       <ul>
-        {visible.map((line) => {
+        {recipe.ings.map((line) => {
           const ing = ING[line[0]];
           if (!ing) return null;
           const hasSub = Boolean(line[3] ?? SUBS[line[0]]);
           return (
-            <li key={line[0]} className="hairline-b py-3">
+            <li key={line[0]} data-ingredient-line className="hairline-b py-3">
               <div className="read-line flex items-start gap-3">
                 <span aria-hidden className="w-6 shrink-0">
                   {ing.em}
