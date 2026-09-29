@@ -58,6 +58,6 @@ Katalog lengkap 199 resep sudah masuk dan tersimpan di perangkat.
 
 ## Perbaikan katalog
 
-- [ ] Bahan lengkap pada halaman resep dan pengaman 199 resep
-- [ ] Copy onboarding pertama dan Tentang Racik diperbarui
-- [ ] Badge publikasi disembunyikan
+- [x] Bahan lengkap pada halaman resep dan pengaman 199 resep
+- [x] Copy onboarding pertama dan Tentang Racik diperbarui
+- [x] Badge publikasi disembunyikan
