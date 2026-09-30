@@ -61,9 +61,24 @@ export async function sendEmailCode(email: string): Promise<string | null> {
   if (!db) return "Racik belum tersambung ke server.";
   const { error } = await db.auth.signInWithOtp({ email: email.trim() });
   if (!error) return null;
-  return /rate|seconds/i.test(error.message)
-    ? "Tunggu sebentar sebelum minta kode lagi."
-    : "Kodenya belum terkirim. Periksa alamat emailnya lalu coba lagi.";
+
+  // The real reason always goes to the console. Matching on wording alone sent
+  // someone chasing a configuration problem that did not exist, because
+  // Supabase phrases its throttle several different ways and none of them was
+  // in the list. A friendly message must never be the only thing we keep.
+  console.warn("[racik] sendEmailCode failed:", error.status, error.message);
+
+  const m = error.message.toLowerCase();
+  if (error.status === 429 || /rate|seconds|too many|security purposes/.test(m)) {
+    return "Tunggu satu menit sebelum minta kode lagi.";
+  }
+  if (/signups?\s+(not allowed|disabled)/.test(m)) {
+    return "Pendaftaran sedang ditutup untuk email ini.";
+  }
+  if (/invalid|format/.test(m)) {
+    return "Alamat emailnya belum benar. Periksa lalu coba lagi.";
+  }
+  return "Kodenya belum terkirim. Coba lagi sebentar lagi.";
 }
 
 export async function confirmEmailCode(email: string, token: string): Promise<string | null> {
