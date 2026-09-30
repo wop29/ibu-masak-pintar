@@ -217,6 +217,14 @@ describe("takaran", () => {
     expect(takaran("daging_sapi", 500, "gram")).toBe("± 5 ons");
   });
 
+  // Rendang at one portion is 125 g of beef. Rounding that to the nearest half
+  // printed "1½ ons" and told someone to buy 20% more meat than the recipe uses.
+  it("rounds to the nearest quarter, not the nearest half", () => {
+    expect(takaran("daging_sapi", 125, "gram")).toBe("± 1¼ ons");
+    expect(takaran("daging_sapi", 175, "gram")).toBe("± 1¾ ons");
+    expect(takaran("santan", 150, "ml")).toBe("± ¾ gelas belimbing");
+  });
+
   it("stays silent for countables and for gram-only mode", () => {
     expect(takaran("telur", 4, "butir")).toBeNull();
     expect(takaran("santan", 800, "ml", "gram")).toBeNull();

@@ -42,8 +42,10 @@ export function takaran(
   const entry = TAKAR[id];
   if (!entry) return null;
   const [per, label] = entry;
-  const value = Math.round((qty / per) * 2) / 2;
-  if (value < 0.5) return null;
+  // Quarters, not halves. Rounding 1.25 ons up to 1½ overstates the meat by
+  // 20%, and the display already knows how to draw ¼ and ¾.
+  const value = Math.round((qty / per) * 4) / 4;
+  if (value < 0.25) return null;
   return `± ${fmtQty(value)} ${label}`;
 }
 

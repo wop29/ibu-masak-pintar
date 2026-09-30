@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { defaultState, loadState, saveState, type RacikState } from "./store";
+import { COOK_RESUME_WINDOW_MS, defaultState, loadState, saveState, type CookProgress, type RacikState } from "./store";
 
 interface Ctx {
   state: RacikState;
@@ -10,6 +10,9 @@ interface Ctx {
   setServings: (id: string, servings: number) => void;
   logCooked: (id: string) => void;
   rate: (id: string, verdict: "gampang" | "pas" | "susah") => void;
+  cookProgress: (id: string) => CookProgress | null;
+  setCookProgress: (id: string, patch: Partial<CookProgress>) => void;
+  clearCookProgress: (id: string) => void;
 }
 
 const RacikContext = createContext<Ctx | null>(null);
@@ -72,9 +75,34 @@ export function RacikProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
+  /** Only resumes a session she was in recently — see COOK_RESUME_WINDOW_MS. */
+  const cookProgress = useCallback(
+    (id: string) => {
+      const p = state.cooking[id];
+      if (!p) return null;
+      return Date.now() - p.at > COOK_RESUME_WINDOW_MS ? null : p;
+    },
+    [state.cooking],
+  );
+
+  const setCookProgress = useCallback((id: string, patch: Partial<CookProgress>) => {
+    setState((prev) => {
+      const current = prev.cooking[id] ?? { step: 0, at: Date.now() };
+      return { ...prev, cooking: { ...prev.cooking, [id]: { ...current, ...patch, at: Date.now() } } };
+    });
+  }, []);
+
+  const clearCookProgress = useCallback((id: string) => {
+    setState((prev) => {
+      const next = { ...prev.cooking };
+      delete next[id];
+      return { ...prev, cooking: next };
+    });
+  }, []);
+
   const value = useMemo(
-    () => ({ state, ready, update, toggleSaved, setServings, logCooked, rate }),
-    [state, ready, update, toggleSaved, setServings, logCooked, rate],
+    () => ({ state, ready, update, toggleSaved, setServings, logCooked, rate, cookProgress, setCookProgress, clearCookProgress }),
+    [state, ready, update, toggleSaved, setServings, logCooked, rate, cookProgress, setCookProgress, clearCookProgress],
   );
 
   return (

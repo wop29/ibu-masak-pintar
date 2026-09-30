@@ -21,8 +21,34 @@ export interface RacikState {
   photoFull: boolean;
   satuan: "rumah" | "gram";
   teks: "normal" | "besar" | "paling_besar";
+  /**
+   * Where she is in each recipe's cook mode, and any timer she started.
+   *
+   * Cooking is interrupted constantly — a phone call, a child, the screen
+   * sleeping. Holding the step in component state meant coming back to step 1
+   * of a fourteen-step rendang. `endsAt` is a wall-clock instant, not a
+   * countdown, so a timer is still right after the app has been away: mobile
+   * browsers throttle timers in the background and a decrementing counter
+   * comes back showing more time left than has actually passed.
+   */
+  cooking: Record<string, CookProgress>;
+  /** Interface language. Recipe content stays Indonesian either way. */
+  lang: "id" | "en";
   suggestionSeed: number;
 }
+
+export interface CookProgress {
+  step: number;
+  at: number;
+  timerStep?: number | undefined;
+  /** Wall-clock ms when the running timer finishes. Absent when paused. */
+  endsAt?: number | undefined;
+  /** Seconds remaining on a paused timer. Absent when running. */
+  left?: number | undefined;
+}
+
+/** Come back to a recipe a day later and you are starting it again, not resuming. */
+export const COOK_RESUME_WINDOW_MS = 12 * 60 * 60 * 1000;
 
 export const defaultState: RacikState = {
   household: 4,
@@ -40,6 +66,8 @@ export const defaultState: RacikState = {
   photoFull: false,
   satuan: "rumah",
   teks: "normal",
+  cooking: {},
+  lang: "id",
   suggestionSeed: 1,
 };
 
@@ -67,6 +95,12 @@ export function normaliseState(raw: unknown): RacikState {
     photoFull: s.photoFull === true,
     satuan: s.satuan === "gram" ? "gram" : "rumah",
     teks: s.teks === "besar" || s.teks === "paling_besar" ? s.teks : "normal",
+    cooking: Object.fromEntries(
+      Object.entries(obj<CookProgress>(s.cooking)).filter(
+        ([, v]) => v && typeof v.step === "number" && v.step >= 0 && typeof v.at === "number",
+      ),
+    ),
+    lang: s.lang === "en" ? "en" : "id",
     suggestionSeed: typeof s.suggestionSeed === "number" ? s.suggestionSeed : 1,
   };
 }

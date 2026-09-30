@@ -65,7 +65,7 @@ function DetailResep() {
   const planned = state.plan.some((p) => p.id === recipe.id);
 
   return (
-    <main className="mx-auto min-h-dvh w-full max-w-[430px] pb-28">
+    <main className="mx-auto min-h-dvh w-full max-w-[430px] pb-[calc(7rem+env(safe-area-inset-bottom))]">
       <div className="relative aspect-[4/3] w-full bg-primary-deep">
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-[64px]" />
         <Button asChild variant="secondary" size="icon" className="absolute left-4 top-4"><Link to="/" aria-label="Kembali"><ArrowLeft /></Link></Button>
@@ -169,7 +169,7 @@ function DetailResep() {
             <Button variant="ghost"
               key={t}
               onClick={() => setTab(t)}
-              className={`h-auto rounded-none border-b-2 px-0 pb-2 text-label uppercase tracking-[0.1em] ${
+              className={`h-auto min-h-11 rounded-none border-b-2 px-0 pb-2 text-label uppercase tracking-[0.1em] ${
                 tab === t
                   ? "border-primary text-primary"
                   : "border-transparent text-ink-3"
@@ -214,7 +214,7 @@ function DetailResep() {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 border-t border-rule bg-ground px-5 py-3">
+      <div className="fixed bottom-0 left-1/2 w-full max-w-[430px] -translate-x-1/2 border-t border-rule bg-ground px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
         <Button asChild size="lg" className="w-full"><Link to="/resep/$id/masak" params={{ id: recipe.id }}>Mulai masak · {servings} porsi</Link></Button>
       </div>
     </main>

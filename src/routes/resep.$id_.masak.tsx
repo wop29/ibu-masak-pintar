@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { byId, ING } from "@/lib/racik/data";
 import { fmtQty, scaledQty, stepIngredients, takaran, unitOf } from "@/lib/racik/engine";
 import { useRacik } from "@/lib/racik/state";
@@ -36,20 +36,43 @@ export const Route = createFileRoute("/resep/$id_/masak")({
   component: ModeMasak,
 });
 
-function Timer({ seconds, keyId }: { seconds: number; keyId: string }) {
-  const [left, setLeft] = useState(seconds);
-  const [running, setRunning] = useState(false);
+function Timer({
+  seconds,
+  recipeId,
+  stepIndex,
+}: {
+  seconds: number;
+  recipeId: string;
+  stepIndex: number;
+}) {
+  const { cookProgress, setCookProgress } = useRacik();
+  const progress = cookProgress(recipeId);
+  const mine = progress?.timerStep === stepIndex ? progress : null;
+  const running = mine?.endsAt != null;
 
-  useEffect(() => {
-    setLeft(seconds);
-    setRunning(false);
-  }, [seconds, keyId]);
-
+  // A tick only to redraw. The number itself always comes from the clock, so
+  // a backgrounded tab — where browsers throttle or suspend timers — cannot
+  // make it wrong. A counter that decrements would come back overstating the
+  // time left, which on a simmer is the dangerous direction to be wrong in.
+  const [, redraw] = useState(0);
   useEffect(() => {
     if (!running) return;
-    const t = setInterval(() => setLeft((v) => (v <= 1 ? 0 : v - 1)), 1000);
+    const t = setInterval(() => redraw((n) => n + 1), 500);
     return () => clearInterval(t);
   }, [running]);
+
+  const left = mine?.endsAt != null
+    ? Math.max(0, Math.round((mine.endsAt - Date.now()) / 1000))
+    : mine?.left ?? seconds;
+
+  const toggle = () => {
+    if (running) {
+      setCookProgress(recipeId, { timerStep: stepIndex, endsAt: undefined, left });
+    } else {
+      const from = left > 0 ? left : seconds;
+      setCookProgress(recipeId, { timerStep: stepIndex, endsAt: Date.now() + from * 1000, left: undefined });
+    }
+  };
 
   const mm = String(Math.floor(left / 60)).padStart(2, "0");
   const ss = String(left % 60).padStart(2, "0");
@@ -60,7 +83,7 @@ function Timer({ seconds, keyId }: { seconds: number; keyId: string }) {
         {mm}:{ss}
       </span>
       <Button variant="outline"
-        onClick={() => setRunning((r) => !r)}
+        onClick={toggle}
         className="border-primary-foreground/40 bg-transparent text-label uppercase tracking-[0.1em] text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
       >
         {left === 0 ? "Sudah" : running ? "Jeda" : "Mulai hitung"}
@@ -72,10 +95,27 @@ function Timer({ seconds, keyId }: { seconds: number; keyId: string }) {
 function ModeMasak() {
   const { recipe: shipped } = Route.useLoaderData();
   const { id } = Route.useParams();
-  const { state, logCooked } = useRacik();
+  const { state, ready, logCooked, cookProgress, setCookProgress, clearCookProgress } = useRacik();
   const navigate = useNavigate();
-  const [i, setI] = useState(0);
   const recipe = shipped ?? state.imported.find((item) => item.id === id);
+  const [i, setI] = useState(0);
+
+  // The store loads from IndexedDB asynchronously, so on a cold start — which
+  // is exactly what a phone evicting the page looks like — it is still empty
+  // at first render. Restore once, after it has actually loaded, and never
+  // again, so a later write cannot move her mid-step.
+  const restored = useRef(false);
+  useEffect(() => {
+    if (!ready || restored.current) return;
+    restored.current = true;
+    const saved = cookProgress(id)?.step;
+    if (saved != null && saved > 0) setI(saved);
+  }, [ready, id, cookProgress]);
+
+  const goto = (next: number) => {
+    setI(next);
+    setCookProgress(id, { step: next });
+  };
   const servings = recipe ? state.servings[recipe.id] ?? state.household : state.household;
   const perStep = useMemo(() => (recipe ? stepIngredients(recipe) : []), [recipe]);
 
@@ -108,7 +148,8 @@ function ModeMasak() {
         <Link
           to="/resep/$id"
           params={{ id: recipe.id }}
-          className="text-label uppercase tracking-[0.1em] text-primary-foreground/70"
+          // Cook mode is used with wet hands. The way out needs a real target.
+          className="-mr-2 flex min-h-11 items-center px-2 text-label uppercase tracking-[0.1em] text-primary-foreground/70"
         >
           Keluar
         </Link>
@@ -116,7 +157,7 @@ function ModeMasak() {
 
       <div className="flex-1 px-5 py-7">
         <p className="font-display text-28 leading-[1.3]">{step[0]}</p>
-        {step[1] ? <Timer seconds={step[1]} keyId={`${recipe.id}-${i}`} /> : null}
+        {step[1] ? <Timer seconds={step[1]} recipeId={recipe.id} stepIndex={i} /> : null}
 
         {needed.length > 0 ? (
           <div className="mt-8 rounded-2xl border border-primary-foreground/15 p-4">
@@ -155,7 +196,7 @@ function ModeMasak() {
 
       <div className="flex gap-3 border-t border-primary-foreground/15 px-5 py-4">
         <Button variant="outline" size="lg"
-          onClick={() => setI((v) => Math.max(0, v - 1))}
+          onClick={() => goto(Math.max(0, i - 1))}
           disabled={i === 0}
           className="flex-1 border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground disabled:text-primary-foreground/30"
         >
@@ -165,9 +206,10 @@ function ModeMasak() {
           onClick={() => {
             if (last) {
               logCooked(recipe.id);
+              clearCookProgress(recipe.id);
               navigate({ to: "/resep/$id/selesai", params: { id: recipe.id } });
             } else {
-              setI((v) => v + 1);
+              goto(i + 1);
             }
           }}
           className="flex-1"
