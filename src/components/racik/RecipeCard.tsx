@@ -22,7 +22,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         <p className="eyebrow">{REG[recipe.region]?.name ?? recipe.region}</p>
         <h3 className="font-display text-head mt-1 leading-snug">{recipe.title}</h3>
         {recipe.incomplete ? <p className="mt-2"><IncompleteBadge recipe={recipe} /></p> : null}
-        <p className="text-secondary text-ink-3 mt-1">
+        <p className="text-14 text-ink-3 mt-1">
           {fmtTime(recipe.time)} · {recipe.diff}
           {protein ? ` · perkiraan ${protein} protein` : ""}
         </p>

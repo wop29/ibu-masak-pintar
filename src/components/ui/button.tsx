@@ -12,14 +12,16 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+          // text-ink is explicit: inheriting the colour made these invisible once.
+          "border border-input bg-background text-ink hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-12 px-5 py-3",
-        sm: "h-10 px-4 text-secondary",
+        // 44px is the accessible minimum for a tap target.
+        sm: "h-11 px-4 text-14",
         lg: "h-14 px-8",
         icon: "h-12 w-12",
       },

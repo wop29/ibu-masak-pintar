@@ -21,7 +21,12 @@
   --text-micro: 11px;
   --text-label: 12px;
   --text-caption: 13px;
-  --text-secondary: 14px;
+  /* NOT --text-secondary. Tailwind builds `text-<name>` from both the size
+     namespace and the colour namespace, and --color-secondary already owns
+     that name — so `text-secondary` set the text to the pale secondary
+     BACKGROUND colour and never applied 14px at all. Every small button and
+     every recipe meta line was pale-on-pale because of it. */
+  --text-14: 14px;
   --text-15: 15px;
   --text-body: 16px;
   --text-read: 18px;
@@ -69,7 +74,9 @@
   --rule: oklch(0.925 0.004 106);
   --ink: oklch(0.178 0 0);
   --ink-2: oklch(0.35 0 0);
-  --ink-3: oklch(0.69 0.018 255);
+  /* Secondary text. Measured against --ground and against white: 4.80:1 and
+     5.01:1. The old value was 2.65:1, which is not readable at arm's length. */
+  --ink-3: oklch(0.542 0.018 255);
   --primary-deep: oklch(0.31 0.1 150);
   --dark: oklch(0.14 0.012 150);
   --notice: oklch(0.965 0.05 95);

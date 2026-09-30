@@ -13,12 +13,12 @@ export function CompactRecipe({ recipe }: { recipe: Recipe }) {
   return (
     <Link to="/resep/$id" params={{ id: recipe.id }} className="flex min-h-28 items-center gap-4 border-b border-border py-4">
       <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-primary-deep">
-        <RecipePhoto src={photo} glyph={recipe.glyph} glyphClass="text-28" />
+        <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-28" />
       </div>
       <div className="min-w-0 flex-1">
         <h3 className="text-head font-bold leading-snug">{recipe.title}</h3>
         {recipe.incomplete ? <p className="mt-1"><IncompleteBadge recipe={recipe} /></p> : null}
-        <p className="mt-1 text-label leading-relaxed text-muted-foreground">{REG[recipe.region]?.name ?? recipe.region} · {fmtTime(recipe.time)} · {recipe.diff}{protein ? ` · perkiraan ${protein} protein` : ""}</p>
+        <p className="mt-1 text-14 leading-relaxed text-muted-foreground">{REG[recipe.region]?.name ?? recipe.region} · {fmtTime(recipe.time)} · {recipe.diff}{protein ? ` · perkiraan ${protein} protein` : ""}</p>
       </div>
       <ChevronRight aria-hidden className="shrink-0 text-border" />
     </Link>
