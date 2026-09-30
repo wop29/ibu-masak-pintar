@@ -6,7 +6,6 @@ import { CompactRecipe } from "@/components/racik/CompactRecipe";
 import { Onboarding } from "@/components/racik/Onboarding";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { SearchField } from "@/components/racik/SearchField";
-import { SignInOffer } from "@/components/racik/SignInOffer";
 import { ART, PHOTO } from "@/components/racik/photos";
 import { Button } from "@/components/ui/button";
 import { RECIPES } from "@/lib/racik/data";
@@ -87,7 +86,6 @@ function MasakApa() {
         <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><p className="min-w-0 text-body text-muted-foreground">{t("for_people", { n: state.household })}</p><div className="shrink-0"><PortionStepper value={state.household} onChange={(v) => update({ household: v })} /></div></div>
         <div className="mt-5"><SearchField value={query} onChange={setQuery} placeholder={t("search_placeholder")} /></div>
       </header>
-      <SignInOffer />
       <div className="hairline-t hairline-b no-scrollbar flex gap-3 overflow-x-auto px-5 py-5">
         {CATS.map((c) => (
           <Button variant="outline" key={c.id} onClick={() => setCat(cat === c.id ? "" : c.id)} className={`relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border-2 p-0 ${cat === c.id ? "border-primary" : "border-transparent"}`}>

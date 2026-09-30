@@ -33,8 +33,8 @@ function Tulis() {
     <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card pb-28">
       <header className="px-5 pb-5 pt-[calc(2.5rem+env(safe-area-inset-top))]">
         <p className="eyebrow">RACIK</p>
-        <h1 className="mt-1 text-display font-extrabold leading-[1.08]">{t("write_recipe")}</h1>
-        <p className="mt-2 read-line text-ink-2">{t("write_intro")}</p>
+        <h1 className="mt-1 text-display font-extrabold leading-[1.08]">{t("write_hook")}</h1>
+        <p className="mt-3 read-line text-ink-2">{t("write_intro")}</p>
       </header>
 
       <div className="px-5">

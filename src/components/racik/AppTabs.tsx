@@ -44,7 +44,7 @@ export function AppTabs() {
             ) : (
               <Icon aria-hidden strokeWidth={active ? 2.4 : 1.7} />
             )}
-            <span>{label}</span>
+            <span className="w-full px-0.5 text-center leading-tight">{label}</span>
           </Link>
         );
       })}

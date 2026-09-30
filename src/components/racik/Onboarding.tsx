@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useRacik } from "@/lib/racik/state";
 import { ART } from "@/components/racik/photos";
 import { PortionStepper } from "@/components/racik/PortionStepper";
+import { SignInOffer } from "@/components/racik/SignInOffer";
 
 const slides = [
   { image: ART.rendang, label: "SELAMAT DATANG DI", title: "Racik", body: "Naikkan rendang dari 4 ke 12 porsi. Dagingnya memang jadi tiga kali lipat. Tapi cabainya 34, bukan 51 — karena bumbu tidak pernah dikali seperti itu." },
@@ -28,12 +29,19 @@ export function Onboarding() {
    * It needs no account, it changes the product immediately, and it already
    * has a sensible default — so there is a Lewati on it too.
    */
+  // Last screen: the account offer. Asked once, here, where she has just seen
+  // what the app does and the question makes sense — rather than as a wall in
+  // front of an app she has not used yet.
+  if (index === slides.length + 1) {
+    return <SignInOffer onDone={() => update({ intro: true })} onBack={() => setIndex((v) => v - 1)} />;
+  }
+
   if (index === slides.length) {
     return (
       <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-card px-5 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(1.5rem+env(safe-area-inset-top))]">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" aria-label="Kembali" onClick={() => setIndex((v) => v - 1)}><ArrowLeft /></Button>
-          <div className="flex flex-1 gap-2">{[...slides, null].map((_, i) => <span key={i} className={`h-1 flex-1 rounded-full ${i <= index ? "bg-primary" : "bg-rule"}`} />)}</div>
+          <div className="flex flex-1 gap-2">{[...slides, null, null].map((_, i) => <span key={i} className={`h-1 flex-1 rounded-full ${i <= index ? "bg-primary" : "bg-rule"}`} />)}</div>
           <Button variant="ghost" className="px-2 text-label text-muted-foreground" onClick={() => update({ intro: true })}>Lewati</Button>
         </div>
         <div className="mt-auto">
@@ -46,7 +54,7 @@ export function Onboarding() {
           <div className="mt-6 flex justify-center">
             <PortionStepper value={state.household} onChange={(v) => update({ household: v })} />
           </div>
-          <Button size="lg" className="mt-8 w-full" onClick={() => update({ intro: true })}>Mulai masak</Button>
+          <Button size="lg" className="mt-8 w-full" onClick={() => setIndex((v) => v + 1)}>Lanjut</Button>
         </div>
       </main>
     );
@@ -59,7 +67,7 @@ export function Onboarding() {
       <div className="relative flex min-h-dvh flex-col px-5 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(1.5rem+env(safe-area-inset-top))]">
         <div className="flex items-center gap-3">
           {index > 0 ? <Button variant="ghost" size="icon" aria-label="Kembali" className="text-primary-foreground hover:bg-primary-foreground/10" onClick={() => setIndex((v) => v - 1)}><ArrowLeft /></Button> : <div className="h-12 w-12" />}
-          <div className="flex flex-1 gap-2">{[...slides, null].map((_, i) => <span key={i} className={`h-1 flex-1 rounded-full ${i <= index ? "bg-primary-foreground" : "bg-primary-foreground/35"}`} />)}</div>
+          <div className="flex flex-1 gap-2">{[...slides, null, null].map((_, i) => <span key={i} className={`h-1 flex-1 rounded-full ${i <= index ? "bg-primary-foreground" : "bg-primary-foreground/35"}`} />)}</div>
           <Button variant="ghost" className="px-2 text-label text-primary-foreground/80 hover:bg-primary-foreground/10" onClick={() => update({ intro: true })}>Lewati</Button>
         </div>
         <div className="mt-auto">

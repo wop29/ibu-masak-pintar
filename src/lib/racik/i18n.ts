@@ -16,7 +16,7 @@ const DICT = {
   // bottom tabs
   tab_home: ["Masak Apa", "What to Cook"],
   tab_search: ["Cari Resep", "Find a Recipe"],
-  tab_write: ["Tulis", "Write"],
+  tab_write: ["Tulis resep", "Write"],
   tab_book: ["Buku Resep", "My Book"],
 
   // home
@@ -107,7 +107,7 @@ const DICT = {
   not_connected: ["Racik belum tersambung ke server.", "Racik is not connected to the server."],
 
   // the sign-in offer — shown once, always skippable
-  offer_title: ["Mau punya akun Racik?", "Want a Racik account?"],
+  offer_title: ["Simpan resepmu, bagikan masakanmu", "Keep your recipes, share your cooking"],
   offer_write: [
     "Menulis resepmu sendiri, lengkap dengan takaran yang ikut jumlah porsi.",
     "Write your own recipes, with measurements that follow the portion count.",
@@ -131,9 +131,15 @@ const DICT = {
 
   // writing
   write_recipe: ["Tulis resep sendiri", "Write your own recipe"],
+  // The pull is not "contribute content". It is: my mother's rendang, with my
+  // name on it, that my cousin can actually open.
+  write_hook: [
+    "Resep nenekmu belum ada di mana-mana",
+    "Your grandmother's recipe isn't anywhere yet",
+  ],
   write_intro: [
-    "Resepmu akan bisa dilihat pengguna Racik lain.",
-    "Your recipe will be visible to other Racik users.",
+    "Tulis sekali, dan resepnya punya namamu di atasnya. Kirim ke grup arisan lewat WhatsApp — mereka langsung bisa membukanya, tanpa memasang Racik. Setiap kali ada yang memasaknya, kamu tahu.",
+    "Write it once, and it carries your name. Send it to a WhatsApp group — they open it straight away, without installing Racik. Every time someone cooks it, you'll know.",
   ],
   my_recipes: ["RESEP YANG KAMU TULIS", "RECIPES YOU WROTE"],
   draft: ["Draf", "Draft"],

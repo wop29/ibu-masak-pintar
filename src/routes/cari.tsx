@@ -6,7 +6,8 @@ import { SearchField } from "@/components/racik/SearchField";
 import { Sheet } from "@/components/racik/Sheet";
 import { Button } from "@/components/ui/button";
 import { INGREDIENTS, RECIPES, REG } from "@/lib/racik/data";
-import { buildIndex, proteinPerPortion, search } from "@/lib/racik/engine";
+import { buildIndex, search } from "@/lib/racik/engine";
+import { DIET_SHELVES } from "@/lib/racik/diet";
 import { useRacik } from "@/lib/racik/state";
 import type { Recipe } from "@/lib/racik/types";
 import { PHOTO } from "@/components/racik/photos";
@@ -41,6 +42,19 @@ function regionShelves() {
   return rest.length ? [...named, { label: "Daerah lain", recipes: rest }] : named;
 }
 
+/**
+ * The order a kitchen is actually searched: what is the main thing, then the
+ * vegetables, then what seasons it, then the cupboard. "lain" holds three
+ * items — water, ice, banana leaf — so it joins the cupboard rather than
+ * getting a heading of its own.
+ */
+const ING_GROUPS: { label: string; cats: string[] }[] = [
+  { label: "DAGING, IKAN, TAHU & TEMPE", cats: ["daging"] },
+  { label: "SAYUR & BUAH", cats: ["sayur"] },
+  { label: "BUMBU", cats: ["bumbu"] },
+  { label: "SEMBAKO", cats: ["sembako", "lain"] },
+];
+
 function CariResep() {
   const { state } = useRacik();
   const [query, setQuery] = useState("");
@@ -60,10 +74,10 @@ function CariResep() {
       <Shelf title="CEPAT & GAMPANG" onPick={pick} items={[20,30,45].map((n) => ({ label: `≤ ${n} menit`, recipes: RECIPES.filter((r) => r.time <= n) }))} />
       <Shelf title="BAHAN UTAMA" onPick={pick} items={[{ label: "Ayam", ids: ["ayam_utuh","ayam"] },{ label:"Ikan & Udang",ids:["ikan_kembung","ikan_cakalang","udang"]},{label:"Telur",ids:["telur"]},{label:"Tahu & Tempe",ids:["tahu","tempe"]},{label:"Daging",ids:["daging_sapi"]},{label:"Sayur",ids:INGREDIENTS.filter((i)=>i.cat==="sayur").map((i)=>i.id)}].map((x)=>({label:x.label,recipes:RECIPES.filter((r)=>r.ings.some((l)=>x.ids.includes(l[0])))}))} />
       <Shelf title="CARA MASAK" onPick={pick} items={methods.map((m)=>({label:m.label,recipes:RECIPES.filter((r)=>r.steps.some((s)=>s[0].toLowerCase().includes(m.word)))}))} />
-      <Shelf title="PROTEIN TINGGI" onPick={pick} items={[15,20,25].map((n)=>({label:`≥ ${n} g`,recipes:RECIPES.filter((r)=>proteinPerPortion(r)>=n)}))} />
+      <Shelf title="PILIHAN MAKAN" onPick={pick} items={DIET_SHELVES.map((d)=>({label:d.label,recipes:RECIPES.filter(d.match)}))} />
       <Shelf title="DAERAH" onPick={pick} items={regionShelves()} />
     </>}
-    <Sheet open={ingredients} onClose={() => setIngredients(false)} title="Bahan di dapur"><p className="mb-4 text-body text-muted-foreground">Pilih bahan utama. Hasil berubah setiap kali pilihan ditambah.</p><div className="flex flex-wrap gap-2">{INGREDIENTS.filter((i)=>!i.staple).slice(0,30).map((ing)=><Button key={ing.id} size="sm" variant={selected.includes(ing.id)?"default":"outline"} onClick={()=>setSelected((s)=>s.includes(ing.id)?s.filter((x)=>x!==ing.id):[...s,ing.id])}>{ing.em} {ing.name}</Button>)}</div><p className="mt-5 text-body font-semibold">{ingredientRecipes.length} resep cocok</p><Button className="mt-3 w-full" disabled={!selected.length} onClick={()=>{setIngredients(false);pick("Bahan di dapur",ingredientRecipes)}}>Lihat resep</Button></Sheet>
+    <Sheet open={ingredients} onClose={() => setIngredients(false)} title="Bahan di dapur"><p className="mb-4 text-body text-muted-foreground">Pilih bahan utama. Hasil berubah setiap kali pilihan ditambah.</p>{ING_GROUPS.map((group)=>{const items=INGREDIENTS.filter((i)=>!i.staple&&group.cats.includes(i.cat));if(!items.length)return null;return <section key={group.label} className="mb-6"><h3 className="eyebrow-ink mb-3">{group.label}</h3><div className="flex flex-wrap gap-2">{items.map((ing)=><Button key={ing.id} size="sm" variant={selected.includes(ing.id)?"default":"outline"} onClick={()=>setSelected((s)=>s.includes(ing.id)?s.filter((x)=>x!==ing.id):[...s,ing.id])}>{ing.em} {ing.name}</Button>)}</div></section>;})}<p className="mt-5 text-body font-semibold">{ingredientRecipes.length} resep cocok</p><Button className="mt-3 w-full" disabled={!selected.length} onClick={()=>{setIngredients(false);pick("Bahan di dapur",ingredientRecipes)}}>Lihat resep</Button></Sheet>
     <AppTabs />
   </main>;
 }
