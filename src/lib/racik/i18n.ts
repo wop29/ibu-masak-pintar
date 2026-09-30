@@ -91,6 +91,29 @@ const DICT = {
   signed_in_as: ["Masuk sebagai {name}", "Signed in as {name}"],
   not_connected: ["Racik belum tersambung ke server.", "Racik is not connected to the server."],
 
+  // the sign-in offer — shown once, always skippable
+  offer_title: ["Mau punya akun Racik?", "Want a Racik account?"],
+  offer_write: [
+    "Menulis resepmu sendiri, lengkap dengan takaran yang ikut jumlah porsi.",
+    "Write your own recipes, with measurements that follow the portion count.",
+  ],
+  offer_share: [
+    "Membagikannya ke teman lewat WhatsApp — mereka bisa membukanya tanpa memasang Racik.",
+    "Share them on WhatsApp — friends can open them without installing Racik.",
+  ],
+  offer_seen: [
+    "Melihat berapa orang memasak resepmu.",
+    "See how many people cooked your recipe.",
+  ],
+  offer_not_needed: [
+    "Tanpa akun pun 199 resep, takaran, dan mode masak tetap jalan — termasuk tanpa sinyal.",
+    "Without an account you still get all 199 recipes, the measurements and cook mode — signal or no signal.",
+  ],
+  offer_later: ["Nanti saja", "Maybe later"],
+
+  continue_facebook: ["Lanjut dengan Facebook", "Continue with Facebook"],
+  continue_apple: ["Lanjut dengan Apple", "Continue with Apple"],
+
   // writing
   write_recipe: ["Tulis resep sendiri", "Write your own recipe"],
   write_intro: [

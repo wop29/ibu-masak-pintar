@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/racik/i18n";
-import { enabledProviders, saveName, sendEmailLink, signInWithGoogle, signOut, type Providers } from "@/lib/racik/backend/auth";
+import { enabledProviders, saveName, sendEmailLink, signInWith, signOut, type OAuthProvider, type Providers } from "@/lib/racik/backend/auth";
 import { useAccount } from "@/lib/racik/backend/useAccount";
 
 export const Route = createFileRoute("/masuk")({
@@ -22,6 +22,15 @@ function Masuk() {
   const [providers, setProviders] = useState<Providers | null>(null);
 
   useEffect(() => { enabledProviders().then(setProviders); }, []);
+
+  // Only methods the project actually has enabled get a button, so nobody
+  // ever taps one that answers "provider is not enabled". Turning Facebook
+  // or Apple on in Supabase makes its button appear with no deploy.
+  const social: { id: OAuthProvider; label: string }[] = [
+    ...(providers?.google ? [{ id: "google" as const, label: t("continue_google") }] : []),
+    ...(providers?.facebook ? [{ id: "facebook" as const, label: t("continue_facebook") }] : []),
+    ...(providers?.apple ? [{ id: "apple" as const, label: t("continue_apple") }] : []),
+  ];
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -48,22 +57,26 @@ function Masuk() {
         <p className="mt-8 rounded-2xl border border-rule bg-notice p-4 read-line">{t("not_connected")}</p>
       ) : !ready ? null : !account ? (
         <section className="mt-8">
-          {providers?.google ? (
+          {social.length ? (
             <>
-              <Button
-                size="lg"
-                className="w-full"
-                disabled={busy}
-                onClick={async () => {
-                  setBusy(true);
-                  setError("");
-                  const err = await signInWithGoogle(`${window.location.origin}/masuk`);
-                  setBusy(false);
-                  if (err) setError(err);
-                }}
-              >
-                {t("continue_google")}
-              </Button>
+              {social.map(({ id, label }) => (
+                <Button
+                  key={id}
+                  size="lg"
+                  variant={id === "google" ? "default" : "outline"}
+                  className="mb-2 w-full"
+                  disabled={busy}
+                  onClick={async () => {
+                    setBusy(true);
+                    setError("");
+                    const err = await signInWith(id, `${window.location.origin}/masuk`);
+                    setBusy(false);
+                    if (err) setError(err);
+                  }}
+                >
+                  {label}
+                </Button>
+              ))}
 
               <div className="my-6 flex items-center gap-3">
                 <span className="h-px flex-1 bg-rule" />

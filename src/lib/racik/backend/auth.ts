@@ -20,12 +20,26 @@ export async function currentAccount(): Promise<Account | null> {
   return { id: user.id, name: profile?.name ?? "" };
 }
 
-export async function signInWithGoogle(redirectTo: string): Promise<string | null> {
+export type OAuthProvider = "google" | "facebook" | "apple";
+
+const PROVIDER_NAME: Record<OAuthProvider, string> = {
+  google: "Google",
+  facebook: "Facebook",
+  apple: "Apple",
+};
+
+export async function signInWith(
+  provider: OAuthProvider,
+  redirectTo: string,
+): Promise<string | null> {
   const db = backend();
   if (!db) return "Racik belum tersambung ke server.";
-  const { error } = await db.auth.signInWithOAuth({ provider: "google", options: { redirectTo } });
-  return error ? "Masuk dengan Google belum berhasil. Coba lagi." : null;
+  const { error } = await db.auth.signInWithOAuth({ provider, options: { redirectTo } });
+  return error ? `Masuk dengan ${PROVIDER_NAME[provider]} belum berhasil. Coba lagi.` : null;
 }
+
+/** @deprecated use signInWith("google", ...) */
+export const signInWithGoogle = (redirectTo: string) => signInWith("google", redirectTo);
 
 /**
  * Email link. Enabled in Supabase by default, so this works with no external
@@ -90,6 +104,8 @@ export async function signOut(): Promise<void> {
 export interface Providers {
   email: boolean;
   google: boolean;
+  facebook: boolean;
+  apple: boolean;
   phone: boolean;
 }
 
@@ -98,18 +114,24 @@ let cached: Providers | null = null;
 export async function enabledProviders(): Promise<Providers> {
   if (cached) return cached;
   const db = backend();
-  if (!db) return { email: false, google: false, phone: false };
+  if (!db) return { email: false, google: false, facebook: false, apple: false, phone: false };
   try {
     const url = import.meta.env["VITE_SUPABASE_URL"] as string;
     const key = import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"] as string;
     const res = await fetch(`${url}/auth/v1/settings`, { headers: { apikey: key } });
     const json = (await res.json()) as { external?: Record<string, boolean> };
     const ext = json.external ?? {};
-    cached = { email: ext["email"] === true, google: ext["google"] === true, phone: ext["phone"] === true };
+    cached = {
+      email: ext["email"] === true,
+      google: ext["google"] === true,
+      facebook: ext["facebook"] === true,
+      apple: ext["apple"] === true,
+      phone: ext["phone"] === true,
+    };
     return cached;
   } catch {
     // Offline, or the project is unreachable. Assume email, which is the
     // default everywhere, rather than showing a screen with no way in.
-    return { email: true, google: false, phone: false };
+    return { email: true, google: false, facebook: false, apple: false, phone: false };
   }
 }

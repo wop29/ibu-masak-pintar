@@ -34,6 +34,8 @@ export interface RacikState {
   cooking: Record<string, CookProgress>;
   /** Interface language. Recipe content stays Indonesian either way. */
   lang: "id" | "en";
+  /** She has seen the sign-in offer and answered it, either way. */
+  authAsked: boolean;
   suggestionSeed: number;
 }
 
@@ -68,6 +70,7 @@ export const defaultState: RacikState = {
   teks: "normal",
   cooking: {},
   lang: "id",
+  authAsked: false,
   suggestionSeed: 1,
 };
 
@@ -101,6 +104,7 @@ export function normaliseState(raw: unknown): RacikState {
       ),
     ),
     lang: s.lang === "en" ? "en" : "id",
+    authAsked: s.authAsked === true,
     suggestionSeed: typeof s.suggestionSeed === "number" ? s.suggestionSeed : 1,
   };
 }
