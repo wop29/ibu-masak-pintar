@@ -105,10 +105,13 @@ export default defineConfig({
             },
           },
           {
-            // Photographs live on the CDN under this path. First view stores them,
-            // every later view reads the cache, so a kitchen with no signal still
-            // shows the picture it has already seen.
-            urlPattern: ({ url }) => url.pathname.startsWith("/__l5e/assets-v1/"),
+            // Recipe photographs are bundled with the app and served from our own
+            // origin. First view stores them, every later view reads the cache,
+            // so a kitchen with no signal still shows the picture it has seen.
+            // They are deliberately NOT precached: 44 photographs is 4.6 MB, and
+            // that is not worth adding to every install over a metered connection.
+            urlPattern: ({ url }) =>
+              url.origin === self.location.origin && url.pathname.endsWith(".webp"),
             handler: "CacheFirst",
             options: {
               cacheName: "racik-photos",

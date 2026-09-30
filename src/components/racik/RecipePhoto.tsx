@@ -27,7 +27,7 @@ export function RecipePhoto({
   if (!src || failed) {
     return (
       <span
-        className={`flex h-full w-full items-center justify-center bg-primary-deep ${glyphClass}`}
+        className={`flex h-full w-full items-center justify-center bg-primary-deep text-primary-foreground ${glyphClass}`}
         aria-hidden
       >
         {glyph}
