@@ -1,4 +1,5 @@
 import { Minus, Plus } from "lucide-react";
+import { useT } from "@/lib/racik/i18n";
 import { Button } from "@/components/ui/button";
 
 export function PortionStepper({
@@ -23,7 +24,7 @@ export function PortionStepper({
       </Button>
       <div className="w-16 text-center">
         <span className="text-head font-semibold tabular-nums">{value}</span>
-        <span className="text-label text-ink-3"> porsi</span>
+        <span className="text-label text-ink-3"> {useT()("portions")}</span>
       </div>
       <Button variant="ghost" size="icon"
         onClick={() => onChange(Math.min(max, value + 1))}

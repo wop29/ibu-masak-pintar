@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BukuRouteImport } from './routes/buku'
 import { Route as CariRouteImport } from './routes/cari'
+import { Route as MasukRouteImport } from './routes/masuk'
 import { Route as PengaturanRouteImport } from './routes/pengaturan'
+import { Route as TulisRouteImport } from './routes/tulis'
 import { Route as ResepIdRouteImport } from './routes/resep.$id'
 import { Route as ResepIdMasakRouteImport } from './routes/resep.$id_.masak'
 import { Route as ResepIdSelesaiRouteImport } from './routes/resep.$id_.selesai'
@@ -32,9 +34,19 @@ const CariRoute = CariRouteImport.update({
   path: '/cari',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MasukRoute = MasukRouteImport.update({
+  id: '/masuk',
+  path: '/masuk',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PengaturanRoute = PengaturanRouteImport.update({
   id: '/pengaturan',
   path: '/pengaturan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TulisRoute = TulisRouteImport.update({
+  id: '/tulis',
+  path: '/tulis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResepIdRoute = ResepIdRouteImport.update({
@@ -57,7 +69,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/buku': typeof BukuRoute
   '/cari': typeof CariRoute
+  '/masuk': typeof MasukRoute
   '/pengaturan': typeof PengaturanRoute
+  '/tulis': typeof TulisRoute
   '/resep/$id': typeof ResepIdRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
@@ -66,7 +80,9 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/buku': typeof BukuRoute
   '/cari': typeof CariRoute
+  '/masuk': typeof MasukRoute
   '/pengaturan': typeof PengaturanRoute
+  '/tulis': typeof TulisRoute
   '/resep/$id': typeof ResepIdRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
@@ -76,7 +92,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/buku': typeof BukuRoute
   '/cari': typeof CariRoute
+  '/masuk': typeof MasukRoute
   '/pengaturan': typeof PengaturanRoute
+  '/tulis': typeof TulisRoute
   '/resep/$id': typeof ResepIdRoute
   '/resep/$id_/masak': typeof ResepIdMasakRoute
   '/resep/$id_/selesai': typeof ResepIdSelesaiRoute
@@ -87,7 +105,9 @@ export interface FileRouteTypes {
     | '/'
     | '/buku'
     | '/cari'
+    | '/masuk'
     | '/pengaturan'
+    | '/tulis'
     | '/resep/$id'
     | '/resep/$id/masak'
     | '/resep/$id/selesai'
@@ -96,7 +116,9 @@ export interface FileRouteTypes {
     | '/'
     | '/buku'
     | '/cari'
+    | '/masuk'
     | '/pengaturan'
+    | '/tulis'
     | '/resep/$id'
     | '/resep/$id/masak'
     | '/resep/$id/selesai'
@@ -105,7 +127,9 @@ export interface FileRouteTypes {
     | '/'
     | '/buku'
     | '/cari'
+    | '/masuk'
     | '/pengaturan'
+    | '/tulis'
     | '/resep/$id'
     | '/resep/$id_/masak'
     | '/resep/$id_/selesai'
@@ -115,7 +139,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BukuRoute: typeof BukuRoute
   CariRoute: typeof CariRoute
+  MasukRoute: typeof MasukRoute
   PengaturanRoute: typeof PengaturanRoute
+  TulisRoute: typeof TulisRoute
   ResepIdRoute: typeof ResepIdRoute
   ResepIdMasakRoute: typeof ResepIdMasakRoute
   ResepIdSelesaiRoute: typeof ResepIdSelesaiRoute
@@ -144,11 +170,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CariRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/masuk': {
+      id: '/masuk'
+      path: '/masuk'
+      fullPath: '/masuk'
+      preLoaderRoute: typeof MasukRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pengaturan': {
       id: '/pengaturan'
       path: '/pengaturan'
       fullPath: '/pengaturan'
       preLoaderRoute: typeof PengaturanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tulis': {
+      id: '/tulis'
+      path: '/tulis'
+      fullPath: '/tulis'
+      preLoaderRoute: typeof TulisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resep/$id': {
@@ -179,7 +219,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BukuRoute: BukuRoute,
   CariRoute: CariRoute,
+  MasukRoute: MasukRoute,
   PengaturanRoute: PengaturanRoute,
+  TulisRoute: TulisRoute,
   ResepIdRoute: ResepIdRoute,
   ResepIdMasakRoute: ResepIdMasakRoute,
   ResepIdSelesaiRoute: ResepIdSelesaiRoute,
