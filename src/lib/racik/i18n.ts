@@ -76,6 +76,21 @@ const DICT = {
   ],
   continue_google: ["Lanjut dengan Google", "Continue with Google"],
   email_label: ["Alamat email", "Email address"],
+  continue_: ["Lanjut", "Next"],
+  code_title: ["Masukkan kodenya", "Enter the code"],
+  code_sent_to: [
+    "Kami kirim enam angka ke {email}.",
+    "We sent six digits to {email}.",
+  ],
+  code_resend: ["Kirim ulang kodenya", "Send the code again"],
+  profile_title: ["Kenalan dulu", "Let's meet"],
+  profile_why: [
+    "Nama ini yang muncul di resep yang kamu tulis. Fotonya boleh dilewati.",
+    "This name appears on the recipes you write. The photo is optional.",
+  ],
+  add_photo: ["Tambah foto", "Add a photo"],
+  skip: ["Lewati", "Skip"],
+  done: ["Selesai", "Done"],
   send_link: ["Kirim tautan masuk", "Send sign-in link"],
   link_sent: [
     "Tautannya sudah dikirim. Buka emailmu, lalu ketuk tautannya untuk masuk.",

@@ -3,6 +3,7 @@ import { backend } from "./client";
 export interface Account {
   id: string;
   name: string;
+  photoUrl: string | null;
 }
 
 /** Null when signed out, or when no backend is configured at all. */
@@ -14,10 +15,15 @@ export async function currentAccount(): Promise<Account | null> {
   if (!user) return null;
   const { data: profile } = await db
     .from("profiles")
-    .select("name")
+    .select("name, photo_path")
     .eq("id", user.id)
     .maybeSingle();
-  return { id: user.id, name: profile?.name ?? "" };
+  const path = (profile as { photo_path?: string | null } | null)?.photo_path ?? null;
+  return {
+    id: user.id,
+    name: (profile as { name?: string } | null)?.name ?? "",
+    photoUrl: path ? db.storage.from("resep").getPublicUrl(path).data.publicUrl : null,
+  };
 }
 
 export type OAuthProvider = "google" | "facebook" | "apple";
@@ -50,17 +56,24 @@ export const signInWithGoogle = (redirectTo: string) => signInWith("google", red
  * is rate-limited overall, so it is fine for testing and for a small closed
  * test, and needs a real mail provider before any volume.
  */
-export async function sendEmailLink(email: string, redirectTo: string): Promise<string | null> {
+export async function sendEmailCode(email: string): Promise<string | null> {
   const db = backend();
   if (!db) return "Racik belum tersambung ke server.";
-  const { error } = await db.auth.signInWithOtp({
-    email: email.trim(),
-    options: { emailRedirectTo: redirectTo },
-  });
+  const { error } = await db.auth.signInWithOtp({ email: email.trim() });
   if (!error) return null;
   return /rate|seconds/i.test(error.message)
-    ? "Tunggu sebentar sebelum minta tautan lagi."
-    : "Tautannya belum terkirim. Periksa alamat emailnya lalu coba lagi.";
+    ? "Tunggu sebentar sebelum minta kode lagi."
+    : "Kodenya belum terkirim. Periksa alamat emailnya lalu coba lagi.";
+}
+
+export async function confirmEmailCode(email: string, token: string): Promise<string | null> {
+  const db = backend();
+  if (!db) return "Racik belum tersambung ke server.";
+  const { error } = await db.auth.verifyOtp({ email: email.trim(), token: token.trim(), type: "email" });
+  if (!error) return null;
+  return /expired/i.test(error.message)
+    ? "Kodenya sudah kedaluwarsa. Minta kode baru."
+    : "Kodenya tidak cocok. Periksa lalu coba lagi.";
 }
 
 /** Phone sign-in matters more than email here; most people have WhatsApp, not inboxes. */
@@ -79,16 +92,22 @@ export async function confirmPhoneCode(phone: string, token: string): Promise<st
 }
 
 /** A name is required before posting, so a recipe always has someone's name on it. */
-export async function saveName(name: string): Promise<string | null> {
+export async function saveProfile(
+  name: string,
+  photoPath?: string | null,
+): Promise<string | null> {
   const db = backend();
   if (!db) return "Racik belum tersambung ke server.";
   const { data } = await db.auth.getUser();
   if (!data.user) return "Kamu belum masuk.";
-  const { error } = await db
-    .from("profiles")
-    .upsert({ id: data.user.id, name: name.trim() }, { onConflict: "id" });
-  return error ? "Namanya belum tersimpan. Coba lagi." : null;
+  const row: Record<string, unknown> = { id: data.user.id, name: name.trim() };
+  if (photoPath !== undefined) row["photo_path"] = photoPath;
+  const { error } = await db.from("profiles").upsert(row, { onConflict: "id" });
+  return error ? "Profilnya belum tersimpan. Coba lagi." : null;
 }
+
+/** @deprecated use saveProfile */
+export const saveName = (name: string) => saveProfile(name);
 
 export async function signOut(): Promise<void> {
   await backend()?.auth.signOut();
