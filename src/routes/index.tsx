@@ -130,7 +130,7 @@ function MasakApa() {
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
       <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <p className="eyebrow mb-0.5">{words[0]}</p>
-        <h1 className="mb-1 text-[clamp(26px,7vw,32px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{words[1]}</h1>
+        <h1 className="mb-1 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{words[1]}</h1>
         <div className="mt-3 mb-[18px] flex items-center justify-between">
           <div>
             <p className="text-label text-ink-3">Masak untuk</p>
@@ -157,7 +157,7 @@ function MasakApa() {
             const active = cat === c.id;
             return (
               <button key={c.id} type="button" onClick={() => setCat(active ? "" : c.id)} className={`flex size-[72px] shrink-0 flex-col items-center justify-center rounded-2xl transition-colors ${active ? "bg-primary" : "border border-rule-strong bg-card"}`}>
-                <span aria-hidden className="mb-1 text-[22px] leading-none">{c.emoji}</span>
+                <span aria-hidden className="mb-1 text-head leading-none">{c.emoji}</span>
                 <span className={`text-micro font-semibold ${active ? "text-primary-foreground" : "text-icon-muted"}`}>{c.label}</span>
               </button>
             );

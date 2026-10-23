@@ -21,8 +21,10 @@
   /* Every text size goes through --teks (reading text) or --teks-h
      (headings, which grow by half as much so titles don't break the layout).
      Pengaturan › Ukuran tulisan sets them on <html> — see .teks-* below. */
-  --text-micro: calc(11px * var(--teks, 1));
-  --text-label: calc(12px * var(--teks, 1));
+  /* Floor: nothing renders under 13px at Normal. micro and label keep their
+     names so old call sites still work, but no longer go below the floor. */
+  --text-micro: calc(13px * var(--teks, 1));
+  --text-label: calc(14px * var(--teks, 1));
   --text-caption: calc(13px * var(--teks, 1));
   /* NOT --text-secondary. Tailwind builds `text-<name>` from both the size
      namespace and the colour namespace, and --color-secondary already owns
@@ -39,6 +41,10 @@
   --text-28: calc(28px * var(--teks-h, 1));
   --text-34: calc(34px * var(--teks-h, 1));
   --text-display: calc(36px * var(--teks-h, 1));
+  /* Screen titles ("Rencana", recipe name, "Masak apa malam ini?"). */
+  --text-hero: calc(32px * var(--teks-h, 1));
+  /* A running cook timer. */
+  --text-timer: calc(46px * var(--teks-h, 1));
   /* Tailwind's own sizes, used by the shared ui/ components. */
   --text-xs: calc(0.75rem * var(--teks, 1));
   --text-sm: calc(0.875rem * var(--teks, 1));
@@ -285,7 +291,7 @@ html.teks-paling_besar {
 }
 
 @utility section-label {
-  font-size: 11px;
+  font-size: var(--text-label);
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;

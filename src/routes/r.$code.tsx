@@ -143,7 +143,7 @@ function SharedLink() {
           </div>
           <div className="px-5 pt-5 pb-5">
             {credit ? <p className="text-14 font-bold text-primary">{credit}</p> : null}
-            <h1 className="mt-1 text-[26px] font-extrabold leading-[1.15] tracking-[-0.02em]">
+            <h1 className="mt-1 text-28 font-extrabold leading-[1.15] tracking-[-0.02em]">
               {title}
             </h1>
             {cookedBy ? <p className="mt-1 text-14 text-ink-2">{cookedBy}</p> : null}

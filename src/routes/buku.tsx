@@ -38,7 +38,7 @@ function Koleksi() {
         <div className="mb-1 flex items-start justify-between">
           <div>
             <p className="eyebrow mb-0.5">MILIKMU</p>
-            <h1 className="text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Koleksi Saya</h1>
+            <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Koleksi Saya</h1>
           </div>
           <Link to="/pengaturan" aria-label="Pengaturan" className="mt-1 flex size-[38px] items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
         </div>

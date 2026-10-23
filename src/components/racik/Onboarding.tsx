@@ -48,7 +48,7 @@ function VideoOverlay() {
           </span>
         </div>
         <div className="absolute right-10 bottom-14 left-3 text-white">
-          <p className="mb-1.5 flex items-center gap-1.5 text-micro font-bold"><span className="flex size-6 items-center justify-center rounded-full bg-white/20 text-[10px]">👩‍🍳</span>@dapur_rumahan</p>
+          <p className="mb-1.5 flex items-center gap-1.5 text-micro font-bold"><span className="flex size-6 items-center justify-center rounded-full bg-white/20 text-caption">👩‍🍳</span>@dapur_rumahan</p>
           <p className="text-micro leading-snug text-white/85">Rendang empuk tanpa panci presto 🔥</p>
         </div>
         <div className="absolute right-3 bottom-6 left-3">
@@ -105,7 +105,7 @@ function NutritionOverlay() {
         <div className="border-b border-white/[0.08] px-4 py-3">
           <div className="mb-2 flex items-end justify-between">
             <span className="text-label font-semibold text-white/50">PROTEIN</span>
-            <span className="text-[22px] font-extrabold tracking-[-0.02em] text-white">{stats.protein}</span>
+            <span className="text-head font-extrabold tracking-[-0.02em] text-white">{stats.protein}</span>
           </div>
           <div className="h-1.5 rounded-full bg-white/10"><div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(100, Math.round((stats.p / 30) * 100))}%` }} /></div>
           <p className="mt-1 text-micro text-white/55">Perkiraan berdasarkan bahan dan porsi</p>
@@ -172,7 +172,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
 
       <div className="flex-1 px-6 pt-[54px]">
         <p className="text-micro font-extrabold tracking-[0.12em] text-primary">LANGKAH {step + 1} DARI {QUESTIONS.length}</p>
-        <h1 className="mt-2 max-w-[340px] text-[clamp(28px,8vw,36px)] font-extrabold leading-[1.12] tracking-[-0.04em]">{q.title}</h1>
+        <h1 className="mt-2 max-w-[340px] text-hero font-extrabold leading-[1.12] tracking-[-0.04em]">{q.title}</h1>
         <p className="mt-3 max-w-[340px] text-15 leading-relaxed text-ink-3">{q.body}</p>
 
         {step === 0 ? (
@@ -300,7 +300,7 @@ export function Onboarding() {
         <div className="animate-slide-up mb-5 inline-flex [@media(max-height:720px)]:mb-3 items-center rounded-full border border-white/15 bg-white/10 px-3 py-[5px] backdrop-blur-sm">
           <span className="text-label font-semibold tracking-[0.04em] text-white/70">{slide.label}</span>
         </div>
-        <h1 className="animate-slide-up-2 mb-3.5 text-[clamp(30px,8.5vw,42px)] [@media(max-height:720px)]:mb-2 [@media(max-height:720px)]:text-[clamp(26px,7.5vw,32px)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white">{slide.headline}</h1>
+        <h1 className="animate-slide-up-2 mb-3.5 text-display [@media(max-height:720px)]:mb-2 [@media(max-height:720px)]:text-28 font-extrabold leading-[1.08] tracking-[-0.03em] text-white">{slide.headline}</h1>
         <p className="animate-slide-up-2 mb-7 text-body leading-[1.65] [@media(max-height:720px)]:mb-5 [@media(max-height:720px)]:leading-[1.5] text-white/70">{slide.body}</p>
         <button type="button" onClick={advance} className="animate-slide-up-3 flex h-[58px] w-full items-center justify-center gap-2 rounded-full bg-primary text-body font-bold tracking-[-0.01em] text-white shadow-[0_8px_32px_var(--glow)]">
           {slide.cta}{!isLast ? <ArrowRight className="size-[18px]" strokeWidth={2.5} /> : null}

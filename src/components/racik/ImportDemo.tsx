@@ -79,7 +79,7 @@ export function ImportDemo({ onImported }: { compact?: boolean; onImported?: () 
             <Link2 className="size-5" />
           </span>
           <div>
-            <h2 className="text-[17px] font-extrabold leading-tight tracking-[-0.02em]">
+            <h2 className="text-17 font-extrabold leading-tight tracking-[-0.02em]">
               Punya resep dari luar Racik?
             </h2>
             <p className="mt-0.5 text-caption text-primary-foreground/75">

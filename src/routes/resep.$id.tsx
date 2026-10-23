@@ -106,7 +106,7 @@ function DetailResep() {
             <HalalChip recipe={recipe} />
             {recipe.leftover ? <span className="rounded-full bg-tint px-2.5 py-[5px] text-micro font-extrabold tracking-[0.05em] text-ink-2">SISA BISA DIPAKAI</span> : null}
           </div>
-          <h1 className="mt-3 text-[clamp(28px,8vw,36px)] font-extrabold leading-[1.08] tracking-[-0.04em] [overflow-wrap:anywhere]">{recipe.title}</h1>
+          <h1 className="mt-3 text-hero font-extrabold leading-[1.08] tracking-[-0.04em] [overflow-wrap:anywhere]">{recipe.title}</h1>
 
           {imported?.sourceUrl ? (
             <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-primary-line bg-primary-wash px-3 py-[11px]">

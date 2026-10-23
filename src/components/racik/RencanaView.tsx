@@ -54,18 +54,19 @@ export function RencanaView() {
         </div>
 
         {planned.map(({ recipe, servings }) => (
-          <div key={recipe.id} className="flex items-center gap-3 rounded-2xl border border-rule-strong bg-card p-3">
+          <div key={recipe.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl border border-rule-strong bg-card p-3">
             <Link to="/resep/$id" params={{ id: recipe.id }} className="size-12 shrink-0 overflow-hidden rounded-xl bg-primary-deep"><RecipePhoto src={recipe.photoUrl ?? thumbOf(recipe.id)} glyph={recipe.glyph} glyphClass="text-xl" /></Link>
-            <Link to="/resep/$id" params={{ id: recipe.id }} className="min-w-0 flex-1">
-              <p className="line-clamp-2 text-14 font-bold leading-tight tracking-[-0.01em] text-ink-strong">{recipe.title}</p>
+            <Link to="/resep/$id" params={{ id: recipe.id }} className="min-w-[8.5rem] flex-1">
+              <p className="text-14 font-bold leading-tight tracking-[-0.01em] text-ink-strong">{recipe.title}</p>
               <p className="text-label text-ink-3">{REG[recipe.region]?.name ?? recipe.region} · {recipe.time} mnt</p>
             </Link>
-            <div className="flex items-center gap-1.5">
+            {/* Portions and remove stay together; on large text they wrap under the title. */}
+            <div className="ml-auto flex items-center gap-1.5">
               <button type="button" onClick={() => changePortions(recipe.id, servings - 1)} aria-label={`Kurangi porsi ${recipe.title}`} className="flex size-10 items-center justify-center rounded-full bg-tint text-icon-muted"><Minus className="size-4" /></button>
               <span className="min-w-4 text-center text-14 font-bold tabular-nums">{servings}</span>
               <button type="button" onClick={() => changePortions(recipe.id, servings + 1)} aria-label={`Tambah porsi ${recipe.title}`} className="flex size-10 items-center justify-center rounded-full bg-tint text-icon-muted"><Plus className="size-4" /></button>
+              <button type="button" onClick={() => remove(recipe.id)} aria-label={`Hapus ${recipe.title} dari rencana`} className="flex size-10 items-center justify-center text-ink-3"><X className="size-3.5" /></button>
             </div>
-            <button type="button" onClick={() => remove(recipe.id)} aria-label={`Hapus ${recipe.title} dari rencana`} className="flex size-10 items-center justify-center text-ink-3"><X className="size-3.5" /></button>
           </div>
         ))}
 
@@ -94,7 +95,7 @@ export function RencanaView() {
           <div className="mx-5 mt-5 rounded-2xl border border-rule-strong bg-card p-4">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-[17px] font-extrabold">{planned.length} resep · {list.length} bahan</p>
+                <p className="text-17 font-extrabold">{planned.length} resep · {list.length} bahan</p>
                 <p className="mt-0.5 text-caption text-ink-3">{done} sudah dibeli</p>
               </div>
               <p className="text-caption font-extrabold text-primary">{done}/{list.length}</p>
@@ -127,7 +128,7 @@ export function RencanaView() {
                               <span className="mt-0.5 block text-micro text-primary">Untuk: {item.recipes.join(", ")}</span>
                             </span>
                           </button>
-                          <button type="button" onClick={() => toggleHave(item.id)} aria-label={`${item.name} sudah ada di rumah`} className="-mr-2 flex min-h-11 shrink-0 flex-col items-center justify-center px-2 text-[10px] font-bold leading-tight text-ink-3">
+                          <button type="button" onClick={() => toggleHave(item.id)} aria-label={`${item.name} sudah ada di rumah`} className="-mr-2 flex min-h-11 shrink-0 flex-col items-center justify-center px-2 text-caption font-bold leading-tight text-ink-3">
                             <Home className="mb-0.5 size-4" strokeWidth={2.2} />
                             Ada di rumah
                           </button>
@@ -166,7 +167,7 @@ export function RencanaView() {
         </>
       ) : (
         <div className="mx-5 mt-5 rounded-2xl border border-rule bg-card px-5 py-8 text-center">
-          <p className="text-[17px] font-extrabold">Belum ada rencana masak</p>
+          <p className="text-17 font-extrabold">Belum ada rencana masak</p>
           <p className="mt-1.5 text-14 leading-normal text-ink-3">Tambahkan resep untuk membuat daftar belanja otomatis.</p>
         </div>
       )}

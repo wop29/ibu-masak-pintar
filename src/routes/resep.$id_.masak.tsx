@@ -204,7 +204,7 @@ function StepTimer({
         <p className="flex items-center gap-2 text-14 font-extrabold uppercase tracking-[0.06em] text-danger-ink">
           <BellRing className="size-5 animate-pulse" /> Waktunya habis
         </p>
-        <p className="mt-1 text-[44px] font-extrabold leading-none tabular-nums text-danger-ink">00:00</p>
+        <p className="mt-1 text-timer font-extrabold leading-none tabular-nums text-danger-ink">00:00</p>
         <div className="mt-4 flex gap-3">
           <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-danger-ink text-body font-extrabold text-white">
             <Check className="size-5" /> Sudah
@@ -223,7 +223,7 @@ function StepTimer({
         <TimerIcon className="size-3.5" />
         {state === "running" ? "Sedang berjalan" : state === "paused" ? "Dijeda" : "Waktu langkah ini"}
       </p>
-      <p className={`mt-1 text-[clamp(36px,11vw,46px)] font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-primary" : "text-ink"}`}>{clock(left)}</p>
+      <p className={`mt-1 text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-primary" : "text-ink"}`}>{clock(left)}</p>
       {state !== "idle" ? (
         <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-tint" aria-hidden>
           <div className="h-full rounded-full bg-primary transition-[width] duration-500" style={{ width: `${pct}%` }} />
@@ -296,7 +296,7 @@ function Notice({ title, body, children }: { title: string; body: string; childr
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col justify-center bg-ground px-5 pb-16">
       <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-raised">
-        <h1 className="text-[24px] font-extrabold leading-tight tracking-[-0.03em]">{title}</h1>
+        <h1 className="text-title font-extrabold leading-tight tracking-[-0.03em]">{title}</h1>
         <p className="read-line mt-2 text-ink-2">{body}</p>
         <div className="mt-5 flex flex-col gap-3">{children}</div>
       </div>
@@ -430,7 +430,7 @@ function ModeMasak() {
             <p className="text-micro font-extrabold uppercase tracking-[0.08em] text-ink-3">
               Langkah {i + 1} dari {stepCount}
             </p>
-            <p className="truncate text-15 font-extrabold">{recipe.title}</p>
+            <p className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</p>
           </div>
           <button type="button" onClick={() => setAllOpen(true)} className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-rule bg-card px-4 text-14 font-extrabold text-primary">
             <ListChecks className="size-4" /> Bahan
@@ -479,7 +479,7 @@ function ModeMasak() {
         <span className="inline-block rounded-full bg-primary-soft px-2.5 py-[5px] text-micro font-extrabold tracking-[0.05em] text-primary-deep">
           LANGKAH {i + 1}
         </span>
-        <p className="mt-3 text-[1.625em] font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">{step[0]}</p>
+        <p className="mt-3 text-28 font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">{step[0]}</p>
 
         {step[1] ? <StepTimer seconds={step[1]} timer={timers[String(i)]} now={now} onChange={(t) => setTimer(i, t)} /> : null}
 

@@ -207,7 +207,7 @@ function Eksplor() {
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
       <header className="border-b border-rule-soft bg-card px-5 pb-4 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <p className="eyebrow mb-0.5">EKSPLOR RESEP</p>
-        <h1 className="mb-3.5 text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Temukan masakan baru</h1>
+        <h1 className="mb-3.5 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Temukan masakan baru</h1>
         <label className="flex min-h-12 items-center gap-3 rounded-xl border border-rule-strong bg-tint pl-3.5 focus-within:border-primary">
           <Search aria-hidden className="size-4 text-ink-faint" />
           <input type="search" enterKeyHint="search" value={query} onChange={(e) => typed(e.target.value)} placeholder="Cari resep atau bahan" aria-label="Cari resep atau bahan" className="min-w-0 flex-1 bg-transparent py-3 text-15 text-ink-strong outline-none placeholder:text-ink-3 [&::-webkit-search-cancel-button]:hidden" />

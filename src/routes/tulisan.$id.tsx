@@ -148,7 +148,7 @@ function Tulisan() {
           ) : (
             <p className="text-14 font-bold text-primary">Resep tulisan pengguna Racik</p>
           )}
-          <h1 className="mt-1 text-[28px] font-extrabold leading-[1.12] tracking-[-0.03em]">
+          <h1 className="mt-1 text-28 font-extrabold leading-[1.12] tracking-[-0.03em]">
             {recipe.title}
           </h1>
           {recipe.sourceCreator ? (
