@@ -2,6 +2,7 @@ import { ING } from "../data";
 import { normalise } from "../engine/search";
 import type { IngLine, Step } from "../types";
 import { UNMATCHED_ID, type ParsedLine } from "./parse";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * The checks from scripts/validate-recipes.py that a cook can act on while
@@ -111,14 +112,14 @@ export function validateDraft(d: DraftForCheck): Issue[] {
     issues.push({
       level: "error",
       code: "title",
-      message: "Beri nama resepnya, minimal 3 huruf.",
+      message: t("v_title_short"),
       field: { kind: "title" },
     });
   } else if (title.length > 80) {
     issues.push({
       level: "error",
       code: "title",
-      message: "Nama resepnya terlalu panjang. Cukup 80 huruf.",
+      message: t("v_title_long"),
       field: { kind: "title" },
     });
   }
@@ -126,7 +127,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
     issues.push({
       level: "error",
       code: "serv",
-      message: "Tulis untuk berapa porsi resep ini, antara 1 dan 20.",
+      message: t("v_serv"),
       field: { kind: "serv" },
     });
   }
@@ -138,7 +139,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
     issues.push({
       level: "error",
       code: "no_ings",
-      message: "Tulis bahan-bahannya, satu bahan per baris.",
+      message: t("v_no_ings"),
       field: { kind: "ing", index: 0 },
     });
   }
@@ -146,7 +147,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
     issues.push({
       level: "error",
       code: "no_steps",
-      message: "Tulis cara memasaknya, satu langkah per kotak.",
+      message: t("v_no_steps"),
       field: { kind: "step", index: 0 },
     });
   }
@@ -157,7 +158,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
       issues.push({
         level: "error",
         code: "no_qty",
-        message: `${nameOf(l.id)} belum ada takarannya. Tulis misalnya "250 gram ${nameOf(l.id).toLowerCase()}" atau "2 buah". Hanya bumbu seperti garam dan gula yang boleh "secukupnya".`,
+        message: t("v_no_amount", { name: nameOf(l.id), lower: nameOf(l.id).toLowerCase() }),
         field: { kind: "ing", index: i },
       });
     }
@@ -171,7 +172,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
       issues.push({
         level: "error",
         code: "duplicate",
-        message: `${nameOf(l.id)} ditulis dua kali. Gabungkan jadi satu baris, lalu tulis kegunaannya di keterangan (misalnya "sebagian untuk bumbu").`,
+        message: t("v_duplicate", { name: nameOf(l.id) }),
         field: { kind: "ing", index: i },
       });
     } else seen.set(l.id, i);
@@ -183,7 +184,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
       issues.push({
         level: "warn",
         code: "unmatched",
-        message: `Racik belum kenal "${l.raw}", jadi takarannya tidak ikut berubah saat porsinya diubah. Coba nama yang lebih umum, misalnya "daun jeruk" atau "cabai merah".`,
+        message: t("v_unknown_ing", { raw: l.raw }),
         field: { kind: "ing", index: i },
       });
     }
@@ -215,7 +216,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
           issues.push({
             level: "warn",
             code: "unlisted_in_step",
-            message: `Langkah ${at + 1} menyebut ${nameOf(cand).toLowerCase()}, tapi belum ada di daftar bahan. Tambahkan beserta takarannya.`,
+            message: t("v_step_missing_ing", { n: at + 1, lower: nameOf(cand).toLowerCase() }),
             field: { kind: "step", index: at },
           });
           break;
@@ -238,7 +239,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
       issues.push({
         level: "warn",
         code: "unused",
-        message: `${nameOf(l.id)} ada di daftar bahan, tapi tidak disebut di langkah mana pun. Sebutkan kapan dimasukkan.`,
+        message: t("v_ing_unused", { name: nameOf(l.id) }),
         field: { kind: "ing", index: i },
       });
     }
@@ -249,7 +250,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
       level: "warn",
       code: "few_steps",
       message:
-        "Langkahnya baru sedikit. Orang yang belum pernah memasak ini perlu tahu urutannya, jadi pecah jadi beberapa langkah kecil.",
+        t("v_few_steps"),
       field: { kind: "step", index: d.steps.length },
     });
   }
@@ -262,7 +263,7 @@ export function validateDraft(d: DraftForCheck): Issue[] {
       issues.push({
         level: "warn",
         code: "time",
-        message: `Waktu di langkah-langkahnya sekitar ${Math.round(total)} menit, tapi waktu masaknya ditulis ${d.time} menit. Samakan supaya orang bisa merencanakan.`,
+        message: t("v_time_mismatch", { total: Math.round(total), time: d.time }),
         field: { kind: "time" },
       });
     }

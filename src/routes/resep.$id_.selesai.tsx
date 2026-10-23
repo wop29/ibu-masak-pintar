@@ -9,6 +9,7 @@ import { PHOTO } from "@/components/racik/photos";
 import { ShareSheet } from "@/components/racik/share/ShareSheet";
 import { recordEvent } from "@/lib/racik/backend/share";
 import { shareTargetOf } from "@/components/racik/share/target";
+import { t } from "@/lib/racik/i18n";
 
 export const Route = createFileRoute("/resep/$id_/selesai")({
   loader: ({ params }) => {
@@ -42,9 +43,9 @@ export const Route = createFileRoute("/resep/$id_/selesai")({
 });
 
 const VERDICTS = [
-  { id: "gampang", label: "Lebih gampang dari perkiraan" },
-  { id: "pas", label: "Pas seperti keterangannya" },
-  { id: "susah", label: "Lebih ribet dari perkiraan" },
+  { id: "gampang", get label() { return t("lebih_gampang_dari_perkiraan"); } },
+  { id: "pas", get label() { return t("pas_seperti_keterangannya"); } },
+  { id: "susah", get label() { return t("lebih_ribet_dari_perkiraan"); } },
 ] as const;
 
 function Selesai() {
@@ -68,7 +69,7 @@ function Selesai() {
   if (!recipe) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16">
-        <p className="read-line">Resep ini tidak ada di perangkat ini.</p>
+        <p className="read-line">{t("resep_ini_tidak_ada_di")}</p>
       </main>
     );
   }
@@ -83,21 +84,22 @@ function Selesai() {
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pb-16 pt-10">
-      <p className="text-15 font-bold text-primary">Sudah dimasak</p>
+      <p className="text-15 font-bold text-primary">{t("sudah_dimasak")}</p>
       <h1 className="font-display text-28 mt-1 leading-[1.15]">{recipe.title}</h1>
 
-      <h2 className="mt-6 text-head font-extrabold">Foto hasil masakanmu?</h2>
+      <h2 className="mt-6 text-head font-extrabold">{t("foto_hasil_masakanmu")}</h2>
       <Button
         variant="outline"
         onClick={() => fileRef.current?.click()}
         className="mt-3 aspect-[4/3] h-auto w-full overflow-hidden p-0"
       >
         {photo ? (
-          <img src={photo} alt="Hasil masakan" className="h-full w-full object-cover" />
+          <img src={photo} alt={t("hasil_masakan")} className="h-full w-full object-cover" />
         ) : (
           <span className="flex flex-col items-center gap-2 text-body text-ink-3">
             <Camera aria-hidden className="size-7" />
-            Ambil atau pilih foto
+            
+            {t("ambil_atau_pilih_foto")}
           </span>
         )}
       </Button>
@@ -116,7 +118,7 @@ function Selesai() {
             const data = await shrinkPhoto(file);
             update((s) => ({ photos: { ...s.photos, [recipe.id]: data } }));
           } catch {
-            setPhotoError("Foto ini belum bisa dibaca. Coba foto lain, atau ambil foto baru.");
+            setPhotoError(t("photo_unreadable_retake"));
           }
         }}
       />
@@ -127,12 +129,12 @@ function Selesai() {
       ) : null}
 
       <Button size="lg" className="mt-4 w-full" onClick={() => setSharing(true)}>
-        <Share2 /> Bagikan
+        <Share2 /> {" "}{t("bagikan")}
       </Button>
       <p className="mt-2 text-caption text-ink-3">
         {photo
-          ? "Kartunya memakai fotomu, lengkap dengan porsi, waktu, dan tautan ke resepnya."
-          : "Tanpa foto pun bisa: kartunya memakai foto resep."}
+          ? t("kartunya_memakai_fotomu_lengkap_dengan")
+          : t("tanpa_foto_pun_bisa_kartunya")}
       </p>
       <ShareSheet
         open={sharing}
@@ -148,12 +150,12 @@ function Selesai() {
       />
       {state.photoFull ? (
         <p className="text-caption text-ink-3 mt-2">
-          Penyimpanan HP sudah penuh, jadi foto lama terpaksa dihapus. Resep dan rencana masak tetap
-          aman.
+          
+          {t("penyimpanan_hp_sudah_penuh_jadi")}
         </p>
       ) : null}
 
-      <h2 className="heading-sm mt-8">Tadi seberapa ribet</h2>
+      <h2 className="heading-sm mt-8">{t("tadi_seberapa_ribet")}</h2>
       <div className="mt-3">
         {tally.map((v) => (
           <Button
@@ -170,12 +172,13 @@ function Selesai() {
 
       {ratings.length >= 3 && top ? (
         <p className="text-body text-ink-2 mt-4">
-          Dari {ratings.length} catatan: {top.label.toLowerCase()}.
+          
+          {t("dari_2")}{" "}{ratings.length} {" "}{t("catatan")}{" "}{top.label.toLowerCase()}.
         </p>
       ) : (
         <p className="text-caption text-ink-3 mt-4">
-          Keterangan tingkat kesulitan muncul setelah tiga kali dicatat. Sebelum itu angkanya belum
-          berarti apa-apa.
+          
+          {t("keterangan_tingkat_kesulitan_muncul_setelah")}
         </p>
       )}
 
@@ -186,11 +189,13 @@ function Selesai() {
           replace
           className="text-body flex-1 rounded-md border border-rule py-4 text-center"
         >
-          Lihat resep
+          
+          {t("lihat_resep")}
         </Link>
         <Button asChild variant="outline" className="h-auto flex-1 py-4">
           <Link to="/" replace>
-            Selesai
+            
+            {t("done")}
           </Link>
         </Button>
       </div>

@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useT } from "@/lib/racik/i18n";
+import { t } from "@/lib/racik/i18n";
 import { backendConfigured } from "@/lib/racik/backend/client";
 import { RECIPES } from "@/lib/racik/data";
 
@@ -18,7 +18,7 @@ import { RECIPES } from "@/lib/racik/data";
  * first person who changed handsets would find out we lied.
  */
 export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: () => void }) {
-  const t = useT();
+
   const navigate = useNavigate();
 
   // Nowhere to sign in to: don't show a screen that cannot deliver.
@@ -41,7 +41,7 @@ export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: ()
       </div>
 
       <div className="mt-auto">
-        <p className="text-15 font-bold text-primary">Akun Racik</p>
+        <p className="text-15 font-bold text-primary">{t("akun_racik")}</p>
         <h1 className="mt-2 text-34 font-extrabold leading-[1.1]">{t("offer_title")}</h1>
 
         <ul className="mt-6 space-y-4">
@@ -68,9 +68,10 @@ export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: ()
           {t("offer_later")}
         </Button>
         <p className="mt-3 text-center text-label text-ink-3">
-          Baca dulu{" "}
-          <Link to="/privasi" target="_blank" className="font-semibold text-primary underline underline-offset-2">Kebijakan Privasi</Link>
-          {" "}— apa yang disimpan saat kamu punya akun.
+          
+          {t("baca_dulu")}{" "}
+          <Link to="/privasi" target="_blank" className="font-semibold text-primary underline underline-offset-2">{t("kebijakan_privasi")}</Link>
+          {" "}{t("apa_yang_disimpan_saat_kamu")}
         </p>
       </div>
     </main>

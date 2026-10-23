@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { detectNegaraHere } from "./locale";
+import { effectiveLang, setCurrentLang } from "./i18n";
 import { importSheetOpen, onImportSheetChange } from "./import-client";
 import type { ReactNode } from "react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
@@ -20,6 +21,7 @@ import { cloudDataForExport, deleteMyAccount, signOut } from "./backend/auth";
 import { LibrarySync, pullLibrary, pushLibrary, sameSlice, sliceOf, stampChanges, type SyncStatus } from "./backend/sync";
 import { pruneDangling } from "./plan";
 import { MergeLibrarySheet, SaveSignInSheet } from "@/components/racik/account/AccountSheets";
+import { t } from "@/lib/racik/i18n";
 
 export type SaveKind = "save" | "import";
 
@@ -338,7 +340,7 @@ export function RacikProvider({ children }: { children: ReactNode }) {
       app: "Racik",
       format: 1,
       exportedAt: new Date().toISOString(),
-      note: "Salinan data Racik milikmu: yang tersimpan di HP ini dan, kalau kamu masuk, yang tersimpan di akunmu.",
+      note: t("export_note"),
       device: { ...device, photos: Object.keys(photos) },
       devicePhotos: photos,
       account: cloud,
@@ -457,6 +459,13 @@ export function RacikProvider({ children }: { children: ReactNode }) {
   const onMasuk = pathname.startsWith("/masuk");
   const [importOpen, setImportOpen] = useState(false);
   useEffect(() => onImportSheetChange(() => setImportOpen(importSheetOpen())), []);
+
+  // The interface language for everything rendered below this provider (t() reads it).
+  const uiLang = effectiveLang(state.lang);
+  setCurrentLang(uiLang);
+  useEffect(() => {
+    if (typeof document !== "undefined") document.documentElement.lang = uiLang;
+  }, [uiLang]);
 
   return (
     <RacikContext.Provider value={value}>

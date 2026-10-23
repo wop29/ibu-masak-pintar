@@ -14,10 +14,11 @@ import {
 import { backendConfigured } from "@/lib/racik/backend/client";
 import { buildCard, type CardContext } from "./cardModel";
 import { canvasToBlob, renderCard } from "./renderCard";
+import { t } from "@/lib/racik/i18n";
 
 const FORMATS: { id: CardFormat; label: string; hint: string }[] = [
-  { id: "story", label: "Story / Status", hint: "9:16" },
-  { id: "feed", label: "Feed", hint: "1:1" },
+  { id: "story", get label() { return t("story_status"); }, hint: "9:16" },
+  { id: "feed", get label() { return t("feed"); }, hint: "1:1" },
 ];
 
 interface Rendered {
@@ -103,7 +104,7 @@ export function ShareSheet({
     })()
       .catch((e) => {
         console.warn("[racik] share card failed", e);
-        if (!cancelled) setError("Kartunya belum bisa dibuat. Coba lagi.");
+        if (!cancelled) setError(t("share_card_failed"));
       })
       .finally(() => !cancelled && setBusy(false));
     return () => {
@@ -121,7 +122,7 @@ export function ShareSheet({
 
   const current = done[format];
   const fileName = `racik-${slug(target.title)}-${format === "story" ? "9x16" : "1x1"}.png`;
-  const text = current ? `${target.title}, takarannya jelas di Racik: ${current.url}` : "";
+  const text = current ? t("share_text", { title: target.title, url: current.url }) : "";
 
   const download = () => {
     if (!current) return;
@@ -131,7 +132,7 @@ export function ShareSheet({
     document.body.appendChild(a);
     a.click();
     a.remove();
-    setNotice("Gambar tersimpan. Unggah dari galeri ke Story atau Status.");
+    setNotice(t("share_saved"));
   };
 
   const share = async () => {
@@ -149,7 +150,7 @@ export function ShareSheet({
     download();
     try {
       await navigator.clipboard?.writeText(current.url);
-      setNotice("Gambar tersimpan dan tautannya sudah disalin. Tempel di keterangan postinganmu.");
+      setNotice(t("share_saved_copied"));
     } catch {
       /* the notice from download() stands */
     }
@@ -159,7 +160,7 @@ export function ShareSheet({
     if (!current) return;
     try {
       await navigator.clipboard.writeText(current.url);
-      setNotice("Tautan disalin.");
+      setNotice(t("share_copied"));
     } catch {
       setNotice(current.url);
     }
@@ -169,10 +170,10 @@ export function ShareSheet({
     <Sheet
       open={open}
       onClose={onClose}
-      title="Bagikan"
-      subtitle="Kartu hasil masakanmu, siap untuk Story, Status, atau feed."
+      title={t("bagikan")}
+      subtitle={t("kartu_hasil_masakanmu_siap_untuk")}
     >
-      <div role="radiogroup" aria-label="Ukuran kartu" className="mb-4 grid grid-cols-2 gap-2">
+      <div role="radiogroup" aria-label={t("ukuran_kartu")} className="mb-4 grid grid-cols-2 gap-2">
         {FORMATS.map((f) => (
           <button
             key={f.id}
@@ -200,27 +201,27 @@ export function ShareSheet({
         {current ? (
           <img
             src={current.preview}
-            alt={`Kartu ${target.title}`}
+            alt={t("kartu", { title: target.title })}
             className="h-full w-full object-cover"
             data-share-card={format}
           />
         ) : (
           <div className="flex h-full items-center justify-center p-4 text-center text-14 text-ink-3">
-            {error ?? (busy ? "Menyiapkan kartu…" : "")}
+            {error ?? (busy ? t("menyiapkan_kartu") : "")}
           </div>
         )}
       </div>
 
       <div className="mt-5 grid gap-2">
         <Button size="lg" className="w-full" disabled={!current} onClick={share}>
-          <Share2 /> Bagikan
+          <Share2 /> {" "}{t("bagikan")}
         </Button>
         <div className="grid grid-cols-2 gap-2">
           <Button variant="outline" className="min-h-11" disabled={!current} onClick={download}>
-            <Download /> Simpan gambar
+            <Download /> {" "}{t("simpan_gambar")}
           </Button>
           <Button variant="outline" className="min-h-11" disabled={!current} onClick={copy}>
-            <Link2 /> Salin tautan
+            <Link2 /> {" "}{t("salin_tautan")}
           </Button>
         </div>
       </div>
@@ -235,16 +236,18 @@ export function ShareSheet({
         <p className="mt-4 text-caption text-ink-3">
           {handle === null ? (
             <>
-              Mau tahu berapa orang yang membuka dan memasaknya?{" "}
+              
+              {t("mau_tahu_berapa_orang_yang")}{" "}
               <Link to="/resepku" className="font-bold text-primary">
-                Masuk dan pilih nama pengguna
+                
+                {t("masuk_dan_pilih_nama_pengguna")}
               </Link>
               .
             </>
           ) : (
             <>
-              Tautan pendek {PUBLIC_HOST}/r/… belum bisa dibuat sekarang, jadi kartu ini memakai
-              tautan resep biasa.
+              
+              {t("tautan_pendek")}{" "}{PUBLIC_HOST}{t("r_belum_bisa_dibuat_sekarang")}
             </>
           )}
         </p>

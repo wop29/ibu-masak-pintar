@@ -9,7 +9,7 @@ import { Sheet } from "@/components/racik/Sheet";
 import { NUSANTARA } from "@/lib/racik/data";
 import { currentSlot, matchesFilter, preferProteins, suggest } from "@/lib/racik/recommend";
 import { useRacik } from "@/lib/racik/state";
-import { translate, useLang, useT, type Lang } from "@/lib/racik/i18n";
+import { t, translate, type Lang, useLang } from "@/lib/racik/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,10 +35,10 @@ export const Route = createFileRoute("/")({
 
 /** The meal the title asks about. Tapping the phrase in the title changes it. */
 const SLOTS = [
-  { id: "sarapan", id_: "untuk sarapan", en: "for breakfast", label: "Sarapan" },
-  { id: "makan_siang", id_: "siang ini", en: "for lunch", label: "Makan siang" },
-  { id: "makan_malam", id_: "malam ini", en: "for dinner", label: "Makan malam" },
-  { id: "camilan", id_: "buat camilan", en: "for a snack", label: "Camilan" },
+  { id: "sarapan", get phrase() { return t("slot_phrase_sarapan"); }, get label() { return t("sarapan"); } },
+  { id: "makan_siang", get phrase() { return t("slot_phrase_makan_siang"); }, get label() { return t("makan_siang"); } },
+  { id: "makan_malam", get phrase() { return t("slot_phrase_makan_malam"); }, get label() { return t("makan_malam"); } },
+  { id: "camilan", get phrase() { return t("slot_phrase_camilan"); }, get label() { return t("camilan"); } },
 ] as const;
 type SlotId = (typeof SLOTS)[number]["id"];
 
@@ -74,7 +74,7 @@ function Splash() {
           <path d="M12 6v16" stroke="#2e7d32" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
         </svg>
       </span>
-      <span className="sr-only">Memuat Racik…</span>
+      <span className="sr-only">{t("memuat_racik")}</span>
     </main>
   );
 }
@@ -103,7 +103,7 @@ function MasakApa() {
   }, [ready, state.intro, state.priorities, state.priority]);
   const [hour, setHour] = useState(12);
   useEffect(() => setHour(new Date().getHours()), []);
-  const t = useT();
+
   const lang = useLang();
   const hello = greeting(hour, lang);
   const slot: SlotId = picked ?? (currentSlot(hour) as SlotId);
@@ -134,28 +134,28 @@ function MasakApa() {
       <header className="border-b border-rule-soft bg-card px-5 pb-4 pt-[calc(2.75rem+env(safe-area-inset-top))]">
         <p className="mb-0.5 text-15 font-bold text-primary">{hello}</p>
         <h1 className="mb-1 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">
-          {lang === "en" ? "What to cook " : "Masak apa "}
+          {t("masak_apa")}
           <button
             type="button"
             onClick={() => setSlotSheet(true)}
             aria-haspopup="dialog"
-            aria-label={`Ganti waktu makan, sekarang: ${slotInfo.label}`}
+            aria-label={t("ganti_waktu_makan_sekarang", { label: slotInfo.label })}
             className="inline-flex items-baseline gap-1 rounded-lg text-primary underline decoration-2 underline-offset-4"
           >
-            {lang === "en" ? slotInfo.en : slotInfo.id_}
+            {slotInfo.phrase}
             <ChevronDown aria-hidden className="size-6 self-center" strokeWidth={2.6} />
           </button>
           ?
         </h1>
         <div className="mt-3 mb-3 flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-14 font-bold">{lang === "en" ? "Cooking for " : "Masak untuk "}{t("for_people", { n: state.household })}</p>
-            <p className="text-caption leading-snug text-ink-3">Takaran resep ikut jumlah ini.</p>
+            <p className="text-14 font-bold">{t("masak_untuk")}{t("for_people", { n: state.household })}</p>
+            <p className="text-caption leading-snug text-ink-3">{t("takaran_resep_ikut_jumlah_ini")}</p>
           </div>
           <div className="flex shrink-0 items-center rounded-xl border border-rule bg-ground p-[3px]">
-            <button type="button" onClick={() => setHousehold(state.household - 1)} aria-label="Kurangi jumlah orang" className="flex size-11 items-center justify-center rounded-lg bg-card text-primary disabled:text-ink-3" disabled={state.household <= 1}><Minus className="size-5" /></button>
+            <button type="button" onClick={() => setHousehold(state.household - 1)} aria-label={t("kurangi_jumlah_orang")} className="flex size-11 items-center justify-center rounded-lg bg-card text-primary disabled:text-ink-3" disabled={state.household <= 1}><Minus className="size-5" /></button>
             <span aria-live="polite" className="w-[42px] text-center text-15 font-extrabold tabular-nums">{state.household}</span>
-            <button type="button" onClick={() => setHousehold(state.household + 1)} aria-label="Tambah jumlah orang" className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:bg-tint disabled:text-ink-3" disabled={state.household >= MAX_PORTIONS}><Plus className="size-5" /></button>
+            <button type="button" onClick={() => setHousehold(state.household + 1)} aria-label={t("tambah_jumlah_orang")} className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:bg-tint disabled:text-ink-3" disabled={state.household >= MAX_PORTIONS}><Plus className="size-5" /></button>
           </div>
         </div>
         <Link to="/cari" className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-rule-strong bg-tint px-3.5 py-3">
@@ -166,7 +166,7 @@ function MasakApa() {
       </header>
 
       <div className="pt-4">
-        <div role="group" aria-label="Sesuaikan saran" className="no-scrollbar flex gap-2 overflow-x-auto px-5">
+        <div role="group" aria-label={t("sesuaikan_saran")} className="no-scrollbar flex gap-2 overflow-x-auto px-5">
           {FILTERS.map((f) => {
             const active = filters.includes(f.id);
             return (
@@ -176,7 +176,7 @@ function MasakApa() {
               </button>
             );
           })}
-          {filters.length ? <button type="button" onClick={() => setFilters([])} className="min-h-11 shrink-0 whitespace-nowrap px-2 text-label font-bold text-primary">Hapus semua</button> : null}
+          {filters.length ? <button type="button" onClick={() => setFilters([])} className="min-h-11 shrink-0 whitespace-nowrap px-2 text-label font-bold text-primary">{t("hapus_semua")}</button> : null}
         </div>
       </div>
 
@@ -196,8 +196,8 @@ function MasakApa() {
           <div className="flex flex-col gap-3 pb-5">{list.map((r) => <CompactRecipe key={r.id} recipe={r} boxed />)}</div>
         )}
       </section>
-      <Sheet open={slotSheet} onClose={() => setSlotSheet(false)} title="Masak untuk kapan?">
-        <div role="radiogroup" aria-label="Waktu makan" className="grid grid-cols-2 gap-2.5">
+      <Sheet open={slotSheet} onClose={() => setSlotSheet(false)} title={t("masak_untuk_kapan")}>
+        <div role="radiogroup" aria-label={t("waktu_makan")} className="grid grid-cols-2 gap-2.5">
           {SLOTS.map((x) => (
             <button
               key={x.id}
@@ -213,7 +213,8 @@ function MasakApa() {
         </div>
         {picked ? (
           <button type="button" onClick={() => { setPicked(null); setSlotSheet(false); }} className="mt-3 min-h-11 text-14 font-bold text-primary">
-            Ikuti jam sekarang
+            
+            {t("ikuti_jam_sekarang")}
           </button>
         ) : null}
       </Sheet>

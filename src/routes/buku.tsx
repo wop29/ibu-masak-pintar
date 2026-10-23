@@ -10,6 +10,7 @@ import { findRecipe } from "@/lib/racik/data";
 import { useRacik } from "@/lib/racik/state";
 import { PLAN_MAX } from "@/lib/racik/store";
 import type { Recipe } from "@/lib/racik/types";
+import { t } from "@/lib/racik/i18n";
 
 const searchSchema = z.object({ tab: z.enum(["diambil", "disimpan", "rencana"]).optional().catch("diambil") });
 export const Route = createFileRoute("/buku")({
@@ -40,8 +41,8 @@ function Koleksi() {
     if (at < 0) return;
     update((s) => ({ saved: s.saved.filter((x) => x !== id) }));
     snackbar.show({
-      message: "Dihapus dari favorit",
-      actionLabel: "Urungkan",
+      message: t("dihapus_dari_favorit"),
+      actionLabel: t("urungkan"),
       onAction: () => update((s) => ({ saved: putBack(s.saved, id, at, (x) => x === id) })),
     });
   };
@@ -65,8 +66,8 @@ function Koleksi() {
     };
     update((s) => ({ imported: s.imported.filter((item) => item.id !== id) }));
     snackbar.show({
-      message: `${recipe.title} dihapus`,
-      actionLabel: "Urungkan",
+      message: t("dihapus", { title: recipe.title }),
+      actionLabel: t("urungkan"),
       onAction: () =>
         update((s) => ({
           imported: putBack(s.imported, copy.recipe, copy.at, (r) => r.id === id),
@@ -84,8 +85,8 @@ function Koleksi() {
   const saved = state.saved.map((id) => findRecipe(id, state.imported)).filter((x): x is Recipe => x != null);
   const setCurrentTab = (next: SubTab) => { setTab(next); navigate({ search: { tab: next }, replace: true }); };
   const tabs: { id: SubTab; label: string; n: string }[] = [
-    { id: "diambil", label: "Dari luar", n: String(state.imported.length) },
-    { id: "disimpan", label: "Favorit", n: String(saved.length) },
+    { id: "diambil", label: t("dari_luar"), n: String(state.imported.length) },
+    { id: "disimpan", label: t("favorit"), n: String(saved.length) },
   ];
 
   return (
@@ -93,9 +94,9 @@ function Koleksi() {
       <header className="border-b border-rule-soft bg-card px-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <div className="mb-1 flex items-start justify-between">
           <div>
-            <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Koleksi Saya</h1>
+            <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{t("koleksi_saya")}</h1>
           </div>
-          <Link to="/pengaturan" aria-label="Pengaturan" className="mt-1 flex size-11 items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
+          <Link to="/pengaturan" aria-label={t("settings")} className="mt-1 flex size-11 items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
         </div>
         <div className="mt-4 flex">
           {tabs.map((x) => {
@@ -115,15 +116,15 @@ function Koleksi() {
           <div>
             <div className="mx-5 mt-5"><ImportDemo /></div>
             {state.imported.length === 0 ? (
-              <p className="mt-8 px-5 text-center text-14 leading-relaxed text-ink-3">Belum ada resep dari luar.<br />Tambahkan dari link video, teks, atau foto.</p>
+              <p className="mt-8 px-5 text-center text-14 leading-relaxed text-ink-3">{t("belum_ada_resep_dari_luar")}<br />{t("tambahkan_dari_link_video_teks")}</p>
             ) : (
               <div className="mt-5 px-5">
-                <p className="mb-3 text-caption leading-normal text-ink-3">Resep yang Racik susun dari video, teks, atau foto.</p>
-                <p className="heading-sm mb-1">Resep dari luar</p>
+                <p className="mb-3 text-caption leading-normal text-ink-3">{t("resep_yang_racik_susun_dari")}</p>
+                <p className="heading-sm mb-1">{t("resep_dari_luar")}</p>
                 {state.imported.map((recipe) => (
                   <div key={recipe.id} className="flex items-center gap-1 border-b border-rule-soft last:border-b-0">
                     <div className="min-w-0 flex-1 [&>a]:border-b-0"><CompactRecipe recipe={recipe} creator={recipe.creator} /></div>
-                    <button type="button" aria-label={`Hapus ${recipe.title}`} onClick={() => removeImported(recipe.id)} className="flex size-11 shrink-0 items-center justify-center rounded-full text-ink-3"><Trash2 className="size-4" /></button>
+                    <button type="button" aria-label={t("hapus", { title: recipe.title })} onClick={() => removeImported(recipe.id)} className="flex size-11 shrink-0 items-center justify-center rounded-full text-ink-3"><Trash2 className="size-4" /></button>
                   </div>
                 ))}
               </div>
@@ -135,17 +136,17 @@ function Koleksi() {
           <div className="px-5 pt-4">
             {saved.length === 0 ? (
               <div className="flex flex-col items-center gap-4 py-12">
-                <p className="text-center text-14 leading-relaxed text-ink-3">Belum ada resep yang disimpan.<br />Ketuk tanda ♡ di resep mana pun untuk menyimpannya.</p>
-                <Link to="/cari" className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">Cari resep</Link>
+                <p className="text-center text-14 leading-relaxed text-ink-3">{t("belum_ada_resep_yang_disimpan")}<br />{t("ketuk_tanda_di_resep_mana")}</p>
+                <Link to="/cari" className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">{t("cari_resep")}</Link>
               </div>
             ) : (
               <>
-                <p className="mb-3 text-caption leading-normal text-ink-3">Resep yang ditandai untuk dibuka lagi.</p>
-                <p className="heading-sm mb-1">Resep favorit</p>
+                <p className="mb-3 text-caption leading-normal text-ink-3">{t("resep_yang_ditandai_untuk_dibuka")}</p>
+                <p className="heading-sm mb-1">{t("resep_favorit")}</p>
                 {saved.map((r) => (
                   <div key={r.id} className="flex items-center gap-1 border-b border-rule-soft last:border-b-0">
                     <div className="min-w-0 flex-1 [&>a]:border-b-0"><CompactRecipe recipe={r} /></div>
-                    <button type="button" aria-label={`Hapus ${r.title} dari favorit`} onClick={() => unsave(r.id)} className="flex size-11 shrink-0 items-center justify-center rounded-full text-primary">
+                    <button type="button" aria-label={t("hapus_dari_favorit", { title: r.title })} onClick={() => unsave(r.id)} className="flex size-11 shrink-0 items-center justify-center rounded-full text-primary">
                       <Heart className="size-5 fill-current" aria-hidden />
                     </button>
                   </div>

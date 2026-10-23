@@ -15,6 +15,7 @@ import {
 } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * Perkiraan gizi: kalori, protein, karbo, lemak, serat — for everyone, always
@@ -23,7 +24,13 @@ import { Sheet } from "./Sheet";
  */
 
 type Key = "kcal" | "protein" | "carb" | "fat" | "fiber";
-const LABEL: Record<Key, string> = { kcal: "kkal", protein: "protein", carb: "karbo", fat: "lemak", fiber: "serat" };
+const LABEL: Record<Key, string> = {
+  get kcal() { return t("nutr_kcal"); },
+  get protein() { return t("nutr_protein"); },
+  get carb() { return t("nutr_carb"); },
+  get fat() { return t("nutr_fat"); },
+  get fiber() { return t("nutr_fiber"); },
+};
 const ORDER: Key[] = ["kcal", "protein", "carb", "fat", "fiber"];
 
 /** "±420 kkal" / "±34 g", or null when there is nothing honest to print. */
@@ -58,10 +65,10 @@ const PARTS: Record<Exclude<Key, "kcal">, (r: Recipe) => ProteinPart[]> = {
 };
 
 const NOTE: Record<Exclude<Key, "kcal">, string> = {
-  protein: "Dari berat rata-rata bahan, bukan hasil uji lab. Dipakai untuk menjawab satu hal: masakan ini mengenyangkan atau belum.",
-  carb: "Nasi, tepung, gula, dan umbi paling banyak menyumbang. Bukan hasil uji lab.",
-  fat: "Minyak, santan, kelapa, dan daging berlemak paling banyak menyumbang. Minyak yang tertinggal di wajan ikut terhitung, jadi angka aslinya bisa lebih rendah.",
-  fiber: "Dari sayur, kacang, dan buah di resep. Bahan yang belum ada di daftar Racik tidak ikut dihitung, jadi serat aslinya bisa lebih tinggi.",
+  get protein() { return t("nutr_note_protein"); },
+  get carb() { return t("nutr_note_carb"); },
+  get fat() { return t("nutr_note_fat"); },
+  get fiber() { return t("nutr_note_fiber"); },
 };
 
 export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings: number }) {
@@ -72,8 +79,8 @@ export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings:
   if (proteinUncertain(recipe)) {
     return (
       <div className="rounded-2xl border border-primary-line bg-primary-wash p-3.5">
-        <h2 className="heading-sm">Perkiraan gizi per porsi</h2>
-        <p className="mt-1.5 text-14 text-ink-2">Perkiraan gizi belum bisa dihitung — resepnya belum lengkap.</p>
+        <h2 className="heading-sm">{t("perkiraan_gizi_per_porsi")}</h2>
+        <p className="mt-1.5 text-14 text-ink-2">{t("perkiraan_gizi_belum_bisa_dihitung")}</p>
       </div>
     );
   }
@@ -87,21 +94,21 @@ export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings:
 
   return (
     <div className="rounded-2xl border border-primary-line bg-primary-wash p-3.5">
-      <h2 className="heading-sm">Perkiraan gizi per porsi</h2>
+      <h2 className="heading-sm">{t("perkiraan_gizi_per_porsi")}</h2>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Lihat rincian perkiraan gizi"
+        aria-label={t("lihat_rincian_perkiraan_gizi")}
         className="mt-3 grid w-full grid-cols-[repeat(auto-fit,minmax(calc(52px*var(--teks,1)),1fr))] gap-x-1.5 gap-y-3 text-left"
       >
         {ORDER.map((key) => {
-          const t = valueText(key, n);
+          const shown = valueText(key, n);
           return (
             <span key={key} className="min-w-0">
-              {t ? (
-                <span className="block text-17 font-extrabold leading-tight text-primary-deep tabular-nums">{t.replace(/ (kkal)$/, "")}</span>
+              {shown ? (
+                <span className="block text-17 font-extrabold leading-tight text-primary-deep tabular-nums">{shown.replace(/ (kkal|kcal)$/, "")}</span>
               ) : (
-                <span className="block text-caption leading-tight text-ink-3">belum bisa dihitung</span>
+                <span className="block text-caption leading-tight text-ink-3">{t("belum_bisa_dihitung")}</span>
               )}
               <span className="mt-0.5 block text-caption font-bold text-ink">{LABEL[key]}</span>
             </span>
@@ -109,14 +116,16 @@ export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings:
         })}
       </button>
       <button type="button" onClick={() => setOpen(true)} className="mt-2 flex min-h-11 items-center gap-1 text-14 font-bold text-primary">
-        Lihat rincian <ChevronRight aria-hidden className="size-4" />
+        
+        {t("lihat_rincian")}{" "}<ChevronRight aria-hidden className="size-4" />
       </button>
       <p className="border-t border-primary-line pt-2.5 text-caption leading-normal text-ink-3">
-        Perkiraan dari bahan standar. Hasil sebenarnya dapat berbeda menurut merek dan cara memasak.
+        
+        {t("perkiraan_dari_bahan_standar_hasil")}
       </p>
 
-      <Sheet open={open} onClose={() => setOpen(false)} title="Dari mana angka gizinya">
-        <div role="radiogroup" aria-label="Tampilkan gizi" className="flex gap-1 rounded-xl bg-tint p-1">
+      <Sheet open={open} onClose={() => setOpen(false)} title={t("dari_mana_angka_gizinya")}>
+        <div role="radiogroup" aria-label={t("tampilkan_gizi")} className="flex gap-1 rounded-xl bg-tint p-1">
           {([false, true] as const).map((w) => (
             <button
               key={String(w)}
@@ -126,29 +135,30 @@ export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings:
               onClick={() => setWhole(w)}
               className={`min-h-11 flex-1 rounded-lg text-14 font-bold ${whole === w ? "bg-card text-ink shadow-card" : "text-ink-2"}`}
             >
-              {w ? "Seluruh resep" : "Per porsi"}
+              {w ? t("seluruh_resep") : t("per_porsi_2")}
             </button>
           ))}
         </div>
 
-        <p className="mt-2 text-caption text-ink-3">{whole ? `Untuk ${servings} porsi, sesuai jumlah porsi di halaman resep.` : "Untuk satu porsi."}</p>
+        <p className="mt-2 text-caption text-ink-3">{whole ? t("untuk_porsi_sesuai_jumlah_porsi", { servings }) : t("untuk_satu_porsi")}</p>
         <dl className="mt-2 grid grid-cols-[1fr_auto] gap-x-4">
           {ORDER.map((key) => (
             <div key={key} className="contents">
-              <dt className="hairline-b py-2 text-body capitalize">{key === "kcal" ? "Kalori" : LABEL[key]}</dt>
+              <dt className="hairline-b py-2 text-body capitalize">{key === "kcal" ? t("kalori") : LABEL[key]}</dt>
               <dd className={`hairline-b py-2 text-right text-body tabular-nums ${valueText(key, n) ? "font-bold" : "text-ink-3"}`}>
-                {valueText(key, n, factor) ?? "belum bisa dihitung"}
+                {valueText(key, n, factor) ?? t("belum_bisa_dihitung")}
               </dd>
             </div>
           ))}
         </dl>
         <p className="mt-3 text-caption text-ink-3">
-          Dihitung dari {n.coverage.counted} dari {n.coverage.total} bahan yang ada takarannya.
-          {" "}Kalori = 4 × protein + 4 × karbo + 9 × lemak, dan hanya dihitung kalau semua bahan itu dikenal Racik.
+          
+          {t("coverage_line", { counted: n.coverage.counted, total: n.coverage.total })}
+          {" "}{t("kalori_4_protein_4_karbo")}
         </p>
 
-        <p className="mt-5 text-14 font-bold">Bahan penyumbang terbesar</p>
-        <div role="radiogroup" aria-label="Pilih zat gizi" className="mt-2 flex flex-wrap gap-2">
+        <p className="mt-5 text-14 font-bold">{t("bahan_penyumbang_terbesar")}</p>
+        <div role="radiogroup" aria-label={t("pilih_zat_gizi")} className="mt-2 flex flex-wrap gap-2">
           {(Object.keys(PARTS) as Exclude<Key, "kcal">[]).map((k) => (
             <button
               key={k}
@@ -172,7 +182,7 @@ export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings:
             ))}
           </ul>
         ) : (
-          <p className="mt-2 text-14 text-ink-3">Belum bisa dihitung untuk resep ini.</p>
+          <p className="mt-2 text-14 text-ink-3">{t("belum_bisa_dihitung_untuk_resep")}</p>
         )}
         <p className="mt-3 text-caption text-ink-3">{NOTE[focus]}</p>
       </Sheet>

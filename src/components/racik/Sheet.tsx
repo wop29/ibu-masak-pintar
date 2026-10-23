@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { X } from "lucide-react";
+import { t } from "@/lib/racik/i18n";
 
 /** Bottom sheet: dimmed backdrop, white panel, grab handle, title and a round close button. */
 export function Sheet({
@@ -40,7 +41,7 @@ export function Sheet({
     <div className="fixed inset-0 z-50 flex items-end justify-center">
       <button
         type="button"
-        aria-label="Tutup"
+        aria-label={t("tutup")}
         onClick={onClose}
         className="absolute inset-0 bg-scrim backdrop-blur-[2px]"
       />
@@ -63,7 +64,7 @@ export function Sheet({
           <button
             type="button"
             onClick={onClose}
-            aria-label="Tutup"
+            aria-label={t("tutup")}
             className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink-2"
           >
             <X className="size-5" />

@@ -2,6 +2,7 @@ import { fmtProtein, proteinPerPortion, proteinUncertain } from "@/lib/racik/eng
 import { ING } from "@/lib/racik/data";
 import type { Recipe } from "@/lib/racik/types";
 import type { ShareTarget } from "@/lib/racik/backend/share";
+import { t } from "@/lib/racik/i18n";
 
 export interface CardStat {
   value: string;
@@ -23,9 +24,9 @@ export interface CardModel {
 
 /** Short enough for a stats cell: "45 mnt", "2 jam", "3,5 jam". */
 export function cardTime(minutes: number): string {
-  if (minutes < 60) return `${minutes} mnt`;
+  if (minutes < 60) return t("fmt_min", { minutes });
   const hours = Math.round((minutes / 60) * 2) / 2;
-  return `${String(hours).replace(".", ",")} jam`;
+  return t("fmt_h", { h: String(hours).replace(".", ",") });
 }
 
 const handleText = (h: string) => (h.startsWith("@") ? h : `@${h}`);
@@ -81,23 +82,23 @@ export function buildCard(ctx: CardContext): CardModel {
   let kicker: string;
   let cookedBy: string | null = null;
   if (original) {
-    kicker = `Resep ${handleText(original)}`;
-    cookedBy = me ? `dimasak oleh ${me}` : "dimasak dengan Racik";
+    kicker = t("card_recipe_by", { who: handleText(original) });
+    cookedBy = me ? t("card_cooked_by", { me }) : t("card_cooked_with");
   } else if (kind === "user" && author) {
-    kicker = `Resep ${handleText(author)}`;
-    cookedBy = me && handleText(author) !== me ? `dimasak oleh ${me}` : null;
+    kicker = t("card_recipe_by", { who: handleText(author) });
+    cookedBy = me && handleText(author) !== me ? t("card_cooked_by", { me }) : null;
   } else if (kind === "import") {
-    kicker = "Resep dari video";
-    cookedBy = me ? `dimasak oleh ${me}` : null;
+    kicker = t("card_from_video");
+    cookedBy = me ? t("card_cooked_by", { me }) : null;
   } else {
-    kicker = me ? `Dimasak oleh ${me}` : "Dimasak dengan Racik";
+    kicker = me ? t("card_cooked_by_cap", { me }) : t("card_cooked_with_cap");
   }
 
-  const stats: CardStat[] = [{ value: String(ctx.servings), label: "porsi" }];
-  if (recipe.time > 0) stats.push({ value: cardTime(recipe.time), label: "waktu masak" });
-  if (recipe.steps.length) stats.push({ value: String(recipe.steps.length), label: "langkah" });
+  const stats: CardStat[] = [{ value: String(ctx.servings), label: t("portions") }];
+  if (recipe.time > 0) stats.push({ value: cardTime(recipe.time), label: t("stat_cook_time") });
+  if (recipe.steps.length) stats.push({ value: String(recipe.steps.length), label: t("stat_steps") });
   const protein = proteinForCard(recipe);
-  if (protein) stats.push({ value: `±${protein}`, label: "protein/porsi" });
+  if (protein) stats.push({ value: `±${protein}`, label: t("stat_protein") });
 
   return {
     title: recipe.title,

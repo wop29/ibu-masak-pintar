@@ -12,6 +12,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { RacikProvider, useRacik } from "@/lib/racik/state";
+import { effectiveLang, t } from "@/lib/racik/i18n";
 import { SnackbarProvider } from "@/components/racik/Snackbar";
 import { Button } from "@/components/ui/button";
 import { isUpdateWaiting, registerRacikPwa, reloadToUpdate, UPDATE_EVENT } from "@/lib/register-pwa";
@@ -21,16 +22,18 @@ function NotFoundComponent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Halaman tidak ditemukan</h2>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">{t("halaman_tidak_ditemukan")}</h2>
         <p className="mt-2 text-body text-muted-foreground">
-          Alamat ini tidak ada atau sudah dipindahkan.
+          
+          {t("alamat_ini_tidak_ada_atau")}
         </p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Kembali ke beranda
+            
+            {t("kembali_ke_beranda")}
           </Link>
         </div>
       </div>
@@ -45,10 +48,12 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Halaman tidak bisa dibuka
+          
+          {t("halaman_tidak_bisa_dibuka")}
         </h1>
         <p className="mt-2 text-body text-muted-foreground">
-          Ada gangguan saat membuka halaman. Coba muat ulang atau kembali ke beranda.
+          
+          {t("ada_gangguan_saat_membuka_halaman")}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <Button
@@ -58,13 +63,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="bg-primary text-primary-foreground"
           >
-            Coba lagi
+            
+            {t("coba_lagi")}
           </Button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Ke beranda
+            
+            {t("ke_beranda")}
           </a>
         </div>
       </div>
@@ -142,10 +149,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <RacikProvider>
         <TextSize />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <SnackbarProvider>
-          <Outlet />
-        </SnackbarProvider>
+        <LangTree />
         <UpdatePrompt />
       </RacikProvider>
     </QueryClientProvider>
@@ -182,10 +186,25 @@ function UpdatePrompt() {
   return (
     <div role="status" className="fixed inset-x-0 bottom-[calc(84px+env(safe-area-inset-bottom))] z-50 mx-auto w-[calc(100%-32px)] max-w-[398px] rounded-2xl bg-dark px-4 py-3 text-white shadow-toast">
       <div className="flex items-center gap-3">
-        <p className="min-w-0 flex-1 text-14 font-semibold">Versi baru Racik tersedia.</p>
-        <button type="button" onClick={() => void reloadToUpdate()} className="min-h-11 shrink-0 rounded-xl bg-primary px-4 text-14 font-bold">Muat ulang</button>
-        <button type="button" onClick={() => setDismissed(true)} aria-label="Nanti saja" className="flex size-11 shrink-0 items-center justify-center text-white/70">✕</button>
+        <p className="min-w-0 flex-1 text-14 font-semibold">{t("versi_baru_racik_tersedia")}</p>
+        <button type="button" onClick={() => void reloadToUpdate()} className="min-h-11 shrink-0 rounded-xl bg-primary px-4 text-14 font-bold">{t("muat_ulang")}</button>
+        <button type="button" onClick={() => setDismissed(true)} aria-label={t("offer_later")} className="flex size-11 shrink-0 items-center justify-center text-white/70">✕</button>
       </div>
     </div>
+  );
+}
+
+/**
+ * Everything under here re-renders from scratch when the interface language
+ * changes: t() is a plain function, so the language switch is a remount.
+ */
+function LangTree() {
+  const { state } = useRacik();
+  const lang = effectiveLang(state.lang);
+  return (
+    <SnackbarProvider key={lang}>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
+    </SnackbarProvider>
   );
 }

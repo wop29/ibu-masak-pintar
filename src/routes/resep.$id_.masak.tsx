@@ -8,6 +8,7 @@ import { localName, type Negara } from "@/lib/racik/locale";
 import { useRacik } from "@/lib/racik/state";
 import type { CookTimer } from "@/lib/racik/store";
 import type { IngLine, Recipe, SatuanMode } from "@/lib/racik/types";
+import { t } from "@/lib/racik/i18n";
 
 export const Route = createFileRoute("/resep/$id_/masak")({
   loader: ({ params }) => {
@@ -202,15 +203,16 @@ function StepTimer({
     return (
       <div role="alert" className="mt-6 rounded-3xl border-2 border-time bg-time-soft p-5">
         <p className="flex items-center gap-2 text-14 font-bold text-time-ink">
-          <BellRing className="size-5 animate-pulse" /> Waktunya habis
+          <BellRing className="size-5 animate-pulse" /> {" "}{t("waktunya_habis")}
         </p>
         <p className="mt-1 text-timer font-extrabold leading-none tabular-nums text-time-ink">00:00</p>
         <div className="mt-4 flex gap-3">
           <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-time text-body font-extrabold text-primary-foreground">
-            <Check className="size-5" /> Sudah
+            <Check className="size-5" /> {" "}{t("sudah")}
           </button>
           <button type="button" onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })} className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-time bg-card text-body font-extrabold text-time-ink">
-            +1 menit
+            
+            {t("n1_menit")}
           </button>
         </div>
       </div>
@@ -221,7 +223,7 @@ function StepTimer({
     <div className={`mt-6 rounded-3xl border bg-card p-5 shadow-card ${state === "running" ? "border-time" : "border-rule"}`}>
       <p className="flex items-center gap-1.5 text-14 font-bold text-ink-3">
         <TimerIcon className="size-3.5" />
-        {state === "running" ? "Sedang berjalan" : state === "paused" ? "Dijeda" : "Waktu langkah ini"}
+        {state === "running" ? t("sedang_berjalan") : state === "paused" ? t("dijeda") : t("waktu_langkah_ini")}
       </p>
       <p className={`mt-1 text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-time" : "text-ink"}`}>{clock(left)}</p>
       {state !== "idle" ? (
@@ -232,20 +234,20 @@ function StepTimer({
       <div className="mt-4 flex gap-3">
         {state === "running" ? (
           <button type="button" onClick={() => onChange({ total, left })} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-extrabold text-ink">
-            <Pause className="size-5" /> Jeda
+            <Pause className="size-5" /> {" "}{t("jeda")}
           </button>
         ) : (
           <button type="button" onClick={() => start(left > 0 ? left : seconds)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-primary px-4 text-body font-extrabold text-primary-foreground shadow-glow">
-            <Play className="size-5" /> {state === "paused" ? "Lanjutkan" : "Mulai hitung"}
+            <Play className="size-5" /> {state === "paused" ? t("lanjutkan") : t("mulai_hitung")}
           </button>
         )}
         {state !== "idle" ? (
           <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-bold text-ink-2">
-            <RotateCcw className="size-4" /> Ulangi
+            <RotateCcw className="size-4" /> {" "}{t("ulangi")}
           </button>
         ) : null}
       </div>
-      {state === "running" ? <p className="mt-3 text-caption text-ink-3">Tetap berjalan walau pindah langkah.</p> : null}
+      {state === "running" ? <p className="mt-3 text-caption text-ink-3">{t("tetap_berjalan_walau_pindah_langkah")}</p> : null}
     </div>
   );
 }
@@ -281,7 +283,7 @@ function PrepRow({
           {on ? <Check className="size-4" strokeWidth={3} /> : null}
         </span>
         <span className={`min-w-0 [overflow-wrap:anywhere] ${on ? "text-ink-3 line-through" : "text-ink"}`}>
-          {qty == null ? <span className="text-ink-3">secukupnya </span> : <span className="font-extrabold tabular-nums">{main} </span>}
+          {qty == null ? <span className="text-ink-3">{t("secukupnya")}{" "}</span> : <span className="font-extrabold tabular-nums">{main} </span>}
           {ing.name}
           {local ? <span className="text-ink-3"> · {local}</span> : null}
           {line[2] ? <span className="text-ink-3">, {line[2]}</span> : null}
@@ -385,18 +387,18 @@ function ModeMasak() {
       return <main aria-busy="true" className="mx-auto min-h-dvh w-full max-w-[430px] bg-ground" />;
     }
     return (
-      <Notice title="Resepnya tidak ketemu" body="Resep ini tidak ada di HP ini. Mungkin sudah dihapus, atau disimpan di HP lain.">
-        <Link to="/buku" replace className={primaryBtn}>Buka Koleksi</Link>
-        <Link to="/" replace className={outlineBtn}>Ke beranda</Link>
+      <Notice title={t("resepnya_tidak_ketemu")} body={t("resep_ini_tidak_ada_di_2")}>
+        <Link to="/buku" replace className={primaryBtn}>{t("buka_koleksi")}</Link>
+        <Link to="/" replace className={outlineBtn}>{t("ke_beranda")}</Link>
       </Notice>
     );
   }
 
   if (!stepCount) {
     return (
-      <Notice title="Belum ada langkahnya" body="Resep ini belum punya cara masak, jadi mode masak belum bisa dipakai. Bahannya masih bisa dilihat.">
-        <button type="button" onClick={leave} className={primaryBtn}>Lihat bahan</button>
-        <Link to="/buku" replace className={outlineBtn}>Buka Koleksi</Link>
+      <Notice title={t("belum_ada_langkahnya")} body={t("resep_ini_belum_punya_cara")}>
+        <button type="button" onClick={leave} className={primaryBtn}>{t("lihat_bahan")}</button>
+        <Link to="/buku" replace className={outlineBtn}>{t("buka_koleksi")}</Link>
       </Notice>
     );
   }
@@ -433,17 +435,18 @@ function ModeMasak() {
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground text-ink">
       <header className="sticky top-0 z-20 border-b border-rule bg-ground/95 pt-[env(safe-area-inset-top)] backdrop-blur-md">
         <div className="flex items-center gap-3 px-4 py-3">
-          <button type="button" onClick={tryLeave} aria-label="Keluar dari mode masak" className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink">
+          <button type="button" onClick={tryLeave} aria-label={t("keluar_dari_mode_masak")} className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink">
             <ArrowLeft className="size-5" strokeWidth={2.4} />
           </button>
           <div className="min-w-0 flex-1">
             <p className="whitespace-nowrap text-15 font-bold text-ink-2">
-              Langkah {i + 1} dari {stepCount}
+              
+              {t("step_n_of", { n: i + 1, total: stepCount })}
             </p>
             <h1 className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</h1>
           </div>
           <button type="button" onClick={() => setAllOpen(true)} className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-rule bg-card px-4 text-14 font-extrabold text-primary">
-            <ListChecks className="size-4" /> Bahan
+            <ListChecks className="size-4" /> {" "}{t("bahan")}
           </button>
         </div>
         <div className="h-1 bg-rule" aria-hidden>
@@ -454,9 +457,10 @@ function ModeMasak() {
       <div className="flex-1 px-5 pt-6 pb-8">
         {resumedAt != null ? (
           <div className="mb-5 flex items-center justify-between gap-3 rounded-2xl bg-primary-soft px-4 py-2">
-            <p className="text-14 text-primary-deep">Melanjutkan dari langkah {resumedAt + 1}.</p>
+            <p className="text-14 text-primary-deep">{t("melanjutkan_dari_langkah")}{" "}{resumedAt + 1}.</p>
             <button type="button" onClick={() => goto(0)} className="-mr-2 min-h-11 shrink-0 px-2 text-14 font-extrabold text-primary">
-              Mulai dari awal
+              
+              {t("mulai_dari_awal")}
             </button>
           </div>
         ) : null}
@@ -467,16 +471,16 @@ function ModeMasak() {
 
         {needed.length > 0 ? (
           <section className="mt-6 rounded-3xl border border-rule bg-card px-4 pt-4 pb-2 shadow-card">
-            <h2 className="text-15 font-extrabold">Siapkan dulu</h2>
-            <p className="text-caption text-ink-3">Ketuk kalau sudah siap.</p>
+            <h2 className="text-15 font-extrabold">{t("siapkan_dulu")}</h2>
+            <p className="text-caption text-ink-3">{t("ketuk_kalau_sudah_siap")}</p>
             <ul className="mt-1 divide-y divide-rule">{needed.map(row)}</ul>
           </section>
         ) : null}
 
         {i === 0 && (extras.length > 0 || unmatched.length > 0) ? (
           <section className="mt-4 rounded-3xl border border-rule bg-card px-4 pt-4 pb-2 shadow-card">
-            <h2 className="text-15 font-extrabold">Bahan lain di resep ini</h2>
-            <p className="text-caption text-ink-3">Tidak disebut di langkah mana pun. Siapkan sekalian.</p>
+            <h2 className="text-15 font-extrabold">{t("bahan_lain_di_resep_ini")}</h2>
+            <p className="text-caption text-ink-3">{t("tidak_disebut_di_langkah_mana")}</p>
             <ul className="mt-1 divide-y divide-rule">
               {extras.map(row)}
               {unmatched.map((txt, k) => (
@@ -492,9 +496,9 @@ function ModeMasak() {
 
       <div className="sticky bottom-0 z-20 border-t border-rule bg-card/95 px-5 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] backdrop-blur-md">
         {otherTimers.length > 0 ? (
-          <div className="mb-3 flex flex-col gap-2" role="group" aria-label="Penghitung waktu yang berjalan">
-            {(trayOpen ? otherTimers : otherTimers.slice(0, 2)).map(({ step: s, t }) => {
-              const st = timerState(t, now);
+          <div className="mb-3 flex flex-col gap-2" role="group" aria-label={t("penghitung_waktu_yang_berjalan")}>
+            {(trayOpen ? otherTimers : otherTimers.slice(0, 2)).map(({ step: s, t: timer }) => {
+              const st = timerState(timer, now);
               const label = recipe.steps[s]?.[0] ?? "";
               const cls =
                 st === "ringing"
@@ -506,17 +510,17 @@ function ModeMasak() {
                 <button key={s} type="button" onClick={() => goto(s)} className={`flex min-h-11 w-full items-center gap-2.5 rounded-xl border px-3 text-left ${cls}`}>
                   {st === "ringing" ? <BellRing className="size-4 shrink-0 animate-pulse" /> : st === "paused" ? <Pause className="size-4 shrink-0" /> : <TimerIcon className="size-4 shrink-0" />}
                   <span className="min-w-0 flex-1 truncate text-14">
-                    <strong className="font-extrabold">Langkah {s + 1}</strong> · {label}
+                    <strong className="font-extrabold">{t("step_n", { n: s + 1 })}</strong> · {label}
                   </span>
                   <span className="shrink-0 text-15 font-extrabold tabular-nums">
-                    {st === "ringing" ? "Waktunya!" : st === "paused" ? `dijeda ${clock(secondsLeft(t, 0, now))}` : clock(secondsLeft(t, 0, now))}
+                    {st === "ringing" ? t("waktunya") : st === "paused" ? t("dijeda_2", { v1: clock(secondsLeft(timer, 0, now)) }) : clock(secondsLeft(timer, 0, now))}
                   </span>
                 </button>
               );
             })}
             {otherTimers.length > 2 ? (
               <button type="button" onClick={() => setTrayOpen((v) => !v)} aria-expanded={trayOpen} className="min-h-11 self-start px-1 text-14 font-bold text-primary">
-                {trayOpen ? "Tampilkan lebih sedikit" : `+${otherTimers.length - 2} lainnya`}
+                {trayOpen ? t("tampilkan_lebih_sedikit") : t("lainnya_2", { v1: otherTimers.length - 2 })}
               </button>
             ) : null}
           </div>
@@ -528,7 +532,8 @@ function ModeMasak() {
           disabled={i === 0}
           className="flex min-h-[54px] flex-1 items-center justify-center rounded-xl border border-rule bg-card text-body font-extrabold text-ink disabled:border-dashed disabled:text-ink-3"
         >
-          Sebelumnya
+          
+          {t("sebelumnya")}
         </button>
         <button
           type="button"
@@ -544,20 +549,20 @@ function ModeMasak() {
           }}
           className="flex min-h-[54px] flex-[1.4] items-center justify-center rounded-xl bg-primary text-body font-extrabold text-primary-foreground shadow-glow"
         >
-          {last ? "Selesai" : "Lanjut"}
+          {last ? t("done") : t("continue_")}
         </button>
         </div>
       </div>
 
-      <Sheet open={leaveOpen} onClose={() => setLeaveOpen(false)} title="Timer masih berjalan" subtitle="Keluar dari mode masak?">
-        <p className="read-line text-ink-2">Timer tetap berjalan walau kamu keluar. Buka mode masak lagi untuk melihatnya.</p>
+      <Sheet open={leaveOpen} onClose={() => setLeaveOpen(false)} title={t("timer_masih_berjalan")} subtitle={t("keluar_dari_mode_masak_2")}>
+        <p className="read-line text-ink-2">{t("timer_tetap_berjalan_walau_kamu")}</p>
         <div className="mt-5 flex flex-col gap-3">
-          <button type="button" onClick={() => setLeaveOpen(false)} className={primaryBtn}>Tetap di sini</button>
-          <button type="button" onClick={() => { setLeaveOpen(false); leave(); }} className={outlineBtn}>Keluar</button>
+          <button type="button" onClick={() => setLeaveOpen(false)} className={primaryBtn}>{t("tetap_di_sini")}</button>
+          <button type="button" onClick={() => { setLeaveOpen(false); leave(); }} className={outlineBtn}>{t("leave")}</button>
         </div>
       </Sheet>
 
-      <Sheet open={allOpen} onClose={() => setAllOpen(false)} title="Semua bahan" subtitle={`Takaran untuk ${servings} porsi`}>
+      <Sheet open={allOpen} onClose={() => setAllOpen(false)} title={t("semua_bahan")} subtitle={t("takaran_untuk_porsi", { servings })}>
         <ul className="divide-y divide-rule">
           {recipe.ings.map(row)}
           {unmatched.map((txt, k) => (

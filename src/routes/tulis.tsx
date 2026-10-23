@@ -7,6 +7,7 @@ import { useAccount } from "@/lib/racik/backend/useAccount";
 import { myRecipes } from "@/lib/racik/backend/recipes";
 import type { UserRecipe } from "@/lib/racik/backend/types";
 import { loadDrafts, type TulisDraft } from "@/lib/racik/tulis/drafts";
+import { t } from "@/lib/racik/i18n";
 
 export const Route = createFileRoute("/tulis")({
   head: () => ({
@@ -22,11 +23,11 @@ export const Route = createFileRoute("/tulis")({
 });
 
 const STATUS_LABEL: Record<string, string> = {
-  draft: "Draf",
-  live: "Terbit",
-  hidden: "Disembunyikan moderator",
-  removed: "Dihapus moderator",
-  local: "Draf di HP ini",
+  get draft() { return t("status_draft"); },
+  get live() { return t("status_live"); },
+  get hidden() { return t("status_hidden"); },
+  get removed() { return t("status_removed"); },
+  get local() { return t("status_local"); },
 };
 
 interface Row {
@@ -55,7 +56,7 @@ function Tulis() {
     if (d.remoteId) seenRemote.add(d.remoteId);
     rows.push({
       key: d.id,
-      title: d.title.trim() || "Tanpa judul",
+      title: d.title.trim() || t("tanpa_judul"),
       status: d.remoteId
         ? (mine.find((m) => m.id === d.remoteId)?.status ?? d.status ?? "draft")
         : "local",
@@ -72,19 +73,19 @@ function Tulis() {
     <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card pb-28">
       <header className="px-5 pb-5 pt-[calc(2.5rem+env(safe-area-inset-top))]">
         <h1 className="mt-1 text-display font-extrabold leading-[1.08]">
-          Resep andalanmu, takarannya jelas
+          
+          {t("resep_andalanmu_takarannya_jelas")}
         </h1>
         <p className="mt-3 read-line text-ink-2">
-          Tulis resep yang biasa kamu masak di rumah. Racik membaca takarannya, jadi orang lain bisa
-          memasaknya untuk berapa porsi pun. Draf tersimpan di HP ini; untuk menerbitkan, kamu perlu
-          masuk.
+          
+          {t("tulis_resep_yang_biasa_kamu")}
         </p>
       </header>
 
       <div className="px-5">
         <Button asChild size="lg" className="w-full">
           <Link to="/tulis/baru">
-            <PenLine /> Tulis resep baru
+            <PenLine /> {" "}{t("tulis_resep_baru")}
           </Link>
         </Button>
 
@@ -94,7 +95,7 @@ function Tulis() {
             className="mt-3 flex min-h-12 items-center justify-between rounded-xl border border-rule px-4 text-body font-bold"
           >
             <span className="flex items-center gap-2">
-              <BarChart3 className="size-5 text-primary" /> Resepku: siapa yang memasaknya
+              <BarChart3 className="size-5 text-primary" /> {" "}{t("resepku_siapa_yang_memasaknya")}
             </span>
             <ChevronRight className="size-4 text-ink-3" />
           </Link>
@@ -102,7 +103,7 @@ function Tulis() {
 
         {rows.length ? (
           <section className="mt-8">
-            <h2 className="heading-sm">Resep yang kamu tulis</h2>
+            <h2 className="heading-sm">{t("my_recipes")}</h2>
             <ul className="mt-2">
               {rows.map((r) => (
                 <li key={r.key}>
@@ -125,11 +126,14 @@ function Tulis() {
 
         {available && ready && !account ? (
           <p className="mt-6 text-14 text-ink-3">
-            Sudah punya akun?{" "}
+            
+            {t("sudah_punya_akun")}{" "}
             <Link to="/masuk" className="font-bold text-primary">
-              Masuk
+              
+              {t("sign_in")}
             </Link>{" "}
-            untuk melihat resep yang pernah kamu terbitkan.
+            
+            {t("untuk_melihat_resep_yang_pernah")}
           </p>
         ) : null}
       </div>

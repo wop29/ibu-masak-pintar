@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { ArrowLeft, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useT } from "@/lib/racik/i18n";
+import { t } from "@/lib/racik/i18n";
 import {
   authErrorFromUrl,
   confirmEmailCode,
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/masuk")({
 type Step = "id" | "code" | "profile";
 
 function Masuk() {
-  const t = useT();
+
   const router = useRouter();
   const { account, ready, available, refresh } = useAccount();
   const { signOutAndClear } = useRacik();
@@ -102,11 +102,11 @@ function Masuk() {
     }
     if (/access_token=|[?&]code=|token_hash=/.test(window.location.href)) {
       setCheckingLink(true);
-      const t = setTimeout(() => {
+      const timer = setTimeout(() => {
         setCheckingLink(false);
-        setError("Tautan masuknya belum bisa dipakai. Minta kode baru di bawah.");
+        setError(t("err_link_not_ready"));
       }, 12000);
-      return () => clearTimeout(t);
+      return () => clearTimeout(timer);
     }
     return undefined;
   }, []);
@@ -164,7 +164,7 @@ function Masuk() {
       {!available ? (
         <p className="rounded-2xl border border-rule bg-notice p-4 read-line">{t("not_connected")}</p>
       ) : checkingLink ? (
-        <p className="mt-8 read-line text-ink-2" role="status">Sebentar, sedang masuk…</p>
+        <p className="mt-8 read-line text-ink-2" role="status">{t("sebentar_sedang_masuk")}</p>
       ) : step === "id" ? (
         <>
           <h1 className="text-title font-bold">{t("sign_in_title")}</h1>
@@ -217,14 +217,15 @@ function Masuk() {
             {t("continue_")}
           </Button>
           <p className="mt-6 text-label leading-relaxed text-ink-3">
-            Dengan masuk, kamu setuju dengan <a href="/privasi" className="font-semibold text-primary underline">Kebijakan Privasi</a> Racik. Akun gratis — dipakai untuk menyimpan resepmu supaya tidak hilang kalau ganti HP.
+            
+            {t("dengan_masuk_kamu_setuju_dengan")}{" "}<a href="/privasi" className="font-semibold text-primary underline">{t("kebijakan_privasi")}</a> {" "}{t("racik_akun_gratis_dipakai_untuk")}
           </p>
         </>
       ) : step === "code" ? (
         <>
           <h1 className="text-title font-bold">{t("code_title")}</h1>
           <p className="mt-2 read-line text-ink-2">{t("code_sent_to", { email })}</p>
-          <p className="mt-2 text-14 leading-relaxed text-ink-3">Kalau yang datang berupa tautan, ketuk saja tautannya di HP ini. Belum masuk? Cek folder Spam atau Promosi.</p>
+          <p className="mt-2 text-14 leading-relaxed text-ink-3">{t("kalau_yang_datang_berupa_tautan")}</p>
           <input
             aria-label={t("code_title")}
             inputMode="numeric"
@@ -254,7 +255,7 @@ function Masuk() {
             disabled={busy || cooldown > 0}
             onClick={sendCode}
           >
-            {cooldown > 0 ? `Kirim ulang dalam ${cooldown} detik` : t("code_resend")}
+            {cooldown > 0 ? t("kirim_ulang_dalam_detik", { cooldown }) : t("code_resend")}
           </Button>
         </>
       ) : (

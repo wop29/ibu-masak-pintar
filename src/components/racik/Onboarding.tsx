@@ -5,35 +5,36 @@ import { ART } from "@/components/racik/photos";
 import { SignInOffer } from "@/components/racik/SignInOffer";
 import { byId } from "@/lib/racik/data";
 import { carbPerPortion, fiberPerPortion, fmtGrams, fmtProtein, proteinPerPortion } from "@/lib/racik/engine";
+import { t } from "@/lib/racik/i18n";
 
 const SLIDES = [
   {
     photo: ART.woku,
-    label: "Tambah resep dari luar",
-    headline: "Simpan resep tanpa memutar ulang video",
-    body: "Masukkan link video, teks, atau foto. Racik akan menyusun bahan, takaran, dan langkah memasaknya.",
-    cta: "Mulai",
+    get label() { return t("tambah_resep_dari_luar"); },
+    get headline() { return t("simpan_resep_tanpa_memutar_ulang"); },
+    get body() { return t("masukkan_link_video_teks_atau"); },
+    get cta() { return t("mulai"); },
   },
   {
     photo: ART.mendoan,
-    label: "Takaran yang familiar",
-    headline: "Gunakan takaran yang mudah dipakai",
-    body: "Lihat bahan dalam gram, sendok, gelas, atau ukuran rumahan lain yang lebih praktis di dapur.",
-    cta: "Lanjut",
+    get label() { return t("takaran_yang_familiar"); },
+    get headline() { return t("gunakan_takaran_yang_mudah_dipakai"); },
+    get body() { return t("lihat_bahan_dalam_gram_sendok"); },
+    get cta() { return t("continue_"); },
   },
   {
     photo: ART.rendang,
-    label: "Masakan Nusantara",
-    headline: "Ratusan resep dari berbagai daerah",
-    body: "Dari rendang Minang sampai papeda Papua, temukan resep dengan bahan, takaran, dan langkah yang jelas.",
-    cta: "Lanjut",
+    get label() { return t("masakan_nusantara"); },
+    get headline() { return t("ratusan_resep_dari_berbagai_daerah"); },
+    get body() { return t("dari_rendang_minang_sampai_papeda"); },
+    get cta() { return t("continue_"); },
   },
   {
     photo: ART.gado,
-    label: "Gizi lebih mudah dipahami",
-    headline: "Lihat perkiraan protein per porsi",
-    body: "Setiap resep menampilkan perkiraan protein berdasarkan bahan dan jumlah porsinya.",
-    cta: "Ayo Mulai Masak",
+    get label() { return t("gizi_lebih_mudah_dipahami"); },
+    get headline() { return t("lihat_perkiraan_protein_per_porsi"); },
+    get body() { return t("setiap_resep_menampilkan_perkiraan_protein"); },
+    get cta() { return t("ayo_mulai_masak"); },
   },
 ] as const;
 
@@ -48,8 +49,8 @@ function VideoOverlay() {
           </span>
         </div>
         <div className="absolute right-10 bottom-14 left-3 text-white">
-          <p className="mb-1.5 flex items-center gap-1.5 text-micro font-bold"><span className="flex size-6 items-center justify-center rounded-full bg-white/20 text-caption">👩‍🍳</span>@dapur_rumahan</p>
-          <p className="text-micro leading-snug text-white/85">Rendang empuk tanpa panci presto 🔥</p>
+          <p className="mb-1.5 flex items-center gap-1.5 text-micro font-bold"><span className="flex size-6 items-center justify-center rounded-full bg-white/20 text-caption">👩‍🍳</span>{t("dapur_rumahan")}</p>
+          <p className="text-micro leading-snug text-white/85">{t("rendang_empuk_tanpa_panci_presto")}</p>
         </div>
         <div className="absolute right-3 bottom-6 left-3">
           <div className="h-0.5 rounded bg-white/25"><div className="h-full w-[62%] rounded bg-white" /></div>
@@ -57,7 +58,7 @@ function VideoOverlay() {
       </div>
       <div className="relative -mt-4 flex shrink-0 [@container(max-height:175px)]:mt-0 items-center gap-2 whitespace-nowrap rounded-full bg-primary px-4 py-2 shadow-[0_4px_20px_var(--glow)]">
         <Link2 className="size-3.5 text-white" strokeWidth={2.5} />
-        <span className="text-label font-bold text-white">Tempel link di sini</span>
+        <span className="text-label font-bold text-white">{t("tempel_link_di_sini")}</span>
       </div>
     </div>
   );
@@ -66,15 +67,15 @@ function VideoOverlay() {
 /** Slide 2: the household measures Racik writes next to grams. */
 function MeasureOverlay() {
   const rows = [
-    { label: "1 sdm", value: "± 15 ml", icon: "🥄" },
-    { label: "1 sdt", value: "± 5 ml", icon: "🥄" },
-    { label: "1 gelas belimbing", value: "200 ml", icon: "🥛" },
-    { label: "1 ons", value: "100 g", icon: "⚖️" },
+    { label: t("n1_sdm"), value: "± 15 ml", icon: "🥄" },
+    { label: t("n1_sdt"), value: "± 5 ml", icon: "🥄" },
+    { label: t("n1_gelas_belimbing"), value: "200 ml", icon: "🥛" },
+    { label: t("n1_ons"), value: "100 g", icon: "⚖️" },
   ];
   return (
     <div className="pointer-events-none flex w-full justify-center [@container(max-height:215px)]:hidden">
       <div className="mx-6 w-[80%] max-w-[300px] overflow-hidden rounded-2xl border border-white/15 bg-black/60 backdrop-blur-md">
-        <p className="border-b border-white/10 px-4 py-3 text-caption font-bold text-white/60">Konversi takaran</p>
+        <p className="border-b border-white/10 px-4 py-3 text-caption font-bold text-white/60">{t("konversi_takaran")}</p>
         {rows.map((r) => (
           <div key={r.label} className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5 last:border-b-0">
             <span className="flex items-center gap-2 text-14 font-semibold text-white"><span aria-hidden>{r.icon}</span>{r.label}</span>
@@ -99,57 +100,57 @@ function NutritionOverlay() {
     <div className="pointer-events-none flex w-full flex-col items-center [@container(max-height:250px)]:hidden">
       <div className="mx-5 w-full max-w-[300px] overflow-hidden rounded-2xl border border-white/10 bg-[rgba(10,10,10,0.7)] backdrop-blur-md">
         <div className="border-b border-white/[0.08] px-4 pt-4 pb-3">
-          <p className="mb-1 text-caption font-semibold text-white/60">{recipe.title} · per porsi</p>
-          <p className="text-caption text-white/70">Perkiraan gizi per porsi</p>
+          <p className="mb-1 text-caption font-semibold text-white/60">{recipe.title} {" "}{t("per_porsi_3")}</p>
+          <p className="text-caption text-white/70">{t("perkiraan_gizi_per_porsi")}</p>
         </div>
         <div className="border-b border-white/[0.08] px-4 py-3">
           <div className="mb-2 flex items-end justify-between">
-            <span className="text-label font-semibold text-white/60">Protein</span>
+            <span className="text-label font-semibold text-white/60">{t("protein")}</span>
             <span className="text-head font-extrabold tracking-[-0.02em] text-white">{stats.protein}</span>
           </div>
           <div className="h-1.5 rounded-full bg-white/10"><div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(100, Math.round((stats.p / 30) * 100))}%` }} /></div>
-          <p className="mt-1 text-micro text-white/55">Perkiraan berdasarkan bahan dan porsi</p>
+          <p className="mt-1 text-micro text-white/55">{t("perkiraan_berdasarkan_bahan_dan_porsi")}</p>
         </div>
         <div className="flex gap-3 px-4 py-3">
-          {[{ name: "Karbo", v: stats.carb }, { name: "Serat", v: stats.fiber }].map((m) => (
+          {[{ name: t("nutr_carb_cap"), v: stats.carb }, { name: t("nutr_fiber_cap"), v: stats.fiber }].map((m) => (
             <div key={m.name} className="flex-1">
               <p className="mb-1 text-caption font-semibold text-white/60">{m.name}</p>
               <p className="text-15 font-extrabold text-white">{m.v ?? "–"}</p>
             </div>
           ))}
         </div>
-        <p className="px-4 pb-3 text-micro italic text-white/55">* Perkiraan dari bahan standar. Nilai sebenarnya bisa berbeda.</p>
+        <p className="px-4 pb-3 text-micro italic text-white/55">{t("perkiraan_dari_bahan_standar_nilai")}</p>
       </div>
     </div>
   );
 }
 
 const WHO = [
-  { v: "harian", label: "Sehari-hari di rumah", hint: "Makan sendiri atau bersama keluarga", n: null },
-  { v: "bekal", label: "Bekal / meal prep", hint: "Masak sekali untuk beberapa hari", n: null },
-  { v: "acara", label: "Acara & tamu", hint: "Arisan, syukuran, kumpul keluarga", n: 10 },
-  { v: "jualan", label: "Untuk dijual", hint: "Katering atau jualan kecil-kecilan", n: 10 },
+  { v: "harian", get label() { return t("sehari_hari_di_rumah"); }, get hint() { return t("makan_sendiri_atau_bersama_keluarga"); }, n: null },
+  { v: "bekal", get label() { return t("bekal_meal_prep"); }, get hint() { return t("masak_sekali_untuk_beberapa_hari"); }, n: null },
+  { v: "acara", get label() { return t("acara_tamu"); }, get hint() { return t("arisan_syukuran_kumpul_keluarga"); }, n: 10 },
+  { v: "jualan", get label() { return t("untuk_dijual"); }, get hint() { return t("katering_atau_jualan_kecil_kecilan"); }, n: 10 },
 ] as const;
 const PRIORITIES = [
-  ["kurang_30_menit", "Cepat dimasak"],
-  ["gampang", "Mudah diikuti"],
-  ["protein_tinggi", "Protein tinggi"],
-  ["anak_suka", "Anak suka"],
-  ["sekali_masak_banyak", "Sekali masak banyak"],
+  { v: "kurang_30_menit", get label() { return t("prio_kurang_30_menit"); } },
+  { v: "gampang", get label() { return t("prio_gampang"); } },
+  { v: "protein_tinggi", get label() { return t("prio_protein_tinggi"); } },
+  { v: "anak_suka", get label() { return t("prio_anak_suka"); } },
+  { v: "sekali_masak_banyak", get label() { return t("prio_sekali_masak_banyak"); } },
 ] as const;
 const PROTEINS = [
-  ["ayam", "Ayam"],
-  ["ikan", "Ikan & udang"],
-  ["telur", "Telur"],
-  ["tahu_tempe", "Tahu & tempe"],
-  ["daging", "Daging"],
-  ["sayur", "Lebih banyak sayur"],
+  { v: "ayam", get label() { return t("protein_pick_ayam"); } },
+  { v: "ikan", get label() { return t("protein_pick_ikan"); } },
+  { v: "telur", get label() { return t("protein_pick_telur"); } },
+  { v: "tahu_tempe", get label() { return t("protein_pick_tahu_tempe"); } },
+  { v: "daging", get label() { return t("protein_pick_daging"); } },
+  { v: "sayur", get label() { return t("protein_pick_sayur"); } },
 ] as const;
 const QUESTIONS = [
-  { title: "Biasanya masak untuk apa?", body: "Pilih yang paling sering. Porsinya bisa diatur di langkah berikutnya." },
-  { title: "Biasanya masak untuk berapa orang?", body: "Takaran bahan akan langsung menyesuaikan jumlah ini." },
-  { title: "Apa yang paling penting saat memilih resep?", body: "Pilih satu atau beberapa agar saran lebih sesuai." },
-  { title: "Protein apa yang paling sering dimasak?", body: "Racik akan menampilkan lebih banyak pilihan yang relevan." },
+  { get title() { return t("biasanya_masak_untuk_apa"); }, get body() { return t("pilih_yang_paling_sering_porsinya"); } },
+  { get title() { return t("biasanya_masak_untuk_berapa_orang"); }, get body() { return t("takaran_bahan_akan_langsung_menyesuaikan"); } },
+  { get title() { return t("apa_yang_paling_penting_saat"); }, get body() { return t("pilih_satu_atau_beberapa_agar"); } },
+  { get title() { return t("protein_apa_yang_paling_sering"); }, get body() { return t("racik_akan_menampilkan_lebih_banyak"); } },
 ];
 
 function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => void }) {
@@ -165,13 +166,13 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground">
       <div className="flex items-center gap-4 px-5 pt-[calc(3rem+env(safe-area-inset-top))]">
-        <button type="button" onClick={back} aria-label="Kembali" className="flex size-11 items-center justify-center rounded-full border border-rule bg-card"><ArrowLeft className="size-[19px]" strokeWidth={2.3} /></button>
+        <button type="button" onClick={back} aria-label={t("back")} className="flex size-11 items-center justify-center rounded-full border border-rule bg-card"><ArrowLeft className="size-[19px]" strokeWidth={2.3} /></button>
         <div className="flex flex-1 gap-2">{QUESTIONS.map((_, i) => <span key={i} className={`h-1 flex-1 rounded-full ${i <= step ? "bg-primary" : "bg-rule"}`} />)}</div>
-        <button type="button" onClick={onDone} className="min-h-11 px-1 text-caption font-bold text-ink-3">Lewati</button>
+        <button type="button" onClick={onDone} className="min-h-11 px-1 text-caption font-bold text-ink-3">{t("skip")}</button>
       </div>
 
       <div className="flex-1 px-6 pt-[54px]">
-        <p className="text-15 font-bold text-primary">Langkah {step + 1} dari {QUESTIONS.length}</p>
+        <p className="text-15 font-bold text-primary">{t("step_n_of", { n: step + 1, total: QUESTIONS.length })}</p>
         <h1 className="mt-2 max-w-[340px] text-hero font-extrabold leading-[1.12] tracking-[-0.04em]">{q.title}</h1>
         <p className="mt-3 max-w-[340px] text-15 leading-relaxed text-ink-3">{q.body}</p>
 
@@ -193,7 +194,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
               return (
                 <button key={n} type="button" onClick={() => update({ household: n === 6 && state.household > 6 ? state.household : n })} className={`min-h-[72px] rounded-2xl text-xl font-extrabold ${card(on)}`}>
                   {n === 6 && state.household > 6 ? state.household : n}{n === 6 && state.household <= 6 ? "+" : ""}
-                  <span className="mt-0.5 block text-micro font-semibold text-ink-3">orang</span>
+                  <span className="mt-0.5 block text-micro font-semibold text-ink-3">{t("orang")}</span>
                 </button>
               );
             })}
@@ -202,7 +203,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
 
         {step === 2 ? (
           <div className="mt-9 flex flex-wrap gap-3">
-            {PRIORITIES.map(([v, label]) => {
+            {PRIORITIES.map(({ v, label }) => {
               const on = state.priorities.includes(v);
               return <button key={v} type="button" onClick={() => toggle("priorities", v)} className={`min-h-12 rounded-full px-[17px] text-14 font-bold ${on ? "border border-primary bg-primary text-primary-foreground" : "border border-rule bg-card text-ink"}`}>{label}</button>;
             })}
@@ -211,7 +212,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
 
         {step === 3 ? (
           <div className="mt-9 grid grid-cols-2 gap-3">
-            {PROTEINS.map(([v, label]) => (
+            {PROTEINS.map(({ v, label }) => (
               <button key={v} type="button" onClick={() => toggle("proteins", v)} className={`min-h-[62px] rounded-2xl px-4 text-left text-14 font-extrabold ${card(state.proteins.includes(v))}`}>{label}</button>
             ))}
           </div>
@@ -220,7 +221,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
 
       <div className="px-6 pt-4 pb-[max(28px,env(safe-area-inset-bottom))]">
         <button type="button" onClick={last ? onDone : () => setStep((v) => v + 1)} className="min-h-14 w-full rounded-full bg-primary text-body font-extrabold text-primary-foreground shadow-glow">
-          {last ? "Simpan dan mulai" : "Lanjut"}
+          {last ? t("simpan_dan_mulai") : t("continue_")}
         </button>
       </div>
     </main>
@@ -263,7 +264,7 @@ export function Onboarding() {
 
       <div className="relative z-20 shrink-0 px-5 pt-[calc(3rem+env(safe-area-inset-top))]">
         <div className="flex items-center gap-3">
-          <button type="button" onClick={back} aria-label="Kembali" tabIndex={isFirst ? -1 : 0} className={`flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 backdrop-blur-sm transition-opacity ${isFirst ? "pointer-events-none opacity-0" : "opacity-100"}`}>
+          <button type="button" onClick={back} aria-label={t("back")} tabIndex={isFirst ? -1 : 0} className={`flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 backdrop-blur-sm transition-opacity ${isFirst ? "pointer-events-none opacity-0" : "opacity-100"}`}>
             <ArrowLeft className="size-4 text-white" strokeWidth={2.5} />
           </button>
           <div className="flex flex-1 gap-1.5">
@@ -273,7 +274,7 @@ export function Onboarding() {
               </div>
             ))}
           </div>
-          <button type="button" onClick={finish} className="min-h-11 shrink-0 px-1 text-14 font-semibold text-white/70">Lewati</button>
+          <button type="button" onClick={finish} className="min-h-11 shrink-0 px-1 text-14 font-semibold text-white/70">{t("skip")}</button>
         </div>
         {isFirst ? (
           <div className="mt-5 flex items-center gap-2">
@@ -283,7 +284,7 @@ export function Onboarding() {
                 <path d="M12 6v16" stroke="#2e7d32" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
               </svg>
             </span>
-            <span className="text-xl font-extrabold tracking-[-0.02em] text-white">Racik</span>
+            <span className="text-xl font-extrabold tracking-[-0.02em] text-white">{t("racik")}</span>
           </div>
         ) : null}
       </div>

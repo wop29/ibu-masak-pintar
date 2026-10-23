@@ -1,3 +1,4 @@
+import { t } from "@/lib/racik/i18n";
 /**
  * Tambah Resep limits, as pure functions so they can be tested and so the
  * rules live in one place. The Worker reads counters from Supabase
@@ -167,5 +168,5 @@ export function quotaLabel(info: QuotaInfo): string | null {
   const left = remaining(info);
   if (left == null || info.limit == null) return null;
   if (left === 0) return `Jatah bulan ini sudah terpakai semua (${info.limit} resep)`;
-  return `Sisa ${left} dari ${info.limit} bulan ini`;
+  return t("quota_left", { left, limit: info.limit });
 }

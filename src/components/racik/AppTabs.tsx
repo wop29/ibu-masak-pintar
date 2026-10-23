@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { BookOpen, CalendarDays, House, Search } from "lucide-react";
-import { useT } from "@/lib/racik/i18n";
+import { t } from "@/lib/racik/i18n";
 
 type TabPath = "/" | "/cari" | "/rencana" | "/buku";
 
@@ -11,7 +11,7 @@ type TabPath = "/" | "/cari" | "/rencana" | "/buku";
  */
 export function AppTabs() {
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const t = useT();
+
   const item = "flex min-h-[68px] min-w-0 flex-1 flex-col items-center justify-center gap-1 text-micro tracking-[0.02em]";
   const tab = (to: TabPath, label: string, Icon: typeof House) => {
     const active = to === "/" ? path === "/" : path.startsWith(to);
@@ -25,7 +25,7 @@ export function AppTabs() {
 
   return (
     <nav
-      aria-label="Menu utama"
+      aria-label={t("menu_utama")}
       className="fixed inset-x-0 bottom-0 z-40 mx-auto flex w-full max-w-[430px] border-t border-rule bg-card pb-[env(safe-area-inset-bottom)] shadow-bar"
     >
       {tab("/", t("tab_home"), House)}

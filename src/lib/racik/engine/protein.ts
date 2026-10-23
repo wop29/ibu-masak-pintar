@@ -1,6 +1,7 @@
 import { CANNED100, CARB100, EDIBLE, FAT100, FIBER100, PROT100 } from "../data";
 import type { IngLine, Recipe } from "../types";
 import { gramsOfLine, unitOf } from "./units";
+import { t } from "@/lib/racik/i18n";
 
 /** Sold by weight with the bone still in. Everything else bought by weight is taken as trimmed. */
 const BONE_IN_BY_WEIGHT = new Set(["iga_sapi", "buntut_sapi"]);
@@ -165,7 +166,7 @@ export function nutritionPerPortion(recipe: Recipe): Nutrition {
 export function fmtKcal(kcal: number): string | null {
   if (kcal < 5) return null;
   const step = kcal >= 100 ? 10 : 5;
-  return `${Math.round(kcal / step) * step} kkal`;
+  return t("fmt_kcal", { n: Math.round(kcal / step) * step });
 }
 
 /** Grams to a short label: "< 10 g to the nearest half, >= 10 g whole, nothing below 0.5 g." */

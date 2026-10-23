@@ -1,5 +1,6 @@
 import { ING } from "../data";
 import type { Recipe } from "../types";
+import { t } from "@/lib/racik/i18n";
 
 export type HalalStatus = "halal" | "syubhat" | "haram";
 
@@ -87,7 +88,7 @@ export function analyseHalal(recipe: Pick<Recipe, "ings">): {
   const status: HalalStatus = haramIds.length > 0 ? "haram" : certIds.length > 0 ? "syubhat" : "halal";
   return {
     status,
-    label: status === "haram" ? "tidak halal" : status === "syubhat" ? "perlu dicek" : "bahan halal",
+    label: status === "haram" ? t("halal_label_haram") : status === "syubhat" ? t("halal_label_check") : t("halal_label_ok"),
     certIds,
     haramIds,
     meatIds,
@@ -109,17 +110,17 @@ export const HALAL_ROWS = (
   meatNames: string[] = [],
 ): string[] => {
   const rows: string[] = [];
-  if (status === "haram") rows.push(`Ada bahan yang tidak halal: ${haramNames.join(", ")}.`);
+  if (status === "haram") rows.push(t("halal_row_haram", { names: haramNames.join(", ") }));
   if (certNames.length)
     rows.push(
-      `Perlu dicek: ${certNames.join(", ")}. Bahan olahan ini bisa mengandung daging, lemak, gelatin, atau alkohol yang tidak halal, tergantung merek — pilih yang ada logo halalnya.`,
+      t("halal_row_check", { names: certNames.join(", ") }),
     );
   if (meatNames.length)
     rows.push(
-      `${meatNames.join(", ")}: beli dari penjual yang menyembelih secara halal. Cara penyembelihan tidak terlihat dari daftar bahan.`,
+      t("halal_row_meat", { names: meatNames.join(", ") }),
     );
-  if (status === "halal" && !meatNames.length) rows.push("Tidak ada bahan yang Racik tandai perlu dicek.");
-  rows.push("Kebersihan dapur dan alat masak tidak bisa Racik pastikan.");
+  if (status === "halal" && !meatNames.length) rows.push(t("halal_row_none"));
+  rows.push(t("halal_row_kitchen"));
   return rows;
 };
 

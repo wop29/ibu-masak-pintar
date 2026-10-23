@@ -4,6 +4,7 @@ import { scaledQty, unitOf } from "./engine";
 import type { Negara } from "./locale";
 import { buyHint, fmtNeed, mergeNeeds, shopName, type Need } from "./shopping";
 import type { Recipe, Unit } from "./types";
+import { t } from "@/lib/racik/i18n";
 
 export interface ShoppingItem {
   key: string;
@@ -68,8 +69,8 @@ export function shoppingList(plan: { recipe: Recipe; servings: number }[], negar
 export function shoppingText(items: ShoppingItem[]) {
   return items
     .map((item) => {
-      const need = `${item.qtyText}${item.plusTaste ? " (+ secukupnya)" : ""}`;
-      return `☐ ${need} ${item.name}${item.buy ? ` — beli: ${item.buy}` : ""}`;
+      const need = `${item.qtyText}${item.plusTaste ? t("plus_to_taste") : ""}`;
+      return `☐ ${need} ${item.name}${item.buy ? t("wa_buy", { buy: item.buy }) : ""}`;
     })
     .join("\n");
 }

@@ -1,4 +1,5 @@
 import { backend } from "./client";
+import { t } from "@/lib/racik/i18n";
 
 export interface Account {
   id: string;
@@ -55,9 +56,9 @@ export async function signInWith(
   redirectTo: string,
 ): Promise<string | null> {
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   const { error } = await db.auth.signInWithOAuth({ provider, options: { redirectTo } });
-  return error ? `Masuk dengan ${PROVIDER_NAME[provider]} belum berhasil. Coba lagi.` : null;
+  return error ? t("auth_provider_failed", { provider: PROVIDER_NAME[provider] }) : null;
 }
 
 /** @deprecated use signInWith("google", ...) */
@@ -81,7 +82,7 @@ export const OTP_MAX = 10;
 
 export async function sendEmailCode(email: string, redirectTo?: string): Promise<string | null> {
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   let error: { status?: number | undefined; message: string; code?: string | undefined } | null = null;
   try {
     const res = await db.auth.signInWithOtp({
@@ -108,21 +109,21 @@ export function emailErrorText(
   during: "send" | "verify" | "link",
 ): string {
   const m = `${error.code ?? ""} ${error.message ?? ""}`.toLowerCase();
-  if (typeof navigator !== "undefined" && navigator.onLine === false) return "Tidak ada internet. Sambungkan dulu, lalu coba lagi.";
-  if (/failed to fetch|network|load failed|timeout|aborted/.test(m)) return "Racik belum bisa tersambung. Periksa internet lalu coba lagi.";
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return t("err_no_internet");
+  if (/failed to fetch|network|load failed|timeout|aborted/.test(m)) return t("err_cant_connect");
   if (error.status === 429 || /rate|seconds|too many|security purposes/.test(m)) {
-    return during === "send" ? "Tunggu satu menit sebelum minta kode lagi." : "Terlalu banyak percobaan. Tunggu sebentar lalu coba lagi.";
+    return during === "send" ? t("err_wait_minute") : t("err_too_many_tries");
   }
   if (/expired/.test(m)) {
     return during === "link"
-      ? "Tautan masuknya sudah kedaluwarsa atau sudah dipakai. Minta kode baru di bawah."
-      : "Kodenya sudah kedaluwarsa. Minta kode baru.";
+      ? t("err_link_expired")
+      : t("err_code_expired");
   }
-  if (/signups?\s+(not allowed|disabled)/.test(m)) return "Pendaftaran sedang ditutup untuk email ini.";
-  if (during === "send" && /invalid|format|validate/.test(m)) return "Alamat emailnya belum benar. Periksa lalu coba lagi.";
-  if (during === "verify" && /invalid|token|otp/.test(m)) return "Kodenya tidak cocok. Periksa lalu coba lagi.";
-  if (during === "link") return "Tautan masuknya tidak bisa dipakai. Minta kode baru di bawah.";
-  return during === "send" ? "Kodenya belum terkirim. Coba lagi sebentar lagi." : "Belum berhasil masuk. Coba lagi.";
+  if (/signups?\s+(not allowed|disabled)/.test(m)) return t("err_signup_closed");
+  if (during === "send" && /invalid|format|validate/.test(m)) return t("err_bad_email");
+  if (during === "verify" && /invalid|token|otp/.test(m)) return t("err_code_mismatch");
+  if (during === "link") return t("err_link_unusable");
+  return during === "send" ? t("err_code_not_sent") : t("err_signin_failed");
 }
 
 /**
@@ -139,7 +140,7 @@ export function authErrorFromUrl(href: string): string | null {
     const err = params.get("error") ?? "";
     const desc = params.get("error_description") ?? "";
     if (!code && !err) return null;
-    if (err === "access_denied" && !code) return "Masuknya dibatalkan. Coba lagi kalau mau.";
+    if (err === "access_denied" && !code) return t("err_signin_cancelled");
     return emailErrorText({ code, message: `${err} ${desc}` }, "link");
   } catch {
     return null;
@@ -148,7 +149,7 @@ export function authErrorFromUrl(href: string): string | null {
 
 export async function confirmEmailCode(email: string, token: string): Promise<string | null> {
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   try {
     const { error } = await db.auth.verifyOtp({ email: email.trim(), token: token.trim(), type: "email" });
     if (!error) return null;
@@ -162,16 +163,16 @@ export async function confirmEmailCode(email: string, token: string): Promise<st
 /** Phone sign-in matters more than email here; most people have WhatsApp, not inboxes. */
 export async function sendPhoneCode(phone: string): Promise<string | null> {
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   const { error } = await db.auth.signInWithOtp({ phone });
-  return error ? "Kodenya tidak terkirim. Periksa nomornya lalu coba lagi." : null;
+  return error ? t("err_sms_not_sent") : null;
 }
 
 export async function confirmPhoneCode(phone: string, token: string): Promise<string | null> {
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   const { error } = await db.auth.verifyOtp({ phone, token, type: "sms" });
-  return error ? "Kodenya tidak cocok. Periksa lalu coba lagi." : null;
+  return error ? t("err_code_mismatch") : null;
 }
 
 /** A name is required before posting, so a recipe always has someone's name on it. */
@@ -180,13 +181,13 @@ export async function saveProfile(
   photoPath?: string | null,
 ): Promise<string | null> {
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   const { data } = await db.auth.getUser();
-  if (!data.user) return "Kamu belum masuk.";
+  if (!data.user) return t("err_not_signed_in");
   const row: Record<string, unknown> = { id: data.user.id, name: name.trim() };
   if (photoPath !== undefined) row["photo_path"] = photoPath;
   const { error } = await db.from("profiles").upsert(row, { onConflict: "id" });
-  return error ? "Profilnya belum tersimpan. Coba lagi." : null;
+  return error ? t("err_profile_not_saved") : null;
 }
 
 /** @deprecated use saveProfile */
@@ -247,30 +248,30 @@ async function listFolder(prefix: string, depth = 0): Promise<string[] | null> {
  */
 export async function deleteMyAccount(): Promise<string | null> {
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   const { data } = await db.auth.getSession();
   const uid = data.session?.user.id;
-  if (!uid) return "Masuk dulu ke akunmu untuk menghapusnya.";
-  if (typeof navigator !== "undefined" && navigator.onLine === false) return "Tidak ada internet. Sambungkan dulu, lalu coba lagi.";
+  if (!uid) return t("err_signin_to_delete");
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return t("err_no_internet");
 
   try {
     const paths = await listFolder(uid);
-    if (paths === null) return "Foto-fotomu belum bisa dihapus. Periksa internet lalu coba lagi.";
+    if (paths === null) return t("err_photos_not_deleted");
     for (let i = 0; i < paths.length; i += 100) {
       const { error } = await db.storage.from(BUCKET).remove(paths.slice(i, i + 100));
       if (error) {
         console.warn("[racik] deleting photos failed:", error.message);
-        return "Foto-fotomu belum bisa dihapus. Periksa internet lalu coba lagi.";
+        return t("err_photos_not_deleted");
       }
     }
     const { error } = await db.rpc("delete_my_account");
     if (error) {
       console.warn("[racik] delete_my_account failed:", error.code, error.message);
-      return "Akunmu belum terhapus. Periksa internet lalu coba lagi.";
+      return t("err_account_not_deleted");
     }
   } catch (e) {
     console.warn("[racik] account deletion failed:", e);
-    return "Akunmu belum terhapus. Periksa internet lalu coba lagi.";
+    return t("err_account_not_deleted");
   }
   await signOut();
   return null;

@@ -2,6 +2,7 @@ import { TAKAR } from "../data";
 import type { SatuanMode, Unit } from "../types";
 import { gramsFor, isCountable, isLiquid } from "./units";
 import { NEGARA, unitWord, type Negara } from "../locale";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * How finely a scaled countable may be split.
@@ -195,17 +196,17 @@ export function qtyDisplay(
 }
 
 export function fmtTime(minutes: number): string {
-  if (minutes < 60) return `${minutes} mnt`;
+  if (minutes < 60) return t("fmt_min", { minutes });
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
-  return m === 0 ? `${h} jam` : `${h} jam ${m} mnt`;
+  return m === 0 ? t("fmt_h", { h }) : t("fmt_h_min", { h, m });
 }
 
 export function fmtSeconds(seconds: number): string {
-  if (seconds < 60) return `${seconds} detik`;
+  if (seconds < 60) return t("fmt_sec", { seconds });
   const m = Math.round(seconds / 60);
-  if (m < 60) return `${m} menit`;
+  if (m < 60) return t("fmt_minutes", { m });
   const h = Math.floor(m / 60);
   const rest = m % 60;
-  return rest === 0 ? `${h} jam` : `${h} jam ${rest} menit`;
+  return rest === 0 ? t("fmt_h", { h }) : t("fmt_h_minutes", { h, rest });
 }

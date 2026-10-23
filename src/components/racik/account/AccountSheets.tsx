@@ -1,6 +1,7 @@
 import { Cloud } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/racik/Sheet";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * The gentle "keep it in your account" sheet, shown when she saves a recipe
@@ -26,23 +27,26 @@ export function SaveSignInSheet({
     <Sheet
       open={open}
       onClose={onLater}
-      title="Simpan resepmu ke akun"
-      subtitle="Supaya tidak hilang kalau ganti HP."
+      title={t("simpan_resepmu_ke_akun")}
+      subtitle={t("supaya_tidak_hilang_kalau_ganti")}
     >
       <div className="flex gap-3 rounded-2xl bg-tint p-4 text-14 leading-relaxed text-ink-2">
         <Cloud aria-hidden className="mt-0.5 size-5 shrink-0 text-primary" />
         <p>
-          {kind === "import" ? "Resep dari luar ini sudah ada di HP-mu. " : "Resep ini sudah tersimpan di HP-mu. "}
-          Masuk gratis, lalu resep simpanan, resep dari luar, dan rencana belanjamu ikut tersimpan di akun — aman walau HP hilang atau ganti.
+          {kind === "import" ? t("resep_dari_luar_ini_sudah") : t("resep_ini_sudah_tersimpan_di")}
+          
+          {t("masuk_gratis_lalu_resep_simpanan")}
         </p>
       </div>
       <Button size="lg" className="mt-5 w-full" onClick={onSignIn}>
-        Masuk atau daftar gratis
+        
+        {t("masuk_atau_daftar_gratis")}
       </Button>
       <Button variant="ghost" size="lg" className="mt-2 w-full text-muted-foreground" onClick={onLater}>
-        Nanti saja
+        
+        {t("offer_later")}
       </Button>
-      <p className="mt-1 text-center text-label text-ink-3">Untuk sekarang resepnya tetap ada di HP ini.</p>
+      <p className="mt-1 text-center text-label text-ink-3">{t("untuk_sekarang_resepnya_tetap_ada")}</p>
     </Sheet>
   );
 }
@@ -62,18 +66,22 @@ export function MergeLibrarySheet({
   onLater: () => void;
 }) {
   return (
-    <Sheet open={open} onClose={onLater} title={`Gabungkan ${count} resep di HP ini ke akunmu?`}>
+    <Sheet open={open} onClose={onLater} title={t("gabungkan_resep_di_hp_ini", { count })}>
       <p className="read-line text-ink-2">
-        Ada {count} resep yang kamu simpan di HP ini sebelum masuk. Gabungkan supaya ikut tersimpan di akunmu dan muncul di HP lain.
+        
+        {t("ada")}{" "}{count} {" "}{t("resep_yang_kamu_simpan_di")}
       </p>
       <Button size="lg" className="mt-5 w-full" onClick={onMerge}>
-        Gabungkan ke akunku
+        
+        {t("gabungkan_ke_akunku")}
       </Button>
       <Button variant="outline" size="lg" className="mt-2 w-full" onClick={onReplace}>
-        Jangan, pakai isi akunku saja
+        
+        {t("jangan_pakai_isi_akunku_saja")}
       </Button>
       <p className="mt-2 text-label text-ink-3">
-        Kalau tidak digabung, resep di HP ini dihapus dari HP ini dan diganti isi akunmu.
+        
+        {t("kalau_tidak_digabung_resep_di")}
       </p>
     </Sheet>
   );
@@ -111,11 +119,12 @@ export function ConfirmSheet({
         disabled={busy}
         onClick={onConfirm}
       >
-        {busy ? "Sebentar…" : confirmLabel}
+        {busy ? t("sebentar") : confirmLabel}
       </Button>
       {extra}
       <Button variant="ghost" size="lg" className="mt-2 w-full text-muted-foreground" disabled={busy} onClick={onCancel}>
-        Batal
+        
+        {t("batal")}
       </Button>
     </Sheet>
   );

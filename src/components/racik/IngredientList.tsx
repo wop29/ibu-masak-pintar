@@ -5,6 +5,7 @@ import type { IngLine, Recipe, SatuanMode } from "@/lib/racik/types";
 import { NEGARA, localName, localSub, type Negara } from "@/lib/racik/locale";
 import { Sheet } from "./Sheet";
 import { Check } from "lucide-react";
+import { t } from "@/lib/racik/i18n";
 
 function QtyText({
   line,
@@ -20,7 +21,7 @@ function QtyText({
   negara: Negara;
 }) {
   const qty = scaledQty(line, recipe, servings);
-  if (qty == null) return <span className="text-ink-3">secukupnya</span>;
+  if (qty == null) return <span className="text-ink-3">{t("secukupnya")}</span>;
   // Pengaturan › Satuan takaran: in gram mode the weight leads, "40 g (8 siung)".
   const { main, hint } = qtyDisplay(line[0], qty, unitOf(line), satuan, negara);
   return (
@@ -68,7 +69,7 @@ export function IngredientList({
               <div className="flex items-start gap-3 text-17 leading-normal">
                 <button
                   type="button"
-                  aria-label={`Tandai ${ing.name}`}
+                  aria-label={t("tandai", { name: ing.name })}
                   aria-pressed={on}
                   onClick={() => setTicked((t) => (t.includes(i) ? t.filter((x) => x !== i) : [...t, i]))}
                   className="-m-[11px] mt-[-9px] shrink-0 p-[11px]"
@@ -85,12 +86,13 @@ export function IngredientList({
                 </div>
                 {hasSub ? (
                   <button type="button" onClick={() => setSub(line)} className="-my-2.5 min-h-11 shrink-0 px-2 text-14 font-bold text-primary">
-                    Ganti
+                    
+                    {t("ganti")}
                   </button>
                 ) : null}
               </div>
               {cantSplit.includes(line) ? (
-                <p className="mt-1 pl-[34px] text-caption text-ink-3">Tidak bisa dibagi lebih kecil.</p>
+                <p className="mt-1 pl-[34px] text-caption text-ink-3">{t("tidak_bisa_dibagi_lebih_kecil")}</p>
               ) : null}
             </li>
           );
@@ -104,7 +106,8 @@ export function IngredientList({
               </div>
               {swaps[txt] ? (
                 <button type="button" onClick={() => setExtraSub(txt)} className="-my-2.5 min-h-11 shrink-0 px-2 text-14 font-bold text-primary">
-                  Ganti
+                  
+                  {t("ganti")}
                 </button>
               ) : null}
             </div>
@@ -115,7 +118,7 @@ export function IngredientList({
       <Sheet
         open={Boolean(sub)}
         onClose={() => setSub(null)}
-        title={subIng ? `Pengganti ${subIng.name}` : "Pengganti"}
+        title={subIng ? t("pengganti_2", { name: subIng.name }) : t("pengganti")}
       >
         {sub && subIng ? (
           <div className="space-y-4">
@@ -131,22 +134,23 @@ export function IngredientList({
             ) : null}
             {swaps[sub[0]] ? (
               <div>
-                <p className="text-caption font-bold text-primary">Saran saat impor</p>
+                <p className="text-caption font-bold text-primary">{t("saran_saat_impor")}</p>
                 <p className="read-line mt-1">{swaps[sub[0]]}</p>
               </div>
             ) : null}
             <p className="text-caption text-ink-3">
-              Rasanya tidak persis sama. Penggantinya cukup dekat untuk sekali masak.
+              
+              {t("rasanya_tidak_persis_sama_penggantinya")}
             </p>
           </div>
         ) : null}
       </Sheet>
-      <Sheet open={extraSub != null} onClose={() => setExtraSub(null)} title="Pengganti">
+      <Sheet open={extraSub != null} onClose={() => setExtraSub(null)} title={t("pengganti")}>
         {extraSub ? (
           <div className="space-y-4">
             <p className="text-caption text-ink-3">{extraSub}</p>
             <p className="read-line">{swaps[extraSub]}</p>
-            <p className="text-caption text-ink-3">Saran dari Racik saat impor. Rasanya tidak persis sama.</p>
+            <p className="text-caption text-ink-3">{t("saran_dari_racik_saat_impor")}</p>
           </div>
         ) : null}
       </Sheet>

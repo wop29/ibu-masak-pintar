@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { HANDLE_RE, saveHandle } from "@/lib/racik/backend/share";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * Choosing a public handle is the opt-in to having a public profile. The
@@ -39,12 +40,12 @@ export function HandleForm({
     >
       {compact ? null : (
         <p className="text-14 text-ink-2">
-          Orang lain hanya melihat nama pengguna ini dan resep yang kamu terbitkan. Nama akunmu
-          tetap pribadi.
+          
+          {t("orang_lain_hanya_melihat_nama")}
         </p>
       )}
       <label className="grid gap-1">
-        <span className="text-label font-bold text-ink-2">Nama pengguna</span>
+        <span className="text-label font-bold text-ink-2">{t("nama_pengguna")}</span>
         <span className="flex min-h-12 items-center rounded-xl border border-rule bg-card px-3 focus-within:border-primary">
           <span aria-hidden className="text-ink-3">
             @
@@ -56,22 +57,23 @@ export function HandleForm({
             autoCorrect="off"
             spellCheck={false}
             maxLength={25}
-            placeholder="dapur.sore"
+            placeholder={t("dapur_sore")}
             className="min-w-0 flex-1 bg-transparent py-2 pl-0.5 text-body outline-none"
             aria-invalid={clean.length > 0 && !HANDLE_RE.test(clean)}
           />
         </span>
         <span className="text-caption text-ink-3">
-          3–24 huruf kecil, angka, titik, atau garis bawah.
+          
+          {t("n3_24_huruf_kecil_angka")}
         </span>
       </label>
       <label className="grid gap-1">
-        <span className="text-label font-bold text-ink-2">Nama tampilan (boleh kosong)</span>
+        <span className="text-label font-bold text-ink-2">{t("nama_tampilan_boleh_kosong")}</span>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={40}
-          placeholder="Kosongkan kalau cukup nama pengguna"
+          placeholder={t("kosongkan_kalau_cukup_nama_pengguna")}
           className="min-h-12 rounded-xl border border-rule bg-card px-3 text-body outline-none focus:border-primary"
         />
       </label>
@@ -81,7 +83,7 @@ export function HandleForm({
         </p>
       ) : null}
       <Button type="submit" disabled={busy || !HANDLE_RE.test(clean)} className="min-h-11">
-        {busy ? "Menyimpan…" : "Simpan nama pengguna"}
+        {busy ? t("menyimpan") : t("simpan_nama_pengguna")}
       </Button>
     </form>
   );

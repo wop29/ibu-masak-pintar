@@ -18,6 +18,7 @@ import {
   storageUrl,
   type PublicLink,
 } from "@/lib/racik/backend/share";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * racik.online/r/<code> — where a share card's link and QR land.
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/r/$code")({
   head: ({ loaderData }) => {
     const link = loaderData?.link ?? null;
     const recipe = link?.kind === "catalogue" ? byId(link.ref) : undefined;
-    const title = link ? `${recipe?.title ?? link.title ?? "Resep"} — Racik` : "Racik";
+    const title = link ? `${recipe?.title ?? link.title ?? t("resep_5")} — Racik` : "Racik";
     const by = link?.owner ? `Dimasak oleh @${link.owner.handle}. ` : "";
     const desc = link
       ? `${by}Resep rumahan dengan takaran yang ikut jumlah porsi. Buka di Racik.`
@@ -86,10 +87,11 @@ function SharedLink() {
   if (!link) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16 pb-16">
-        <p className="text-15 font-bold text-primary">Racik</p>
-        <h1 className="mt-2 text-28 font-extrabold leading-tight">Tautan ini belum bisa dibuka</h1>
+        <p className="text-15 font-bold text-primary">{t("racik")}</p>
+        <h1 className="mt-2 text-28 font-extrabold leading-tight">{t("tautan_ini_belum_bisa_dibuka")}</h1>
         <p className="mt-3 read-line text-ink-2">
-          Mungkin tautannya salah ketik, sudah dihapus, atau kamu sedang offline. Kode: {code}
+          
+          {t("mungkin_tautannya_salah_ketik_sudah")}{" "}{code}
         </p>
         <OpenInRacik />
       </main>
@@ -97,22 +99,22 @@ function SharedLink() {
   }
 
   const catalogue = link.kind === "catalogue" ? byId(link.ref) : undefined;
-  const title = catalogue?.title ?? link.title ?? "Resep";
+  const title = catalogue?.title ?? link.title ?? t("resep_5");
   const photo = storageUrl(link.photo_path) ?? (catalogue ? PHOTO[catalogue.id] : undefined);
   const serv = catalogue?.serv ?? link.serv;
   const time = catalogue?.time ?? link.time_min;
   const steps = catalogue?.steps.length ?? link.steps;
   const saved = catalogue ? state.saved.includes(catalogue.id) : false;
   const credit = link.source_creator
-    ? `Resep ${link.source_creator.startsWith("@") ? link.source_creator : `@${link.source_creator}`}`
+    ? t("card_recipe_by", { who: link.source_creator.startsWith("@") ? link.source_creator : `@${link.source_creator}` })
     : link.kind === "user" && link.author_handle
-      ? `Resep @${link.author_handle}`
+      ? t("recipe_by_handle", { handle: link.author_handle })
       : link.kind === "catalogue"
-        ? "Resep Racik"
+        ? t("resep_racik")
         : null;
   const cookedBy =
     link.owner && (link.kind !== "user" || link.author_handle !== link.owner.handle)
-      ? `dimasak oleh @${link.owner.handle}`
+      ? t("cooked_by_handle", { handle: link.owner.handle })
       : null;
 
   return (
@@ -126,12 +128,12 @@ function SharedLink() {
         />
       ) : (
         <header className="px-5 pt-[calc(2.5rem+env(safe-area-inset-top))]">
-          <p className="text-15 font-bold text-primary">Racik</p>
+          <p className="text-15 font-bold text-primary">{t("racik")}</p>
         </header>
       )}
 
-      <section aria-label="Resep yang dibagikan" className="px-5">
-        <p className="meta-label mt-2">Dibagikan</p>
+      <section aria-label={t("resep_yang_dibagikan")} className="px-5">
+        <p className="meta-label mt-2">{t("dibagikan")}</p>
         <article className="mt-3 overflow-hidden rounded-3xl border border-rule bg-card shadow-raised">
           <div className="relative aspect-[4/3] bg-primary-track">
             <RecipePhoto
@@ -150,9 +152,9 @@ function SharedLink() {
             {serv || time || steps ? (
               <div className="mt-4 grid grid-cols-3 rounded-2xl bg-primary-soft py-3 text-center">
                 {[
-                  serv ? [String(serv), "porsi"] : null,
-                  time ? [cardTime(time), "waktu masak"] : null,
-                  steps ? [String(steps), "langkah"] : null,
+                  serv ? [String(serv), t("portions")] : null,
+                  time ? [cardTime(time), t("stat_cook_time")] : null,
+                  steps ? [String(steps), t("stat_steps")] : null,
                 ]
                   .filter((x): x is string[] => x !== null)
                   .map(([v, l], i) => (
@@ -169,7 +171,8 @@ function SharedLink() {
                 <>
                   <Button asChild size="lg" className="w-full">
                     <Link to="/resep/$id" params={{ id: catalogue.id }}>
-                      Lihat resep lengkap <ArrowRight />
+                      
+                      {t("lihat_resep_lengkap")}{" "}<ArrowRight />
                     </Link>
                   </Button>
                   <Button
@@ -181,27 +184,29 @@ function SharedLink() {
                     }}
                   >
                     <Heart className={saved ? "fill-current text-primary" : ""} />
-                    {saved ? "Tersimpan di Koleksi" : "Simpan ke Koleksi"}
+                    {saved ? t("tersimpan_di_koleksi") : t("simpan_ke_koleksi")}
                   </Button>
                 </>
               ) : link.kind === "user" && link.recipe_live ? (
                 <Button asChild size="lg" className="w-full">
                   <Link to="/tulisan/$id" params={{ id: link.ref }}>
-                    Lihat resep lengkap <ArrowRight />
+                    
+                    {t("lihat_resep_lengkap")}{" "}<ArrowRight />
                   </Link>
                 </Button>
               ) : link.kind === "user" ? (
-                <p className="text-14 text-ink-3">Resep ini sudah tidak diterbitkan.</p>
+                <p className="text-14 text-ink-3">{t("resep_ini_sudah_tidak_diterbitkan")}</p>
               ) : link.source_url ? (
                 <>
                   <Button asChild size="lg" variant="outline" className="w-full">
                     <a href={link.source_url} target="_blank" rel="noopener noreferrer nofollow">
-                      Tonton video aslinya <ExternalLink />
+                      
+                      {t("tonton_video_aslinya")}{" "}<ExternalLink />
                     </a>
                   </Button>
                   <p className="text-caption text-ink-3">
-                    Resep ini disusun dari video kreatornya. Tempel tautan videonya di Racik untuk
-                    melihat takarannya.
+                    
+                    {t("resep_ini_disusun_dari_video")}
                   </p>
                 </>
               ) : null}
@@ -212,7 +217,7 @@ function SharedLink() {
 
       {link.owner && link.owner.recipes.length ? (
         <section className="mt-8 px-5">
-          <h2 className="text-head font-extrabold">Resep lain dari @{link.owner.handle}</h2>
+          <h2 className="text-head font-extrabold">{t("resep_lain_dari")}{link.owner.handle}</h2>
           <ul className="mt-2">
             {link.owner.recipes
               .filter((r) => !(link.kind === "user" && r.id === link.ref))

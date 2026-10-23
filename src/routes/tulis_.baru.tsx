@@ -33,6 +33,7 @@ import {
 import { parseIngredientLine, parseSteps, UNMATCHED_ID } from "@/lib/racik/tulis/parse";
 import { toIngLines, validateDraft, type Issue } from "@/lib/racik/tulis/validate";
 import type { IngLine, Recipe } from "@/lib/racik/types";
+import { t } from "@/lib/racik/i18n";
 
 export const Route = createFileRoute("/tulis_/baru")({
   validateSearch: (search: Record<string, unknown>): { d?: string } =>
@@ -131,7 +132,8 @@ function Editor() {
   if (!draft) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card px-5 pt-16 text-ink-3">
-        Membuka draf…
+        
+        {t("membuka_draf")}
       </main>
     );
   }
@@ -178,7 +180,7 @@ function Editor() {
     setError(null);
     if (!available) {
       setError(
-        "Racik belum tersambung ke server, jadi resepnya belum bisa diterbitkan. Drafnya aman di HP ini.",
+        t("tulis_offline"),
       );
       return;
     }
@@ -191,7 +193,7 @@ function Editor() {
       setStage({ kind: "handle" });
       return;
     }
-    setStage({ kind: "busy", label: "Menyimpan resep…" });
+    setStage({ kind: "busy", label: t("menyimpan_resep") });
     let photoPath = draft.photoPath ?? null;
     if (draft.photo?.startsWith("data:")) {
       // Not fetch(): the CSP has no data: in connect-src.
@@ -224,11 +226,11 @@ function Editor() {
     const next = { ...draft, remoteId: saved.id, photoPath, photo: draft.photo };
     setDraft(next);
     saveDraftLocal(next);
-    setStage({ kind: "busy", label: "Menerbitkan…" });
+    setStage({ kind: "busy", label: t("menerbitkan") });
     const err = await publish(saved.id);
     if (err) {
       setStage({ kind: "edit" });
-      setError(`${err} Drafnya sudah tersimpan.`);
+      setError(t("tulis_err_saved", { err }));
       return;
     }
     const live = { ...next, status: "live" as const };
@@ -240,7 +242,7 @@ function Editor() {
   const onPublishTap = () => {
     const found = check();
     if (found.some((i) => i.level === "error")) {
-      setError("Ada yang perlu dilengkapi dulu. Lihat tanda merah di daftar bahan dan langkah.");
+      setError(t("tulis_fix_first"));
       return;
     }
     if (found.some((i) => i.level === "warn") && !issues) {
@@ -253,7 +255,7 @@ function Editor() {
 
   const previewRecipe: Recipe & { unmatched: string[] } = {
     id: draft.remoteId ?? draft.id,
-    title: draft.title || "Resep",
+    title: draft.title || t("resep_5"),
     region: "lainnya",
     slots: [],
     serv: draft.serv,
@@ -274,21 +276,21 @@ function Editor() {
       <header className="flex items-center gap-3 px-5 pb-4 pt-[calc(2rem+env(safe-area-inset-top))]">
         <Link
           to="/tulis"
-          aria-label="Kembali"
+          aria-label={t("back")}
           className="flex size-11 items-center justify-center rounded-full border border-rule"
         >
           <ArrowLeft className="size-5" />
         </Link>
         <div className="min-w-0">
-          <p className="text-caption text-ink-3">Tersimpan otomatis di HP ini</p>
+          <p className="text-caption text-ink-3">{t("tersimpan_otomatis_di_hp_ini")}</p>
         </div>
       </header>
 
       {hidden ? (
         <p className="mx-5 mb-4 rounded-2xl border border-notice-line bg-notice p-4 text-14 text-notice-ink">
-          Resep ini disembunyikan oleh moderator
-          {draft.hiddenReason ? `: ${draft.hiddenReason}` : "."} Kamu masih bisa mengubahnya, tapi
-          belum bisa menerbitkannya lagi.
+          
+          {t("resep_ini_disembunyikan_oleh_moderator")}
+          {draft.hiddenReason ? `: ${draft.hiddenReason}` : "."} {" "}{t("kamu_masih_bisa_mengubahnya_tapi")}
         </p>
       ) : null}
 
@@ -301,10 +303,10 @@ function Editor() {
             className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-2xl border border-dashed border-rule bg-ground"
           >
             {draft.photo ? (
-              <img src={draft.photo} alt="Foto masakan" className="h-full w-full object-cover" />
+              <img src={draft.photo} alt={t("foto_masakan")} className="h-full w-full object-cover" />
             ) : (
               <span className="flex flex-col items-center gap-2 text-14 text-ink-3">
-                <Camera className="size-7" aria-hidden /> Foto masakan (boleh nanti)
+                <Camera className="size-7" aria-hidden /> {" "}{t("foto_masakan_boleh_nanti")}
               </span>
             )}
           </button>
@@ -321,19 +323,19 @@ function Editor() {
                 // Redrawn on a canvas: no EXIF, no location, small enough for the device.
                 set({ photo: await shrinkPhoto(file), photoPath: null });
               } catch {
-                setError("Foto ini belum bisa dibaca. Coba foto lain.");
+                setError(t("photo_unreadable"));
               }
             }}
           />
         </div>
 
         <label className="grid gap-1">
-          <span className="text-label font-bold text-ink-2">Nama resep</span>
+          <span className="text-label font-bold text-ink-2">{t("nama_resep")}</span>
           <input
             value={draft.title}
             onChange={(e) => set({ title: e.target.value })}
             maxLength={80}
-            placeholder="Misalnya: Sayur asem kampung"
+            placeholder={t("misalnya_sayur_asem_kampung")}
             className={`${field} min-h-12`}
           />
           {(issues ?? [])
@@ -345,11 +347,11 @@ function Editor() {
 
         <div className="grid grid-cols-2 gap-3">
           <div className="grid gap-1">
-            <span className="text-label font-bold text-ink-2">Untuk berapa porsi</span>
+            <span className="text-label font-bold text-ink-2">{t("untuk_berapa_porsi")}</span>
             <PortionStepper value={draft.serv} onChange={(v) => set({ serv: v })} />
           </div>
           <label className="grid gap-1">
-            <span className="text-label font-bold text-ink-2">Waktu masak (menit)</span>
+            <span className="text-label font-bold text-ink-2">{t("waktu_masak_menit")}</span>
             <input
               inputMode="numeric"
               value={draft.time ?? ""}
@@ -370,9 +372,10 @@ function Editor() {
 
         {/* Ingredients */}
         <section>
-          <h2 className="text-head font-extrabold">Bahan</h2>
+          <h2 className="text-head font-extrabold">{t("bahan")}</h2>
           <p className="mt-1 text-14 text-ink-3">
-            Satu bahan per baris, takaran dulu: "500 gram daging sapi, potong dadu".
+            
+            {t("satu_bahan_per_baris_takaran")}
           </p>
           <ul className="mt-3 grid gap-3">
             {draft.ings.map((text, i) => {
@@ -392,18 +395,18 @@ function Editor() {
                       }}
                       placeholder={
                         i === 0
-                          ? "500 gram daging sapi"
+                          ? "500 gram daging sapi" // i18n-ok: example line in the language the recipe parser reads
                           : i === 1
-                            ? "5 siung bawang merah"
-                            : "garam secukupnya"
+                            ? "5 siung bawang merah" // i18n-ok: example line in the language the recipe parser reads
+                            : "garam secukupnya" // i18n-ok: example line in the language the recipe parser reads
                       }
-                      aria-label={`Bahan ${i + 1}`}
+                      aria-label={t("bahan_2", { v1: i + 1 })}
                       className={`${field} min-h-12 flex-1`}
                     />
                     <button
                       type="button"
                       onClick={() => removeLine("ings", i)}
-                      aria-label={`Hapus bahan ${i + 1}`}
+                      aria-label={t("hapus_bahan", { v1: i + 1 })}
                       className="flex size-12 shrink-0 items-center justify-center rounded-xl text-ink-3"
                     >
                       <X className="size-5" />
@@ -427,15 +430,16 @@ function Editor() {
             className="mt-3 min-h-11 w-full"
             onClick={() => set({ ings: [...draft.ings, ""] })}
           >
-            <Plus /> Tambah bahan
+            <Plus /> {" "}{t("tambah_bahan")}
           </Button>
         </section>
 
         {/* Steps */}
         <section>
-          <h2 className="text-head font-extrabold">Cara memasak</h2>
+          <h2 className="text-head font-extrabold">{t("cara_memasak")}</h2>
           <p className="mt-1 text-14 text-ink-3">
-            Satu langkah per kotak. Tulis lamanya ("rebus 20 menit"), Racik memasang timernya.
+            
+            {t("satu_langkah_per_kotak_tulis")}
           </p>
           <ol className="mt-3 grid gap-3">
             {draft.steps.map((text, i) => {
@@ -456,16 +460,16 @@ function Editor() {
                       rows={2}
                       placeholder={
                         i === 0
-                          ? "Tumis bumbu halus sampai harum, 3 menit."
-                          : "Masukkan daging, aduk rata."
+                          ? "Tumis bumbu halus sampai harum, 3 menit." // i18n-ok: example line in the language the recipe parser reads
+                          : "Masukkan daging, aduk rata." // i18n-ok: example line in the language the recipe parser reads
                       }
-                      aria-label={`Langkah ${i + 1}`}
+                      aria-label={t("langkah_2", { v1: i + 1 })}
                       className={`${field} min-h-12 flex-1 py-3`}
                     />
                     <button
                       type="button"
                       onClick={() => removeLine("steps", i)}
-                      aria-label={`Hapus langkah ${i + 1}`}
+                      aria-label={t("hapus_langkah", { v1: i + 1 })}
                       className="flex size-12 shrink-0 items-center justify-center rounded-xl text-ink-3"
                     >
                       <X className="size-5" />
@@ -473,7 +477,7 @@ function Editor() {
                   </div>
                   {secs ? (
                     <p className="mt-1 ml-9 flex items-center gap-1 text-caption text-primary">
-                      <Timer className="size-3.5" aria-hidden /> Timer {fmtSeconds(secs)}
+                      <Timer className="size-3.5" aria-hidden /> {" "}{t("timer")}{" "}{fmtSeconds(secs)}
                     </p>
                   ) : null}
                   {issuesFor("step", i).map((x) => (
@@ -493,17 +497,17 @@ function Editor() {
             className="mt-3 min-h-11 w-full"
             onClick={() => set({ steps: [...draft.steps, ""] })}
           >
-            <Plus /> Tambah langkah
+            <Plus /> {" "}{t("tambah_langkah")}
           </Button>
         </section>
 
         <label className="grid gap-1">
-          <span className="text-label font-bold text-ink-2">Catatan (boleh kosong)</span>
+          <span className="text-label font-bold text-ink-2">{t("catatan_boleh_kosong")}</span>
           <textarea
             value={draft.note}
             onChange={(e) => set({ note: e.target.value.slice(0, 300) })}
             rows={3}
-            placeholder="Tips, asal resep, atau enak dimakan dengan apa."
+            placeholder={t("tips_asal_resep_atau_enak")}
             className={`${field} py-3`}
           />
         </label>
@@ -520,27 +524,28 @@ function Editor() {
               }}
               className="size-5 accent-[var(--primary)]"
             />
-            Resep ini dari video atau tulisan orang lain
+            
+            {t("resep_ini_dari_video_atau")}
           </label>
           {showSource ? (
             <div className="mt-3 grid gap-3">
               <p className="text-caption text-ink-3">
-                Nama kreatornya akan tertulis di resep dan di kartu bagikan. Kamu tampil sebagai
-                yang memasak.
+                
+                {t("nama_kreatornya_akan_tertulis_di")}
               </p>
               <input
                 value={draft.sourceCreator ?? ""}
                 onChange={(e) => set({ sourceCreator: e.target.value.slice(0, 60) })}
-                placeholder="@kreator"
-                aria-label="Nama kreator asli"
+                placeholder={t("kreator")}
+                aria-label={t("nama_kreator_asli")}
                 className={`${field} min-h-12`}
               />
               <input
                 value={draft.sourceUrl ?? ""}
                 onChange={(e) => set({ sourceUrl: e.target.value.slice(0, 300) })}
-                placeholder="https://… (tautan videonya)"
+                placeholder={t("https_tautan_videonya")}
                 inputMode="url"
-                aria-label="Tautan sumber"
+                aria-label={t("tautan_sumber")}
                 className={`${field} min-h-12`}
               />
             </div>
@@ -551,8 +556,8 @@ function Editor() {
           <section aria-live="polite" className="rounded-2xl border border-rule bg-ground p-4">
             <h2 className="text-body font-extrabold">
               {errors.length
-                ? `${errors.length} hal perlu dilengkapi`
-                : "Sudah bisa terbit. Cek dulu ini:"}
+                ? t("hal_perlu_dilengkapi", { v1: errors.length })
+                : t("sudah_bisa_terbit_cek_dulu")}
             </h2>
             <ul className="mt-2 grid gap-2">
               {[...errors, ...warnings].map((x) => (
@@ -562,7 +567,7 @@ function Editor() {
           </section>
         ) : issues ? (
           <p className="flex items-center gap-2 text-14 font-bold text-primary">
-            <Check className="size-4" /> Resepnya lengkap dan runtut.
+            <Check className="size-4" /> {" "}{t("resepnya_lengkap_dan_runtut")}
           </p>
         ) : null}
 
@@ -579,19 +584,20 @@ function Editor() {
 
         {stage.kind === "signin" ? (
           <div className="rounded-2xl border border-primary-line bg-primary-soft p-4">
-            <p className="text-body font-bold">Masuk dulu untuk menerbitkan</p>
+            <p className="text-body font-bold">{t("masuk_dulu_untuk_menerbitkan")}</p>
             <p className="mt-1 text-14 text-ink-2">
-              Drafnya sudah tersimpan di HP ini, tidak akan hilang.
+              
+              {t("drafnya_sudah_tersimpan_di_hp")}
             </p>
             <Button asChild className="mt-3 min-h-11 w-full">
-              <Link to="/masuk">Masuk</Link>
+              <Link to="/masuk">{t("sign_in")}</Link>
             </Button>
           </div>
         ) : null}
 
         {stage.kind === "handle" ? (
           <div className="rounded-2xl border border-primary-line bg-primary-soft p-4">
-            <p className="mb-3 text-body font-bold">Pilih nama pengguna untuk resepmu</p>
+            <p className="mb-3 text-body font-bold">{t("pilih_nama_pengguna_untuk_resepmu")}</p>
             <HandleForm initialHandle={null} initialName={null} onSaved={() => void doPublish()} />
           </div>
         ) : null}
@@ -599,15 +605,16 @@ function Editor() {
         {stage.kind === "done" ? (
           <div className="rounded-2xl border border-primary-line bg-primary-soft p-4">
             <p className="flex items-center gap-2 text-body font-extrabold text-primary-deep">
-              <Check className="size-5" /> Resepmu sudah terbit
+              <Check className="size-5" /> {" "}{t("resepmu_sudah_terbit")}
             </p>
             <div className="mt-3 grid gap-2">
               <Button className="min-h-11 w-full" onClick={() => setSharing(true)}>
-                <Share2 /> Bagikan resep
+                <Share2 /> {" "}{t("bagikan_resep")}
               </Button>
               <Button asChild variant="outline" className="min-h-11 w-full">
                 <Link to="/tulisan/$id" params={{ id: stage.id }}>
-                  Lihat halamannya
+                  
+                  {t("lihat_halamannya")}
                 </Link>
               </Button>
             </div>
@@ -625,12 +632,13 @@ function Editor() {
               const ok = saveDraftLocal(draft);
               setSavedNote(
                 ok
-                  ? "Draf tersimpan di HP ini."
-                  : "Penyimpanan HP penuh. Fotonya tidak ikut tersimpan.",
+                  ? t("draft_saved")
+                  : t("draft_storage_full"),
               );
             }}
           >
-            Simpan draf
+            
+            {t("simpan_draf")}
           </Button>
           {draft.status === "live" ? (
             <Button
@@ -643,7 +651,8 @@ function Editor() {
                 else set({ status: "draft" });
               }}
             >
-              Tarik dari publik
+              
+              {t("tarik_dari_publik")}
             </Button>
           ) : null}
           <Button
@@ -654,10 +663,10 @@ function Editor() {
             {stage.kind === "busy"
               ? stage.label
               : issues && !errors.length && warnings.length
-                ? "Terbitkan saja"
+                ? t("terbitkan_saja")
                 : draft.status === "live"
-                  ? "Simpan perubahan"
-                  : "Periksa & terbitkan"}
+                  ? t("simpan_perubahan")
+                  : t("periksa_terbitkan")}
           </Button>
         </div>
         {!draft.remoteId ? (
@@ -669,7 +678,7 @@ function Editor() {
               navigate({ to: "/tulis" });
             }}
           >
-            <Trash2 className="size-3.5" /> Hapus draf ini
+            <Trash2 className="size-3.5" /> {" "}{t("hapus_draf_ini")}
           </button>
         ) : null}
       </div>
@@ -703,8 +712,7 @@ function ParsedHint({ line }: { line: NonNullable<ReturnType<typeof parseIngredi
   if (!line.id) {
     return (
       <p className="mt-1 flex items-center gap-1 text-caption text-notice-ink">
-        <CircleAlert className="size-3.5 shrink-0" aria-hidden /> Racik belum kenal bahan ini.
-        Takarannya tetap ditulis apa adanya.
+        <CircleAlert className="size-3.5 shrink-0" aria-hidden /> {" "}{t("racik_belum_kenal_bahan_ini")}
       </p>
     );
   }
@@ -714,7 +722,7 @@ function ParsedHint({ line }: { line: NonNullable<ReturnType<typeof parseIngredi
       ? `${fmtQty(line.qty)} ${unitOf(line.line)}`
       : line.toTaste
         ? "secukupnya"
-        : "belum ada takaran";
+        : t("no_amount_yet");
   return (
     <p className="mt-1 flex items-center gap-1 text-caption text-primary">
       <Check className="size-3.5 shrink-0" aria-hidden /> {name} · {amount}

@@ -1,6 +1,7 @@
 import { ING } from "./data";
 import { proteinPerPortion } from "./engine";
 import type { Recipe } from "./types";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * Which recipes a vegetarian or a vegan can actually eat.
@@ -77,9 +78,9 @@ export const isHighProtein = (r: Recipe) => proteinPerPortion(r) >= 15;
  * read it as a guarantee.
  */
 export const DIET_SHELVES = [
-  { label: "Protein tinggi", match: isHighProtein },
-  { label: "Vegetarian", match: isVegetarian },
-  { label: "Vegan", match: isVegan },
-  { label: "Banyak sayur", match: isVegetableForward },
-  { label: "Tanpa santan", match: hasNoSantan },
+  { get label() { return t("diet_high_protein"); }, match: isHighProtein },
+  { get label() { return t("diet_vegetarian"); }, match: isVegetarian },
+  { get label() { return t("diet_vegan"); }, match: isVegan },
+  { get label() { return t("diet_veg_forward"); }, match: isVegetableForward },
+  { get label() { return t("diet_no_santan"); }, match: hasNoSantan },
 ] as const;

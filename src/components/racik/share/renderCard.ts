@@ -1,6 +1,7 @@
 import { encode } from "uqr";
 import type { CardFormat } from "@/lib/racik/backend/share";
 import type { CardModel } from "./cardModel";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * The share card, drawn on a canvas so it becomes a PNG she can post to a
@@ -293,7 +294,7 @@ export async function renderCard({
   ctx.fillText(fitText(ctx, urlLabel, textW), pad, base - 4);
   ctx.font = `700 ${story ? 36 : 26}px ${FONT}`;
   ctx.fillStyle = C.ink;
-  ctx.fillText("Takarannya jelas", pad, base - (story ? 56 : 40));
+  ctx.fillText(t("takarannya_jelas"), pad, base - (story ? 56 : 40));
   wordmark(ctx, pad, base - (story ? 116 : 82), story ? 64 : 44);
 
   return canvas;

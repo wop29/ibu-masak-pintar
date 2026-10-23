@@ -1,4 +1,5 @@
 import { backend } from "./client";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * Share links, open counting and attribution (migration 0008).
@@ -335,24 +336,24 @@ export async function saveHandle(
 ): Promise<string | null> {
   const h = handle.trim().replace(/^@/, "").toLowerCase();
   if (!HANDLE_RE.test(h))
-    return "Nama pengguna 3–24 huruf kecil, angka, titik atau garis bawah. Tanpa spasi.";
+    return t("err_handle_format");
   const name = publicName?.trim() || null;
   if (name && (name.length < 2 || name.length > 40))
-    return "Nama tampilan 2–40 huruf, atau kosongkan saja.";
+    return t("err_display_name");
   const db = backend();
-  if (!db) return "Racik belum tersambung ke server.";
+  if (!db) return t("not_connected");
   const { data: auth } = await db.auth.getUser();
-  if (!auth.user) return "Kamu belum masuk.";
+  if (!auth.user) return t("err_not_signed_in");
   const { error } = await db
     .from("profiles")
     .update({ handle: h, public_name: name })
     .eq("id", auth.user.id);
   if (!error) return null;
-  if (error.code === "23505") return `@${h} sudah dipakai orang lain. Coba yang lain.`;
-  if (error.code === "23514") return "Nama pengguna itu tidak bisa dipakai. Coba yang lain.";
+  if (error.code === "23505") return t("err_handle_taken", { h });
+  if (error.code === "23514") return t("err_handle_blocked");
   if (error.code === "42703" || error.code === "PGRST204")
-    return "Server Racik belum siap untuk nama pengguna. Coba lagi nanti.";
-  return "Nama penggunanya belum tersimpan. Coba lagi.";
+    return t("err_handle_server");
+  return t("err_handle_not_saved");
 }
 
 // ------------------------------------------------------------- stats
@@ -417,7 +418,7 @@ export function summarise(
       key,
       kind: r.recipe_kind,
       ref: r.recipe_ref,
-      title: titleOf(r.recipe_kind, r.recipe_ref) ?? r.title ?? "Resep",
+      title: titleOf(r.recipe_kind, r.recipe_ref) ?? r.title ?? t("resep_5"),
       opens: 0,
       saves: 0,
       cooks: 0,

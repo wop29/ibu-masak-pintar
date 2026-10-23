@@ -14,6 +14,7 @@ import { PUBLIC_ORIGIN, recordEvent } from "@/lib/racik/backend/share";
 import type { UserRecipe } from "@/lib/racik/backend/types";
 import { useRacik } from "@/lib/racik/state";
 import type { ImportedRecipe } from "@/lib/racik/types";
+import { type Key, t } from "@/lib/racik/i18n";
 
 /**
  * A recipe someone wrote and published, readable by anyone with the link.
@@ -83,6 +84,15 @@ const REASONS = [
   "Lainnya",
 ];
 
+/** The reason is sent to moderators as written (Indonesian); only the button label follows the language. */
+const REASON_KEY: Record<string, Key> = {
+  "Bukan resep": "report_reason_1",
+  "Isinya menyinggung atau kasar": "report_reason_2",
+  "Menyalin resep orang lain": "report_reason_3",
+  "Lainnya": "report_reason_4",
+};
+const reasonLabel = (r: string) => (REASON_KEY[r] ? t(REASON_KEY[r]!) : r);
+
 function Tulisan() {
   const { recipe } = Route.useLoaderData();
   const { state, update } = useRacik();
@@ -95,9 +105,10 @@ function Tulisan() {
   if (!recipe) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16 pb-16">
-        <h1 className="mt-2 text-28 font-extrabold leading-tight">Resep ini belum bisa dibuka</h1>
+        <h1 className="mt-2 text-28 font-extrabold leading-tight">{t("resep_ini_belum_bisa_dibuka")}</h1>
         <p className="mt-3 read-line text-ink-2">
-          Mungkin penulisnya sudah menariknya, atau kamu sedang offline.
+          
+          {t("mungkin_penulisnya_sudah_menariknya_atau")}
         </p>
         <OpenInRacik />
       </main>
@@ -127,7 +138,7 @@ function Tulisan() {
         />
         <Link
           to="/"
-          aria-label="Kembali"
+          aria-label={t("back")}
           className="absolute top-[calc(3rem+env(safe-area-inset-top))] left-5 flex size-11 items-center justify-center rounded-full bg-white/95 text-ink shadow-float"
         >
           <ArrowLeft className="size-5" />
@@ -142,17 +153,19 @@ function Tulisan() {
               params={{ handle: recipe.authorHandle }}
               className="text-14 font-bold text-primary"
             >
-              Resep @{recipe.authorHandle}
+              
+              {t("resep_2")}{recipe.authorHandle}
             </Link>
           ) : (
-            <p className="text-14 font-bold text-primary">Resep tulisan pengguna Racik</p>
+            <p className="text-14 font-bold text-primary">{t("resep_tulisan_pengguna_racik")}</p>
           )}
           <h1 className="mt-1 text-28 font-extrabold leading-[1.12] tracking-[-0.03em]">
             {recipe.title}
           </h1>
           {recipe.sourceCreator ? (
             <p className="mt-1 text-14 text-ink-2">
-              Diadaptasi dari{" "}
+              
+              {t("diadaptasi_dari")}{" "}
               {recipe.sourceUrl ? (
                 <a
                   href={recipe.sourceUrl}
@@ -168,22 +181,23 @@ function Tulisan() {
             </p>
           ) : null}
           <p className="mt-2 text-14 text-ink-3">
-            {[recipe.time ? fmtTime(recipe.time) : null, `${recipe.steps.length} langkah`]
+            {[recipe.time ? fmtTime(recipe.time) : null, t("n_steps", { n: recipe.steps.length })]
               .filter(Boolean)
               .join(" · ")}
-            {recipe.cookedCount > 0 ? ` · dimasak ${recipe.cookedCount} orang lewat Racik` : ""}
+            {recipe.cookedCount > 0 ? t("dimasak_orang_lewat_racik", { cookedCount: recipe.cookedCount }) : ""}
           </p>
           {recipe.note ? <p className="mt-3 read-line text-ink-2">{recipe.note}</p> : null}
           <p className="mt-3 text-caption text-ink-3">
-            Resep tulisan pengguna tidak diberi label halal. Periksa sendiri bahan-bahannya.
+            
+            {t("resep_tulisan_pengguna_tidak_diberi")}
           </p>
 
           <div className="mt-5 grid gap-2">
             <Button size="lg" className="w-full" onClick={cook}>
-              <ChefHat /> {saved ? "Buka di Koleksi" : "Simpan & masak"}
+              <ChefHat /> {saved ? t("buka_di_koleksi") : t("simpan_masak")}
             </Button>
             <Button variant="outline" className="min-h-11 w-full" onClick={() => setSharing(true)}>
-              <Share2 /> Bagikan resep
+              <Share2 /> {" "}{t("bagikan_resep")}
             </Button>
           </div>
         </div>
@@ -191,15 +205,15 @@ function Tulisan() {
 
       <section className="mt-6 px-5">
         <div className="flex items-center justify-between">
-          <h2 className="text-head font-extrabold">Bahan</h2>
+          <h2 className="text-head font-extrabold">{t("bahan")}</h2>
           <PortionStepper value={servings} onChange={setServings} />
         </div>
         <IngredientList recipe={recipe} servings={servings} satuan={state.satuan} negara={state.negara} />
         {recipe.unmatched.length ? (
           <div className="mt-3 rounded-2xl border border-rule bg-card p-4">
             <p className="text-caption text-ink-3">
-              Racik belum kenal bahan berikut, jadi takarannya ditulis apa adanya dan tidak ikut
-              berubah dengan porsi:
+              
+              {t("racik_belum_kenal_bahan_berikut")}
             </p>
             <ul className="mt-2 list-disc pl-5 text-body">
               {recipe.unmatched.map((u) => (
@@ -211,7 +225,7 @@ function Tulisan() {
       </section>
 
       <section className="mt-8 px-5">
-        <h2 className="text-head font-extrabold">Cara memasak</h2>
+        <h2 className="text-head font-extrabold">{t("cara_memasak")}</h2>
         <ol className="mt-3">
           {recipe.steps.map(([text, secs], i) => (
             <li key={i} className="flex gap-3 border-b border-rule py-4">
@@ -231,7 +245,7 @@ function Tulisan() {
 
       <div className="mt-6 px-5">
         <Button variant="ghost" className="min-h-11 text-ink-3" onClick={() => setReporting(true)}>
-          <Flag /> Laporkan resep ini
+          <Flag /> {" "}{t("laporkan_resep_ini")}
         </Button>
       </div>
 
@@ -260,8 +274,8 @@ function Tulisan() {
       <Sheet
         open={reporting}
         onClose={() => setReporting(false)}
-        title="Laporkan resep"
-        subtitle="Moderator Racik akan memeriksanya."
+        title={t("laporkan_resep")}
+        subtitle={t("moderator_racik_akan_memeriksanya")}
       >
         {reportMsg ? (
           <p role="status" className="read-line">
@@ -276,10 +290,10 @@ function Tulisan() {
                   className="min-h-12 w-full border-b border-rule py-3 text-left text-body"
                   onClick={async () => {
                     const err = await report({ recipeId: recipe.id, reason });
-                    setReportMsg(err ?? "Terima kasih. Laporanmu sudah kami terima.");
+                    setReportMsg(err ?? t("report_thanks"));
                   }}
                 >
-                  {reason}
+                  {reasonLabel(reason)}
                 </button>
               </li>
             ))}

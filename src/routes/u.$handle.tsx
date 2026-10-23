@@ -5,6 +5,7 @@ import { OpenInRacik } from "@/components/racik/share/OpenInRacik";
 import { ProfileHeader } from "@/components/racik/share/ProfileHeader";
 import { profileByHandle, storageUrl } from "@/lib/racik/backend/share";
 import { fmtTime } from "@/lib/racik/engine";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * A public profile: only people who chose a handle have one, and it lists
@@ -41,10 +42,11 @@ function Profile() {
   if (!profile) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16 pb-16">
-        <p className="text-15 font-bold text-primary">Racik</p>
-        <h1 className="mt-2 text-28 font-extrabold leading-tight">@{handle} belum ada di Racik</h1>
+        <p className="text-15 font-bold text-primary">{t("racik")}</p>
+        <h1 className="mt-2 text-28 font-extrabold leading-tight">@{handle} {" "}{t("belum_ada_di_racik")}</h1>
         <p className="mt-3 read-line text-ink-2">
-          Periksa ejaannya, atau mungkin kamu sedang offline.
+          
+          {t("periksa_ejaannya_atau_mungkin_kamu")}
         </p>
         <OpenInRacik />
       </main>
@@ -80,13 +82,13 @@ function Profile() {
                 <span className="block text-body font-bold">{r.title}</span>
                 <span className="block text-caption text-ink-3">
                   {[
-                    `${r.serv} porsi`,
+                    t("n_portions", { n: r.serv }),
                     r.time_min ? fmtTime(r.time_min) : null,
-                    `${r.steps} langkah`,
+                    t("n_steps", { n: r.steps }),
                   ]
                     .filter(Boolean)
                     .join(" · ")}
-                  {r.source_creator ? ` · dari ${r.source_creator}` : ""}
+                  {r.source_creator ? t("dari_3", { source_creator: r.source_creator }) : ""}
                 </span>
               </span>
               <ArrowRight aria-hidden className="size-4 text-ink-3" />

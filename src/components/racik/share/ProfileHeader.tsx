@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { t } from "@/lib/racik/i18n";
 
 /**
  * A cook's public face: handle, optional display name, photo, and how many
@@ -29,14 +30,14 @@ export function ProfileHeader({
           <span className="block truncate text-14 text-ink-2">{publicName}</span>
         ) : null}
         <span className="block text-caption text-ink-3">
-          {count > 0 ? `${count} resep diterbitkan` : "Belum ada resep yang diterbitkan"}
+          {count > 0 ? t("resep_diterbitkan", { count }) : t("belum_ada_resep_yang_diterbitkan")}
         </span>
       </span>
     </div>
   );
   return (
     <header className="px-5 pt-[calc(2.5rem+env(safe-area-inset-top))] pb-6">
-      <p className="mb-4 text-15 font-bold text-primary">Racik</p>
+      <p className="mb-4 text-15 font-bold text-primary">{t("racik")}</p>
       {linked ? (
         <Link to="/u/$handle" params={{ handle }} className="block">
           {body}
