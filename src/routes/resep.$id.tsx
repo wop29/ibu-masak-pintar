@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HalalChip } from "@/components/racik/HalalChip";
 import { IncompleteBadge } from "@/components/racik/IncompleteBadge";
 import { IngredientList } from "@/components/racik/IngredientList";
@@ -62,7 +62,6 @@ function DetailResep() {
   const { state, ready, update, setServings, toggleSaved } = useRacik();
   // Signed out: the first heart (and every few after) offers to keep favourites in an account.
   const askAccount = useRequireAccountForSave();
-  const [tab, setTab] = useState<"bahan" | "langkah">("bahan");
   const imported = state.imported.find((item) => item.id === id);
   const recipe = shipped ?? imported;
   if (!recipe && !ready) {
@@ -138,42 +137,42 @@ function DetailResep() {
               <p className="meta-label mt-0.5">Tingkat</p>
             </div>
           </div>
-          <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-tint py-1.5 pr-1.5 pl-4">
-            <div>
-              <p className="meta-label">Porsi</p>
-              <p className="text-15 font-extrabold tabular-nums">{servings} porsi</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <button type="button" onClick={() => step(servings - 1)} disabled={servings <= 1} aria-label="Kurangi porsi" className="flex size-11 items-center justify-center rounded-xl border border-rule bg-card text-primary disabled:text-ink-3"><Minus className="size-5" /></button>
-              <button type="button" onClick={() => step(servings + 1)} disabled={servings >= MAX_PORTIONS} aria-label="Tambah porsi" className="flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:opacity-40"><Plus className="size-5" /></button>
-            </div>
-          </div>
-          {recipe.precise ? null : <p className="mt-2 text-micro leading-normal text-ink-3">Bumbu tidak dikali lurus — porsi dua kali lipat tidak berarti cabainya dua kali.</p>}
 
-          <ProteinBlock recipe={recipe} />
-
-          <button type="button" disabled={recipe.incomplete || planned || planFull} onClick={() => update((s) => ({ plan: [...s.plan.filter((p) => findRecipe(p.id, s.imported)), { id: recipe.id, servings }] }))} className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-rule text-14 font-bold text-primary disabled:text-ink-3">
+          <button type="button" disabled={recipe.incomplete || planned || planFull} onClick={() => update((s) => ({ plan: [...s.plan.filter((p) => findRecipe(p.id, s.imported)), { id: recipe.id, servings }] }))} className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-rule text-14 font-bold text-primary disabled:text-ink-3">
             <CalendarPlus className="size-4" />{recipe.incomplete ? "Belum bisa masuk rencana" : planned ? "Sudah ada di rencana" : planFull ? `Rencana sudah penuh (${PLAN_MAX} resep)` : "Tambah ke rencana"}
           </button>
         </div>
 
-        <div className="mt-6 grid grid-cols-2 border-b border-rule">
-          {(["bahan", "langkah"] as const).map((t) => (
-            <button key={t} type="button" onClick={() => setTab(t)} className={`min-h-[52px] border-b-[3px] text-14 font-extrabold ${tab === t ? "border-primary text-primary" : "border-transparent text-ink-3"}`}>
-              {t === "bahan" ? `Bahan · ${recipe.ings.length}` : `Langkah · ${recipe.steps.length}`}
-            </button>
-          ))}
-        </div>
+        <JumpBar ings={recipe.ings.length} steps={recipe.steps.length} />
 
-        {tab === "bahan" ? (
-          <div className="pt-2 pb-7">
-            <p className="pt-3 pb-1 text-caption text-ink-3">Takaran untuk {servings} porsi</p>
-            <IngredientList recipe={recipe} servings={servings} satuan={state.satuan} negara={state.negara} />
-            {recipe.alat?.length ? <p className="py-4 text-caption text-ink-3">Alat: {recipe.alat.join(", ")}{recipe.suhu ? ` · ${recipe.suhu}` : ""}</p> : null}
-            {recipe.timbang ? <p className="pb-4 text-caption text-ink-3">Resep ini perlu timbangan. Takaran gelas tidak cukup tepat untuk kue.</p> : null}
+        <section id="bahan" aria-labelledby="judul-bahan" className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] pt-5 pb-2">
+          <h2 id="judul-bahan" className="heading-sm">Bahan</h2>
+          <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-tint py-1.5 pr-1.5 pl-4">
+            <p className="text-15 tabular-nums">Untuk <b className="font-extrabold">{servings}</b> porsi</p>
+            <div className="flex items-center gap-2">
+              <button type="button" onClick={() => step(servings - 1)} disabled={servings <= 1} aria-label="Kurangi porsi" className="flex size-11 items-center justify-center rounded-xl border border-rule bg-card text-primary disabled:border-dashed disabled:text-ink-3"><Minus className="size-5" /></button>
+              <button type="button" onClick={() => step(servings + 1)} disabled={servings >= MAX_PORTIONS} aria-label="Tambah porsi" className="flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:bg-tint disabled:text-ink-3"><Plus className="size-5" /></button>
+            </div>
           </div>
-        ) : (
-          <ol className="pt-2 pb-7">
+          {servings !== recipe.serv ? (
+            <p className="mt-2 flex flex-wrap items-center gap-x-1 text-caption text-ink-3">
+              Resep asli: {recipe.serv} porsi ·
+              <button type="button" onClick={() => step(recipe.serv)} className="-my-2 min-h-11 px-1 font-bold text-primary underline underline-offset-2">Kembalikan</button>
+            </p>
+          ) : null}
+          {recipe.precise ? null : <p className="mt-2 text-caption leading-normal text-ink-3">Bumbu tidak dikali lurus — porsi dua kali lipat tidak berarti cabainya dua kali.</p>}
+          <IngredientList recipe={recipe} servings={servings} satuan={state.satuan} negara={state.negara} />
+          {recipe.alat?.length ? <p className="py-4 text-caption text-ink-3">Alat: {recipe.alat.join(", ")}{recipe.suhu ? ` · ${recipe.suhu}` : ""}</p> : null}
+          {recipe.timbang ? <p className="pb-4 text-caption text-ink-3">Resep ini perlu timbangan. Takaran gelas tidak cukup tepat untuk kue.</p> : null}
+        </section>
+
+        <section id="gizi" aria-label="Perkiraan gizi" className="pt-3 pb-2">
+          <ProteinBlock recipe={recipe} />
+        </section>
+
+        <section id="langkah" aria-labelledby="judul-langkah" className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] pt-6 pb-7">
+          <h2 id="judul-langkah" className="heading-sm">Langkah</h2>
+          <ol className="pt-1">
             {recipe.steps.map(([text, seconds], i) => (
               <li key={i} className="flex items-start gap-4 border-b border-rule py-[18px]">
                 <span className="flex size-[34px] shrink-0 items-center justify-center rounded-full bg-primary text-14 font-extrabold text-primary-foreground">{i + 1}</span>
@@ -184,12 +183,55 @@ function DetailResep() {
               </li>
             ))}
           </ol>
-        )}
+        </section>
       </div>
 
       <div className="fixed bottom-0 left-1/2 z-30 w-full max-w-[430px] -translate-x-1/2 border-t border-rule bg-white/95 px-5 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] backdrop-blur-md">
         <Button asChild className="min-h-[54px] w-full rounded-xl text-body font-extrabold shadow-glow"><Link to="/resep/$id/masak" params={{ id: recipe.id }}>Mulai masak · {servings} porsi</Link></Button>
       </div>
     </main>
+  );
+}
+
+/**
+ * Sticks under the top of the screen and jumps to Bahan or Langkah. Not tabs:
+ * both sections are always on the page. The section in view is highlighted.
+ */
+function JumpBar({ ings, steps }: { ings: number; steps: number }) {
+  const [active, setActive] = useState<"bahan" | "langkah">("bahan");
+  useEffect(() => {
+    const onScroll = () => {
+      const langkah = document.getElementById("langkah");
+      if (!langkah) return;
+      // "Langkah" counts as in view once its heading passes the upper third.
+      setActive(langkah.getBoundingClientRect().top < window.innerHeight / 3 ? "langkah" : "bahan");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const go = (id: "bahan" | "langkah") => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  };
+  const item = (id: "bahan" | "langkah", label: string) => (
+    <button
+      type="button"
+      onClick={() => go(id)}
+      aria-current={active === id ? "true" : undefined}
+      className={`min-h-11 flex-1 rounded-xl text-14 font-extrabold ${active === id ? "bg-primary-soft text-primary-deep" : "text-ink-2"}`}
+    >
+      {label}
+    </button>
+  );
+  return (
+    <nav aria-label="Lompat ke bagian" className="sticky top-0 z-20 -mx-5 mt-4 border-b border-rule bg-ground/95 px-5 pt-[calc(0.5rem+env(safe-area-inset-top))] pb-2 backdrop-blur-md">
+      <div className="flex gap-2">
+        {item("bahan", `Bahan (${ings})`)}
+        {item("langkah", `Langkah (${steps})`)}
+      </div>
+    </nav>
   );
 }
