@@ -5,8 +5,8 @@ import { RECIPES } from "@/lib/racik/data";
 import { IngredientList } from "./IngredientList";
 
 describe("IngredientList", () => {
-  it("renders every ingredient line in all 199 shipped recipes", () => {
-    expect(RECIPES).toHaveLength(199);
+  it("renders every ingredient line in all 299 shipped recipes", () => {
+    expect(RECIPES).toHaveLength(299);
 
     for (const recipe of RECIPES) {
       const html = renderToStaticMarkup(
@@ -19,5 +19,12 @@ describe("IngredientList", () => {
       const rendered = html.match(/data-ingredient-line="true"/g)?.length ?? 0;
       expect(rendered, recipe.id).toBe(recipe.ings.length);
     }
+  });
+
+  it("Gram mode leads with the weight for household units (Pengaturan › Satuan takaran)", () => {
+    const opor = RECIPES.find((r) => r.id === "opor_ayam")!;
+    const html = (satuan: "rumah" | "gram") => renderToStaticMarkup(createElement(IngredientList, { recipe: opor, servings: opor.serv, satuan }));
+    expect(html("rumah")).toMatch(/\d+ siung/);
+    expect(html("gram")).toMatch(/tabular-nums">[\d.,½¼¾]+ (g|kg)<\/span><span class="text-primary"> \([\d½]+ siung\)/);
   });
 });

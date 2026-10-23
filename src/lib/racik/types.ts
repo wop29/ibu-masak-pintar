@@ -1,5 +1,5 @@
 export type Cat = "bumbu" | "sayur" | "daging" | "sembako" | "lain";
-export type HalalFlag = "halal" | "cert";
+export type HalalFlag = "halal" | "cert" | "haram";
 
 export type Unit =
   | "gram"
@@ -20,7 +20,10 @@ export type Unit =
   | "piring"
   | "gelas"
   | "kuntum"
-  | "kantong";
+  | "kantong"
+  | "kaleng"
+  | "kotak"
+  | "sachet";
 
 export interface Ingredient {
   id: string;
@@ -75,6 +78,7 @@ export interface Recipe {
   diff: "gampang" | "sedang" | "agak ribet";
   spice: 0 | 1 | 2 | 3 | 4;
   glyph: string;
+  photoUrl?: string | null;
   note: string;
   ings: IngLine[];
   steps: Step[];
@@ -89,6 +93,13 @@ export interface Recipe {
   hasil?: string;
   satuan?: string;
   timbang?: boolean;
+  /** Shelf group for the Western recipes (e.g. "Pasta", "Sarapan"). */
+  kategori?: string;
+  /**
+   * Work that must start well before cooking and is not part of `time`, e.g.
+   * "Rendam kedelai semalaman." Shown up front; never a cook-mode countdown.
+   */
+  persiapan?: string;
 }
 
 /** Same shape as a shipped recipe, plus where it came from. */
@@ -99,6 +110,13 @@ export interface ImportedRecipe extends Recipe {
   unmatched: string[];
   /** The video never said the portion count, so serv is Racik's assumption. */
   servAssumed: boolean;
+  /** Language the source was in (e.g. "Inggris", "Tagalog") when not Bahasa Indonesia. */
+  bahasaAsal?: string | null;
+  /**
+   * Local swaps the importer suggested for ingredients that are hard to find
+   * where the person lives, keyed by ingredient id (or by the unmatched line's text).
+   */
+  swaps?: Record<string, string>;
 }
 
 export type SatuanMode = "rumah" | "gram";

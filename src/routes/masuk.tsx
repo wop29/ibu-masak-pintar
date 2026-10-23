@@ -1,22 +1,34 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { z } from "zod";
 import { ArrowLeft, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/racik/i18n";
 import {
+  authErrorFromUrl,
   confirmEmailCode,
+  EMAIL_RESEND_SECONDS,
   enabledProviders,
+  OTP_MAX,
+  OTP_MIN,
   saveProfile,
   sendEmailCode,
   signInWith,
-  signOut,
   type OAuthProvider,
   type Providers,
 } from "@/lib/racik/backend/auth";
+import { useRacik } from "@/lib/racik/state";
 import { uploadPhoto } from "@/lib/racik/backend/recipes";
 import { useAccount } from "@/lib/racik/backend/useAccount";
 
+/** Where to go after signing in. Only same-site paths, never "//evil.com". */
+const safeNext = (v: unknown): string | undefined =>
+  typeof v === "string" && v.startsWith("/") && !v.startsWith("//") && !v.startsWith("/masuk") ? v : undefined;
+
+const NEXT_KEY = "racik.masuk.next";
+
 export const Route = createFileRoute("/masuk")({
+  validateSearch: z.object({ next: z.string().optional().catch(undefined) }),
   head: () => ({ meta: [{ title: "Masuk — Racik" }, { name: "robots", content: "noindex" }] }),
   component: Masuk,
 });
@@ -40,8 +52,10 @@ type Step = "id" | "code" | "profile";
 
 function Masuk() {
   const t = useT();
-  const navigate = useNavigate();
+  const router = useRouter();
   const { account, ready, available, refresh } = useAccount();
+  const { signOutAndClear } = useRacik();
+  const search = Route.useSearch();
 
   const [step, setStep] = useState<Step>("id");
   const [providers, setProviders] = useState<Providers | null>(null);
@@ -52,16 +66,75 @@ function Masuk() {
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+  const [checkingLink, setCheckingLink] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => { enabledProviders().then(setProviders); }, []);
 
-  // Signed in already: straight to the profile step, or out of here if done.
+  // Remember where she came from across the email-link round trip (the link
+  // lands on plain /masuk, which is what the Supabase redirect allow-list holds).
+  useEffect(() => {
+    const n = safeNext(search.next);
+    try { if (n) sessionStorage.setItem(NEXT_KEY, n); } catch { /* private mode */ }
+  }, [search.next]);
+  const nextPath = (): string => {
+    let stored: string | null = null;
+    try { stored = sessionStorage.getItem(NEXT_KEY); } catch { /* ignore */ }
+    return safeNext(search.next) ?? safeNext(stored) ?? "/";
+  };
+  const leave = () => {
+    const to = nextPath();
+    try { sessionStorage.removeItem(NEXT_KEY); } catch { /* ignore */ }
+    window.history.replaceState(null, "", window.location.pathname);
+    router.history.replace(to);
+  };
+
+  // Landing from the email link (or Google): the client reads the session out
+  // of the URL by itself. Show that it is happening, and say in Bahasa when
+  // the link was expired or already used.
+  useEffect(() => {
+    const err = authErrorFromUrl(window.location.href);
+    if (err) {
+      setError(err);
+      window.history.replaceState(null, "", window.location.pathname);
+      return;
+    }
+    if (/access_token=|[?&]code=|token_hash=/.test(window.location.href)) {
+      setCheckingLink(true);
+      const t = setTimeout(() => {
+        setCheckingLink(false);
+        setError("Tautan masuknya belum bisa dipakai. Minta kode baru di bawah.");
+      }, 12000);
+      return () => clearTimeout(t);
+    }
+    return undefined;
+  }, []);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [cooldown]);
+
+  // Signed in already: straight to the profile step, or back where she was.
   useEffect(() => {
     if (!ready || !account) return;
-    if (account.name) navigate({ to: "/tulis" });
+    setCheckingLink(false);
+    if (account.name) leave();
     else { setStep("profile"); setPhotoPreview(account.photoUrl); }
-  }, [ready, account, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, account]);
+
+  const sendCode = async () => {
+    setBusy(true); setError("");
+    const err = await sendEmailCode(email, `${window.location.origin}/masuk`);
+    setBusy(false);
+    if (err) return setError(err);
+    setCode("");
+    setCooldown(EMAIL_RESEND_SECONDS);
+    setStep("code");
+  };
 
   const social: { id: OAuthProvider; label: string }[] = [
     ...(providers?.google ? [{ id: "google" as const, label: t("continue_google") }] : []),
@@ -72,7 +145,7 @@ function Masuk() {
   const back = () => {
     setError("");
     if (step === "code") return setStep("id");
-    navigate({ to: "/" });
+    leave();
   };
 
   return (
@@ -82,7 +155,7 @@ function Masuk() {
           <ArrowLeft />
         </Button>
         {step === "profile" ? (
-          <Button variant="ghost" className="text-muted-foreground" onClick={() => navigate({ to: "/" })}>
+          <Button variant="ghost" className="text-muted-foreground" onClick={leave}>
             {t("skip")}
           </Button>
         ) : null}
@@ -90,6 +163,8 @@ function Masuk() {
 
       {!available ? (
         <p className="rounded-2xl border border-rule bg-notice p-4 read-line">{t("not_connected")}</p>
+      ) : checkingLink ? (
+        <p className="mt-8 read-line text-ink-2" role="status">Sebentar, sedang masuk…</p>
       ) : step === "id" ? (
         <>
           <h1 className="text-title font-bold">{t("sign_in_title")}</h1>
@@ -136,35 +211,33 @@ function Masuk() {
             size="lg"
             variant={social.length ? "outline" : "default"}
             className="mt-3 w-full"
-            disabled={busy || !/.+@.+\..+/.test(email)}
-            onClick={async () => {
-              setBusy(true); setError("");
-              const err = await sendEmailCode(email);
-              setBusy(false);
-              if (err) return setError(err);
-              setStep("code");
-            }}
+            disabled={busy || !/.+@.+\..+/.test(email.trim())}
+            onClick={sendCode}
           >
             {t("continue_")}
           </Button>
+          <p className="mt-6 text-label leading-relaxed text-ink-3">
+            Dengan masuk, kamu setuju dengan <a href="/privasi" className="font-semibold text-primary underline">Kebijakan Privasi</a> Racik. Akun gratis — dipakai untuk menyimpan resepmu supaya tidak hilang kalau ganti HP.
+          </p>
         </>
       ) : step === "code" ? (
         <>
           <h1 className="text-title font-bold">{t("code_title")}</h1>
           <p className="mt-2 read-line text-ink-2">{t("code_sent_to", { email })}</p>
+          <p className="mt-2 text-14 leading-relaxed text-ink-3">Kalau yang datang berupa tautan, ketuk saja tautannya di HP ini. Belum masuk? Cek folder Spam atau Promosi.</p>
           <input
             aria-label={t("code_title")}
             inputMode="numeric"
             autoComplete="one-time-code"
-            maxLength={6}
+            maxLength={OTP_MAX}
             value={code}
-            onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+            onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, OTP_MAX))}
             className="mt-8 h-16 w-full rounded-xl border border-border bg-card text-center text-34 font-bold tracking-[0.3em] tabular-nums"
           />
           <Button
             size="lg"
             className="mt-4 w-full"
-            disabled={busy || code.length < 6}
+            disabled={busy || code.length < OTP_MIN}
             onClick={async () => {
               setBusy(true); setError("");
               const err = await confirmEmailCode(email, code);
@@ -178,10 +251,10 @@ function Masuk() {
           <Button
             variant="ghost"
             className="mt-2 w-full text-muted-foreground"
-            disabled={busy}
-            onClick={async () => { setBusy(true); setError(""); const e = await sendEmailCode(email); setBusy(false); if (e) setError(e); }}
+            disabled={busy || cooldown > 0}
+            onClick={sendCode}
           >
-            {t("code_resend")}
+            {cooldown > 0 ? `Kirim ulang dalam ${cooldown} detik` : t("code_resend")}
           </Button>
         </>
       ) : (
@@ -237,7 +310,7 @@ function Masuk() {
               setBusy(false);
               if (err) return setError(err);
               refresh();
-              navigate({ to: "/tulis" });
+              leave();
             }}
           >
             {t("done")}
@@ -245,7 +318,7 @@ function Masuk() {
           <Button
             variant="ghost"
             className="mt-2 w-full text-muted-foreground"
-            onClick={async () => { await signOut(); refresh(); setStep("id"); }}
+            onClick={async () => { await signOutAndClear({ force: true }); refresh(); setStep("id"); }}
           >
             {t("sign_out")}
           </Button>

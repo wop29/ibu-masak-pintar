@@ -1,26 +1,29 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PortionStepper } from "@/components/racik/PortionStepper";
-import { clearAll, defaultState } from "@/lib/racik/store";
 import { useRacik } from "@/lib/racik/state";
-import { useT } from "@/lib/racik/i18n";
-import { useAccount } from "@/lib/racik/backend/useAccount";
-import { signOut } from "@/lib/racik/backend/auth";
+import { ENGLISH_ENABLED, useT } from "@/lib/racik/i18n";
+import { RECIPES } from "@/lib/racik/data";
+import { AccountSection } from "@/components/racik/account/AccountSection";
+import { NEGARA, NEGARA_LIST, detectNegaraHere } from "@/lib/racik/locale";
 
 export const Route = createFileRoute("/pengaturan")({ head: () => ({ meta: [{ title: "Pengaturan — Racik" }, { name: "description", content: "Atur jumlah porsi, satuan, ukuran tulisan, dan pilihan resep di Racik." }, { property: "og:title", content: "Pengaturan — Racik" }, { property: "og:description", content: "Pengaturan memasak dan penyimpanan di perangkat." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }), component: Pengaturan });
 
-function Row({ title, detail, children }: { title: string; detail?: string | undefined; children: React.ReactNode }) { return <div className="border-b border-border py-5"><div className="flex items-center justify-between gap-4"><div className="min-w-0 flex-1"><h2 className="text-body font-bold">{title}</h2>{detail ? <p className="mt-1 text-14 text-muted-foreground">{detail}</p> : null}</div>{children}</div></div>; }
+// Title and control wrap onto two lines when the control is wide, instead of clipping the title.
+function Row({ title, detail, children }: { title: string; detail?: string | undefined; children: React.ReactNode }) { return <div className="border-b border-border py-5"><div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3"><div className="min-w-[10rem] flex-1"><h2 className="text-body font-bold">{title}</h2>{detail ? <p className="mt-1 text-14 text-muted-foreground">{detail}</p> : null}</div>{children}</div></div>; }
 function Pengaturan() {
-  const { state, update } = useRacik(); const navigate = useNavigate(); const t = useT(); const { account, available, refresh } = useAccount();
-  return <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card px-5 pb-12"><header className="flex items-center gap-3 py-5"><Button asChild variant="ghost" size="icon"><Link to="/buku" aria-label={t("back")}><ArrowLeft /></Link></Button><div><p className="eyebrow">RACIK</p><h1 className="text-title font-bold">{t("settings")}</h1></div></header>
+  const { state, update } = useRacik(); const t = useT();
+  return <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card px-5 pb-12"><header className="flex items-center gap-3 py-5"><Button asChild variant="ghost" size="icon" className="size-11"><Link to="/buku" aria-label={t("back")} onClick={(e)=>{ if (window.history.length > 1) { e.preventDefault(); window.history.back(); } }}><ArrowLeft /></Link></Button><div><p className="eyebrow">RACIK</p><h1 className="text-title font-bold">{t("settings")}</h1></div></header>
     <Row title={t("usual_portions")} detail={t("usual_portions_detail")}><PortionStepper value={state.household} onChange={(v)=>update({household:v})} /></Row>
-    <Row title={t("measures")}><div className="flex gap-1 rounded-xl bg-secondary p-1">{(["rumah","gram"] as const).map((x)=><Button key={x} size="sm" variant={state.satuan===x?"default":"ghost"} onClick={()=>update({satuan:x})}>{x==="rumah"?t("measures_home"):t("measures_gram")}</Button>)}</div></Row>
-    <Row title={t("text_size")}><select value={state.teks} onChange={(e)=>update({teks:e.target.value as typeof state.teks})} className="h-11 rounded-xl border border-border bg-card px-3 text-body"><option value="normal">{t("text_normal")}</option><option value="besar">{t("text_large")}</option><option value="paling_besar">{t("text_largest")}</option></select></Row>
-    <Row title={t("hide_check")} detail={t("hide_check_detail")}><input aria-label={t("hide_check")} type="checkbox" checked={state.halalMode} onChange={(e)=>update({halalMode:e.target.checked})} className="h-6 w-6 accent-primary" /></Row>
-    <Row title={t("language")}><div className="flex gap-1 rounded-xl bg-secondary p-1">{([["id","Bahasa Indonesia"],["en","English"]] as const).map(([code,label])=><Button key={code} size="sm" variant={state.lang===code?"default":"ghost"} onClick={()=>update({lang:code})}>{label}</Button>)}</div></Row>
-    {available ? <Row title={t("sign_in")} detail={account?.name ? t("signed_in_as",{name:account.name}) : undefined}>{account ? <Button size="sm" variant="ghost" onClick={async()=>{await signOut();refresh();}}>{t("sign_out")}</Button> : <Button asChild size="sm" variant="ghost"><Link to="/masuk">{t("sign_in")}</Link></Button>}</Row> : null}
-    <section className="py-6"><h2 className="eyebrow-ink">{t("about")}</h2><p className="mt-3 text-body text-muted-foreground">{t("about_body")}</p></section>
-    <Button variant="outline" className="w-full text-destructive" onClick={async()=>{await clearAll();update(defaultState);navigate({to:"/"})}}>{t("erase_all")}</Button>
+    <Row title={t("measures")} detail={state.satuan==="gram"?"Bahan ditulis dalam gram atau ml bila beratnya diketahui.":"Bahan ditulis dalam sendok, gelas, siung, dan ukuran dapur lain."}><div role="radiogroup" aria-label={t("measures")} className="flex gap-1 rounded-xl bg-secondary p-1">{(["rumah","gram"] as const).map((x)=><Button key={x} role="radio" aria-checked={state.satuan===x} className="min-h-11 px-4" variant={state.satuan===x?"default":"ghost"} onClick={()=>update({satuan:x})}>{x==="rumah"?t("measures_home"):t("measures_gram")}</Button>)}</div></Row>
+    <Row title="Negara & takaran" detail={`Mengubah nama takaran (sendok, cawan, tasa), nama bahan setempat, dan pembulatan daftar belanja. ${state.negaraAuto ? `Terdeteksi dari koneksi: ${NEGARA[state.negara].name}.` : `Dipilih: ${NEGARA[state.negara].name}.`}`}><div role="radiogroup" aria-label="Negara & takaran" className="grid w-full grid-cols-4 gap-1 rounded-xl bg-secondary p-1">{([["auto","Otomatis"],...NEGARA_LIST.map((n)=>[n,NEGARA[n].name] as const)] as const).map(([v,label])=>{ const on = v==="auto" ? state.negaraAuto : !state.negaraAuto && state.negara===v; return <Button key={v} role="radio" aria-checked={on} className="min-h-11 px-1 text-[13px]" variant={on?"default":"ghost"} onClick={()=>update(v==="auto" ? { negaraAuto:true, negara: detectNegaraHere() } : { negaraAuto:false, negara:v })}>{label}</Button>; })}</div></Row>
+    <Row title={t("text_size")}><div role="radiogroup" aria-label={t("text_size")} className="flex gap-1 rounded-xl bg-secondary p-1">{([["normal",t("text_normal"),"text-[14px]"],["besar",t("text_large"),"text-[16px]"],["paling_besar",t("text_largest"),"text-[18px]"]] as const).map(([v,label,size])=><Button key={v} role="radio" aria-checked={state.teks===v} aria-label={label} className={`min-h-11 px-3.5 ${size}`} variant={state.teks===v?"default":"ghost"} onClick={()=>update({teks:v})}><span aria-hidden>Aa</span></Button>)}</div></Row>
+    <label className="flex min-h-11 cursor-pointer items-center justify-between gap-4 border-b border-border py-5"><span className="min-w-0 flex-1"><span className="block text-body font-bold">{t("hide_check")}</span><span className="mt-1 block text-14 text-muted-foreground">{t("hide_check_detail")}</span></span><input type="checkbox" checked={state.halalMode} onChange={(e)=>update({halalMode:e.target.checked})} className="size-6 shrink-0 accent-primary" /></label>
+    {/* English is off for launch (half-translated); see ENGLISH_ENABLED in i18n.ts. */}
+    {ENGLISH_ENABLED ? <Row title={t("language")}><div className="flex gap-1 rounded-xl bg-secondary p-1">{([["id","Bahasa Indonesia"],["en","English"]] as const).map(([code,label])=><Button key={code} size="sm" variant={state.lang===code?"default":"ghost"} onClick={()=>update({lang:code})}>{label}</Button>)}</div></Row> : null}
+    {/* Akun & data — owned by the accounts/sync work (AccountSection). */}
+    <AccountSection />
+    <section className="py-6"><h2 className="eyebrow-ink">{t("about")}</h2><p className="mt-3 text-body text-muted-foreground">{t("about_body", { n: RECIPES.length })}</p><nav aria-label="Dokumen" className="mt-4 flex flex-wrap gap-x-5"><Link to="/privasi" className="inline-flex min-h-11 items-center text-14 font-bold text-primary">Kebijakan Privasi</Link><Link to="/syarat" className="inline-flex min-h-11 items-center text-14 font-bold text-primary">Syarat Penggunaan</Link></nav></section>
   </main>;
 }

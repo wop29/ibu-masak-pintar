@@ -1,117 +1,132 @@
 [
-{
-"id": "jawa_tengah",
-"name": "Jawa Tengah",
-"desc": "Cenderung manis, gula jawa, santan lembut."
-},
-{
-"id": "jawa_timur",
-"name": "Jawa Timur",
-"desc": "Asin, gurih, pedas terang."
-},
-{
-"id": "sunda",
-"name": "Sunda",
-"desc": "Segar dan asam, banyak lalapan mentah."
-},
-{
-"id": "minang",
-"name": "Minang",
-"desc": "Santan pekat, cabai, rempah berlapis."
-},
-{
-"id": "betawi",
-"name": "Betawi",
-"desc": "Perpaduan Melayu, Cina, Arab, Belanda."
-},
-{
-"id": "manado",
-"name": "Manado",
-"desc": "Pedas ekstrem, kemangi, daun jeruk."
-},
-{
-"id": "aceh",
-"name": "Aceh",
-"desc": "Rempah India dan Arab, kari kental."
-},
-{
-"id": "palembang",
-"name": "Palembang",
-"desc": "Ikan sungai, asam pedas, sagu."
-},
-{
-"id": "lombok",
-"name": "Lombok",
-"desc": "Pedas tajam, plecing, taliwang."
-},
-{
-"id": "tionghoa",
-"name": "Tionghoa–Indonesia",
-"desc": "Tumisan cepat, kecap, mie."
-},
-{
-"id": "indis",
-"name": "Indis (Belanda)",
-"desc": "Warisan meja Belanda."
-},
-{
-"id": "madura",
-"name": "Madura",
-"desc": "Bumbu kacang kuat, garam, bakar-bakaran."
-},
-{
-"id": "bali",
-"name": "Bali",
-"desc": "Base genep, terasi, kemiri. Wangi dan berlapis."
-},
-{
-"id": "bugis",
-"name": "Bugis–Makassar",
-"desc": "Kaldu berat, kelapa sangrai, ikan bakar."
-},
-{
-"id": "batak",
-"name": "Batak",
-"desc": "Andaliman, asam, bakar. Rasa yang menggigit."
-},
-{
-"id": "banjar",
-"name": "Banjar",
-"desc": "Manis-gurih, kuah kuning, ikan sungai."
-},
-{
-"id": "maluku",
-"name": "Maluku",
-"desc": "Pala, cengkeh, ikan segar."
-},
-{
-"id": "papua",
-"name": "Papua",
-"desc": "Sagu, ikan laut, bumbu sederhana."
-},
-{
-"id": "peranakan",
-"name": "Peranakan",
-"desc": "Kawin silang Cina–Melayu."
-},
-{
-"id": "timur_tengah",
-"name": "Timur Tengah–Indonesia",
-"desc": "Kambing, rempah kering, nasi berbumbu."
-},
-{
-"id": "bangka",
-"name": "Bangka",
-"desc": "Ikan, terasi, asam. Rasa pesisir."
-},
-{
-"id": "lampung",
-"name": "Lampung",
-"desc": "Seruit, sambal, ikan sungai."
-},
-{
-"id": "impor",
-"name": "Dari video",
-"desc": "Resep yang diambil sendiri dari video."
-}
+ {
+  "id": "jawa_tengah",
+  "name": "Jawa Tengah",
+  "desc": "Cenderung manis, gula jawa, santan lembut."
+ },
+ {
+  "id": "jawa_timur",
+  "name": "Jawa Timur",
+  "desc": "Asin, gurih, pedas terang."
+ },
+ {
+  "id": "sunda",
+  "name": "Sunda",
+  "desc": "Segar dan asam, banyak lalapan mentah."
+ },
+ {
+  "id": "minang",
+  "name": "Minang",
+  "desc": "Santan pekat, cabai, rempah berlapis."
+ },
+ {
+  "id": "betawi",
+  "name": "Betawi",
+  "desc": "Perpaduan Melayu, Cina, Arab, Belanda."
+ },
+ {
+  "id": "manado",
+  "name": "Manado",
+  "desc": "Pedas ekstrem, kemangi, daun jeruk."
+ },
+ {
+  "id": "aceh",
+  "name": "Aceh",
+  "desc": "Rempah India dan Arab, kari kental."
+ },
+ {
+  "id": "palembang",
+  "name": "Palembang",
+  "desc": "Ikan sungai, asam pedas, sagu."
+ },
+ {
+  "id": "lombok",
+  "name": "Lombok",
+  "desc": "Pedas tajam, plecing, taliwang."
+ },
+ {
+  "id": "tionghoa",
+  "name": "Tionghoa–Indonesia",
+  "desc": "Tumisan cepat, kecap, mie."
+ },
+ {
+  "id": "indis",
+  "name": "Indis (Belanda)",
+  "desc": "Warisan meja Belanda."
+ },
+ {
+  "id": "madura",
+  "name": "Madura",
+  "desc": "Bumbu kacang kuat, garam, bakar-bakaran."
+ },
+ {
+  "id": "bali",
+  "name": "Bali",
+  "desc": "Base genep, terasi, kemiri. Wangi dan berlapis."
+ },
+ {
+  "id": "bugis",
+  "name": "Bugis–Makassar",
+  "desc": "Kaldu berat, kelapa sangrai, ikan bakar."
+ },
+ {
+  "id": "batak",
+  "name": "Batak",
+  "desc": "Andaliman, asam, bakar. Rasa yang menggigit."
+ },
+ {
+  "id": "banjar",
+  "name": "Banjar",
+  "desc": "Manis-gurih, kuah kuning, ikan sungai."
+ },
+ {
+  "id": "maluku",
+  "name": "Maluku",
+  "desc": "Pala, cengkeh, ikan segar."
+ },
+ {
+  "id": "papua",
+  "name": "Papua",
+  "desc": "Sagu, ikan laut, bumbu sederhana."
+ },
+ {
+  "id": "peranakan",
+  "name": "Peranakan",
+  "desc": "Kawin silang Cina–Melayu."
+ },
+ {
+  "id": "timur_tengah",
+  "name": "Timur Tengah–Indonesia",
+  "desc": "Kambing, rempah kering, nasi berbumbu."
+ },
+ {
+  "id": "bangka",
+  "name": "Bangka",
+  "desc": "Ikan, terasi, asam. Rasa pesisir."
+ },
+ {
+  "id": "lampung",
+  "name": "Lampung",
+  "desc": "Seruit, sambal, ikan sungai."
+ },
+ {
+  "id": "melayu_deli",
+  "name": "Melayu Deli",
+  "desc": "Medan dan pesisir timur Sumatra. Santan, kunyit, rempah India."
+ },
+ {
+  "id": "nusantara",
+  "name": "Nusantara",
+  "desc": "Masakan rumahan yang dimasak di mana-mana, tanpa satu daerah asal."
+ },
+ {
+  "id": "impor",
+  "name": "Dari video",
+  "desc": "Resep yang diambil sendiri dari video."
+ },
+ {
+  "id": "barat",
+  "name": "Barat",
+  "desc": "Masakan rumahan Amerika dan Eropa: sup, pasta, sandwich, oven."
+ }
 ]

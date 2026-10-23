@@ -1,9 +1,13 @@
-import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { createFileRoute, Link, notFound, useNavigate, useRouter } from "@tanstack/react-router";
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowLeft, BellRing, Check, ListChecks, Pause, Play, RotateCcw, Timer as TimerIcon } from "lucide-react";
+import { Sheet } from "@/components/racik/Sheet";
 import { byId, ING } from "@/lib/racik/data";
-import { fmtQty, scaledQty, stepIngredients, takaran, unitOf } from "@/lib/racik/engine";
+import { cookPlan, qtyDisplay, scaledQty, unitOf } from "@/lib/racik/engine";
+import { localName, type Negara } from "@/lib/racik/locale";
 import { useRacik } from "@/lib/racik/state";
-import { Button } from "@/components/ui/button";
+import type { CookTimer } from "@/lib/racik/store";
+import type { IngLine, Recipe, SatuanMode } from "@/lib/racik/types";
 
 export const Route = createFileRoute("/resep/$id_/masak")({
   loader: ({ params }) => {
@@ -36,69 +40,286 @@ export const Route = createFileRoute("/resep/$id_/masak")({
   component: ModeMasak,
 });
 
-function Timer({
+/** How long a finished timer keeps ringing before it goes quiet (it stays red on screen). */
+const RING_FOR_MS = 2 * 60 * 1000;
+
+type TimerState = "idle" | "running" | "paused" | "ringing";
+
+function timerState(t: CookTimer | undefined, now: number): TimerState {
+  if (!t) return "idle";
+  if (t.endsAt != null) return t.endsAt <= now ? "ringing" : "running";
+  return t.left != null ? "paused" : "idle";
+}
+
+/** Seconds left. Always from the wall clock while running, so a phone that slept cannot make it wrong. */
+function secondsLeft(t: CookTimer | undefined, fallback: number, now: number): number {
+  if (!t) return fallback;
+  if (t.endsAt != null) return Math.max(0, Math.ceil((t.endsAt - now) / 1000));
+  return t.left ?? fallback;
+}
+
+function clock(seconds: number): string {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  const mm = String(m).padStart(2, "0");
+  const ss = String(s).padStart(2, "0");
+  return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
+}
+
+/** A clock that only ticks while something is counting. Background tabs may tick slowly; the numbers stay right. */
+function useNow(active: boolean): number {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    setNow(Date.now());
+    if (!active) return;
+    const t = setInterval(() => setNow(Date.now()), 500);
+    const onVis = () => setNow(Date.now());
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      clearInterval(t);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, [active]);
+  return now;
+}
+
+/** Keep the screen on while cooking. Browsers drop the lock when the tab hides, so take it again on return. */
+function useWakeLock() {
+  useEffect(() => {
+    if (typeof navigator === "undefined" || !("wakeLock" in navigator)) return;
+    let lock: WakeLockSentinel | null = null;
+    let alive = true;
+    const take = async () => {
+      if (document.visibilityState !== "visible" || (lock && !lock.released)) return;
+      try {
+        const next = await navigator.wakeLock.request("screen");
+        if (alive) lock = next;
+        else void next.release().catch(() => {});
+      } catch {
+        // Battery saver, an iframe, or no permission: the screen may sleep. Nothing to tell her.
+      }
+    };
+    const onVis = () => {
+      if (document.visibilityState === "visible") void take();
+    };
+    void take();
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      alive = false;
+      document.removeEventListener("visibilitychange", onVis);
+      void lock?.release().catch(() => {});
+    };
+  }, []);
+}
+
+/** A short three-note beep made on the spot, so there is no sound file to download or cache. */
+function beep(ctx: AudioContext | null) {
+  if (!ctx || ctx.state !== "running") return;
+  const t0 = ctx.currentTime;
+  for (let k = 0; k < 3; k++) {
+    const at = t0 + k * 0.28;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = k === 2 ? 1175 : 880;
+    gain.gain.setValueAtTime(0.0001, at);
+    gain.gain.exponentialRampToValueAtTime(0.5, at + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, at + 0.22);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(at);
+    osc.stop(at + 0.24);
+  }
+}
+
+/**
+ * Sound and vibration while any timer is ringing. Browsers only allow audio
+ * after a tap, so the audio context is opened on her first tap in cook mode
+ * (starting the timer is one) and kept for the alarm.
+ */
+function useAlarm(ringing: boolean) {
+  const ctxRef = useRef<AudioContext | null>(null);
+  useEffect(() => {
+    const unlock = () => {
+      try {
+        const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        if (!AC) return;
+        ctxRef.current ??= new AC();
+        if (ctxRef.current.state === "suspended") void ctxRef.current.resume().catch(() => {});
+      } catch {
+        // No audio here; vibration and the red screen still work.
+      }
+    };
+    window.addEventListener("pointerdown", unlock);
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      void ctxRef.current?.close().catch(() => {});
+      ctxRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!ringing) return;
+    const ring = () => {
+      beep(ctxRef.current);
+      try {
+        navigator.vibrate?.([400, 160, 400, 160, 400]);
+      } catch {
+        // Not supported (iOS): the sound and the screen carry it.
+      }
+    };
+    ring();
+    const t = setInterval(ring, 3000);
+    return () => {
+      clearInterval(t);
+      try {
+        navigator.vibrate?.(0);
+      } catch {
+        // ignore
+      }
+    };
+  }, [ringing]);
+}
+
+function StepTimer({
   seconds,
-  recipeId,
-  stepIndex,
+  timer,
+  now,
+  onChange,
 }: {
   seconds: number;
-  recipeId: string;
-  stepIndex: number;
+  timer: CookTimer | undefined;
+  now: number;
+  onChange: (next: CookTimer | null) => void;
 }) {
-  const { cookProgress, setCookProgress } = useRacik();
-  const progress = cookProgress(recipeId);
-  const mine = progress?.timerStep === stepIndex ? progress : null;
-  const running = mine?.endsAt != null;
+  const state = timerState(timer, now);
+  const left = secondsLeft(timer, seconds, now);
+  const total = timer?.total ?? seconds;
+  const start = (from: number) => onChange({ total, endsAt: Date.now() + from * 1000 });
+  const pct = state === "idle" ? 0 : Math.min(100, Math.max(0, ((total - left) / Math.max(1, total)) * 100));
 
-  // A tick only to redraw. The number itself always comes from the clock, so
-  // a backgrounded tab — where browsers throttle or suspend timers — cannot
-  // make it wrong. A counter that decrements would come back overstating the
-  // time left, which on a simmer is the dangerous direction to be wrong in.
-  const [, redraw] = useState(0);
-  useEffect(() => {
-    if (!running) return;
-    const t = setInterval(() => redraw((n) => n + 1), 500);
-    return () => clearInterval(t);
-  }, [running]);
-
-  const left = mine?.endsAt != null
-    ? Math.max(0, Math.round((mine.endsAt - Date.now()) / 1000))
-    : mine?.left ?? seconds;
-
-  const toggle = () => {
-    if (running) {
-      setCookProgress(recipeId, { timerStep: stepIndex, endsAt: undefined, left });
-    } else {
-      const from = left > 0 ? left : seconds;
-      setCookProgress(recipeId, { timerStep: stepIndex, endsAt: Date.now() + from * 1000, left: undefined });
-    }
-  };
-
-  const mm = String(Math.floor(left / 60)).padStart(2, "0");
-  const ss = String(left % 60).padStart(2, "0");
+  if (state === "ringing") {
+    return (
+      <div role="alert" className="mt-6 rounded-3xl border-2 border-[#c62828] bg-[#fdecea] p-5">
+        <p className="flex items-center gap-2 text-14 font-extrabold uppercase tracking-[0.06em] text-[#b71c1c]">
+          <BellRing className="size-5 animate-pulse" /> Waktunya habis
+        </p>
+        <p className="mt-1 text-[44px] font-extrabold leading-none tabular-nums text-[#b71c1c]">00:00</p>
+        <div className="mt-4 flex gap-3">
+          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-[#c62828] text-body font-extrabold text-white">
+            <Check className="size-5" /> Sudah
+          </button>
+          <button type="button" onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })} className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-[#e8b4b0] bg-card text-body font-extrabold text-[#b71c1c]">
+            +1 menit
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="mt-6 flex items-center gap-4 border border-white/25 px-4 py-3">
-      <span className="text-34 tabular-nums">
-        {mm}:{ss}
-      </span>
-      <Button variant="outline"
-        onClick={toggle}
-        className="border-primary-foreground/40 bg-transparent text-label uppercase tracking-[0.1em] text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
-      >
-        {left === 0 ? "Sudah" : running ? "Jeda" : "Mulai hitung"}
-      </Button>
+    <div className={`mt-6 rounded-3xl border bg-card p-5 shadow-card ${state === "running" ? "border-primary-line" : "border-rule"}`}>
+      <p className="flex items-center gap-1.5 text-micro font-extrabold uppercase tracking-[0.08em] text-ink-3">
+        <TimerIcon className="size-3.5" />
+        {state === "running" ? "Sedang berjalan" : state === "paused" ? "Dijeda" : "Waktu langkah ini"}
+      </p>
+      <p className={`mt-1 text-[clamp(36px,11vw,46px)] font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-primary" : "text-ink"}`}>{clock(left)}</p>
+      {state !== "idle" ? (
+        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-tint" aria-hidden>
+          <div className="h-full rounded-full bg-primary transition-[width] duration-500" style={{ width: `${pct}%` }} />
+        </div>
+      ) : null}
+      <div className="mt-4 flex gap-3">
+        {state === "running" ? (
+          <button type="button" onClick={() => onChange({ total, left })} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-extrabold text-ink">
+            <Pause className="size-5" /> Jeda
+          </button>
+        ) : (
+          <button type="button" onClick={() => start(left > 0 ? left : seconds)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-primary px-4 text-body font-extrabold text-primary-foreground shadow-glow">
+            <Play className="size-5" /> {state === "paused" ? "Lanjutkan" : "Mulai hitung"}
+          </button>
+        )}
+        {state !== "idle" ? (
+          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-bold text-ink-2">
+            <RotateCcw className="size-4" /> Ulangi
+          </button>
+        ) : null}
+      </div>
+      {state === "running" ? <p className="mt-3 text-caption text-ink-3">Tetap berjalan walau pindah langkah.</p> : null}
     </div>
   );
 }
+
+/** One ingredient row with its tick. 44 px tall at least: she taps it with a wet thumb. */
+function PrepRow({
+  line,
+  recipe,
+  servings,
+  satuan,
+  negara,
+  on,
+  onToggle,
+}: {
+  line: IngLine;
+  recipe: Recipe;
+  servings: number;
+  satuan: SatuanMode;
+  negara: Negara;
+  on: boolean;
+  onToggle: () => void;
+}) {
+  const ing = ING[line[0]];
+  if (!ing) return null;
+  const unit = unitOf(line);
+  const qty = scaledQty(line, recipe, servings);
+  const { main, hint: rumah } = qtyDisplay(line[0], qty, unit, satuan, negara);
+  const local = localName(line[0], negara);
+  return (
+    <li>
+      <button type="button" onClick={onToggle} aria-pressed={on} className="read-line flex min-h-12 w-full items-start gap-3 py-2 text-left">
+        <span aria-hidden className={`mt-px flex size-[26px] shrink-0 items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-[#c9cec7]"}`}>
+          {on ? <Check className="size-4" strokeWidth={3} /> : null}
+        </span>
+        <span className={`min-w-0 [overflow-wrap:anywhere] ${on ? "text-ink-3 line-through" : "text-ink"}`}>
+          {qty == null ? <span className="text-ink-3">secukupnya </span> : <span className="font-extrabold tabular-nums">{main} </span>}
+          {ing.name}
+          {local ? <span className="text-ink-3"> · {local}</span> : null}
+          {line[2] ? <span className="text-ink-3">, {line[2]}</span> : null}
+          {rumah ? <span className="text-primary"> {rumah}</span> : null}
+        </span>
+      </button>
+    </li>
+  );
+}
+
+function Notice({ title, body, children }: { title: string; body: string; children: ReactNode }) {
+  return (
+    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col justify-center bg-ground px-5 pb-16">
+      <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-[0_10px_30px_rgba(18,23,18,0.07)]">
+        <h1 className="text-[24px] font-extrabold leading-tight tracking-[-0.03em]">{title}</h1>
+        <p className="read-line mt-2 text-ink-2">{body}</p>
+        <div className="mt-5 flex flex-col gap-3">{children}</div>
+      </div>
+    </main>
+  );
+}
+
+const primaryBtn = "flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 text-body font-extrabold text-primary-foreground shadow-glow";
+const outlineBtn = "flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-extrabold text-ink";
 
 function ModeMasak() {
   const { recipe: shipped } = Route.useLoaderData();
   const { id } = Route.useParams();
   const { state, ready, logCooked, cookProgress, setCookProgress, clearCookProgress } = useRacik();
   const navigate = useNavigate();
-  const recipe = shipped ?? state.imported.find((item) => item.id === id);
+  const router = useRouter();
+  const recipe: Recipe | undefined = shipped ?? state.imported.find((item) => item.id === id);
   const [i, setI] = useState(0);
+  const [resumedAt, setResumedAt] = useState<number | null>(null);
+  const [allOpen, setAllOpen] = useState(false);
+  const stepCount = recipe?.steps.length ?? 0;
+
+  useWakeLock();
 
   // The store loads from IndexedDB asynchronously, so on a cold start — which
   // is exactly what a phone evicting the page looks like — it is still empty
@@ -106,117 +327,225 @@ function ModeMasak() {
   // again, so a later write cannot move her mid-step.
   const restored = useRef(false);
   useEffect(() => {
-    if (!ready || restored.current) return;
+    if (!ready || restored.current || !stepCount) return;
     restored.current = true;
     const saved = cookProgress(id)?.step;
-    if (saved != null && saved > 0) setI(saved);
-  }, [ready, id, cookProgress]);
+    if (saved != null && saved > 0) {
+      const at = Math.min(saved, stepCount - 1);
+      setI(at);
+      setResumedAt(at);
+    }
+  }, [ready, id, cookProgress, stepCount]);
 
-  const goto = (next: number) => {
-    setI(next);
-    setCookProgress(id, { step: next });
+  const progress = cookProgress(id);
+  const timers = progress?.timers ?? {};
+  const anyActive = Object.values(timers).some((t) => t.endsAt != null);
+  const now = useNow(anyActive);
+  const ringing = Object.values(timers).some((t) => t.endsAt != null && t.endsAt <= now && now - t.endsAt < RING_FOR_MS);
+  useAlarm(ringing);
+
+  const goto = useCallback(
+    (next: number) => {
+      setI(next);
+      setResumedAt(null);
+      setCookProgress(id, { step: next });
+      window.scrollTo({ top: 0 });
+    },
+    [id, setCookProgress],
+  );
+  const setTimer = (step: number, next: CookTimer | null) => {
+    const all = { ...(cookProgress(id)?.timers ?? {}) };
+    if (next) all[String(step)] = next;
+    else delete all[String(step)];
+    setCookProgress(id, { timers: all });
   };
+
+  // Leave to the recipe page without stacking another copy of it: cook mode is
+  // only opened from there, so going back is going to it. Opened from a link
+  // with no history, replace this entry instead, so Back does not return here.
+  const leave = () => {
+    if (router.history.canGoBack()) router.history.back();
+    else navigate({ to: "/resep/$id", params: { id }, replace: true });
+  };
+
+  const plan = useMemo(() => (recipe ? cookPlan(recipe) : { perStep: [], rest: [] }), [recipe]);
   const servings = recipe ? state.servings[recipe.id] ?? state.household : state.household;
-  const perStep = useMemo(() => (recipe ? stepIngredients(recipe) : []), [recipe]);
 
   if (!recipe) {
+    if (!ready) {
+      return <main aria-busy="true" className="mx-auto min-h-dvh w-full max-w-[430px] bg-ground" />;
+    }
     return (
-      <main className="min-h-dvh bg-dark p-6 text-primary-foreground">
-        <p className="text-body">Resep ini tidak ada di perangkat ini.</p>
-      </main>
+      <Notice title="Resepnya tidak ketemu" body="Resep ini tidak ada di HP ini. Mungkin sudah dihapus, atau disimpan di HP lain.">
+        <Link to="/buku" replace className={primaryBtn}>Buka Koleksi</Link>
+        <Link to="/" replace className={outlineBtn}>Ke beranda</Link>
+      </Notice>
     );
   }
 
-  const step = recipe.steps[i];
-  const needed = perStep[i] ?? [];
-  const last = i === recipe.steps.length - 1;
-
-  if (!step) {
+  if (!stepCount) {
     return (
-      <main className="min-h-dvh bg-dark p-6 text-primary-foreground">
-        <p className="text-body">Resep ini belum ada langkahnya.</p>
-      </main>
+      <Notice title="Belum ada langkahnya" body="Resep ini belum punya cara masak, jadi mode masak belum bisa dipakai. Bahannya masih bisa dilihat.">
+        <button type="button" onClick={leave} className={primaryBtn}>Lihat bahan</button>
+        <Link to="/buku" replace className={outlineBtn}>Buka Koleksi</Link>
+      </Notice>
     );
   }
+
+  const step = recipe.steps[i] ?? recipe.steps[0]!;
+  const needed = plan.perStep[i] ?? [];
+  const last = i === stepCount - 1;
+  const extras = [...plan.rest];
+  const unmatched = (recipe as Recipe & { unmatched?: string[] }).unmatched ?? [];
+
+  const checked = progress?.checked ?? [];
+  const keyOf = (line: IngLine) => `l:${recipe.ings.indexOf(line)}`;
+  // Older saves ticked by ingredient id; keep honouring those ticks.
+  const isOn = (line: IngLine) => checked.includes(keyOf(line)) || checked.includes(line[0]);
+  const toggle = (line: IngLine) => {
+    const nowChecked = cookProgress(recipe.id)?.checked ?? [];
+    const key = keyOf(line);
+    const on = nowChecked.includes(key) || nowChecked.includes(line[0]);
+    setCookProgress(recipe.id, {
+      checked: on ? nowChecked.filter((x) => x !== key && x !== line[0]) : [...nowChecked, key],
+    });
+  };
+  const row = (line: IngLine) => (
+    <PrepRow key={keyOf(line)} line={line} recipe={recipe} servings={servings} satuan={state.satuan} negara={state.negara} on={isOn(line)} onToggle={() => toggle(line)} />
+  );
+
+  const otherTimers = Object.entries(timers)
+    .map(([k, t]) => ({ step: Number(k), t }))
+    .filter(({ step: s }) => s !== i && s < stepCount)
+    .sort((a, b) => a.step - b.step);
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-dark text-primary-foreground">
-      <header className="flex items-center justify-between border-b border-primary-foreground/15 px-5 py-4">
-        <span className="text-label uppercase tracking-[0.1em] text-primary-foreground/60">
-          Langkah {i + 1} dari {recipe.steps.length}
-        </span>
-        <Link
-          to="/resep/$id"
-          params={{ id: recipe.id }}
-          // Cook mode is used with wet hands. The way out needs a real target.
-          className="-mr-2 flex min-h-11 items-center px-2 text-label uppercase tracking-[0.1em] text-primary-foreground/70"
-        >
-          Keluar
-        </Link>
+    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground text-ink">
+      <header className="sticky top-0 z-20 border-b border-rule bg-ground/95 pt-[env(safe-area-inset-top)] backdrop-blur-md">
+        <div className="flex items-center gap-3 px-4 py-3">
+          <button type="button" onClick={leave} aria-label="Keluar dari mode masak" className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink">
+            <ArrowLeft className="size-5" strokeWidth={2.4} />
+          </button>
+          <div className="min-w-0 flex-1">
+            <p className="text-micro font-extrabold uppercase tracking-[0.08em] text-ink-3">
+              Langkah {i + 1} dari {stepCount}
+            </p>
+            <p className="truncate text-15 font-extrabold">{recipe.title}</p>
+          </div>
+          <button type="button" onClick={() => setAllOpen(true)} className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-rule bg-card px-4 text-14 font-extrabold text-primary">
+            <ListChecks className="size-4" /> Bahan
+          </button>
+        </div>
+        <div className="h-1 bg-rule" aria-hidden>
+          <div className="h-full bg-primary transition-[width] duration-300" style={{ width: `${((i + 1) / stepCount) * 100}%` }} />
+        </div>
+        {otherTimers.length > 0 ? (
+          <div className="flex flex-col gap-2 px-4 py-2.5" aria-label="Penghitung waktu yang berjalan">
+            {otherTimers.map(({ step: s, t }) => {
+              const st = timerState(t, now);
+              const label = recipe.steps[s]?.[0] ?? "";
+              const cls =
+                st === "ringing"
+                  ? "border-[#c62828] bg-[#c62828] text-white"
+                  : st === "running"
+                    ? "border-primary-line bg-primary-soft text-primary-deep"
+                    : "border-rule bg-card text-ink-2";
+              return (
+                <button key={s} type="button" onClick={() => goto(s)} className={`flex min-h-11 w-full items-center gap-2.5 rounded-xl border px-3 text-left ${cls}`}>
+                  {st === "ringing" ? <BellRing className="size-4 shrink-0 animate-pulse" /> : <TimerIcon className="size-4 shrink-0" />}
+                  <span className="min-w-0 flex-1 truncate text-14">
+                    <strong className="font-extrabold">Langkah {s + 1}</strong> · {label}
+                  </span>
+                  <span className="shrink-0 text-15 font-extrabold tabular-nums">
+                    {st === "ringing" ? "Waktunya!" : st === "paused" ? `dijeda ${clock(secondsLeft(t, 0, now))}` : clock(secondsLeft(t, 0, now))}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
       </header>
 
-      <div className="flex-1 px-5 py-7">
-        <p className="font-display text-28 leading-[1.3]">{step[0]}</p>
-        {step[1] ? <Timer seconds={step[1]} recipeId={recipe.id} stepIndex={i} /> : null}
+      <div className="flex-1 px-5 pt-6 pb-8">
+        {resumedAt != null ? (
+          <div className="mb-5 flex items-center justify-between gap-3 rounded-2xl bg-primary-soft px-4 py-2">
+            <p className="text-14 text-primary-deep">Melanjutkan dari langkah {resumedAt + 1}.</p>
+            <button type="button" onClick={() => goto(0)} className="-mr-2 min-h-11 shrink-0 px-2 text-14 font-extrabold text-primary">
+              Mulai dari awal
+            </button>
+          </div>
+        ) : null}
+
+        <span className="inline-block rounded-full bg-primary-soft px-2.5 py-[5px] text-micro font-extrabold tracking-[0.05em] text-primary-deep">
+          LANGKAH {i + 1}
+        </span>
+        <p className="mt-3 text-[1.625em] font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">{step[0]}</p>
+
+        {step[1] ? <StepTimer seconds={step[1]} timer={timers[String(i)]} now={now} onChange={(t) => setTimer(i, t)} /> : null}
 
         {needed.length > 0 ? (
-          <div className="mt-8 rounded-2xl border border-primary-foreground/15 p-4">
-            <p className="text-micro uppercase tracking-[0.1em] text-primary-foreground/60">Siapkan dulu</p>
-            <ul className="mt-3 space-y-2">
-              {needed.map((line) => {
-                const ing = ING[line[0]];
-                if (!ing) return null;
-                const unit = unitOf(line);
-                const qty = scaledQty(line, recipe, servings);
-                const rumah = qty == null ? null : takaran(line[0], qty, unit, state.satuan);
-                return (
-                  <li key={line[0]} className="read-line flex gap-3">
-                    <span aria-hidden className="w-6 shrink-0">
-                      {ing.em}
-                    </span>
-                    <span>
-                      {qty == null ? (
-                        <span className="text-primary-foreground/70">secukupnya </span>
-                      ) : (
-                        <span className="font-semibold tabular-nums">
-                          {fmtQty(qty)} {unit}{" "}
-                        </span>
-                      )}
-                      {ing.name}
-                      {line[2] ? <span className="text-primary-foreground/70">, {line[2]}</span> : null}
-                      {rumah ? <span className="text-primary-foreground/70"> {rumah}</span> : null}
-                    </span>
-                  </li>
-                );
-              })}
+          <section className="mt-6 rounded-3xl border border-rule bg-card px-4 pt-4 pb-2 shadow-card">
+            <h2 className="text-15 font-extrabold">Siapkan dulu</h2>
+            <p className="text-caption text-ink-3">Ketuk kalau sudah siap.</p>
+            <ul className="mt-1 divide-y divide-rule">{needed.map(row)}</ul>
+          </section>
+        ) : null}
+
+        {i === 0 && (extras.length > 0 || unmatched.length > 0) ? (
+          <section className="mt-4 rounded-3xl border border-rule bg-card px-4 pt-4 pb-2 shadow-card">
+            <h2 className="text-15 font-extrabold">Bahan lain di resep ini</h2>
+            <p className="text-caption text-ink-3">Tidak disebut di langkah mana pun. Siapkan sekalian.</p>
+            <ul className="mt-1 divide-y divide-rule">
+              {extras.map(row)}
+              {unmatched.map((txt, k) => (
+                <li key={`u${k}`} className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]">
+                  <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-[#c9cec7]" />
+                  <span>{txt}</span>
+                </li>
+              ))}
             </ul>
-          </div>
+          </section>
         ) : null}
       </div>
 
-      <div className="flex gap-3 border-t border-primary-foreground/15 px-5 py-4">
-        <Button variant="outline" size="lg"
+      <div className="sticky bottom-0 z-20 flex gap-3 border-t border-rule bg-white/95 px-5 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] backdrop-blur-md">
+        <button
+          type="button"
           onClick={() => goto(Math.max(0, i - 1))}
           disabled={i === 0}
-          className="flex-1 border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground disabled:text-primary-foreground/30"
+          className="flex min-h-[54px] flex-1 items-center justify-center rounded-xl border border-rule bg-card text-body font-extrabold text-ink disabled:text-ink-3/50"
         >
           Sebelumnya
-        </Button>
-        <Button size="lg"
+        </button>
+        <button
+          type="button"
           onClick={() => {
             if (last) {
               logCooked(recipe.id);
               clearCookProgress(recipe.id);
-              navigate({ to: "/resep/$id/selesai", params: { id: recipe.id } });
+              // Replace, so Back from the finish screen goes to the recipe, not to the last step again.
+              navigate({ to: "/resep/$id/selesai", params: { id: recipe.id }, replace: true });
             } else {
               goto(i + 1);
             }
           }}
-          className="flex-1"
+          className="flex min-h-[54px] flex-[1.4] items-center justify-center rounded-xl bg-primary text-body font-extrabold text-primary-foreground shadow-glow"
         >
           {last ? "Selesai" : "Lanjut"}
-        </Button>
+        </button>
       </div>
+
+      <Sheet open={allOpen} onClose={() => setAllOpen(false)} title="Semua bahan" subtitle={`Takaran untuk ${servings} porsi`}>
+        <ul className="divide-y divide-rule">
+          {recipe.ings.map(row)}
+          {unmatched.map((txt, k) => (
+            <li key={`su${k}`} className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]">
+              <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-[#c9cec7]" />
+              <span>{txt}</span>
+            </li>
+          ))}
+        </ul>
+      </Sheet>
     </main>
   );
 }

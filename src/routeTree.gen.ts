@@ -10,18 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AmbilRouteImport } from './routes/ambil'
 import { Route as BukuRouteImport } from './routes/buku'
 import { Route as CariRouteImport } from './routes/cari'
+import { Route as HapusAkunRouteImport } from './routes/hapus-akun'
 import { Route as MasukRouteImport } from './routes/masuk'
 import { Route as PengaturanRouteImport } from './routes/pengaturan'
+import { Route as PrivasiRouteImport } from './routes/privasi'
+import { Route as RencanaRouteImport } from './routes/rencana'
+import { Route as ResepkuRouteImport } from './routes/resepku'
+import { Route as SyaratRouteImport } from './routes/syarat'
 import { Route as TulisRouteImport } from './routes/tulis'
+import { Route as RCodeRouteImport } from './routes/r.$code'
 import { Route as ResepIdRouteImport } from './routes/resep.$id'
+import { Route as TulisBaruRouteImport } from './routes/tulis_.baru'
+import { Route as TulisanIdRouteImport } from './routes/tulisan.$id'
+import { Route as UHandleRouteImport } from './routes/u.$handle'
 import { Route as ResepIdMasakRouteImport } from './routes/resep.$id_.masak'
 import { Route as ResepIdSelesaiRouteImport } from './routes/resep.$id_.selesai'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AmbilRoute = AmbilRouteImport.update({
+  id: '/ambil',
+  path: '/ambil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BukuRoute = BukuRouteImport.update({
@@ -34,6 +49,11 @@ const CariRoute = CariRouteImport.update({
   path: '/cari',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HapusAkunRoute = HapusAkunRouteImport.update({
+  id: '/hapus-akun',
+  path: '/hapus-akun',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MasukRoute = MasukRouteImport.update({
   id: '/masuk',
   path: '/masuk',
@@ -44,14 +64,54 @@ const PengaturanRoute = PengaturanRouteImport.update({
   path: '/pengaturan',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivasiRoute = PrivasiRouteImport.update({
+  id: '/privasi',
+  path: '/privasi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RencanaRoute = RencanaRouteImport.update({
+  id: '/rencana',
+  path: '/rencana',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResepkuRoute = ResepkuRouteImport.update({
+  id: '/resepku',
+  path: '/resepku',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SyaratRoute = SyaratRouteImport.update({
+  id: '/syarat',
+  path: '/syarat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TulisRoute = TulisRouteImport.update({
   id: '/tulis',
   path: '/tulis',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RCodeRoute = RCodeRouteImport.update({
+  id: '/r/$code',
+  path: '/r/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResepIdRoute = ResepIdRouteImport.update({
   id: '/resep/$id',
   path: '/resep/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TulisBaruRoute = TulisBaruRouteImport.update({
+  id: '/tulis_/baru',
+  path: '/tulis/baru',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TulisanIdRoute = TulisanIdRouteImport.update({
+  id: '/tulisan/$id',
+  path: '/tulisan/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UHandleRoute = UHandleRouteImport.update({
+  id: '/u/$handle',
+  path: '/u/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResepIdMasakRoute = ResepIdMasakRouteImport.update({
@@ -67,35 +127,65 @@ const ResepIdSelesaiRoute = ResepIdSelesaiRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ambil': typeof AmbilRoute
   '/buku': typeof BukuRoute
   '/cari': typeof CariRoute
+  '/hapus-akun': typeof HapusAkunRoute
   '/masuk': typeof MasukRoute
   '/pengaturan': typeof PengaturanRoute
+  '/privasi': typeof PrivasiRoute
+  '/rencana': typeof RencanaRoute
+  '/resepku': typeof ResepkuRoute
+  '/syarat': typeof SyaratRoute
   '/tulis': typeof TulisRoute
+  '/r/$code': typeof RCodeRoute
   '/resep/$id': typeof ResepIdRoute
+  '/tulis/baru': typeof TulisBaruRoute
+  '/tulisan/$id': typeof TulisanIdRoute
+  '/u/$handle': typeof UHandleRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ambil': typeof AmbilRoute
   '/buku': typeof BukuRoute
   '/cari': typeof CariRoute
+  '/hapus-akun': typeof HapusAkunRoute
   '/masuk': typeof MasukRoute
   '/pengaturan': typeof PengaturanRoute
+  '/privasi': typeof PrivasiRoute
+  '/rencana': typeof RencanaRoute
+  '/resepku': typeof ResepkuRoute
+  '/syarat': typeof SyaratRoute
   '/tulis': typeof TulisRoute
+  '/r/$code': typeof RCodeRoute
   '/resep/$id': typeof ResepIdRoute
+  '/tulis/baru': typeof TulisBaruRoute
+  '/tulisan/$id': typeof TulisanIdRoute
+  '/u/$handle': typeof UHandleRoute
   '/resep/$id/masak': typeof ResepIdMasakRoute
   '/resep/$id/selesai': typeof ResepIdSelesaiRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ambil': typeof AmbilRoute
   '/buku': typeof BukuRoute
   '/cari': typeof CariRoute
+  '/hapus-akun': typeof HapusAkunRoute
   '/masuk': typeof MasukRoute
   '/pengaturan': typeof PengaturanRoute
+  '/privasi': typeof PrivasiRoute
+  '/rencana': typeof RencanaRoute
+  '/resepku': typeof ResepkuRoute
+  '/syarat': typeof SyaratRoute
   '/tulis': typeof TulisRoute
+  '/r/$code': typeof RCodeRoute
   '/resep/$id': typeof ResepIdRoute
+  '/tulis_/baru': typeof TulisBaruRoute
+  '/tulisan/$id': typeof TulisanIdRoute
+  '/u/$handle': typeof UHandleRoute
   '/resep/$id_/masak': typeof ResepIdMasakRoute
   '/resep/$id_/selesai': typeof ResepIdSelesaiRoute
 }
@@ -103,46 +193,86 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ambil'
     | '/buku'
     | '/cari'
+    | '/hapus-akun'
     | '/masuk'
     | '/pengaturan'
+    | '/privasi'
+    | '/rencana'
+    | '/resepku'
+    | '/syarat'
     | '/tulis'
+    | '/r/$code'
     | '/resep/$id'
+    | '/tulis/baru'
+    | '/tulisan/$id'
+    | '/u/$handle'
     | '/resep/$id/masak'
     | '/resep/$id/selesai'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ambil'
     | '/buku'
     | '/cari'
+    | '/hapus-akun'
     | '/masuk'
     | '/pengaturan'
+    | '/privasi'
+    | '/rencana'
+    | '/resepku'
+    | '/syarat'
     | '/tulis'
+    | '/r/$code'
     | '/resep/$id'
+    | '/tulis/baru'
+    | '/tulisan/$id'
+    | '/u/$handle'
     | '/resep/$id/masak'
     | '/resep/$id/selesai'
   id:
     | '__root__'
     | '/'
+    | '/ambil'
     | '/buku'
     | '/cari'
+    | '/hapus-akun'
     | '/masuk'
     | '/pengaturan'
+    | '/privasi'
+    | '/rencana'
+    | '/resepku'
+    | '/syarat'
     | '/tulis'
+    | '/r/$code'
     | '/resep/$id'
+    | '/tulis_/baru'
+    | '/tulisan/$id'
+    | '/u/$handle'
     | '/resep/$id_/masak'
     | '/resep/$id_/selesai'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AmbilRoute: typeof AmbilRoute
   BukuRoute: typeof BukuRoute
   CariRoute: typeof CariRoute
+  HapusAkunRoute: typeof HapusAkunRoute
   MasukRoute: typeof MasukRoute
   PengaturanRoute: typeof PengaturanRoute
+  PrivasiRoute: typeof PrivasiRoute
+  RencanaRoute: typeof RencanaRoute
+  ResepkuRoute: typeof ResepkuRoute
+  SyaratRoute: typeof SyaratRoute
   TulisRoute: typeof TulisRoute
+  RCodeRoute: typeof RCodeRoute
   ResepIdRoute: typeof ResepIdRoute
+  TulisBaruRoute: typeof TulisBaruRoute
+  TulisanIdRoute: typeof TulisanIdRoute
+  UHandleRoute: typeof UHandleRoute
   ResepIdMasakRoute: typeof ResepIdMasakRoute
   ResepIdSelesaiRoute: typeof ResepIdSelesaiRoute
 }
@@ -154,6 +284,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ambil': {
+      id: '/ambil'
+      path: '/ambil'
+      fullPath: '/ambil'
+      preLoaderRoute: typeof AmbilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/buku': {
@@ -170,6 +307,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CariRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hapus-akun': {
+      id: '/hapus-akun'
+      path: '/hapus-akun'
+      fullPath: '/hapus-akun'
+      preLoaderRoute: typeof HapusAkunRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/masuk': {
       id: '/masuk'
       path: '/masuk'
@@ -184,6 +328,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PengaturanRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privasi': {
+      id: '/privasi'
+      path: '/privasi'
+      fullPath: '/privasi'
+      preLoaderRoute: typeof PrivasiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rencana': {
+      id: '/rencana'
+      path: '/rencana'
+      fullPath: '/rencana'
+      preLoaderRoute: typeof RencanaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resepku': {
+      id: '/resepku'
+      path: '/resepku'
+      fullPath: '/resepku'
+      preLoaderRoute: typeof ResepkuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/syarat': {
+      id: '/syarat'
+      path: '/syarat'
+      fullPath: '/syarat'
+      preLoaderRoute: typeof SyaratRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tulis': {
       id: '/tulis'
       path: '/tulis'
@@ -191,11 +363,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TulisRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/r/$code': {
+      id: '/r/$code'
+      path: '/r/$code'
+      fullPath: '/r/$code'
+      preLoaderRoute: typeof RCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resep/$id': {
       id: '/resep/$id'
       path: '/resep/$id'
       fullPath: '/resep/$id'
       preLoaderRoute: typeof ResepIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tulis_/baru': {
+      id: '/tulis_/baru'
+      path: '/tulis/baru'
+      fullPath: '/tulis/baru'
+      preLoaderRoute: typeof TulisBaruRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tulisan/$id': {
+      id: '/tulisan/$id'
+      path: '/tulisan/$id'
+      fullPath: '/tulisan/$id'
+      preLoaderRoute: typeof TulisanIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/u/$handle': {
+      id: '/u/$handle'
+      path: '/u/$handle'
+      fullPath: '/u/$handle'
+      preLoaderRoute: typeof UHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resep/$id_/masak': {
@@ -217,12 +417,22 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AmbilRoute: AmbilRoute,
   BukuRoute: BukuRoute,
   CariRoute: CariRoute,
+  HapusAkunRoute: HapusAkunRoute,
   MasukRoute: MasukRoute,
   PengaturanRoute: PengaturanRoute,
+  PrivasiRoute: PrivasiRoute,
+  RencanaRoute: RencanaRoute,
+  ResepkuRoute: ResepkuRoute,
+  SyaratRoute: SyaratRoute,
   TulisRoute: TulisRoute,
+  RCodeRoute: RCodeRoute,
   ResepIdRoute: ResepIdRoute,
+  TulisBaruRoute: TulisBaruRoute,
+  TulisanIdRoute: TulisanIdRoute,
+  UHandleRoute: UHandleRoute,
   ResepIdMasakRoute: ResepIdMasakRoute,
   ResepIdSelesaiRoute: ResepIdSelesaiRoute,
 }

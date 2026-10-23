@@ -6,22 +6,38 @@ export interface Account {
   photoUrl: string | null;
 }
 
-/** Null when signed out, or when no backend is configured at all. */
+/**
+ * Null when signed out, or when no backend is configured at all.
+ *
+ * The session is read from the device (getSession), not the network, so a
+ * signed-in cook who opens Racik offline is still signed in — otherwise the
+ * app would treat her as signed out and nag her to sign in to save.
+ */
 export async function currentAccount(): Promise<Account | null> {
   const db = backend();
   if (!db) return null;
-  const { data } = await db.auth.getUser();
-  const user = data.user;
+  let user: { id: string } | null = null;
+  try {
+    const { data } = await db.auth.getSession();
+    user = data.session?.user ?? null;
+  } catch {
+    user = null;
+  }
   if (!user) return null;
-  const { data: profile } = await db
+  type Profile = { name?: string; photo_path?: string | null };
+  const profile: Profile | null = await db
     .from("profiles")
     .select("name, photo_path")
     .eq("id", user.id)
-    .maybeSingle();
-  const path = (profile as { photo_path?: string | null } | null)?.photo_path ?? null;
+    .maybeSingle()
+    .then(
+      (res) => (res.data as Profile | null) ?? null,
+      () => null,
+    );
+  const path = profile?.photo_path ?? null;
   return {
     id: user.id,
-    name: (profile as { name?: string } | null)?.name ?? "",
+    name: profile?.name ?? "",
     photoUrl: path ? db.storage.from("resep").getPublicUrl(path).data.publicUrl : null,
   };
 }
@@ -48,18 +64,34 @@ export async function signInWith(
 export const signInWithGoogle = (redirectTo: string) => signInWith("google", redirectTo);
 
 /**
- * Email link. Enabled in Supabase by default, so this works with no external
- * setup at all — which is why it is here: it unblocks testing the whole
- * posting flow before Google or SMS are configured.
+ * Email sign-in. Supabase sends ONE email that, depending on its template,
+ * carries a code ({{ .Token }}), a link ({{ .ConfirmationURL }}), or both.
+ * Racik handles both: the code is typed on /masuk, and the link lands on
+ * /masuk too (emailRedirectTo), where the client picks the session up from
+ * the URL (detectSessionInUrl).
  *
- * Supabase's built-in mailer allows one link per address per 60 seconds and
- * is rate-limited overall, so it is fine for testing and for a small closed
- * test, and needs a real mail provider before any volume.
+ * Supabase's built-in mailer allows one email per address per 60 seconds and
+ * is rate-limited overall; a real SMTP provider is needed before any volume.
  */
-export async function sendEmailCode(email: string): Promise<string | null> {
+export const EMAIL_RESEND_SECONDS = 60;
+
+/** 6 digits by default; Supabase can be set anywhere from 6 to 10. */
+export const OTP_MIN = 6;
+export const OTP_MAX = 10;
+
+export async function sendEmailCode(email: string, redirectTo?: string): Promise<string | null> {
   const db = backend();
   if (!db) return "Racik belum tersambung ke server.";
-  const { error } = await db.auth.signInWithOtp({ email: email.trim() });
+  let error: { status?: number | undefined; message: string; code?: string | undefined } | null = null;
+  try {
+    const res = await db.auth.signInWithOtp({
+      email: email.trim(),
+      options: { shouldCreateUser: true, ...(redirectTo ? { emailRedirectTo: redirectTo } : {}) },
+    });
+    error = res.error;
+  } catch (e) {
+    error = { message: e instanceof Error ? e.message : String(e) };
+  }
   if (!error) return null;
 
   // The real reason always goes to the console. Matching on wording alone sent
@@ -67,28 +99,64 @@ export async function sendEmailCode(email: string): Promise<string | null> {
   // Supabase phrases its throttle several different ways and none of them was
   // in the list. A friendly message must never be the only thing we keep.
   console.warn("[racik] sendEmailCode failed:", error.status, error.message);
+  return emailErrorText(error, "send");
+}
 
-  const m = error.message.toLowerCase();
+/** Every auth error she can see, in plain Bahasa — never Supabase's English. */
+export function emailErrorText(
+  error: { status?: number | undefined; message?: string | undefined; code?: string | undefined },
+  during: "send" | "verify" | "link",
+): string {
+  const m = `${error.code ?? ""} ${error.message ?? ""}`.toLowerCase();
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return "Tidak ada internet. Sambungkan dulu, lalu coba lagi.";
+  if (/failed to fetch|network|load failed|timeout|aborted/.test(m)) return "Racik belum bisa tersambung. Periksa internet lalu coba lagi.";
   if (error.status === 429 || /rate|seconds|too many|security purposes/.test(m)) {
-    return "Tunggu satu menit sebelum minta kode lagi.";
+    return during === "send" ? "Tunggu satu menit sebelum minta kode lagi." : "Terlalu banyak percobaan. Tunggu sebentar lalu coba lagi.";
   }
-  if (/signups?\s+(not allowed|disabled)/.test(m)) {
-    return "Pendaftaran sedang ditutup untuk email ini.";
+  if (/expired/.test(m)) {
+    return during === "link"
+      ? "Tautan masuknya sudah kedaluwarsa atau sudah dipakai. Minta kode baru di bawah."
+      : "Kodenya sudah kedaluwarsa. Minta kode baru.";
   }
-  if (/invalid|format/.test(m)) {
-    return "Alamat emailnya belum benar. Periksa lalu coba lagi.";
+  if (/signups?\s+(not allowed|disabled)/.test(m)) return "Pendaftaran sedang ditutup untuk email ini.";
+  if (during === "send" && /invalid|format|validate/.test(m)) return "Alamat emailnya belum benar. Periksa lalu coba lagi.";
+  if (during === "verify" && /invalid|token|otp/.test(m)) return "Kodenya tidak cocok. Periksa lalu coba lagi.";
+  if (during === "link") return "Tautan masuknya tidak bisa dipakai. Minta kode baru di bawah.";
+  return during === "send" ? "Kodenya belum terkirim. Coba lagi sebentar lagi." : "Belum berhasil masuk. Coba lagi.";
+}
+
+/**
+ * When a magic link (or Google) sends her back to /masuk with an error in the
+ * URL — an expired link, a link opened twice, a cancelled Google sign-in —
+ * say so in Bahasa. Null when the URL carries no error.
+ */
+export function authErrorFromUrl(href: string): string | null {
+  try {
+    const url = new URL(href);
+    const params = new URLSearchParams(url.hash.replace(/^#/, ""));
+    for (const [k, v] of url.searchParams) if (!params.has(k)) params.set(k, v);
+    const code = params.get("error_code") ?? "";
+    const err = params.get("error") ?? "";
+    const desc = params.get("error_description") ?? "";
+    if (!code && !err) return null;
+    if (err === "access_denied" && !code) return "Masuknya dibatalkan. Coba lagi kalau mau.";
+    return emailErrorText({ code, message: `${err} ${desc}` }, "link");
+  } catch {
+    return null;
   }
-  return "Kodenya belum terkirim. Coba lagi sebentar lagi.";
 }
 
 export async function confirmEmailCode(email: string, token: string): Promise<string | null> {
   const db = backend();
   if (!db) return "Racik belum tersambung ke server.";
-  const { error } = await db.auth.verifyOtp({ email: email.trim(), token: token.trim(), type: "email" });
-  if (!error) return null;
-  return /expired/i.test(error.message)
-    ? "Kodenya sudah kedaluwarsa. Minta kode baru."
-    : "Kodenya tidak cocok. Periksa lalu coba lagi.";
+  try {
+    const { error } = await db.auth.verifyOtp({ email: email.trim(), token: token.trim(), type: "email" });
+    if (!error) return null;
+    console.warn("[racik] confirmEmailCode failed:", error.status, error.message);
+    return emailErrorText(error, "verify");
+  } catch (e) {
+    return emailErrorText({ message: e instanceof Error ? e.message : String(e) }, "verify");
+  }
 }
 
 /** Phone sign-in matters more than email here; most people have WhatsApp, not inboxes. */
@@ -124,8 +192,123 @@ export async function saveProfile(
 /** @deprecated use saveProfile */
 export const saveName = (name: string) => saveProfile(name);
 
+/**
+ * Sign out of THIS device only. The default ("global") would also sign her
+ * out on every other phone she uses. Clearing the local library is the
+ * caller's job — screens should use useRacik().signOutAndClear(), not this.
+ */
 export async function signOut(): Promise<void> {
-  await backend()?.auth.signOut();
+  try {
+    await backend()?.auth.signOut({ scope: "local" });
+  } catch {
+    /* offline: the local session is cleared anyway */
+  }
+}
+
+/* ---------------------------------------------------------------- deletion & export */
+
+const BUCKET = "resep";
+
+async function listFolder(prefix: string, depth = 0): Promise<string[] | null> {
+  const db = backend();
+  if (!db) return null;
+  const out: string[] = [];
+  for (let offset = 0; offset < 10000; offset += 1000) {
+    const { data, error } = await db.storage.from(BUCKET).list(prefix, { limit: 1000, offset });
+    if (error) return null;
+    const items = data ?? [];
+    for (const item of items) {
+      const path = `${prefix}/${item.name}`;
+      // Folders come back with a null id.
+      if (item.id === null) {
+        if (depth < 3) {
+          const inner = await listFolder(path, depth + 1);
+          if (inner === null) return null;
+          out.push(...inner);
+        }
+      } else out.push(path);
+    }
+    if (items.length < 1000) break;
+  }
+  return out;
+}
+
+/**
+ * Delete her account and everything in it (Google Play + UU PDP).
+ *
+ * 1. Her photos in storage (`resep/<uid>/…`) — through the Storage API,
+ *    because Supabase blocks deleting storage rows from SQL.
+ * 2. `delete_my_account()` (migration 0006): her library, profile, recipes,
+ *    reports, blocks, and finally the auth user itself.
+ * 3. Sign out on this device.
+ *
+ * Returns an error to show, or null when the account is gone. Safe to run
+ * again after a partial failure.
+ */
+export async function deleteMyAccount(): Promise<string | null> {
+  const db = backend();
+  if (!db) return "Racik belum tersambung ke server.";
+  const { data } = await db.auth.getSession();
+  const uid = data.session?.user.id;
+  if (!uid) return "Masuk dulu ke akunmu untuk menghapusnya.";
+  if (typeof navigator !== "undefined" && navigator.onLine === false) return "Tidak ada internet. Sambungkan dulu, lalu coba lagi.";
+
+  try {
+    const paths = await listFolder(uid);
+    if (paths === null) return "Foto-fotomu belum bisa dihapus. Periksa internet lalu coba lagi.";
+    for (let i = 0; i < paths.length; i += 100) {
+      const { error } = await db.storage.from(BUCKET).remove(paths.slice(i, i + 100));
+      if (error) {
+        console.warn("[racik] deleting photos failed:", error.message);
+        return "Foto-fotomu belum bisa dihapus. Periksa internet lalu coba lagi.";
+      }
+    }
+    const { error } = await db.rpc("delete_my_account");
+    if (error) {
+      console.warn("[racik] delete_my_account failed:", error.code, error.message);
+      return "Akunmu belum terhapus. Periksa internet lalu coba lagi.";
+    }
+  } catch (e) {
+    console.warn("[racik] account deletion failed:", e);
+    return "Akunmu belum terhapus. Periksa internet lalu coba lagi.";
+  }
+  await signOut();
+  return null;
+}
+
+/** Everything the server holds about her, read with her own session (RLS). Null when signed out or unreachable. */
+export async function cloudDataForExport(): Promise<Record<string, unknown> | null> {
+  const db = backend();
+  if (!db) return null;
+  const { data } = await db.auth.getSession();
+  const user = data.session?.user;
+  if (!user) return null;
+  const read = async (q: PromiseLike<{ data: unknown; error: unknown }>) => {
+    try {
+      const res = await q;
+      return res.error ? null : res.data;
+    } catch {
+      return null;
+    }
+  };
+  const [profile, recipes, library] = await Promise.all([
+    read(db.from("profiles").select("*").eq("id", user.id).maybeSingle()),
+    read(db.from("recipes").select("*").eq("author_id", user.id)),
+    read(db.from("user_library").select("data, updated_at").eq("user_id", user.id).maybeSingle()),
+  ]);
+  let photos: string[] | null = null;
+  try {
+    photos = await listFolder(user.id);
+  } catch {
+    photos = null;
+  }
+  return {
+    account: { id: user.id, email: user.email ?? null, created_at: user.created_at ?? null },
+    profile,
+    recipes,
+    library,
+    photos: (photos ?? []).map((p) => db.storage.from(BUCKET).getPublicUrl(p).data.publicUrl),
+  };
 }
 
 /**

@@ -4,15 +4,16 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { RacikProvider } from "@/lib/racik/state";
+import { RacikProvider, useRacik } from "@/lib/racik/state";
 import { Button } from "@/components/ui/button";
-import { registerRacikPwa } from "@/lib/register-pwa";
+import { isUpdateWaiting, registerRacikPwa, reloadToUpdate, UPDATE_EVENT } from "@/lib/register-pwa";
 
 function NotFoundComponent() {
   return (
@@ -139,9 +140,49 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <RacikProvider>
+        <TextSize />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <UpdatePrompt />
       </RacikProvider>
     </QueryClientProvider>
+  );
+}
+
+/**
+ * Pengaturan › Ukuran tulisan. Every text size in styles.css is multiplied by
+ * --teks, which this class on <html> sets, so the whole app grows — not only
+ * the few elements that inherited a font-size from a wrapper.
+ */
+function TextSize() {
+  const { state } = useRacik();
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.remove("teks-besar", "teks-paling_besar");
+    if (state.teks !== "normal") root.classList.add(`teks-${state.teks}`);
+  }, [state.teks]);
+  return null;
+}
+
+/** "Versi baru tersedia" — never over cook mode, where a reload would jump the screen. */
+function UpdatePrompt() {
+  const [waiting, setWaiting] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const path = useRouterState({ select: (s) => s.location.pathname });
+  useEffect(() => {
+    setWaiting(isUpdateWaiting());
+    const on = () => setWaiting(true);
+    window.addEventListener(UPDATE_EVENT, on);
+    return () => window.removeEventListener(UPDATE_EVENT, on);
+  }, []);
+  if (!waiting || dismissed || path.endsWith("/masak")) return null;
+  return (
+    <div role="status" className="fixed inset-x-0 bottom-[calc(84px+env(safe-area-inset-bottom))] z-50 mx-auto w-[calc(100%-32px)] max-w-[398px] rounded-2xl bg-dark px-4 py-3 text-white shadow-[0_8px_28px_rgba(0,0,0,0.25)]">
+      <div className="flex items-center gap-3">
+        <p className="min-w-0 flex-1 text-14 font-semibold">Versi baru Racik tersedia.</p>
+        <button type="button" onClick={() => void reloadToUpdate()} className="min-h-11 shrink-0 rounded-xl bg-primary px-4 text-14 font-bold">Muat ulang</button>
+        <button type="button" onClick={() => setDismissed(true)} aria-label="Nanti saja" className="flex size-11 shrink-0 items-center justify-center text-white/70">✕</button>
+      </div>
+    </div>
   );
 }

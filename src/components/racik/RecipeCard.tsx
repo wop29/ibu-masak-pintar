@@ -7,7 +7,7 @@ import { RecipePhoto } from "./RecipePhoto";
 import { IncompleteBadge } from "./IncompleteBadge";
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
-  const photo = PHOTO[recipe.id];
+  const photo = recipe.photoUrl ?? PHOTO[recipe.id];
   const protein = proteinUncertain(recipe) ? null : fmtProtein(proteinPerPortion(recipe));
   return (
     <Link

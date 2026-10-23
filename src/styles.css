@@ -18,23 +18,33 @@
   --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
 
-  --text-micro: 11px;
-  --text-label: 12px;
-  --text-caption: 13px;
+  /* Every text size goes through --teks (reading text) or --teks-h
+     (headings, which grow by half as much so titles don't break the layout).
+     Pengaturan › Ukuran tulisan sets them on <html> — see .teks-* below. */
+  --text-micro: calc(11px * var(--teks, 1));
+  --text-label: calc(12px * var(--teks, 1));
+  --text-caption: calc(13px * var(--teks, 1));
   /* NOT --text-secondary. Tailwind builds `text-<name>` from both the size
      namespace and the colour namespace, and --color-secondary already owns
      that name — so `text-secondary` set the text to the pale secondary
      BACKGROUND colour and never applied 14px at all. Every small button and
      every recipe meta line was pale-on-pale because of it. */
-  --text-14: 14px;
-  --text-15: 15px;
-  --text-body: 16px;
-  --text-read: 18px;
-  --text-head: 20px;
-  --text-title: 24px;
-  --text-28: 28px;
-  --text-34: 34px;
-  --text-display: 36px;
+  --text-14: calc(14px * var(--teks, 1));
+  --text-15: calc(15px * var(--teks, 1));
+  --text-17: calc(17px * var(--teks, 1));
+  --text-body: calc(16px * var(--teks, 1));
+  --text-read: calc(18px * var(--teks, 1));
+  --text-head: calc(20px * var(--teks-h, 1));
+  --text-title: calc(24px * var(--teks-h, 1));
+  --text-28: calc(28px * var(--teks-h, 1));
+  --text-34: calc(34px * var(--teks-h, 1));
+  --text-display: calc(36px * var(--teks-h, 1));
+  /* Tailwind's own sizes, used by the shared ui/ components. */
+  --text-xs: calc(0.75rem * var(--teks, 1));
+  --text-sm: calc(0.875rem * var(--teks, 1));
+  --text-base: calc(1rem * var(--teks, 1));
+  --text-lg: calc(1.125rem * var(--teks, 1));
+  --text-xl: calc(1.25rem * var(--teks-h, 1));
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -65,21 +75,27 @@
   --color-tint: var(--tint);
   --color-dark: var(--dark);
   --color-notice: var(--notice);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-line: var(--primary-line);
+  --color-glow: var(--glow);
 }
 
 :root {
   --radius: 12px;
-  --ground: oklch(0.985 0.003 106);
-  --tint: oklch(0.962 0.004 106);
-  --rule: oklch(0.925 0.004 106);
-  --ink: oklch(0.178 0 0);
-  --ink-2: oklch(0.35 0 0);
+  --ground: #fafaf8;
+  --tint: #f4f4f1;
+  --rule: #e7e5e1;
+  --ink: #1a1a1a;
+  --ink-2: #5a5a5a;
   /* Secondary text. Measured against --ground and against white: 4.80:1 and
      5.01:1. The old value was 2.65:1, which is not readable at arm's length. */
-  --ink-3: oklch(0.542 0.018 255);
-  --primary-deep: oklch(0.31 0.1 150);
+  --ink-3: #6b7280;
+  --primary-deep: #1c5633;
+  --primary-soft: #eef6ee;
+  --primary-line: #dce9dc;
+  --glow: rgba(46, 125, 50, 0.24);
   --dark: oklch(0.14 0.012 150);
-  --notice: oklch(0.965 0.05 95);
+  --notice: #fbf4d9;
 
   --background: var(--ground);
   --foreground: var(--ink);
@@ -87,7 +103,7 @@
   --card-foreground: var(--ink);
   --popover: var(--ground);
   --popover-foreground: var(--ink);
-  --primary: oklch(0.44 0.135 150);
+  --primary: #2e7d32;
   --primary-foreground: oklch(1 0 0);
   --secondary: var(--tint);
   --secondary-foreground: var(--ink);
@@ -95,11 +111,21 @@
   --muted-foreground: var(--ink-3);
   --accent: var(--tint);
   --accent-foreground: var(--ink);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: #d64545;
   --destructive-foreground: oklch(1 0 0);
   --border: var(--rule);
   --input: var(--rule);
   --ring: var(--primary);
+}
+
+/* Pengaturan › Ukuran tulisan. The class is set on <html> from saved state. */
+html.teks-besar {
+  --teks: 1.125;
+  --teks-h: 1.0625;
+}
+html.teks-paling_besar {
+  --teks: 1.25;
+  --teks-h: 1.125;
 }
 
 @layer base {
@@ -116,7 +142,7 @@
     background-color: var(--color-ground);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: 16px;
+    font-size: calc(16px * var(--teks, 1));
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     overscroll-behavior-y: none;
@@ -134,9 +160,9 @@
 
 /* Uppercase letterspaced section head. */
 @utility eyebrow {
-  font-size: var(--text-label);
+  font-size: var(--text-micro);
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-primary);
 }
@@ -167,5 +193,96 @@
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* ── Redesign (Figma Make export gallery, Oct 2026) ───────────────────── */
+
+@utility shadow-glow {
+  box-shadow: 0 8px 28px var(--glow);
+}
+
+@utility shadow-card {
+  box-shadow: 0 5px 18px rgba(18, 23, 18, 0.035);
+}
+
+@utility section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.photo-tile img { transition: transform 180ms ease; }
+.photo-tile:active img { transform: scale(1.04); }
+
+/* Slow camera movement gives onboarding photography the feel of a short
+   video loop without downloading video. */
+.onboarding-cinematic {
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  animation-duration: 14s;
+  animation-timing-function: cubic-bezier(0.2, 0.62, 0.3, 1);
+  animation-fill-mode: both;
+}
+.onboarding-cinematic-1 { transform-origin: 58% 42%; animation-name: cinematicPushRight; }
+.onboarding-cinematic-2 { transform-origin: 42% 48%; animation-name: cinematicDriftLeft; }
+.onboarding-cinematic-3 { transform-origin: 55% 45%; animation-name: cinematicRise; }
+.onboarding-cinematic-4 { transform-origin: 48% 38%; animation-name: cinematicPullBack; }
+
+.onboarding-light-drift {
+  z-index: 1;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 15% 24%, rgba(255, 255, 255, 0.12), transparent 34%),
+    linear-gradient(112deg, transparent 25%, rgba(255, 255, 255, 0.07) 48%, transparent 68%);
+  background-size: 140% 140%, 220% 100%;
+  mix-blend-mode: soft-light;
+  animation: lightDrift 10s ease-in-out both;
+}
+
+@keyframes cinematicPushRight {
+  0% { transform: scale(1.08) translate3d(-1.5%, 0, 0); filter: saturate(0.94) brightness(0.94); }
+  100% { transform: scale(1.18) translate3d(2.5%, -1%, 0); filter: saturate(1.05) brightness(1); }
+}
+@keyframes cinematicDriftLeft {
+  0% { transform: scale(1.16) translate3d(2.5%, -1%, 0); filter: saturate(0.94) brightness(0.95); }
+  100% { transform: scale(1.08) translate3d(-2.5%, 1%, 0); filter: saturate(1.04) brightness(1); }
+}
+@keyframes cinematicRise {
+  0% { transform: scale(1.1) translate3d(0, 2.5%, 0); filter: saturate(0.95) brightness(0.94); }
+  100% { transform: scale(1.2) translate3d(1%, -2.5%, 0); filter: saturate(1.06) brightness(1); }
+}
+@keyframes cinematicPullBack {
+  0% { transform: scale(1.2) translate3d(-1%, -2%, 0); filter: saturate(1.04) brightness(0.96); }
+  100% { transform: scale(1.08) translate3d(1.5%, 1%, 0); filter: saturate(0.98) brightness(1); }
+}
+@keyframes lightDrift {
+  0% { opacity: 0; background-position: 0% 20%, 120% 0; }
+  18% { opacity: 0.65; }
+  75% { opacity: 0.35; }
+  100% { opacity: 0; background-position: 80% 55%, -80% 0; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up { animation: slideUp 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-slide-up-2 { animation: slideUp 420ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both; }
+.animate-slide-up-3 { animation: slideUp 420ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both; }
+
+@keyframes sheetUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-sheet-up { animation: sheetUp 240ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

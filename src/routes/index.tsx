@@ -1,16 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Minus, Plus, RotateCcw, Search } from "lucide-react";
 import { AppTabs } from "@/components/racik/AppTabs";
 import { CompactRecipe } from "@/components/racik/CompactRecipe";
+import { ImportButton } from "@/components/racik/ImportDemo";
 import { Onboarding } from "@/components/racik/Onboarding";
-import { PortionStepper } from "@/components/racik/PortionStepper";
-import { SearchField } from "@/components/racik/SearchField";
-import { ART, PHOTO } from "@/components/racik/photos";
-import { Button } from "@/components/ui/button";
-import { RECIPES } from "@/lib/racik/data";
-import { buildIndex, search } from "@/lib/racik/engine";
-import { currentSlot, matchesFilter, suggest } from "@/lib/racik/recommend";
+import { NUSANTARA } from "@/lib/racik/data";
+import { currentSlot, matchesFilter, preferProteins, suggest } from "@/lib/racik/recommend";
 import { useRacik } from "@/lib/racik/state";
 import { translate, useLang, useT, type Lang } from "@/lib/racik/i18n";
 
@@ -37,16 +33,51 @@ export const Route = createFileRoute("/")({
 });
 
 const CATS = [
-  { id: "makan_siang", label: "Siang", photo: PHOTO["gado_gado"] },
-  { id: "makan_malam", label: "Malam", photo: PHOTO["rendang"] },
-  { id: "sarapan", label: "Sarapan", photo: PHOTO["nasi_goreng_kampung"] },
-  { id: "sayur", label: "Sayur", photo: PHOTO["sayur_asem"] },
-  { id: "lauk", label: "Lauk", photo: ART.ayamLengkuas },
-  { id: "sambal", label: "Sambal", photo: PHOTO["sambal_terasi"] },
-  { id: "jajan", label: "Jajan", photo: ART.bolu },
+  { id: "makan_siang", label: "Siang", emoji: "☀️" },
+  { id: "makan_malam", label: "Malam", emoji: "🌙" },
+  { id: "sarapan", label: "Sarapan", emoji: "🌅" },
+  { id: "sayur", label: "Sayur", emoji: "🥬" },
+  { id: "lauk", label: "Lauk", emoji: "🍖" },
+  { id: "sambal", label: "Sambal", emoji: "🌶️" },
+  { id: "jajan", label: "Jajan", emoji: "🧁" },
 ] as const;
 
-const FILTERS = [{ id: "cepat", key: "filter_quick" }, { id: "gampang", key: "filter_easy" }, { id: "protein", key: "filter_protein" }, { id: "banyak", key: "filter_batch" }] as const;
+const FILTERS = [
+  { id: "cepat", key: "filter_quick" },
+  { id: "gampang", key: "filter_easy" },
+  { id: "protein", key: "filter_protein" },
+  { id: "anak", key: "filter_kids" },
+  { id: "banyak", key: "filter_batch" },
+] as const;
+
+/** Onboarding priority → the home filter it opens on. */
+const PRIORITY_FILTER: Record<string, string> = {
+  kurang_30_menit: "cepat",
+  gampang: "gampang",
+  protein_tinggi: "protein",
+  anak_suka: "anak",
+  sekali_masak_banyak: "banyak",
+  // older single-choice answers
+  cepat: "cepat",
+  sehat: "protein",
+  hemat: "gampang",
+};
+
+const MAX_PORTIONS = 20;
+
+function Splash() {
+  return (
+    <main aria-busy="true" className="mx-auto flex min-h-dvh w-full max-w-[430px] items-center justify-center bg-ground">
+      <span className="flex size-14 items-center justify-center rounded-2xl bg-primary shadow-glow">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <path d="M12 2C6.5 2 3 6.5 3 12c0 3.5 1.8 6.6 4.5 8.4L12 22l4.5-1.6C19.2 18.6 21 15.5 21 12c0-5.5-3.5-10-9-10z" fill="white" opacity="0.9" />
+          <path d="M12 6v16" stroke="#2e7d32" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+        </svg>
+      </span>
+      <span className="sr-only">Memuat Racik…</span>
+    </main>
+  );
+}
 
 function greeting(hour: number, lang: Lang) {
   const say = (a: Parameters<typeof translate>[1], b: Parameters<typeof translate>[1]) =>
@@ -59,51 +90,113 @@ function greeting(hour: number, lang: Lang) {
 
 function MasakApa() {
   const { state, ready, update } = useRacik();
-  const [query, setQuery] = useState("");
   const [cat, setCat] = useState<string>("");
-  const [filter, setFilter] = useState("");
+  const [filters, setFilters] = useState<string[]>([]);
+  // Land the feed on what she said matters most, once; after that it is hers to change.
+  const priorityApplied = useRef(false);
+  useEffect(() => {
+    if (!ready || !state.intro || priorityApplied.current) return;
+    priorityApplied.current = true;
+    const first = state.priorities[0] ?? state.priority;
+    const f = first ? PRIORITY_FILTER[first] : undefined;
+    if (f) setFilters([f]);
+  }, [ready, state.intro, state.priorities, state.priority]);
   const [hour, setHour] = useState(12);
-  const index = useMemo(() => buildIndex(RECIPES), []);
   useEffect(() => setHour(new Date().getHours()), []);
   const t = useT();
   const lang = useLang();
   const words = greeting(hour, lang);
+  void currentSlot;
 
   const list = useMemo(() => {
-    const base = query.trim() ? search(index, query) : suggest(RECIPES, state, hour);
+    const base = preferProteins(suggest(NUSANTARA, state, hour), state.proteins);
     const byCat = cat ? base.filter((r) => r.slots.includes(cat as never)) : base;
     const withoutCompanion = cat ? byCat : byCat.filter((r) => !r.slots.includes("pendamping") && !r.precise);
-    return withoutCompanion.filter((r) => matchesFilter(r, filter)).slice(0, 6);
-  }, [query, cat, filter, index, state, hour]);
+    return withoutCompanion.filter((r) => filters.every((f) => matchesFilter(r, f))).slice(0, 6);
+  }, [cat, filters, state, hour]);
 
-  if (ready && !state.intro) return <Onboarding />;
+  // Until the saved state is read, nobody knows whether she is new: show a
+  // neutral splash, not the home screen (which then flashed away into
+  // onboarding on a first visit) and not onboarding (which would flash for
+  // everyone else). The server and the offline shell render this too.
+  if (!ready) return <Splash />;
+  if (!state.intro) return <Onboarding />;
+
+  const toggle = (id: string) => setFilters((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
+  // Same 1–20 range as Pengaturan and the recipe page; "+" never lowers the number.
+  const setHousehold = (v: number) => update({ household: Math.min(MAX_PORTIONS, Math.max(1, v)) });
 
   return (
-    <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card pb-24">
-      <header className="px-5 pb-5 pt-[calc(2.5rem+env(safe-area-inset-top))]">
-        <p className="eyebrow">{words[0]}</p>
-        <h1 className="mt-1 text-display font-extrabold leading-[1.08]">{words[1]}</h1>
-        <div className="mt-2 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><p className="min-w-0 text-body text-muted-foreground">{t("for_people", { n: state.household })}</p><div className="shrink-0"><PortionStepper value={state.household} onChange={(v) => update({ household: v })} /></div></div>
-        <div className="mt-5"><SearchField value={query} onChange={setQuery} placeholder={t("search_placeholder")} /></div>
+    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
+      <header className="border-b border-[#f0f0ed] bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
+        <p className="eyebrow mb-0.5">{words[0]}</p>
+        <h1 className="mb-1 text-[clamp(26px,7vw,32px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#111]">{words[1]}</h1>
+        <div className="mt-3 mb-[18px] flex items-center justify-between">
+          <div>
+            <p className="text-label text-ink-3">Masak untuk</p>
+            <p className="mt-0.5 text-14 font-bold">{t("for_people", { n: state.household })}</p>
+          </div>
+          <div className="flex items-center rounded-xl border border-rule bg-ground p-[3px]">
+            <button type="button" onClick={() => setHousehold(state.household - 1)} aria-label="Kurangi porsi" className="flex size-11 items-center justify-center rounded-lg bg-card text-primary disabled:text-ink-3" disabled={state.household <= 1}><Minus className="size-5" /></button>
+            <span className="w-[42px] text-center text-15 font-extrabold tabular-nums">{state.household}</span>
+            <button type="button" onClick={() => setHousehold(state.household + 1)} aria-label="Tambah porsi" className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:opacity-40" disabled={state.household >= MAX_PORTIONS}><Plus className="size-5" /></button>
+          </div>
+        </div>
+        <p className="-mt-2.5 mb-4 text-label text-ink-3">Takaran resep akan disesuaikan dengan jumlah ini.</p>
+        <Link to="/cari" className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-[#e8e8e4] bg-tint px-3.5 py-3">
+          <Search aria-hidden className="size-4 text-[#9ca3af]" />
+          <span className="text-15 text-[#adadad]">{t("search_placeholder")}</span>
+        </Link>
+        <div className="mt-3"><ImportButton /></div>
       </header>
-      <div className="hairline-t hairline-b no-scrollbar flex gap-3 overflow-x-auto px-5 py-5">
-        {CATS.map((c) => (
-          <Button variant="outline" key={c.id} onClick={() => setCat(cat === c.id ? "" : c.id)} className={`relative h-24 w-24 shrink-0 overflow-hidden rounded-2xl border-2 p-0 ${cat === c.id ? "border-primary" : "border-transparent"}`}>
-            <img src={c.photo} alt="" loading="lazy" width={1024} height={704} className="absolute inset-0 h-full w-full object-cover" />
-            <span className="absolute inset-0 bg-dark/30" />
-            {/* The label sits on a photograph we do not control. The gradient
-                is what makes "Sayur" readable over a pale soup. */}
-            <span className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-dark/90 to-transparent" />
-            <span className="relative mt-auto w-full px-2 pb-2 text-left text-14 font-bold text-primary-foreground">{c.label}</span>
-          </Button>
-        ))}
+
+      <div className="pt-5 pb-1">
+        <p className="mb-2.5 px-5 text-micro font-bold tracking-[0.1em] text-ink-2">WAKTU MAKAN</p>
+        <div className="no-scrollbar flex gap-3 overflow-x-auto px-5">
+          {CATS.map((c) => {
+            const active = cat === c.id;
+            return (
+              <button key={c.id} type="button" onClick={() => setCat(active ? "" : c.id)} className={`flex size-[72px] shrink-0 flex-col items-center justify-center rounded-2xl transition-colors ${active ? "bg-primary" : "border border-[#e8e8e4] bg-card"}`}>
+                <span aria-hidden className="mb-1 text-[22px] leading-none">{c.emoji}</span>
+                <span className={`text-micro font-semibold ${active ? "text-primary-foreground" : "text-[#555]"}`}>{c.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
-      <div className="no-scrollbar flex gap-2 overflow-x-auto px-5 py-4">{FILTERS.map((f) => <Button key={f.id} variant="outline" size="sm" onClick={() => setFilter(filter === f.id ? "" : f.id)} className={filter === f.id ? "border-2 border-primary bg-secondary font-bold text-primary" : "border-rule text-ink"}>{t(f.key)}</Button>)}</div>
-      <section className="px-5 pt-3">
-        <div className="flex items-center justify-between"><h2 className="eyebrow-ink">{t("suggestions")}</h2><Button variant="ghost" size="sm" className="px-2 text-primary" onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })}><RotateCcw /> {t("shuffle")}</Button></div>
-      {list.length === 0 ? (
-        <div className="py-12 text-center"><p className="text-body text-muted-foreground">{t("no_match")}</p><Button variant="outline" className="mt-4" onClick={() => { setFilter(""); setCat(""); setQuery(""); }}>{t("clear_filters")}</Button></div>
-      ) : <div>{list.map((r) => <CompactRecipe key={r.id} recipe={r} />)}</div>}
+
+      <div className="py-3">
+        <div className="mb-2.5 flex items-center justify-between px-5">
+          <p className="text-micro font-bold tracking-[0.1em] text-ink-2">SESUAIKAN SARAN</p>
+          {filters.length ? <button type="button" onClick={() => setFilters([])} className="-my-3 min-h-11 px-1 text-label font-bold text-primary">Hapus semua</button> : null}
+        </div>
+        <div className="no-scrollbar flex gap-2 overflow-x-auto px-5">
+          {FILTERS.map((f) => {
+            const active = filters.includes(f.id);
+            return (
+              <button key={f.id} type="button" onClick={() => toggle(f.id)} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold tracking-[0.02em] transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-[#e0e0db] bg-card text-[#555]"}`}>
+                {t(f.key)}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <section className="flex-1 px-5">
+        <div className="flex items-center justify-between py-3">
+          <h2 className="section-label text-[#111]">{t("suggestions")}</h2>
+          <button type="button" onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })} className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-micro font-bold tracking-[0.06em] text-primary">
+            <RotateCcw className="size-3" strokeWidth={2.5} /> {t("shuffle")}
+          </button>
+        </div>
+        {list.length === 0 ? (
+          <div className="flex flex-col items-center gap-3 py-12">
+            <p className="text-center text-15 text-[#9ca3af]">{t("no_match")}</p>
+            <button type="button" onClick={() => { setFilters([]); setCat(""); }} className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">{t("clear_filters")}</button>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-3 pb-5">{list.map((r) => <CompactRecipe key={r.id} recipe={r} boxed />)}</div>
+        )}
       </section>
       <AppTabs />
     </main>

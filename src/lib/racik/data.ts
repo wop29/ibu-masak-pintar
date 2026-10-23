@@ -6,6 +6,10 @@ import type { Ingredient, Recipe, Region } from "./types";
 
 export const INGREDIENTS = ingredientsRaw as Ingredient[];
 export const RECIPES = recipesRaw as unknown as Recipe[];
+/** Region id of the public-domain Western recipes. They live on their own shelf and in search, not on the Nusantara shelves or the home suggestions. */
+export const BARAT = "barat";
+export const NUSANTARA = RECIPES.filter((r) => r.region !== BARAT);
+export const WESTERN = RECIPES.filter((r) => r.region === BARAT);
 export const REGIONS = regionsRaw as Region[];
 
 export const ING: Record<string, Ingredient> = Object.fromEntries(
@@ -18,6 +22,10 @@ const tables = tablesRaw as unknown as {
   TAKAR: Record<string, [number, string]>;
   BERAT: Record<string, number>;
   PROT100: Record<string, number>;
+  CARB100: Record<string, number>;
+  FIBER100: Record<string, number>;
+  EDIBLE: Record<string, number>;
+  CANNED100: Record<string, { P: number; C: number; F: number }>;
   SUBS: Record<string, string>;
   SUBS_LN: Record<string, string>;
   ALAT: Record<string, string>;
@@ -27,6 +35,12 @@ const tables = tablesRaw as unknown as {
 export const TAKAR = tables.TAKAR;
 export const BERAT = tables.BERAT;
 export const PROT100 = tables.PROT100;
+export const CARB100 = tables.CARB100;
+export const FIBER100 = tables.FIBER100;
+/** Share of the bought weight that is eaten (bone, shell, head and skin removed). Missing = 1. */
+export const EDIBLE = tables.EDIBLE;
+/** Per-100 g values for legumes bought canned or cooked, not dry. */
+export const CANNED100 = tables.CANNED100;
 export const SUBS = tables.SUBS;
 export const SUBS_LN = tables.SUBS_LN;
 export const ALAT = tables.ALAT;

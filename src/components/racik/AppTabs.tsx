@@ -1,53 +1,37 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BookHeart, House, PenLine, Search } from "lucide-react";
+import { BookOpen, CalendarDays, House, Search } from "lucide-react";
 import { useT } from "@/lib/racik/i18n";
 
+type TabPath = "/" | "/cari" | "/rencana" | "/buku";
+
+/**
+ * Four places, equal size (decided 22 Oct 2026): Masak, Cari, Rencana, Koleksi.
+ * Adding a recipe is an action, not a place, so it lives as a button on Masak,
+ * Cari and Koleksi, and as the Android share target (/ambil).
+ */
 export function AppTabs() {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const t = useT();
-  const tabs = [
-    { to: "/", label: t("tab_home"), icon: House },
-    { to: "/cari", label: t("tab_search"), icon: Search },
-    // Writing sits in the bar rather than buried in a menu, and is drawn as
-    // an action rather than a destination: it is the one thing here that
-    // makes something instead of finding something.
-    { to: "/tulis", label: t("tab_write"), icon: PenLine, action: true },
-    { to: "/buku", label: t("tab_book"), icon: BookHeart },
-  ] as const;
+  const item = "flex min-h-[68px] min-w-0 flex-1 flex-col items-center justify-center gap-1 text-micro tracking-[0.02em]";
+  const tab = (to: TabPath, label: string, Icon: typeof House) => {
+    const active = to === "/" ? path === "/" : path.startsWith(to);
+    return (
+      <Link key={to} to={to} aria-current={active ? "page" : undefined} className={`${item} ${active ? "font-bold text-primary" : "font-medium text-ink-3"}`}>
+        <Icon aria-hidden className="size-[22px]" strokeWidth={active ? 2 : 1.5} />
+        <span className="w-full px-0.5 text-center leading-tight">{label}</span>
+      </Link>
+    );
+  };
 
   return (
     <nav
       aria-label="Menu utama"
-      className="fixed inset-x-0 bottom-0 z-40 mx-auto flex h-[calc(76px+env(safe-area-inset-bottom))] w-full max-w-[430px] border-t border-border bg-card px-2 pb-[env(safe-area-inset-bottom)]"
+      className="fixed inset-x-0 bottom-0 z-40 mx-auto flex w-full max-w-[430px] border-t border-rule bg-card pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_28px_rgba(18,23,18,0.05)]"
     >
-      {tabs.map((tab) => {
-        const { to, label, icon: Icon } = tab;
-        const active = to === "/" ? path === "/" : path.startsWith(to);
-        const action = "action" in tab && tab.action;
-        return (
-          <Link
-            key={to}
-            to={to}
-            className={`flex min-w-0 flex-1 flex-col items-center justify-center gap-1 text-label font-semibold ${
-              active ? "text-primary" : action ? "text-ink" : "text-muted-foreground"
-            }`}
-          >
-            {action ? (
-              <span
-                aria-hidden
-                className={`flex h-9 w-9 items-center justify-center rounded-full ${
-                  active ? "bg-primary text-primary-foreground" : "bg-secondary text-primary"
-                }`}
-              >
-                <Icon strokeWidth={2.2} />
-              </span>
-            ) : (
-              <Icon aria-hidden strokeWidth={active ? 2.4 : 1.7} />
-            )}
-            <span className="w-full px-0.5 text-center leading-tight">{label}</span>
-          </Link>
-        );
-      })}
+      {tab("/", t("tab_home"), House)}
+      {tab("/cari", t("tab_search"), Search)}
+      {tab("/rencana", t("tab_plan"), CalendarDays)}
+      {tab("/buku", t("tab_book"), BookOpen)}
     </nav>
   );
 }

@@ -1,8 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { BERAT, INGREDIENTS, PROT100, RECIPES, byId } from "../data";
+import { BERAT, INGREDIENTS, NUSANTARA, PROT100, RECIPES, WESTERN, byId } from "../data";
+import { suggest } from "../recommend";
+import { defaultState } from "../store";
 import type { IngLine, Recipe } from "../types";
 import { analyseHalal } from "./halal";
-import { fmtQty, roundQty, takaran } from "./format";
+import { fmtQty, qtyDisplay, roundQty, splitFor, takaran } from "./format";
 import { fmtProtein, proteinPerPortion } from "./protein";
 import { buildIndex, normalise, search } from "./search";
 import { isSeasoning, scaleFactor, scaledQty, undividable } from "./scale";
@@ -27,15 +29,17 @@ const qty = (id: string, ingId: string, servings: number) => {
 };
 
 describe("catalogue", () => {
-  it("ships exactly the delivered dataset, with nothing left over", () => {
-    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(199);
-    // 167 delivered ingredients, plus five kept only so pasted captions can map
-    // onto a real id instead of landing in the unmatched panel.
-    const importOnly = ["ikan_cakalang", "jeruk_nipis", "kaldu_bubuk", "soda_kue", "tepung_tapioka", "bebek"];
-    expect(INGREDIENTS).toHaveLength(167 + importOnly.length);
+  it("every recipe ingredient resolves, and import-only entries are present", () => {
+    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(299);
+    expect(NUSANTARA).toHaveLength(199);
+    expect(WESTERN).toHaveLength(100);
+    // The dictionary deliberately carries many ingredients used only for import
+    // matching (not in any shipped recipe); it grows as coverage improves.
+    const known = new Set(INGREDIENTS.map((i) => i.id));
     const used = new Set(RECIPES.flatMap((r) => r.ings.map((l) => l[0])));
-    for (const id of importOnly) {
-      expect(INGREDIENTS.some((i) => i.id === id)).toBe(true);
+    for (const id of used) expect(known.has(id)).toBe(true);
+    for (const id of ["ikan_cakalang", "gochujang", "daging_babi"]) {
+      expect(known.has(id)).toBe(true);
       expect(used.has(id)).toBe(false);
     }
   });
@@ -135,8 +139,8 @@ describe("rendang, the worked example", () => {
     expect(qty("rendang", "cabai_merah", 12)).toBe(34);
   });
 
-  it("gives about 8 chillies at 1 portion, not 15", () => {
-    expect(qty("rendang", "cabai_merah", 1)).toBe(8);
+  it("gives about 7 chillies at 1 portion, not 15", () => {
+    expect(qty("rendang", "cabai_merah", 1)).toBe(7);
   });
 
   it("scales the beef linearly", () => {
@@ -151,25 +155,31 @@ describe("rendang, the worked example", () => {
 });
 
 describe("roundQty", () => {
-  it("rounds grams", () => {
-    expect(roundQty(212, "gram")).toBe(200);
+  it("rounds grams to what a scale shows, finer when small", () => {
+    expect(roundQty(212, "gram")).toBe(210);
     expect(roundQty(37, "gram")).toBe(35);
-    expect(roundQty(1, "gram")).toBe(5);
+    expect(roundQty(1, "gram")).toBe(1);
+    expect(roundQty(3.4, "gram")).toBe(3);
+    expect(roundQty(1530, "gram")).toBe(1550);
   });
 
   it("rounds millilitres", () => {
-    expect(roundQty(740, "ml")).toBe(700);
-    expect(roundQty(233, "ml")).toBe(250);
-    expect(roundQty(4, "ml")).toBe(10);
+    expect(roundQty(740, "ml")).toBe(750);
+    expect(roundQty(233, "ml")).toBe(230);
+    expect(roundQty(4, "ml")).toBe(5);
   });
 
-  it("never produces a fractional countable", () => {
+  it("only splits countables where a kitchen can (¼ at most), whole pieces stay whole", () => {
     for (const r of RECIPES) {
       for (const l of r.ings) {
         for (const servings of [1, 2, 3, 4, 5, 6, 8, 12]) {
           const v = scaledQty(l, r, servings);
-          if (v != null && isCountable(unitOf(l))) {
-            expect(Number.isInteger(v)).toBe(true);
+          if (v == null || servings === r.serv || !isCountable(unitOf(l))) continue;
+          expect(Number.isInteger(v * 4), `${r.id} ${l[0]} ${v}`).toBe(true);
+          expect(v).toBeGreaterThanOrEqual(0.25);
+          const split = splitFor(unitOf(l), l[0], isSeasoning(l[0]));
+          if (split === "whole" || split === "ceil") {
+            expect(Number.isInteger(v), `${r.id} ${l[0]} ${v}`).toBe(true);
             expect(v).toBeGreaterThanOrEqual(1);
           }
         }
@@ -177,9 +187,10 @@ describe("roundQty", () => {
     }
   });
 
-  it("sends spoons to halves", () => {
-    expect(roundQty(2.3, "sdt")).toBe(2.5);
-    expect(roundQty(0.1, "sdt")).toBe(0.5);
+  it("sends spoons to quarters", () => {
+    expect(roundQty(2.3, "sdt")).toBe(2.25);
+    expect(roundQty(0.1, "sdt")).toBe(0.25);
+    expect(roundQty(0.7, "sdt")).toBe(0.75);
   });
 
   it("rounds 3.92 tablespoons to 4", () => {
@@ -225,7 +236,7 @@ describe("takaran", () => {
     expect(takaran("santan", 150, "ml")).toBe("± ¾ gelas belimbing");
   });
 
-  it("stays silent for countables and for gram-only mode", () => {
+  it("stays silent for countables, and for gram/ml lines in gram mode", () => {
     expect(takaran("telur", 4, "butir")).toBeNull();
     expect(takaran("santan", 800, "ml", "gram")).toBeNull();
   });
@@ -266,8 +277,10 @@ describe("protein", () => {
 });
 
 describe("halal", () => {
-  it("flags recipes with brand-dependent ingredients", () => {
-    expect(analyseHalal(recipe("semur_daging")).label).toBe("perlu dicek");
+  it("flags only the narrow risk list, not every bottled sauce", () => {
+    // kecap manis alone no longer triggers it (founder decision, 19 Oct)
+    expect(analyseHalal(recipe("semur_daging")).label).toBe("bahan halal");
+    expect(analyseHalal(recipe("capcay")).label).toBe("perlu dicek"); // bakso jadi
     expect(analyseHalal(recipe("gado_gado")).label).toBe("bahan halal");
   });
 });
@@ -314,7 +327,7 @@ describe("search", () => {
   });
 
   it("returns nothing when a token matches nothing", () => {
-    expect(titles("pizza")).toEqual([]);
+    expect(titles("sushi")).toEqual([]);
   });
 });
 
@@ -339,5 +352,238 @@ describe("stepIngredients", () => {
   it("leaves some steps empty", () => {
     const empty = RECIPES.flatMap((r) => stepIngredients(r)).filter((s) => s.length === 0);
     expect(empty.length).toBeGreaterThan(5);
+  });
+});
+
+describe("western recipes", () => {
+  it("are findable by search", () => {
+    expect(search(buildIndex(RECIPES), "pizza").length).toBeGreaterThan(0);
+  });
+
+  it("never appear in the home suggestions", () => {
+    const ids = suggest(NUSANTARA, defaultState, 12).map((r) => r.id);
+    expect(ids.some((id) => id.startsWith("w_"))).toBe(false);
+  });
+
+  it("credit their public-domain source in the note", () => {
+    for (const r of WESTERN) expect(r.note).toMatch(/Diadaptasi dari/);
+  });
+
+  it("weigh a spoon of herbs as a spoon, not a bunch", () => {
+    expect(gramsOfLine(["daun_ketumbar", 2, null, null, null, "sdm"])).toBe(30);
+  });
+});
+
+
+import { CHECK_IDS, HALAL_FOOTNOTE, HALAL_ROWS, passesHalalMode } from "./halal";
+
+describe("search: sensitive words and word boundaries (Agent E)", () => {
+  const index = buildIndex(RECIPES);
+  it("'babi' does not match Bali dishes or babat", () => {
+    const ids = search(index, "babi").map((r) => r.id);
+    expect(ids).not.toContain("soto_babat_bali");
+    expect(ids).not.toContain("ayam_betutu");
+    expect(ids).not.toContain("sate_lilit");
+    expect(ids).toEqual([]);
+  });
+  it("still forgives a typo in a title and finds squashed titles", () => {
+    expect(search(index, "rendag").map((r) => r.id)).toContain("rendang");
+    expect(search(index, "nasigoreng").length).toBeGreaterThan(0);
+  });
+});
+
+describe("halal: narrow list and meat note (Agent E)", () => {
+  it("kecap manis alone is not 'perlu dicek'", () => {
+    const r = RECIPES.find((x) => x.ings.some((l) => l[0] === "kecap_manis") && !x.ings.some((l) => CHECK_IDS.has(l[0])));
+    expect(r).toBeDefined();
+    expect(analyseHalal(r!).status).toBe("halal");
+  });
+  it("meat is a note, not a flag, and halal mode keeps it", () => {
+    const r = recipe("opor_ayam");
+    const a = analyseHalal(r);
+    expect(a.meatIds.length).toBeGreaterThan(0);
+    expect(passesHalalMode(r, true)).toBe(true);
+    expect(passesHalalMode(recipe("capcay"), true)).toBe(false);
+  });
+  it("the sheet never says 'halal' and 'check the brand' at once for a clean recipe", () => {
+    const rows = HALAL_ROWS("halal", [], [], []);
+    expect(rows.join(" ")).not.toMatch(/tergantung merek/);
+    expect(HALAL_FOOTNOTE).toMatch(/bukan lembaga sertifikasi/);
+  });
+});
+
+/* ---- Agent A: quantities, gram mode, weights ---- */
+import { CANNED100, EDIBLE, REG } from "../data";
+import { carbPerPortion, fiberPerPortion } from "./protein";
+
+describe("default portions show the recipe as written (Agent A)", () => {
+  it("never changes an authored amount at the recipe's own portion count", () => {
+    for (const r of RECIPES) {
+      for (const l of r.ings) expect(scaledQty(l, r, r.serv), `${r.id} ${l[0]}`).toBe(l[1]);
+    }
+  });
+
+  it("keeps ¼ sdt, ½ bawang bombay and 1 g susu bubuk as written", () => {
+    expect(fmtQty(qty("w_chickpea_shakshuka", "kayu_manis_bubuk", recipe("w_chickpea_shakshuka").serv) ?? 0)).toBe("¼");
+    const burrito = recipe("w_breakfast_burritos");
+    expect(scaledQty(line(burrito, "bawang_bombay"), burrito, burrito.serv)).toBe(line(burrito, "bawang_bombay")[1]);
+    const udang = recipe("udang_telur_asin");
+    expect(scaledQty(line(udang, "susu_bubuk"), udang, udang.serv)).toBe(1);
+  });
+
+  it("keeps baking grams exact, and rounds scaled baking to 5 g, never 25 g", () => {
+    const muffin = recipe("w_hearty_pumpkin_muffins");
+    expect(muffin.precise).toBe(true);
+    for (const l of muffin.ings) expect(scaledQty(l, muffin, muffin.serv)).toBe(l[1]);
+    const gula = line(muffin, "gula_merah");
+    const doubled = scaledQty(gula, muffin, muffin.serv * 2) ?? 0;
+    expect(doubled).toBe((gula[1] ?? 0) * 2);
+    expect(roundQty(167, "gram", "tepung_terigu", true)).toBe(165);
+    expect(roundQty(7.4, "gram", "ragi_instan", true)).toBe(7);
+  });
+});
+
+describe("cooking for one does not over-buy (Agent A)", () => {
+  it("gives a quarter block of tempe, not a whole one", () => {
+    expect(qty("tumis_tempe_kecap", "tempe", 1)).toBe(0.25);
+  });
+
+  it("measures rice by the quarter glass", () => {
+    expect(qty("arem_arem", "beras", 1)).toBeLessThanOrEqual(0.5);
+    expect(qty("bubur_ayam", "beras", 1)).toBeLessThanOrEqual(0.5);
+    expect(qty("tinutuan", "bayam", 1)).toBe(0.25);
+  });
+
+  it("halves an onion or a can, never a chilli or a clove", () => {
+    expect(roundQty(0.4, "buah", "bawang_bombay")).toBe(0.5);
+    expect(roundQty(1.4, "kaleng", "tomat_kalengan")).toBe(1.5);
+    expect(roundQty(0.4, "buah", "cabai_rawit")).toBe(1);
+    expect(roundQty(1.4, "siung", "bawang_putih")).toBe(1);
+  });
+
+  it("still says an egg or a whole fish cannot be split", () => {
+    expect(roundQty(0.3, "butir", "telur")).toBe(1);
+    expect(roundQty(1.2, "butir", "telur")).toBe(1);
+    expect(roundQty(1.4, "butir", "telur")).toBe(2);
+    const r = recipe("tumis_tempe_kecap");
+    expect(undividable(r, 1)).toEqual([]);
+  });
+});
+
+describe("gram mode (Agent A)", () => {
+  it("weighs household units", () => {
+    expect(takaran("bawang_merah", 8, "siung", "gram")).toBe("± 80 g");
+    expect(takaran("kemiri", 4, "butir", "gram")).toBe("± 10 g");
+    expect(takaran("kecap_manis", 3, "sdm", "gram")).toBe("± 45 ml");
+    expect(takaran("tempe", 1, "papan", "gram")).toBe("± 200 g");
+  });
+
+  it("leads with the weight and keeps the household amount beside it", () => {
+    expect(qtyDisplay("bawang_merah", 8, "siung", "gram")).toEqual({ main: "80 g", hint: "(8 siung)" });
+    expect(qtyDisplay("santan", 800, "ml", "gram")).toEqual({ main: "800 ml", hint: null });
+    expect(qtyDisplay("santan", 800, "ml", "rumah")).toEqual({ main: "800 ml", hint: "± 4 gelas belimbing" });
+    expect(qtyDisplay("garam", null, "sdt", "gram").main).toBe("secukupnya");
+  });
+
+  it("can weigh nearly every countable line in the catalogue", () => {
+    let total = 0;
+    let weighed = 0;
+    for (const r of RECIPES) {
+      for (const l of r.ings) {
+        const u = unitOf(l);
+        if (l[1] == null || u === "gram" || u === "ml") continue;
+        total++;
+        if (takaran(l[0], l[1], u, "gram")) weighed++;
+      }
+    }
+    expect(weighed / total).toBeGreaterThan(0.97);
+  });
+});
+
+describe("weights and nutrition (Agent A)", () => {
+  it("weighs small spices as small", () => {
+    expect(BERAT["cabai_hijau"]).toBeLessThanOrEqual(25);
+    expect(BERAT["cengkeh"]).toBeLessThan(1);
+    expect(BERAT["kayu_manis"]).toBeLessThanOrEqual(10);
+    expect(BERAT["jeruk_limau"]).toBeLessThanOrEqual(50);
+  });
+
+  it("does not give green-chilli dishes rice-sized carbs", () => {
+    expect(carbPerPortion(recipe("cumi_asin_cabai_ijo"))).toBeLessThan(20);
+    expect(carbPerPortion(recipe("ikan_asin_cabe_ijo"))).toBeLessThan(20);
+    expect(carbPerPortion(recipe("wedang_jahe"))).toBeLessThan(45);
+  });
+
+  it("scores drained canned chickpeas as cooked, not dry", () => {
+    expect(CANNED100["kacang_arab"]).toBeDefined();
+    expect(fiberPerPortion(recipe("w_chickpea_shakshuka"))).toBeLessThan(16);
+    expect(carbPerPortion(recipe("w_chickpea_shakshuka"))).toBeLessThan(60);
+  });
+
+  it("only counts the edible part of a whole fish or bird", () => {
+    expect(EDIBLE["ikan_gurami"]).toBeLessThan(1);
+    expect(proteinPerPortion(recipe("mi_celor"))).toBeLessThan(40);
+  });
+
+  it("keeps every recipe's carbs and fibre within a home portion", () => {
+    for (const r of RECIPES) {
+      expect(carbPerPortion(r), r.id).toBeLessThan(130);
+      expect(fiberPerPortion(r), r.id).toBeLessThan(25);
+    }
+  });
+});
+
+describe("recipe data (Agent A)", () => {
+  it("tags every recipe with a known region", () => {
+    for (const r of RECIPES) expect(REG[r.region], r.id).toBeDefined();
+    expect(recipe("soto_medan").region).not.toBe("batak");
+    expect(recipe("bugis_ketan").region).not.toBe("bugis");
+  });
+
+  it("spells dish names one way", () => {
+    for (const r of RECIPES) expect(r.title, r.id).not.toMatch(/\b(Cabe|Saos|Satai|Sop|Mi)\b/);
+  });
+
+  it("does not count down an overnight soak, and says so up front", () => {
+    const r = recipe("soto_bandung");
+    expect(r.persiapan).toMatch(/semalam/);
+    expect(r.steps[0]?.[1]).toBe(900);
+    expect(r.steps[0]?.[0]).toMatch(/sudah direndam/);
+    for (const x of RECIPES) {
+      const timers = x.steps.reduce((s, st) => s + (st[1] ?? 0), 0) / 60;
+      expect(x.time, x.id).toBeGreaterThanOrEqual(Math.floor(timers));
+    }
+  });
+
+  it("gives a dish with chillies a spice level", () => {
+    expect(recipe("panada").spice).toBeGreaterThan(0);
+    expect(recipe("ayam_pop").spice).toBeGreaterThan(0);
+    expect(recipe("combro").spice).toBeGreaterThan(0);
+  });
+
+  it("makes Es Mutiara Merah red and different from Es Santan Selasih", () => {
+    const merah = recipe("es_mutiara_merah");
+    expect(merah.ings.map((l) => l[0])).toContain("pewarna_makanan");
+    expect(merah.ings.map((l) => l[0])).not.toContain("selasih");
+  });
+});
+
+import { isVegan, isVegetarian } from "../diet";
+
+describe("diet labels follow the ontology (Agent A)", () => {
+  it("never calls a dish with any meat, fish or stock vegetarian", () => {
+    for (const r of RECIPES) {
+      const ids = r.ings.map((l) => l[0]);
+      if (ids.some((id) => ["kalkun", "ikan_salmon", "tuna_kaleng", "sosis", "ikan_nila", "kaldu_ayam_cair", "kecap_ikan"].includes(id))) {
+        expect(isVegetarian(r), r.id).toBe(false);
+      }
+    }
+  });
+
+  it("keeps tempe and tahu vegan, and cheese or egg out of vegan", () => {
+    expect(isVegan(recipe("tumis_tempe_kecap"))).toBe(true);
+    for (const r of RECIPES.filter(isVegan)) {
+      expect(r.ings.some((l) => /^(keju_|telur|yogurt)/.test(l[0])), r.id).toBe(false);
+    }
   });
 });

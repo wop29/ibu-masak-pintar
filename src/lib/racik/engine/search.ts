@@ -16,8 +16,19 @@ export interface SearchIndex {
   recipe: Recipe;
   titleTokens: string[];
   squashed: string;
+  /** Offsets in `squashed` where a title word starts. */
+  starts: number[];
   tokens: string[];
 }
+
+/**
+ * Words people search to AVOID something. They are matched exactly: a typo
+ * tolerance turned "babi" into "bali" and listed Ayam Betutu and Sate Lilit
+ * as if they contained pork.
+ */
+export const EXACT_ONLY: ReadonlySet<string> = new Set([
+  "babi", "pork", "bacon", "ham", "lard", "angciu", "arak", "ciu", "rum", "wine", "sake", "mirin", "bir", "beer", "alkohol", "khamr",
+]);
 
 export function buildIndex(recipes: Recipe[]): SearchIndex[] {
   return recipes.map((recipe) => {
@@ -35,10 +46,17 @@ export function buildIndex(recipes: Recipe[]): SearchIndex[] {
       extras.push(...normalise(ing.name).split(" "));
       for (const alias of ing.aliases) extras.push(...normalise(alias).split(" "));
     }
+    const starts: number[] = [];
+    let at = 0;
+    for (const t of titleTokens) {
+      starts.push(at);
+      at += t.length;
+    }
     return {
       recipe,
       titleTokens,
       squashed: title.replace(/ /g, ""),
+      starts,
       tokens: Array.from(new Set(extras.filter(Boolean))),
     };
   });
@@ -81,22 +99,29 @@ export function searchScore(entry: SearchIndex, rawQuery: string): number {
   const title = entry.titleTokens.join(" ");
 
   if (title === query) return 1000;
-  if (entry.squashed === squashedQuery) return 950;
-  if (entry.squashed.startsWith(squashedQuery)) return 800;
-  if (entry.squashed.includes(squashedQuery)) return 700;
+  const sensitive = query.split(" ").every((t) => EXACT_ONLY.has(t));
+  if (!sensitive && entry.squashed === squashedQuery) return 950;
+  if (!sensitive && entry.squashed.startsWith(squashedQuery)) return 800;
+  // Only from the start of a title word: "nasigoreng" finds Nasi Goreng, but
+  // "tahu" must not hit the middle of another word.
+  if (!sensitive && entry.starts.some((i) => entry.squashed.startsWith(squashedQuery, i))) return 700;
 
   let score = 0;
   for (const token of query.split(" ").filter(Boolean)) {
-    const tol = tolerance(token.length);
+    const exact = EXACT_ONLY.has(token);
+    const tol = exact ? 0 : tolerance(token.length);
+    // Typos are forgiven in titles; ingredient, region and slot words are
+    // short and many, so a fuzzy hit there is mostly noise.
+    const tolOther = token.length >= 5 ? tol : 0;
     let best = 0;
     for (const t of entry.titleTokens) {
-      if (t === token || t.startsWith(token)) best = Math.max(best, 120);
+      if (t === token || (!exact && t.startsWith(token))) best = Math.max(best, 120);
       else if (withinDistance(t, token, tol)) best = Math.max(best, 120 * 0.6 - 15);
     }
     if (best < 120) {
       for (const t of entry.tokens) {
-        if (t === token || t.startsWith(token)) best = Math.max(best, 45);
-        else if (withinDistance(t, token, tol)) best = Math.max(best, 45 * 0.6 - 15);
+        if (t === token || (!exact && t.startsWith(token))) best = Math.max(best, 45);
+        else if (withinDistance(t, token, tolOther)) best = Math.max(best, 45 * 0.6 - 15);
       }
     }
     if (best <= 0) return 0;

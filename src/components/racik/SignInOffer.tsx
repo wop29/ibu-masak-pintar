@@ -1,14 +1,15 @@
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/racik/i18n";
 import { backendConfigured } from "@/lib/racik/backend/client";
+import { RECIPES } from "@/lib/racik/data";
 
 /**
  * The account offer, as the last screen of onboarding.
  *
  * It is a screen, not a wall: Lewati is always there, and taking it costs her
- * nothing. Racik's promise is 199 recipes on the device with no account and no
+ * nothing. Racik's promise is every shipped recipe on the device with no account and no
  * signal, and a form standing in front of that would lose more installs than
  * the accounts are worth.
  *
@@ -53,7 +54,7 @@ export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: ()
         </ul>
 
         <p className="mt-6 rounded-2xl bg-tint p-4 text-14 leading-relaxed text-ink-2">
-          {t("offer_not_needed")}
+          {t("offer_not_needed", { n: RECIPES.length })}
         </p>
 
         <Button
@@ -66,6 +67,11 @@ export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: ()
         <Button variant="ghost" className="mt-2 w-full text-muted-foreground" onClick={onDone}>
           {t("offer_later")}
         </Button>
+        <p className="mt-3 text-center text-label text-ink-3">
+          Baca dulu{" "}
+          <Link to="/privasi" target="_blank" className="font-semibold text-primary underline underline-offset-2">Kebijakan Privasi</Link>
+          {" "}— apa yang disimpan saat kamu punya akun.
+        </p>
       </div>
     </main>
   );

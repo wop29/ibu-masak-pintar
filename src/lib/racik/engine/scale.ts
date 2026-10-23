@@ -1,6 +1,6 @@
 import { ING } from "../data";
 import type { IngLine, Recipe } from "../types";
-import { roundQty } from "./format";
+import { roundQty, splitFor } from "./format";
 import { unitOf } from "./units";
 
 const FORCED_SEASONINGS = new Set([
@@ -37,18 +37,29 @@ export function rawQty(line: IngLine, recipe: Recipe, servings: number): number 
   return qty * scaleFactor(line[0], ratioFor(recipe, servings), recipe);
 }
 
-/** Rounded, display-ready quantity. */
+/**
+ * Display-ready quantity. At the recipe's own portion count this is the
+ * authored amount, untouched: ¼ sdt stays ¼ sdt and 165 g stays 165 g.
+ * Rounding only happens once the cook has scaled the recipe.
+ */
 export function scaledQty(line: IngLine, recipe: Recipe, servings: number): number | null {
   if (line[1] == null) return null;
-  return roundQty(rawQty(line, recipe, servings), unitOf(line));
+  if (servings === recipe.serv) return line[1];
+  return roundQty(rawQty(line, recipe, servings), unitOf(line), line[0], recipe.precise, isSeasoning(line[0]));
 }
 
-/** Whole animals that cannot be cut down any further. */
+/**
+ * Lines that had to be rounded up to one whole piece because they cannot be
+ * split: a whole chicken, a fish, an egg. Shown as "Tidak bisa dibagi lebih kecil".
+ * Seasonings and things that can be halved (½ papan tempe, ¼ gelas beras) never appear.
+ */
 export function undividable(recipe: Recipe, servings: number): IngLine[] {
-  return recipe.ings.filter(
-    (l) =>
-      unitOf(l) === "ekor" &&
-      rawQty(l, recipe, servings) < 0.7 &&
-      scaledQty(l, recipe, servings) === 1,
-  );
+  if (servings >= recipe.serv) return [];
+  return recipe.ings.filter((l) => {
+    if (l[1] == null || isSeasoning(l[0])) return false;
+    const unit = unitOf(l);
+    if (unit !== "ekor" && unit !== "butir" && unit !== "potong") return false;
+    if (splitFor(unit, l[0]) === "whole" && unit !== "potong") return false;
+    return rawQty(l, recipe, servings) < 0.7 && scaledQty(l, recipe, servings) === 1;
+  });
 }

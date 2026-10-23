@@ -20,7 +20,18 @@ export interface RecipeRow {
   created_at: string;
   updated_at: string;
   published_at: string | null;
-  profiles?: { name: string } | null;
+  /** Added in migration 0008; absent on a database that has not run it. */
+  time_min?: number | null;
+  source_creator?: string | null;
+  source_url?: string | null;
+}
+
+/** What a stranger may see of an author (migration 0008 `author_cards`). Never the private name. */
+export interface AuthorCard {
+  id: string;
+  handle: string;
+  public_name: string | null;
+  photo_path: string | null;
 }
 
 /**
@@ -30,7 +41,12 @@ export interface RecipeRow {
  */
 export interface UserRecipe extends Recipe {
   authorId: string;
+  /** "@handle" (or her chosen public name). Never the private account name. Empty when unknown. */
   authorName: string;
+  authorHandle: string | null;
+  /** Original creator when this recipe was adapted from someone else's video. */
+  sourceCreator: string | null;
+  sourceUrl: string | null;
   status: RecipeStatus;
   hiddenReason: string | null;
   photoUrl: string | null;

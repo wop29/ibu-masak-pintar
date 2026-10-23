@@ -1,53 +1,140 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { ChevronRight, Heart, ShoppingBasket, X } from "lucide-react";
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+import { z } from "zod";
+import { ChevronRight, Heart, Search, ShoppingBasket, X } from "lucide-react";
 import { AppTabs } from "@/components/racik/AppTabs";
-import { SearchField } from "@/components/racik/SearchField";
+import { CompactRecipe } from "@/components/racik/CompactRecipe";
+import { ImportButton } from "@/components/racik/ImportDemo";
 import { Sheet } from "@/components/racik/Sheet";
-import { Button } from "@/components/ui/button";
-import { INGREDIENTS, RECIPES, REG } from "@/lib/racik/data";
-import { buildIndex, search } from "@/lib/racik/engine";
+import { INGREDIENTS, NUSANTARA, RECIPES, REG, WESTERN } from "@/lib/racik/data";
+import { buildIndex, EXACT_ONLY, normalise, passesHalalMode, proteinPerPortion, search } from "@/lib/racik/engine";
 import { DIET_SHELVES } from "@/lib/racik/diet";
 import { useRacik } from "@/lib/racik/state";
 import type { Recipe } from "@/lib/racik/types";
-import { PHOTO } from "@/components/racik/photos";
+import { PHOTO, thumbOf } from "@/components/racik/photos";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
 
-export const Route = createFileRoute("/cari")({
-  head: () => ({ meta: [{ title: "Cari Resep Nusantara — Racik" }, { name: "description", content: "Cari resep dari waktu, bahan utama, cara masak, protein, atau daerah." }, { property: "og:title", content: "Cari Resep Nusantara — Racik" }, { property: "og:description", content: "Cari resep Indonesia dengan kata dan nama bahan yang biasa dipakai di rumah." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
-  component: CariResep,
+/**
+ * Search, the picked tile and the kitchen-ingredient pick live in the URL, so
+ * opening a recipe and pressing back lands on the same list, and back after
+ * picking a tile returns to the shelves instead of leaving Eksplor.
+ */
+const searchSchema = z.object({
+  q: z.string().max(80).optional().catch(undefined),
+  t: z.string().max(80).optional().catch(undefined),
+  b: z.string().max(400).optional().catch(undefined),
 });
 
-function Shelf({ title, items, onPick }: { title: string; items: { label: string; recipes: Recipe[] }[]; onPick: (label: string, recipes: Recipe[]) => void }) {
-  const populated = items.filter((item) => item.recipes.length > 0);
-  if (!populated.length) return null;
-  return <section className="mt-8"><h2 className="eyebrow-ink px-5">{title}</h2><div className="no-scrollbar mt-3 flex gap-3 overflow-x-auto px-5">{populated.map((item) => { const recipe = item.recipes[0]; const photo = recipe ? PHOTO[recipe.id] : undefined; return <Button key={item.label} variant="ghost" onClick={() => onPick(item.label, item.recipes)} className="relative h-36 w-40 shrink-0 overflow-hidden rounded-2xl bg-primary-deep p-0 text-primary-foreground"><span className="absolute inset-0"><RecipePhoto src={photo} glyph={recipe?.glyph ?? "\u{1F372}"} /></span><span className="absolute inset-0 bg-dark/30" /><span className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-dark/90 to-transparent" /><span className="relative mt-auto w-full px-3 pb-3 text-left"><b className="block text-body">{item.label}</b><small className="text-caption font-normal">{item.recipes.length} resep</small></span></Button>; })}</div></section>;
+declare module "@tanstack/history" {
+  interface HistoryState {
+    /** Set on an Eksplor entry pushed on top of the shelves, so "clear" can go back instead of stacking. */
+    fromShelves?: boolean;
+  }
 }
 
-/**
- * Banjar, Maluku, Papua and the rest have one recipe each. Given a row of its
- * own, each one opens onto a near-empty screen that reads as a fault in the
- * app rather than a thin corner of the catalogue. Anything under five recipes
- * goes into one honest "Daerah lain" entry.
- */
-const MIN_PER_REGION = 5;
+export const Route = createFileRoute("/cari")({
+  validateSearch: searchSchema,
+  head: () => ({ meta: [{ title: "Eksplor Resep — Racik" }, { name: "description", content: "Temukan resep dari waktu, bahan utama, cara masak, protein, atau daerah." }, { property: "og:title", content: "Eksplor Resep — Racik" }, { property: "og:description", content: "Cari resep Indonesia dengan kata dan nama bahan yang biasa dipakai di rumah." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }] }),
+  component: Eksplor,
+});
 
-function regionShelves() {
-  const all = Object.values(REG).map((reg) => ({
-    label: reg.name,
-    recipes: RECIPES.filter((r) => r.region === reg.id),
-  }));
-  const named = all.filter((g) => g.recipes.length >= MIN_PER_REGION);
+type Tile = { key: string; label: string; recipes: Recipe[] };
+type ShelfDef = { title: string; items: Tile[] };
+const slug = (s: string) => normalise(s).replace(/ /g, "-");
+
+/** Photo on top, label and count underneath — no scrim over the food. */
+function PhotoTile({ tile, onPick, cover }: { tile: Tile; onPick: (t: Tile) => void; cover: Recipe | undefined }) {
+  return (
+    <button type="button" onClick={() => onPick(tile)} className="photo-tile w-[132px] shrink-0 text-left">
+      <div className="h-[108px] w-[132px] overflow-hidden rounded-2xl bg-[#e8eee7]">
+        <RecipePhoto src={cover ? thumbOf(cover.id) : undefined} glyph={cover?.glyph ?? "🍲"} alt="" glyphClass="text-[34px]" />
+      </div>
+      <p className="mt-2 text-caption font-bold leading-tight text-ink">{tile.label}</p>
+      <p className="mt-0.5 text-micro text-ink-3">{tile.recipes.length} resep</p>
+    </button>
+  );
+}
+
+function Shelf({ title, items, onPick }: { title: string; items: Tile[]; onPick: (t: Tile) => void }) {
+  const populated = items.filter((item) => item.recipes.length > 0);
+  if (!populated.length) return null;
+  // Each tile in a shelf gets a different photograph where the shelf allows it.
+  const used = new Set<string>();
+  const covers = populated.map((t) => {
+    const pick = t.recipes.find((r) => PHOTO[r.id] && !used.has(r.id)) ?? t.recipes.find((r) => PHOTO[r.id]) ?? t.recipes[0];
+    if (pick) used.add(pick.id);
+    return pick;
+  });
+  return (
+    <section className="mt-6">
+      <h2 className="section-label mb-3 px-5 text-[#111]">{title}</h2>
+      <div className="no-scrollbar flex gap-3 overflow-x-auto px-5">
+        {populated.map((t, i) => <PhotoTile key={t.key} tile={t} onPick={onPick} cover={covers[i]} />)}
+      </div>
+    </section>
+  );
+}
+
+/** Regions with fewer than five recipes share one "Daerah lain" tile rather than opening onto a near-empty list. */
+const MIN_PER_REGION = 5;
+function regionShelves(nusantara: Recipe[]): Omit<Tile, "key">[] {
+  const all = Object.values(REG).map((reg) => ({ label: reg.name, recipes: nusantara.filter((r) => r.region === reg.id) }));
+  const named = all.filter((g) => g.recipes.length >= MIN_PER_REGION).sort((a, b) => b.recipes.length - a.recipes.length);
   const rest = all.filter((g) => g.recipes.length > 0 && g.recipes.length < MIN_PER_REGION).flatMap((g) => g.recipes);
   return rest.length ? [...named, { label: "Daerah lain", recipes: rest }] : named;
 }
 
+/** Western recipes (public-domain US government cookbooks) keep their own shelf so the Nusantara shelves stay Nusantara. */
+const WESTERN_ORDER = ["Sup, Stew & Chili", "Pasta", "Sandwich, Wrap & Pizza", "Sarapan", "Ayam & kalkun", "Daging sapi", "Ikan", "Salad", "Kue & Camilan"];
+function westernShelves(western: Recipe[]): Omit<Tile, "key">[] {
+  const groups = WESTERN_ORDER.map((k) => ({ label: k, recipes: western.filter((r) => r.kategori === k) }));
+  const rest = western.filter((r) => !r.kategori || !WESTERN_ORDER.includes(r.kategori));
+  return [{ label: "Semua", recipes: western }, ...groups, ...(rest.length ? [{ label: "Lainnya", recipes: rest }] : [])];
+}
+
+const MAIN: { label: string; ids: string[] }[] = [
+  { label: "Ayam", ids: ["ayam_utuh", "ayam"] },
+  { label: "Ikan & Udang", ids: ["ikan_kembung", "ikan_cakalang", "udang"] },
+  { label: "Telur", ids: ["telur"] },
+  { label: "Tahu & Tempe", ids: ["tahu", "tempe"] },
+  { label: "Daging", ids: ["daging_sapi"] },
+];
+const withAny = (pool: Recipe[], ids: string[]) => pool.filter((r) => r.ings.some((l) => ids.includes(l[0])));
+
 /**
- * The order a kitchen is actually searched: what is the main thing, then the
- * vegetables, then what seasons it, then the cupboard. "lain" holds three
- * items — water, ice, banana leaf — so it joins the cupboard rather than
- * getting a heading of its own.
+ * "Goreng" used to list every soto because of "bawang goreng", and "Bakar"
+ * listed wedang jahe because of "bakar jahe". Garnish and prep phrases are
+ * removed before looking for the method.
  */
+const NOT_THE_METHOD = /\b(bawang|minyak|kacang|kerupuk|emping|ikan asin|teri) goreng\b|\bbakar (jahe|kunyit|lengkuas|terasi|kemiri|kelapa|cabai|bawang)\b/g;
+const METHOD_WORD: Record<string, RegExp> = {
+  Goreng: /\b(di|meng)?goreng/,
+  Tumis: /\b(di)?tumis|\bmenumis/,
+  Kukus: /\b(di)?kukus|\bmengukus/,
+  Rebus: /\b(di|me)?rebus/,
+  Bakar: /\b(di|mem)?bakar|\bpanggang/,
+};
+const usesMethod = (r: Recipe, method: string) => {
+  const re = METHOD_WORD[method];
+  return Boolean(re) && r.steps.some((s) => re!.test(s[0].toLowerCase().replace(NOT_THE_METHOD, "")));
+};
+
+function buildShelves(nusantara: Recipe[], western: Recipe[]): { id: string; def: ShelfDef }[] {
+  const keyed = (id: string, items: Omit<Tile, "key">[]): ShelfDef["items"] => items.map((t) => ({ ...t, key: `${id}.${slug(t.label)}` }));
+  const methods = ["Goreng", "Tumis", "Kukus", "Rebus", "Bakar"];
+  const shelves: [string, string, Omit<Tile, "key">[]][] = [
+    ["cepat", "CEPAT & GAMPANG", [20, 30, 45].map((n) => ({ label: `≤ ${n} menit`, recipes: nusantara.filter((r) => r.time <= n) }))],
+    ["bahan", "BAHAN UTAMA", [...MAIN.map((m) => ({ label: m.label, recipes: withAny(nusantara, m.ids) })), { label: "Sayur", recipes: withAny(nusantara, INGREDIENTS.filter((i) => i.cat === "sayur").map((i) => i.id)) }]],
+    ["masak", "CARA MASAK", methods.map((m) => ({ label: m, recipes: nusantara.filter((r) => usesMethod(r, m)) }))],
+    ["protein", "PROTEIN TINGGI", [15, 20, 25].map((g) => ({ label: `≥ ${g} g protein`, recipes: nusantara.filter((r) => proteinPerPortion(r) >= g) }))],
+    ["pilihan", "PILIHAN MAKAN", DIET_SHELVES.map((d) => ({ label: d.label, recipes: nusantara.filter(d.match) }))],
+    ["daerah", "DAERAH", regionShelves(nusantara)],
+    ["barat", "MASAKAN BARAT", westernShelves(western)],
+  ];
+  return shelves.map(([id, title, items]) => ({ id, def: { title, items: keyed(id, items) } }));
+}
+
+/** The order a kitchen is actually searched. */
 const ING_GROUPS: { label: string; cats: string[] }[] = [
   { label: "DAGING, IKAN, TAHU & TEMPE", cats: ["daging"] },
   { label: "SAYUR & BUAH", cats: ["sayur"] },
@@ -55,29 +142,170 @@ const ING_GROUPS: { label: string; cats: string[] }[] = [
   { label: "SEMBAKO", cats: ["sembako", "lain"] },
 ];
 
-function CariResep() {
+function Eksplor() {
   const { state } = useRacik();
-  const [query, setQuery] = useState("");
+  const { q = "", t: tileKey, b } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const router = useRouter();
+  const [query, setQuery] = useState(q);
+  // Back/forward changes the URL under the input; follow it.
+  useEffect(() => setQuery(q), [q]);
   const [ingredients, setIngredients] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
-  const [result, setResult] = useState<{ label: string; recipes: Recipe[] } | null>(null);
-  const index = useMemo(() => buildIndex(RECIPES), []);
-  const found = query.trim() ? search(index, query) : [];
-  const ingredientRecipes = RECIPES.filter((r) => selected.every((id) => r.ings.some((line) => line[0] === id)));
-  const methods = [{ label: "Goreng", word: "goreng" }, { label: "Tumis", word: "tumis" }, { label: "Kukus", word: "kukus" }, { label: "Rebus", word: "rebus" }, { label: "Bakar", word: "bakar" }];
-  const pick = (label: string, recipes: Recipe[]) => setResult({ label, recipes });
-  if (result) return <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card pb-24"><header className="sticky top-0 z-10 flex items-center gap-3 border-b border-border bg-card px-5 py-4"><Button variant="ghost" size="icon" onClick={() => setResult(null)} aria-label="Tutup"><X /></Button><div><p className="eyebrow">HASIL</p><h1 className="text-title font-bold">{result.label}</h1></div></header><div className="px-5">{result.recipes.length ? result.recipes.map((r) => <Link key={r.id} to="/resep/$id" params={{ id: r.id }} className="flex items-center gap-3 border-b border-border py-4"><span className="text-title">{r.glyph}</span><span className="flex-1 text-body font-bold">{r.title}</span><ChevronRight className="text-border" /></Link>) : <p className="py-12 text-body text-muted-foreground">Belum ada resep dalam kelompok ini.</p>}</div><AppTabs /></main>;
-  return <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card pb-28">
-    <header className="border-b border-border px-5 pb-5 pt-[calc(2.5rem+env(safe-area-inset-top))]"><p className="eyebrow">CARI RESEP</p><h1 className="mt-1 text-display font-extrabold leading-tight">Masakan Nusantara</h1><div className="mt-4"><SearchField value={query} onChange={setQuery} placeholder="Cari resep atau bahan — coba 'brambang'" /></div></header>
-    {query.trim() ? <section className="px-5 pt-3"><p className="eyebrow-ink py-3">HASIL PENCARIAN</p>{found.map((r) => <Link key={r.id} to="/resep/$id" params={{ id: r.id }} className="flex items-center border-b border-border py-4 text-body font-bold">{r.title}<ChevronRight className="ml-auto text-border" /></Link>)}{!found.length ? <p className="py-8 text-body text-muted-foreground">Tidak ada resep yang cocok.</p> : null}</section> : <>
-      <div className="mx-5 mt-5 overflow-hidden rounded-2xl border border-border"><Button variant="ghost" className="h-20 w-full justify-start rounded-none px-5" onClick={() => setIngredients(true)}><ShoppingBasket className="shrink-0 text-primary" /><span className="min-w-0 flex-1 text-left">Cari dari bahan yang ada di dapur</span><ChevronRight className="shrink-0 text-border" /></Button><Link to="/buku" search={{ tab: "disimpan" }} className="flex h-20 items-center gap-3 border-t border-border px-5 text-body font-semibold"><Heart /><span className="flex-1">Resep yang disimpan</span><b className="text-primary">{state.saved.length}</b><ChevronRight className="text-border" /></Link></div>
-      <Shelf title="CEPAT & GAMPANG" onPick={pick} items={[20,30,45].map((n) => ({ label: `≤ ${n} menit`, recipes: RECIPES.filter((r) => r.time <= n) }))} />
-      <Shelf title="BAHAN UTAMA" onPick={pick} items={[{ label: "Ayam", ids: ["ayam_utuh","ayam"] },{ label:"Ikan & Udang",ids:["ikan_kembung","ikan_cakalang","udang"]},{label:"Telur",ids:["telur"]},{label:"Tahu & Tempe",ids:["tahu","tempe"]},{label:"Daging",ids:["daging_sapi"]},{label:"Sayur",ids:INGREDIENTS.filter((i)=>i.cat==="sayur").map((i)=>i.id)}].map((x)=>({label:x.label,recipes:RECIPES.filter((r)=>r.ings.some((l)=>x.ids.includes(l[0])))}))} />
-      <Shelf title="CARA MASAK" onPick={pick} items={methods.map((m)=>({label:m.label,recipes:RECIPES.filter((r)=>r.steps.some((s)=>s[0].toLowerCase().includes(m.word)))}))} />
-      <Shelf title="PILIHAN MAKAN" onPick={pick} items={DIET_SHELVES.map((d)=>({label:d.label,recipes:RECIPES.filter(d.match)}))} />
-      <Shelf title="DAERAH" onPick={pick} items={regionShelves()} />
-    </>}
-    <Sheet open={ingredients} onClose={() => setIngredients(false)} title="Bahan di dapur"><p className="mb-4 text-body text-muted-foreground">Pilih bahan utama. Hasil berubah setiap kali pilihan ditambah.</p>{ING_GROUPS.map((group)=>{const items=INGREDIENTS.filter((i)=>!i.staple&&group.cats.includes(i.cat));if(!items.length)return null;return <section key={group.label} className="mb-6"><h3 className="eyebrow-ink mb-3">{group.label}</h3><div className="flex flex-wrap gap-2">{items.map((ing)=><Button key={ing.id} size="sm" variant={selected.includes(ing.id)?"default":"outline"} onClick={()=>setSelected((s)=>s.includes(ing.id)?s.filter((x)=>x!==ing.id):[...s,ing.id])}>{ing.em} {ing.name}</Button>)}</div></section>;})}<p className="mt-5 text-body font-semibold">{ingredientRecipes.length} resep cocok</p><Button className="mt-3 w-full" disabled={!selected.length} onClick={()=>{setIngredients(false);pick("Bahan di dapur",ingredientRecipes)}}>Lihat resep</Button></Sheet>
-    <AppTabs />
-  </main>;
+  const [ingFilter, setIngFilter] = useState("");
+
+  // Pengaturan › "Sembunyikan resep yang perlu dicek atau tidak halal" applies here too.
+  const halal = state.halalMode;
+  const pool = useMemo(() => [...RECIPES, ...state.imported].filter((r) => passesHalalMode(r, halal)), [halal, state.imported]);
+  const nusantara = useMemo(() => NUSANTARA.filter((r) => passesHalalMode(r, halal)), [halal]);
+  const western = useMemo(() => WESTERN.filter((r) => passesHalalMode(r, halal)), [halal]);
+  const hiddenCount = RECIPES.length - nusantara.length - western.length;
+  const shelves = useMemo(() => buildShelves(nusantara, western), [nusantara, western]);
+  const index = useMemo(() => buildIndex(pool), [pool]);
+
+  const kitchen = useMemo(() => (b ? b.split(",").filter(Boolean) : []), [b]);
+  const picked: Tile | null = useMemo(() => {
+    if (tileKey === "dapur" && kitchen.length)
+      return { key: "dapur", label: "Bahan di dapur", recipes: pool.filter((r) => kitchen.every((id) => r.ings.some((l) => l[0] === id))) };
+    if (!tileKey) return null;
+    for (const { def } of shelves) for (const tile of def.items) if (tile.key === tileKey) return tile;
+    return null;
+  }, [tileKey, kitchen, pool, shelves]);
+
+  const ingredientRecipes = pool.filter((r) => selected.every((id) => r.ings.some((line) => line[0] === id)));
+  const onShelves = !q && !tileKey;
+  const fromShelves = () => Boolean(router.state.location.state.fromShelves);
+
+  const pick = (tile: Tile) => {
+    navigate({ search: { t: tile.key }, state: { fromShelves: true }, replace: !onShelves });
+    window.scrollTo({ top: 0 });
+  };
+  const pickKitchen = (ids: string[]) => {
+    navigate({ search: { t: "dapur", b: ids.join(",") }, state: { fromShelves: true }, replace: !onShelves });
+    window.scrollTo({ top: 0 });
+  };
+  const typed = (value: string) => {
+    setQuery(value);
+    const next = value.trim() ? { q: value } : {};
+    // The first letter pushes an entry, so back returns to the shelves; the rest replace it.
+    navigate({ search: next, state: { fromShelves: onShelves || fromShelves() }, replace: !onShelves });
+  };
+  const clear = () => {
+    setQuery("");
+    if (fromShelves()) router.history.back();
+    else navigate({ search: {}, replace: true });
+  };
+
+  const trimmed = query.trim();
+  const results = trimmed ? search(index, trimmed) : picked?.recipes ?? [];
+  const filtered = Boolean(trimmed || picked);
+  const sensitive = trimmed && normalise(trimmed).split(" ").some((w) => EXACT_ONLY.has(w));
+  const tileCls = "min-h-11 shrink-0 rounded-full border border-rule bg-card px-[15px] text-caption font-bold text-ink";
+  const ingWords = normalise(ingFilter);
+
+  return (
+    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
+      <header className="border-b border-[#f0f0ed] bg-card px-5 pb-4 pt-[calc(3.5rem+env(safe-area-inset-top))]">
+        <p className="eyebrow mb-0.5">EKSPLOR RESEP</p>
+        <h1 className="mb-3.5 text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#111]">Temukan masakan baru</h1>
+        <label className="flex min-h-12 items-center gap-3 rounded-xl border border-[#e8e8e4] bg-tint pl-3.5 focus-within:border-primary">
+          <Search aria-hidden className="size-4 text-[#9ca3af]" />
+          <input type="search" enterKeyHint="search" value={query} onChange={(e) => typed(e.target.value)} placeholder="Cari resep atau bahan" aria-label="Cari resep atau bahan" className="min-w-0 flex-1 bg-transparent py-3 text-15 text-[#111] outline-none placeholder:text-[#adadad] [&::-webkit-search-cancel-button]:hidden" />
+          {query ? <button type="button" onClick={clear} aria-label="Hapus pencarian" className="flex size-11 shrink-0 items-center justify-center"><X className="size-4 text-[#9ca3af]" /></button> : <span className="w-3.5" />}
+        </label>
+        {!query ? <p className="mt-2 text-label text-ink-3">Coba cari: ayam, tempe, atau rendang</p> : null}
+      </header>
+
+      {!filtered ? (
+        <div className="flex-1">
+          {halal && hiddenCount > 0 ? (
+            <p className="mx-5 mt-4 rounded-xl bg-tint px-3.5 py-2.5 text-label text-ink-2">
+              {hiddenCount} resep yang perlu dicek atau tidak halal disembunyikan.{" "}
+              <Link to="/pengaturan" className="font-bold text-primary">Ubah</Link>
+            </p>
+          ) : null}
+          <div className="mt-5">
+            <p className="mb-2.5 px-5 text-micro font-bold tracking-[0.1em] text-ink-2">PILIH PROTEIN UTAMA</p>
+            <div className="no-scrollbar flex gap-2 overflow-x-auto px-5">
+              {MAIN.map((m) => {
+                const tile = shelves.find((s) => s.id === "bahan")?.def.items.find((t) => t.label === m.label);
+                return tile ? <button key={m.label} type="button" onClick={() => pick(tile)} className={tileCls}>{m.label}</button> : null;
+              })}
+            </div>
+          </div>
+
+          <div className="mx-5 mt-4"><ImportButton /></div>
+          <div className="mx-5 mt-3 overflow-hidden rounded-2xl border border-[#e8e8e4] bg-card">
+            <Link to="/buku" search={{ tab: "disimpan" }} className="flex min-h-14 items-center gap-3 px-4 py-4">
+              <Heart aria-hidden className="size-5 text-ink-2" />
+              <span className="flex-1 text-15 font-medium text-[#111]">Buka Favorit</span>
+              <b className="mr-1.5 text-caption text-primary">{state.saved.length}</b>
+              <ChevronRight aria-hidden className="size-4 text-[#d1d5db]" />
+            </Link>
+            <button type="button" onClick={() => setIngredients(true)} className="flex min-h-14 w-full items-center gap-3 border-t border-[#f0f0ed] px-4 py-4 text-left">
+              <ShoppingBasket aria-hidden className="size-5 text-ink-2" />
+              <span className="flex-1 text-15 font-medium text-[#111]">Cari dari bahan yang ada di dapur</span>
+              <ChevronRight aria-hidden className="size-4 text-[#d1d5db]" />
+            </button>
+          </div>
+
+          {shelves.map(({ id, def }) => <Shelf key={id} title={def.title} onPick={pick} items={def.items} />)}
+          <div className="h-6" />
+        </div>
+      ) : (
+        <div className="flex-1 px-5 pt-4">
+          <div className="mb-4 flex">
+            <span className="flex items-center gap-1 rounded-full bg-primary py-0.5 pl-3 text-primary-foreground">
+              <span className="text-label font-bold tracking-[0.06em]">{trimmed || picked?.label}</span>
+              <button type="button" onClick={clear} aria-label="Hapus filter" className="flex size-9 items-center justify-center"><X className="size-3.5" strokeWidth={2.5} /></button>
+            </span>
+          </div>
+          <div className="mb-2 flex items-center justify-between">
+            <span className="section-label text-[#111]">{results.length} RESEP</span>
+            <button type="button" onClick={clear} className="min-h-11 px-1 text-micro font-bold tracking-[0.06em] text-primary">HAPUS FILTER</button>
+          </div>
+          {results.length === 0 ? (
+            <div className="flex flex-col items-center px-4 py-[52px] text-center">
+              {sensitive ? (
+                <>
+                  <p className="text-17 font-extrabold">Tidak ada resep berbahan “{trimmed}” di Racik</p>
+                  <p className="mt-1.5 text-14 leading-normal text-ink-3">Kata ini dicari persis, tanpa tebakan ejaan, supaya tidak ada resep yang salah tampil.</p>
+                </>
+              ) : (
+                <>
+                  <p className="text-17 font-extrabold">Belum ada resep yang cocok</p>
+                  <p className="mt-1.5 text-14 leading-normal text-ink-3">Coba gunakan nama bahan yang lebih umum atau hapus filter.</p>
+                </>
+              )}
+              <button type="button" onClick={clear} className="mt-[18px] min-h-11 rounded-full border border-primary bg-card px-[18px] text-caption font-bold text-primary">Kembali ke Eksplor</button>
+            </div>
+          ) : results.map((r) => <CompactRecipe key={r.id} recipe={r} />)}
+        </div>
+      )}
+
+      <Sheet open={ingredients} onClose={() => setIngredients(false)} title="Bahan di dapur" subtitle="Pilih bahan yang ada. Hasil berubah setiap kali pilihan ditambah.">
+        <input value={ingFilter} onChange={(e) => setIngFilter(e.target.value)} placeholder="Cari bahan, mis. tempe" aria-label="Cari bahan" className="mb-5 min-h-12 w-full rounded-xl border border-[#e8e8e4] bg-tint px-3.5 text-15 outline-none focus:border-primary" />
+        {ING_GROUPS.map((group) => {
+          const items = INGREDIENTS.filter((i) => !i.staple && group.cats.includes(i.cat) && (!ingWords || normalise(`${i.name} ${i.aliases.join(" ")}`).includes(ingWords) || selected.includes(i.id)));
+          if (!items.length) return null;
+          return (
+            <section key={group.label} className="mb-6">
+              <h3 className="mb-3 text-micro font-bold tracking-[0.08em] text-ink-2">{group.label}</h3>
+              <div className="flex flex-wrap gap-2">
+                {items.map((ing) => {
+                  const on = selected.includes(ing.id);
+                  return <button key={ing.id} type="button" aria-pressed={on} onClick={() => setSelected((s) => (on ? s.filter((x) => x !== ing.id) : [...s, ing.id]))} className={`min-h-11 rounded-full px-3.5 text-caption font-semibold ${on ? "bg-primary text-primary-foreground" : "border border-[#e0e0db] bg-card text-[#555]"}`}>{ing.em} {ing.name}</button>;
+                })}
+              </div>
+            </section>
+          );
+        })}
+        <div className="sticky bottom-0 -mx-5 bg-card px-5 pt-3">
+          <p className="text-body font-semibold">{selected.length ? `${ingredientRecipes.length} resep cocok` : "Belum ada bahan dipilih"}</p>
+          <button type="button" disabled={!selected.length} onClick={() => { setIngredients(false); pickKitchen(selected); }} className="mt-3 min-h-[54px] w-full rounded-xl bg-primary text-body font-bold text-primary-foreground shadow-glow disabled:bg-[#e4e5e1] disabled:text-[#71736e] disabled:shadow-none">Lihat resep</button>
+        </div>
+      </Sheet>
+      <AppTabs />
+    </main>
+  );
 }

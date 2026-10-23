@@ -73,7 +73,10 @@ const assertOfflineShell = () => {
 export default defineConfig({
   plugins: [
     VitePWA({
-      registerType: "autoUpdate",
+      // "prompt", not "autoUpdate": a new worker waits until she taps "Muat ulang"
+      // (UpdatePrompt in __root.tsx), so a deploy never reloads the page under
+      // an import in progress or cook mode.
+      registerType: "prompt",
       // Nitro serves .output/public. A worker written anywhere else is never
       // served, and globbing the wrong folder yields an empty precache list.
       outDir: PUBLIC_DIR,
@@ -93,14 +96,22 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         runtimeCaching: [
           {
+            // Pages are never cached at runtime. An HTML page cached from an
+            // older deploy points at hashed chunks the new deploy has deleted,
+            // which is how users got a blank screen after a release (and the
+            // old 1.5 s timeout served those stale pages to anyone on slow
+            // 3G). Now: online, the server always answers, however slow;
+            // offline, the precached shell of THIS worker's version answers
+            // and the client renders whatever route was asked for.
+            // (NetworkFirst rather than NetworkOnly only because workbox-build
+            // insists on it; the header rule below means nothing is stored.)
             urlPattern: ({ request, url }) =>
               request.mode === "navigate" && url.origin === self.location.origin,
             handler: "NetworkFirst",
             options: {
-              cacheName: "racik-pages",
-              networkTimeoutSeconds: 1.5,
-              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 30 },
-              cacheableResponse: { statuses: [0, 200] },
+              cacheName: "racik-pages-v2",
+              networkTimeoutSeconds: 10,
+              cacheableResponse: { headers: { "x-racik-cache-page": "never-sent" } },
               precacheFallback: { fallbackURL: "/index.html" },
             },
           },
@@ -138,7 +149,16 @@ export default defineConfig({
   tanstackStart: {
     // Keep normal SSR for link previews, and additionally prerender one route-
     // agnostic shell that Workbox can serve when a navigation is offline.
-    pages: [{ path: "/", prerender: { enabled: true, crawlLinks: false } }],
+    // The X-TSS_SHELL header makes it a true shell: only the root route is
+    // rendered and dehydrated, every child route renders on the client. Before
+    // this, the shell was the prerendered HOME page, so an offline load of
+    // /cari or /resep/x hydrated against home markup and threw React #418.
+    pages: [
+      {
+        path: "/",
+        prerender: { enabled: true, crawlLinks: false, headers: { "X-TSS_SHELL": "true" } },
+      },
+    ],
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },

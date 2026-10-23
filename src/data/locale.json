@@ -1,0 +1,170 @@
+{
+  "_about": "Country layer for Racik. Recipe text stays in Bahasa Indonesia; this only changes measure words, local ingredient names, local swaps and how the shopping list rounds. Sources: Malay units (Wikipedia 'Malay units of measurement': kati 0.6 kg); Philippine units (Wikipedia 'Philippine units of measurement'); palengke units kilo / kalahating kilo / tali / piraso (Kaiwa); tingi/sachet buying (FAST blog). Names and swaps: to be checked with 10 local cooks per country before a regional launch.",
+  "negara": {
+    "ID": {
+      "name": "Indonesia",
+      "flag": "🇮🇩",
+      "cup": {
+        "label": "gelas belimbing",
+        "ml": 200
+      },
+      "handful": "genggam"
+    },
+    "MY": {
+      "name": "Malaysia",
+      "flag": "🇲🇾",
+      "cup": {
+        "label": "cawan",
+        "ml": 250
+      },
+      "handful": "genggam"
+    },
+    "PH": {
+      "name": "Filipina",
+      "flag": "🇵🇭",
+      "cup": {
+        "label": "tasa",
+        "ml": 240
+      },
+      "handful": "dakot"
+    }
+  },
+  "units": {
+    "MY": {
+      "sdm": "sudu besar",
+      "sdt": "sudu kecil",
+      "siung": "ulas",
+      "butir": "biji",
+      "lembar": "helai",
+      "papan": "keping",
+      "potong": "ketul",
+      "buah": "biji"
+    },
+    "PH": {
+      "sdm": "kutsara",
+      "sdt": "kutsarita",
+      "siung": "butil",
+      "butir": "piraso",
+      "ikat": "tali",
+      "buah": "piraso",
+      "kaleng": "lata",
+      "bungkus": "pakete"
+    }
+  },
+  "names": {
+    "MY": {
+      "cabai_rawit": "cili padi",
+      "cabai_merah": "cili merah",
+      "cabai_hijau": "cili hijau",
+      "kemiri": "buah keras",
+      "terasi": "belacan",
+      "kecap_manis": "kicap manis",
+      "kecap_asin": "kicap masin",
+      "saus_tiram": "sos tiram",
+      "merica": "lada sulah",
+      "bawang_bombay": "bawang besar",
+      "tahu": "tauhu",
+      "tauge": "taugeh",
+      "kol": "kubis",
+      "wortel": "lobak merah",
+      "kentang": "ubi kentang",
+      "terong": "terung",
+      "seledri": "daun sup",
+      "ikan_teri": "ikan bilis",
+      "ebi": "udang kering",
+      "gula_merah": "gula melaka",
+      "tepung_terigu": "tepung gandum",
+      "tepung_maizena": "tepung jagung",
+      "jeruk_nipis": "limau nipis",
+      "jeruk_limau": "limau kasturi",
+      "kaldu_bubuk": "serbuk perasa",
+      "minyak_goreng": "minyak masak",
+      "kacang_panjang": "kacang panjang",
+      "daun_jeruk": "daun limau purut",
+      "asam_jawa": "asam jawa",
+      "kelapa_parut": "kelapa parut",
+      "telur": "telur ayam"
+    },
+    "PH": {
+      "bawang_merah": "sibuyas Tagalog",
+      "bawang_putih": "bawang",
+      "bawang_bombay": "sibuyas",
+      "cabai_rawit": "siling labuyo",
+      "cabai_merah": "siling pula",
+      "cabai_hijau": "siling haba",
+      "kemiri": "lumbang",
+      "terasi": "bagoong alamang",
+      "kecap_asin": "toyo",
+      "kecap_manis": "matamis na toyo",
+      "saus_tiram": "oyster sauce",
+      "kunyit": "luyang dilaw",
+      "jahe": "luya",
+      "lengkuas": "langkawas",
+      "serai": "tanglad",
+      "daun_salam": "dahon ng laurel",
+      "asam_jawa": "sampalok",
+      "santan": "gata",
+      "kelapa_parut": "niyog na kinayod",
+      "gula_merah": "panutsa",
+      "gula_pasir": "asukal",
+      "garam": "asin",
+      "merica": "paminta",
+      "kayu_manis": "kanela",
+      "tahu": "tokwa",
+      "kangkung": "kangkong",
+      "sawi_hijau": "mustasa",
+      "kol": "repolyo",
+      "kentang": "patatas",
+      "tomat": "kamatis",
+      "timun": "pipino",
+      "terong": "talong",
+      "kacang_panjang": "sitaw",
+      "tauge": "toge",
+      "labu_siam": "sayote",
+      "nangka_muda": "langkang hilaw",
+      "daun_bawang": "dahon ng sibuyas",
+      "daun_pandan": "pandan",
+      "jeruk_nipis": "dayap",
+      "jeruk_limau": "kalamansi",
+      "ikan_teri": "dilis",
+      "udang": "hipon",
+      "ayam": "manok",
+      "daging_sapi": "karne ng baka",
+      "telur": "itlog",
+      "tepung_terigu": "harina",
+      "tepung_maizena": "gawgaw",
+      "minyak_goreng": "mantika",
+      "cuka": "suka",
+      "beras": "bigas",
+      "daun_kelor": "malunggay",
+      "daun_singkong": "dahon ng kamoteng-kahoy",
+      "bihun": "bihon",
+      "ikan_asin": "tuyo",
+      "belimbing_wuluh": "kamias",
+      "air": "tubig"
+    }
+  },
+  "subs": {
+    "MY": {
+      "tempe": "Ada di pasar dan pasar raya di Malaysia. Kalau tidak dapat, pakai tauhu keras.",
+      "kluwek": "Buah keluak, dijual di kedai bahan Peranakan.",
+      "kencur": "Cekur, biasanya ada di pasar basah."
+    },
+    "PH": {
+      "kemiri": "Lumbang jarang dijual; pakai kacang mete (kasoy) sangrai atau macadamia, jumlah sama.",
+      "terasi": "Bagoong alamang yang sudah ditumis, jumlah sama. Lebih basah dan asin, jadi kurangi garamnya.",
+      "kecap_manis": "Toyo dicampur asukal na pula (gula cokelat) 1 : 1, dididihkan sebentar sampai kental.",
+      "daun_salam": "Dahon ng laurel (bay leaf) bukan daun yang sama; pakai 1 lembar saja, atau lewati.",
+      "kencur": "Jarang ada; pakai luya (jahe) sedikit ditambah perasan kalamansi.",
+      "lengkuas": "Langkawas ada di pasar tertentu; kalau tidak ada, pakai luya setengah jumlahnya.",
+      "daun_jeruk": "Dahon ng dayap (daun jeruk nipis) atau kulit kalamansi diserut.",
+      "tempe": "Tempe jarang ada; pakai tokwa (tahu keras) yang digoreng kering.",
+      "gula_merah": "Panutsa atau muscovado, jumlah sama.",
+      "kaldu_bubuk": "Kaldu bubuk sachet (granules) di sari-sari store, jumlah sama.",
+      "asam_jawa": "Sampalok segar atau bubuk sinigang, mulai dari setengahnya lalu dicicip.",
+      "kluwek": "Tidak ada di Filipina; untuk rawon pakai sedikit tinta cumi atau lewati.",
+      "petai": "Jarang dijual; lewati saja.",
+      "daun_singkong": "Dahon ng kamoteng-kahoy, atau ganti dengan malunggay."
+    }
+  }
+}

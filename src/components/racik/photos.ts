@@ -29,6 +29,23 @@ for (const [path, url] of Object.entries(BUNDLED)) {
   byId[id] = url;
 }
 
+/**
+ * 400px thumbnails (scripts/make-thumbs.py), ~16 KB instead of ~110 KB. Use
+ * for tiles and list rows; the hero on the recipe page keeps the full photo.
+ */
+const THUMBS = import.meta.glob<string>("../../assets/resep/thumb/*.webp", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+const thumbById: Record<string, string> = {};
+for (const [path, url] of Object.entries(THUMBS)) {
+  thumbById[path.slice(path.lastIndexOf("/") + 1, -".webp".length)] = url;
+}
+
+/** Small photo for a list row or tile; falls back to the full photo if no thumbnail was generated. */
+export const thumbOf = (id: string): string | undefined => thumbById[id] ?? byId[id];
+
 /** Bundled artwork used by the interface itself, not tied to one recipe. */
 export const ART = { rendang, mendoan, gado, woku, bolu, ayamLengkuas } as const;
 

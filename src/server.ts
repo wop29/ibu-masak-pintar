@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { withSecurityHeaders } from "./lib/security-headers";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -44,18 +45,40 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+/**
+ * Hand the page the country Cloudflare saw this request come from (IP-based,
+ * no GPS, nothing stored server-side), so Racik can pick the right measures
+ * on first run. Only on HTML page loads; readable by the page script.
+ */
+function withCountryCookie(request: Request, response: Response): Response {
+  const cc = request.headers.get("cf-ipcountry");
+  if (request.method !== "GET" || !cc || !/^[A-Z]{2}$/.test(cc)) return response;
+  if (!(response.headers.get("content-type") ?? "").includes("text/html")) return response;
+  try {
+    response.headers.append("set-cookie", `racik_cc=${cc}; Path=/; Max-Age=2592000; SameSite=Lax; Secure`);
+    return response;
+  } catch {
+    // Immutable headers (a passthrough asset response): copy once.
+    const copy = new Response(response.body, response);
+    copy.headers.append("set-cookie", `racik_cc=${cc}; Path=/; Max-Age=2592000; SameSite=Lax; Secure`);
+    return copy;
+  }
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return withCountryCookie(request, withSecurityHeaders(await normalizeCatastrophicSsrResponse(response)));
     } catch (error) {
       console.error(error);
-      return new Response(renderErrorPage(), {
-        status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
-      });
+      return withSecurityHeaders(
+        new Response(renderErrorPage(), {
+          status: 500,
+          headers: { "content-type": "text/html; charset=utf-8" },
+        }),
+      );
     }
   },
 };

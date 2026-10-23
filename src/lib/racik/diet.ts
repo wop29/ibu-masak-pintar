@@ -22,29 +22,42 @@ import type { Recipe } from "./types";
  * block vegan while leaving vegetarian alone. Stock powder is chicken or beef
  * unless a packet says otherwise, so it blocks both.
  */
-const MEAT_AND_FISH = new Set([
-  "ayam", "ayam_utuh", "bebek", "daging_sapi", "daging_kambing", "daging_giling",
-  "buntut_sapi", "iga_sapi", "babat", "bakso",
-  "ikan_teri", "ikan_kembung", "ikan_patin", "ikan_mas", "ikan_tongkol", "ikan_tenggiri",
-  "ikan_bandeng", "ikan_gurami", "ikan_gabus", "ikan_kakap", "ikan_nike", "ikan_cakalang",
-  "ikan_roa", "ikan_asin", "cakalang_fufu",
-  "udang", "ebi", "cumi", "cumi_asin", "kepiting",
-  // the three that hide outside the daging category
-  "terasi", "saus_tiram", "kerupuk_udang",
-  "kaldu_bubuk",
+const MEAT_AND_FISH_EXTRA = new Set([
+  // hiding outside the daging category
+  "terasi", "saus_tiram", "kerupuk_udang", "kecap_ikan", "kecap_inggris", "petis", "ebi",
+  "dashi", "gelatin", "pate_hati",
+  // stock is chicken or beef unless a packet says otherwise
+  "kaldu_bubuk", "kaldu_blok", "kaldu_ayam_cair", "sup_krim_ayam_kalengan",
+  "bumbu_gulai_instan", "bumbu_rendang_instan", "bumbu_soto_instan", "bumbu_nasi_goreng_instan",
 ]);
 
-const DAIRY_AND_EGG = new Set([
-  "telur", "telur_asin", "mie_telur",
-  "susu_cair", "susu_kental_manis", "susu_bubuk", "keju_cheddar", "mentega",
-  "margarin", "dark_cooking_chocolate",
+/** In the daging column because they are protein, not because they are animals. */
+const PLANT_OR_EGG_PROTEIN = new Set([
+  "tempe", "tempe_gembus", "tahu", "tahu_sutra", "oncom", "daging_nabati",
+  "telur", "telur_asin", "telur_bebek", "telur_puyuh",
 ]);
+
+/** Animal flesh, whatever column it sits in. */
+const isMeatOrFish = (id: string) =>
+  MEAT_AND_FISH_EXTRA.has(id) || (ING[id]?.cat === "daging" && !PLANT_OR_EGG_PROTEIN.has(id));
+
+const DAIRY_AND_EGG_EXTRA = new Set([
+  "mie_telur", "mentega", "margarin", "ghee", "heavy_cream", "cream_cheese", "mayones", "madu",
+  "dark_cooking_chocolate", "coklat_batang", "coklat_chip", "coklat_putih", "creamer_kopi_bubuk",
+  "sup_krim_jamur_kalengan", "saus_keju", "paneer", "custard_powder", "selai_coklat_hazelnut",
+  "susu_coklat_malt_bubuk", "graham_cracker", "biskuit_marie", "roti_tawar", "puff_pastry",
+]);
+const PLANT_MILK = new Set(["susu_kedelai", "susu_almond", "susu_oat"]);
+
+const isDairyOrEgg = (id: string) =>
+  DAIRY_AND_EGG_EXTRA.has(id) ||
+  /^(telur|keju_|yogurt)/.test(id) ||
+  (id.startsWith("susu_") && !PLANT_MILK.has(id));
 
 const idsOf = (r: Recipe) => new Set(r.ings.map((l) => l[0]));
-const has = (set: Set<string>, against: Set<string>) => [...set].some((id) => against.has(id));
 
-export const isVegetarian = (r: Recipe) => !has(idsOf(r), MEAT_AND_FISH);
-export const isVegan = (r: Recipe) => isVegetarian(r) && !has(idsOf(r), DAIRY_AND_EGG);
+export const isVegetarian = (r: Recipe) => ![...idsOf(r)].some(isMeatOrFish);
+export const isVegan = (r: Recipe) => isVegetarian(r) && ![...idsOf(r)].some(isDairyOrEgg);
 export const hasNoSantan = (r: Recipe) => !idsOf(r).has("santan");
 
 /** Half or more of the non-staple ingredients are vegetables. */
