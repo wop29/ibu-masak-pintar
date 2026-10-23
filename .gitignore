@@ -38,3 +38,4 @@ dist-ssr
 
 # Scratch: files staged for deletion, never committed
 _to_delete/
+scripts/__pycache__/
