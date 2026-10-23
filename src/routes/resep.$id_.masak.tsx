@@ -440,7 +440,7 @@ function ModeMasak() {
             <p className="whitespace-nowrap text-15 font-bold text-ink-2">
               Langkah {i + 1} dari {stepCount}
             </p>
-            <p className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</p>
+            <h1 className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</h1>
           </div>
           <button type="button" onClick={() => setAllOpen(true)} className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-rule bg-card px-4 text-14 font-extrabold text-primary">
             <ListChecks className="size-4" /> Bahan

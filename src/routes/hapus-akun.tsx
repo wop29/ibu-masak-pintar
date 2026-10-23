@@ -88,7 +88,7 @@ function HapusAkun() {
                 <Button size="lg" variant="destructive" className="w-full" onClick={() => { setError(""); setOpen(true); }}>
                   Hapus akunku
                 </Button>
-                {error ? <p className="mt-3 text-14 text-destructive" role="alert">{error}</p> : null}
+                {error ? <p className="mt-3 text-14 text-danger-ink" role="alert">{error}</p> : null}
               </>
             ) : (
               <Button asChild size="lg" className="w-full">

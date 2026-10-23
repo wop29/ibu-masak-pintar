@@ -121,7 +121,7 @@ function Selesai() {
         }}
       />
       {photoError ? (
-        <p role="alert" className="mt-2 text-14 text-destructive">
+        <p role="alert" className="mt-2 text-14 text-danger-ink">
           {photoError}
         </p>
       ) : null}

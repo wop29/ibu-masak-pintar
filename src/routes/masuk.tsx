@@ -325,7 +325,7 @@ function Masuk() {
         </>
       )}
 
-      {error ? <p className="mt-4 text-14 text-destructive">{error}</p> : null}
+      {error ? <p className="mt-4 text-14 text-danger-ink">{error}</p> : null}
 
       {step === "id" && !available ? (
         <Button asChild variant="ghost" className="mt-4 w-full"><Link to="/">{t("back")}</Link></Button>

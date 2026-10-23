@@ -76,7 +76,7 @@ export function HandleForm({
         />
       </label>
       {error ? (
-        <p role="alert" className="text-14 text-destructive">
+        <p role="alert" className="text-14 text-danger-ink">
           {error}
         </p>
       ) : null}

@@ -130,7 +130,8 @@ export function RencanaView({ pickDayFor, onPickDayHandled }: { pickDayFor?: str
       </Link>
       {/* Day, portions and remove stay together; on large text they wrap under the title. */}
       <div className="ml-auto flex flex-wrap items-center justify-end gap-1.5">
-        <button type="button" onClick={() => setDayFor(recipe.id)} aria-label={`Pilih hari untuk ${recipe.title}`} className="flex min-h-11 items-center gap-1.5 rounded-full border border-rule-strong bg-card px-3 text-caption font-bold text-ink-2">
+        {/* The accessible name starts with the visible word (WCAG 2.5.3, label in name). */}
+        <button type="button" onClick={() => setDayFor(recipe.id)} aria-label={`${day == null ? "Hari" : DAY_NAMES[day]}: pilih hari untuk ${recipe.title}`} className="flex min-h-11 items-center gap-1.5 rounded-full border border-rule-strong bg-card px-3 text-caption font-bold text-ink-2">
           <CalendarDays className="size-4" aria-hidden /> {day == null ? "Hari" : DAY_NAMES[day]}
         </button>
         <div className="flex items-center gap-1">
