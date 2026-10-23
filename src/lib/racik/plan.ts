@@ -1,5 +1,5 @@
 import { findRecipe, ING } from "./data";
-import { PLAN_MAX, type RacikState } from "./store";
+import { PLAN_MAX, type PlanDay, type RacikState } from "./store";
 import { scaledQty, unitOf } from "./engine";
 import type { Negara } from "./locale";
 import { buyHint, fmtNeed, mergeNeeds, shopName, type Need } from "./shopping";
@@ -76,13 +76,20 @@ export function shoppingText(items: ShoppingItem[]) {
 /* ---- keeping the plan honest ---- */
 
 /** Plan entries that point at a recipe that still exists (shipped or imported). */
-export function resolvedPlan(state: Pick<RacikState, "plan" | "imported">): { recipe: Recipe; servings: number }[] {
+export function resolvedPlan(state: Pick<RacikState, "plan" | "imported">): PlannedRecipe[] {
   return state.plan
-    .map((p) => {
+    .map((p): PlannedRecipe | null => {
       const recipe = findRecipe(p.id, state.imported);
-      return recipe ? { recipe, servings: p.servings } : null;
+      return recipe ? { recipe, servings: p.servings, ...(p.day != null ? { day: p.day } : {}) } : null;
     })
-    .filter((x): x is { recipe: Recipe; servings: number } => x != null);
+    .filter((x): x is PlannedRecipe => x != null);
+}
+
+/** A plan entry that still points at a recipe. `day` absent = "Belum dijadwalkan". */
+export interface PlannedRecipe {
+  recipe: Recipe;
+  servings: number;
+  day?: PlanDay;
 }
 
 /** Use this, not `plan.length >= 3`, to decide "Rencana sudah penuh". */

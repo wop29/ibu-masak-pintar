@@ -15,7 +15,7 @@ export interface RacikState {
   imported: ImportedRecipe[];
   servings: Record<string, number>;
   intro: boolean;
-  plan: { id: string; servings: number }[];
+  plan: PlanEntry[];
   planChecked: string[];
   ratings: Record<string, ("gampang" | "pas" | "susah")[]>;
   photos: Record<string, string>;
@@ -71,6 +71,20 @@ export interface RacikState {
   negaraAuto: boolean;
   /** Ingredient ids already at home for the current shopping plan ("sudah ada di rumah"). */
   pantryHave: string[];
+}
+
+/** 0 = Senin … 6 = Minggu. */
+export type PlanDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
+export function isPlanDay(v: unknown): v is PlanDay {
+  return typeof v === "number" && Number.isInteger(v) && v >= 0 && v <= 6;
+}
+
+/** One recipe in the week's plan. No `day` means "Belum dijadwalkan". */
+export interface PlanEntry {
+  id: string;
+  servings: number;
+  day?: PlanDay;
 }
 
 /** One portion range everywhere: home, settings, recipe page, plan. */
@@ -250,10 +264,10 @@ export function normaliseState(raw: unknown): RacikState {
         .map(([k, v]) => [k, clampPortions(v)]),
     ),
     intro: s.intro === true,
-    plan: arr<{ id: string; servings: number }>(s.plan)
+    plan: arr<{ id: string; servings: number; day?: unknown }>(s.plan)
       .filter((p) => p && typeof p === "object" && typeof p.id === "string" && p.id.length > 0)
       .filter((p) => !seenPlan.has(p.id) && Boolean(seenPlan.add(p.id)))
-      .map((p) => ({ id: p.id, servings: clampPortions(p.servings, household) }))
+      .map((p): PlanEntry => ({ id: p.id, servings: clampPortions(p.servings, household), ...(isPlanDay(p.day) ? { day: p.day } : {}) }))
       .slice(0, PLAN_MAX),
     planChecked: strings(s.planChecked),
     pantryHave: strings(s.pantryHave),
