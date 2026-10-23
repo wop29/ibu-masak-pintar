@@ -24,8 +24,9 @@ const tables = tablesRaw as unknown as {
   PROT100: Record<string, number>;
   CARB100: Record<string, number>;
   FIBER100: Record<string, number>;
+  FAT100: Record<string, number>;
   EDIBLE: Record<string, number>;
-  CANNED100: Record<string, { P: number; C: number; F: number }>;
+  CANNED100: Record<string, { P: number; C: number; F: number; L?: number }>;
   SUBS: Record<string, string>;
   SUBS_LN: Record<string, string>;
   ALAT: Record<string, string>;
@@ -37,6 +38,13 @@ export const BERAT = tables.BERAT;
 export const PROT100 = tables.PROT100;
 export const CARB100 = tables.CARB100;
 export const FIBER100 = tables.FIBER100;
+/**
+ * Grams of fat (lemak) per 100 g of the edible part. Sources per id in
+ * src/data/fat-sources.json (USDA FoodData Central SR Legacy and TKPI);
+ * built by scripts/build-fat.py. Also the marker that an ingredient has a
+ * full macro profile: kalori is only computed for lines that have it.
+ */
+export const FAT100 = tables.FAT100;
 /** Share of the bought weight that is eaten (bone, shell, head and skin removed). Missing = 1. */
 export const EDIBLE = tables.EDIBLE;
 /** Per-100 g values for legumes bought canned or cooked, not dry. */

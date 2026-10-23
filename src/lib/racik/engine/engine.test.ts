@@ -587,3 +587,81 @@ describe("diet labels follow the ontology (Agent A)", () => {
     }
   });
 });
+
+/* ---- Task 5: lemak, kalori, cakupan ---- */
+import { CARB100, FAT100 } from "../data";
+import { coverage, edibleGrams, fatPerPortion, fmtKcal, kcalPerPortion, nutritionPerPortion } from "./protein";
+
+describe("fat, kalori and coverage (Task 5)", () => {
+  it("has a fat value for every ingredient with a protein or carb value", () => {
+    for (const id of Object.keys(PROT100)) expect(FAT100[id], id).toBeTypeOf("number");
+    for (const id of Object.keys(CARB100)) expect(FAT100[id], id).toBeTypeOf("number");
+  });
+
+  it("gives kalori within 1 kcal of the hand sum when every line is known", () => {
+    const r = recipe("tumis_kangkung_terasi");
+    let hand = 0;
+    for (const l of r.ings) {
+      if (l[1] == null || l[4]) continue;
+      const g = edibleGrams(l) / r.serv;
+      hand += (g * (4 * (PROT100[l[0]] ?? 0) + 4 * (CARB100[l[0]] ?? 0) + 9 * (FAT100[l[0]] ?? 0))) / 100;
+    }
+    const kcal = kcalPerPortion(r);
+    expect(kcal).not.toBeNull();
+    expect(Math.abs((kcal ?? 0) - hand)).toBeLessThan(1);
+    expect(coverage(r).counted).toBe(coverage(r).total);
+  });
+
+  it("gives no kalori when a measured line cannot be resolved", () => {
+    const base = recipe("tumis_kangkung_terasi");
+    const r: Recipe = { ...base, ings: [...base.ings, ["bahan_tak_dikenal", 100, null, null, null, "gram"] as IngLine] };
+    expect(kcalPerPortion(r)).toBeNull();
+    expect(nutritionPerPortion(r).kcal).toBeNull();
+    expect(coverage(r)).toEqual({ counted: coverage(base).counted, total: coverage(base).total + 1 });
+  });
+
+  it("does not let a secukupnya line block or change the estimate", () => {
+    const base = recipe("tumis_kangkung_terasi");
+    const r: Recipe = { ...base, ings: [...base.ings, ["garam", null, null, "secukupnya", null, null] as IngLine] };
+    expect(kcalPerPortion(r)).toBeCloseTo(kcalPerPortion(base) ?? 0, 6);
+  });
+
+  it("returns null, not 0, for everything when the recipe is two guesses deep", () => {
+    const r = { ...recipe("rendang"), incomplete: true, servAssumed: true } as Recipe;
+    const n = nutritionPerPortion(r);
+    expect([n.kcal, n.protein, n.carb, n.fat, n.fiber]).toEqual([null, null, null, null, null]);
+  });
+
+  it("keeps per-portion values the same when amounts and portions scale together", () => {
+    const r = recipe("rendang");
+    const doubled: Recipe = {
+      ...r,
+      serv: r.serv * 2,
+      ings: r.ings.map((l) => [l[0], l[1] == null ? null : l[1] * 2, l[2], l[3], l[4], l[5]] as IngLine),
+    };
+    const a = nutritionPerPortion(r);
+    const b = nutritionPerPortion(doubled);
+    expect(b.kcal).toBeCloseTo(a.kcal ?? 0, 6);
+    expect(b.fat).toBeCloseTo(a.fat ?? 0, 6);
+    expect(b.protein).toBeCloseTo(a.protein ?? 0, 6);
+  });
+
+  it("computes kalori for every shipped recipe, in a believable range", () => {
+    for (const r of RECIPES) {
+      const kcal = kcalPerPortion(r);
+      expect(kcal, r.id).not.toBeNull();
+      expect(kcal ?? 0, r.id).toBeLessThan(1500);
+    }
+  });
+
+  it("counts fat from oil and santan", () => {
+    expect(fatPerPortion(recipe("tumis_kangkung_terasi"))).toBeGreaterThan(5);
+    expect(fatPerPortion(recipe("rendang"))).toBeGreaterThan(20);
+  });
+
+  it("formats kalori to a round number", () => {
+    expect(fmtKcal(618.4)).toBe("620 kkal");
+    expect(fmtKcal(62)).toBe("60 kkal");
+    expect(fmtKcal(3)).toBeNull();
+  });
+});

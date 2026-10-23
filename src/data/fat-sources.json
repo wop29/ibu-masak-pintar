@@ -1,0 +1,1654 @@
+{
+ "adas": {
+  "src": "USDA FDC SR Legacy: Spices, fennel seed",
+  "yakin": true
+ },
+ "air_jeruk_nipis": {
+  "src": "USDA FDC SR Legacy: Lime juice, raw",
+  "yakin": true
+ },
+ "air_kapur_sirih": {
+  "src": "Tanpa lemak",
+  "yakin": true
+ },
+ "alpukat": {
+  "src": "USDA FDC SR Legacy: Avocados, raw, all commercial varieties",
+  "yakin": true
+ },
+ "ampela": {
+  "src": "USDA FDC SR Legacy: Chicken, broilers or fryers, giblets, gizzard, raw",
+  "yakin": true
+ },
+ "andaliman": {
+  "src": "Perkiraan (sejenis lada Sichuan)",
+  "yakin": false
+ },
+ "anggur": {
+  "src": "USDA FDC SR Legacy: Grapes, red or green, raw",
+  "yakin": true
+ },
+ "angsa": {
+  "src": "USDA FDC SR Legacy: Goose, domesticated, meat only, raw",
+  "yakin": true
+ },
+ "apel": {
+  "src": "USDA FDC SR Legacy: Apples, raw, with skin",
+  "yakin": true
+ },
+ "artichoke": {
+  "src": "USDA FDC SR Legacy: Artichokes, raw",
+  "yakin": true
+ },
+ "asam_jawa": {
+  "src": "USDA FDC SR Legacy: Tamarinds, raw",
+  "yakin": true
+ },
+ "asparagus": {
+  "src": "USDA FDC SR Legacy: Asparagus, raw",
+  "yakin": true
+ },
+ "ayam": {
+  "src": "USDA FDC SR Legacy: Chicken, broilers or fryers, meat and skin, raw",
+  "yakin": true
+ },
+ "ayam_utuh": {
+  "src": "USDA FDC SR Legacy: Chicken, broilers or fryers, meat and skin, raw",
+  "yakin": true
+ },
+ "babat": {
+  "src": "USDA FDC SR Legacy: Beef, variety meats and by-products, tripe, raw",
+  "yakin": true
+ },
+ "babi_cincang": {
+  "src": "USDA FDC SR Legacy: Pork, fresh, ground, raw",
+  "yakin": false
+ },
+ "bacon": {
+  "src": "USDA FDC SR Legacy: Pork, cured, bacon, unprepared",
+  "yakin": true
+ },
+ "baked_beans": {
+  "src": "USDA FDC SR Legacy: Beans, baked, canned, plain or vegetarian",
+  "yakin": true
+ },
+ "baking_powder": {
+  "src": "USDA FDC SR Legacy: Leavening agents, baking powder",
+  "yakin": true
+ },
+ "bakso": {
+  "src": "TKPI 2017 (panganku.org): Bakso daging sapi (perkiraan; berisi tapioka)",
+  "yakin": false
+ },
+ "bakso_ikan": {
+  "src": "Label bakso ikan (2-4 g)",
+  "yakin": false
+ },
+ "barley": {
+  "src": "USDA FDC SR Legacy: Barley, pearled, raw",
+  "yakin": true
+ },
+ "bawang_bombay": {
+  "src": "USDA FDC SR Legacy: Onions, raw",
+  "yakin": true
+ },
+ "bawang_bombay_bubuk": {
+  "src": "USDA FDC SR Legacy: Spices, onion powder",
+  "yakin": true
+ },
+ "bawang_goreng": {
+  "src": "Label bawang goreng kemasan (30-45 g)",
+  "yakin": false
+ },
+ "bawang_merah": {
+  "src": "USDA FDC SR Legacy: Shallots, raw",
+  "yakin": true
+ },
+ "bawang_prei": {
+  "src": "USDA FDC SR Legacy: Leeks, raw",
+  "yakin": true
+ },
+ "bawang_putih": {
+  "src": "USDA FDC SR Legacy: Garlic, raw",
+  "yakin": true
+ },
+ "bawang_putih_bubuk": {
+  "src": "USDA FDC SR Legacy: Spices, garlic powder",
+  "yakin": true
+ },
+ "bayam": {
+  "src": "USDA FDC SR Legacy: Spinach, raw",
+  "yakin": true
+ },
+ "bayam_merah": {
+  "src": "Perkiraan sama dengan bayam",
+  "yakin": true
+ },
+ "bebek": {
+  "src": "TKPI 2017 (panganku.org): Bebek (itik), daging, segar",
+  "yakin": false
+ },
+ "belimbing": {
+  "src": "USDA FDC SR Legacy: Carambola (starfruit), raw",
+  "yakin": true
+ },
+ "belimbing_wuluh": {
+  "src": "Perkiraan buah asam segar",
+  "yakin": true
+ },
+ "belut": {
+  "src": "USDA FDC SR Legacy: Fish, eel, mixed species, raw",
+  "yakin": true
+ },
+ "bengkuang": {
+  "src": "USDA FDC SR Legacy: Yambean (jicama), raw",
+  "yakin": true
+ },
+ "beras": {
+  "src": "USDA FDC SR Legacy: Rice, white, long-grain, regular, raw",
+  "yakin": true
+ },
+ "beras_basmati": {
+  "src": "Label beras basmati (0,5-1 g)",
+  "yakin": true
+ },
+ "beras_hitam": {
+  "src": "Label beras hitam (sekitar 3 g)",
+  "yakin": false
+ },
+ "beras_jepang": {
+  "src": "USDA FDC SR Legacy: Rice, white, medium-grain, raw",
+  "yakin": true
+ },
+ "beras_ketan": {
+  "src": "USDA FDC SR Legacy: Rice, white, glutinous, raw",
+  "yakin": true
+ },
+ "beras_merah": {
+  "src": "USDA FDC SR Legacy: Rice, brown, long-grain, raw",
+  "yakin": true
+ },
+ "bihun": {
+  "src": "USDA FDC SR Legacy: Rice noodles, dry",
+  "yakin": true
+ },
+ "biji_bunga_matahari": {
+  "src": "USDA FDC SR Legacy: Seeds, sunflower seed kernels, dried",
+  "yakin": true
+ },
+ "biji_chia": {
+  "src": "USDA FDC SR Legacy: Seeds, chia seeds, dried",
+  "yakin": true
+ },
+ "biji_labu": {
+  "src": "USDA FDC SR Legacy: Seeds, pumpkin and squash seed kernels, dried",
+  "yakin": true
+ },
+ "biji_rami": {
+  "src": "USDA FDC SR Legacy: Seeds, flaxseed",
+  "yakin": true
+ },
+ "biskuit_marie": {
+  "src": "Label biskuit marie (10-15 g)",
+  "yakin": false
+ },
+ "bit": {
+  "src": "USDA FDC SR Legacy: Beets, raw",
+  "yakin": true
+ },
+ "brokoli": {
+  "src": "USDA FDC SR Legacy: Broccoli, raw",
+  "yakin": true
+ },
+ "buah_beri": {
+  "src": "USDA FDC SR Legacy: Blueberries, raw (raspberries 0.7)",
+  "yakin": true
+ },
+ "bulgur": {
+  "src": "USDA FDC SR Legacy: Bulgur, dry",
+  "yakin": true
+ },
+ "bumbu_kari": {
+  "src": "USDA FDC SR Legacy: Spices, curry powder",
+  "yakin": true
+ },
+ "bumbu_ranch_bubuk": {
+  "src": "Label bumbu ranch bubuk (perkiraan)",
+  "yakin": false
+ },
+ "bumbu_sup_bawang": {
+  "src": "USDA FDC SR Legacy: Soup, onion, dry mix (perkiraan)",
+  "yakin": false
+ },
+ "bumbu_taco": {
+  "src": "Label bumbu taco (3-8 g)",
+  "yakin": false
+ },
+ "buncis": {
+  "src": "USDA FDC SR Legacy: Beans, snap, green, raw",
+  "yakin": true
+ },
+ "bunga_lawang": {
+  "src": "USDA FDC SR Legacy: Spices, anise seed (perkiraan untuk bunga lawang)",
+  "yakin": false
+ },
+ "bunga_pepaya": {
+  "src": "Perkiraan bunga pepaya",
+  "yakin": false
+ },
+ "buntut_sapi": {
+  "src": "USDA FDC SR Legacy: Beef, variety meats, tail, raw (sangat bervariasi)",
+  "yakin": false
+ },
+ "burung_puyuh": {
+  "src": "USDA FDC SR Legacy: Quail, meat only, raw",
+  "yakin": true
+ },
+ "cabai_bubuk": {
+  "src": "USDA FDC SR Legacy: Spices, chili powder",
+  "yakin": true
+ },
+ "cabai_hijau": {
+  "src": "USDA FDC SR Legacy: Peppers, hot chili, green, raw",
+  "yakin": true
+ },
+ "cabai_jalapeno": {
+  "src": "USDA FDC SR Legacy: Peppers, jalapeno, raw",
+  "yakin": true
+ },
+ "cabai_kering_meksiko": {
+  "src": "USDA FDC SR Legacy: Peppers, ancho, dried",
+  "yakin": true
+ },
+ "cabai_merah": {
+  "src": "USDA FDC SR Legacy: Peppers, hot chili, red, raw",
+  "yakin": true
+ },
+ "cabai_rawit": {
+  "src": "USDA FDC SR Legacy: Peppers, hot chili, red, raw",
+  "yakin": true
+ },
+ "cakalang_fufu": {
+  "src": "Perkiraan cakalang asap (ikan rendah lemak)",
+  "yakin": false
+ },
+ "ceker": {
+  "src": "USDA FDC SR Legacy: Chicken, broilers or fryers, feet, raw",
+  "yakin": true
+ },
+ "cengkeh": {
+  "src": "USDA FDC SR Legacy: Spices, cloves, ground",
+  "yakin": true
+ },
+ "cincau": {
+  "src": "Perkiraan cincau hitam (gel)",
+  "yakin": true
+ },
+ "cokelat_bubuk": {
+  "src": "USDA FDC SR Legacy: Cocoa, dry powder, unsweetened",
+  "yakin": true
+ },
+ "coklat_batang": {
+  "src": "USDA FDC SR Legacy: Candies, semisweet chocolate (dark 31-43 g)",
+  "yakin": false
+ },
+ "coklat_chip": {
+  "src": "USDA FDC SR Legacy: Candies, semisweet chocolate",
+  "yakin": true
+ },
+ "coklat_putih": {
+  "src": "USDA FDC SR Legacy: Candies, white chocolate",
+  "yakin": true
+ },
+ "corn_flakes": {
+  "src": "USDA FDC SR Legacy: Cereals ready-to-eat, corn flakes",
+  "yakin": true
+ },
+ "couscous": {
+  "src": "USDA FDC SR Legacy: Couscous, dry",
+  "yakin": true
+ },
+ "cranberry_kering": {
+  "src": "USDA FDC SR Legacy: Cranberries, dried, sweetened",
+  "yakin": true
+ },
+ "cream_cheese": {
+  "src": "USDA FDC SR Legacy: Cheese, cream",
+  "yakin": true
+ },
+ "cuka": {
+  "src": "USDA FDC SR Legacy: Vinegar, distilled",
+  "yakin": true
+ },
+ "cuka_apel": {
+  "src": "USDA FDC SR Legacy: Vinegar, cider",
+  "yakin": true
+ },
+ "cuka_balsamic": {
+  "src": "USDA FDC SR Legacy: Vinegar, balsamic",
+  "yakin": true
+ },
+ "cumi": {
+  "src": "USDA FDC SR Legacy: Mollusks, squid, mixed species, raw",
+  "yakin": true
+ },
+ "cumi_asin": {
+  "src": "Perkiraan cumi kering",
+  "yakin": false
+ },
+ "daging_babi": {
+  "src": "USDA FDC SR Legacy: Pork, fresh, loin, whole, separable lean and fat, raw",
+  "yakin": false
+ },
+ "daging_giling": {
+  "src": "USDA FDC SR Legacy: Beef, ground, 85% lean / 15% fat, raw",
+  "yakin": true
+ },
+ "daging_kambing": {
+  "src": "USDA FDC SR Legacy: Game meat, goat, cooked, roasted (Racik protein 27 g = matang)",
+  "yakin": false
+ },
+ "daging_kelinci": {
+  "src": "USDA FDC SR Legacy: Game meat, rabbit, domesticated, composite of cuts, raw",
+  "yakin": true
+ },
+ "daging_nabati": {
+  "src": "Label daging nabati (8-15 g)",
+  "yakin": false
+ },
+ "daging_rusa": {
+  "src": "USDA FDC SR Legacy: Game meat, deer, raw",
+  "yakin": true
+ },
+ "daging_sapi": {
+  "src": "USDA FDC SR Legacy: Beef, round, lean and fat, raw (TKPI daging sapi: 14 g)",
+  "yakin": false
+ },
+ "dark_cooking_chocolate": {
+  "src": "Label dark cooking chocolate (28-35 g)",
+  "yakin": false
+ },
+ "daun_basil": {
+  "src": "USDA FDC SR Legacy: Basil, fresh",
+  "yakin": true
+ },
+ "daun_bawang": {
+  "src": "USDA FDC SR Legacy: Onions, spring or scallions, raw",
+  "yakin": true
+ },
+ "daun_gedi": {
+  "src": "Perkiraan sayuran daun",
+  "yakin": false
+ },
+ "daun_jeruk": {
+  "src": "Daun tidak dimakan",
+  "yakin": true
+ },
+ "daun_kari": {
+  "src": "Perkiraan daun kari (jumlah kecil)",
+  "yakin": false
+ },
+ "daun_katuk": {
+  "src": "TKPI 2017 (panganku.org): Daun katuk",
+  "yakin": false
+ },
+ "daun_kelor": {
+  "src": "USDA FDC SR Legacy: Drumstick leaves (moringa), raw",
+  "yakin": true
+ },
+ "daun_ketumbar": {
+  "src": "USDA FDC SR Legacy: Coriander (cilantro) leaves, raw",
+  "yakin": true
+ },
+ "daun_kunyit": {
+  "src": "Daun tidak dimakan",
+  "yakin": true
+ },
+ "daun_leilem": {
+  "src": "Perkiraan sayuran daun",
+  "yakin": false
+ },
+ "daun_melinjo": {
+  "src": "Perkiraan sayuran daun",
+  "yakin": false
+ },
+ "daun_pandan": {
+  "src": "Daun tidak dimakan",
+  "yakin": true
+ },
+ "daun_pisang": {
+  "src": "Pembungkus, tidak dimakan",
+  "yakin": true
+ },
+ "daun_sage_kering": {
+  "src": "USDA FDC SR Legacy: Spices, sage, ground",
+  "yakin": true
+ },
+ "daun_salam": {
+  "src": "Daun tidak dimakan",
+  "yakin": true
+ },
+ "daun_singkong": {
+  "src": "TKPI 2017 (panganku.org): Daun singkong",
+  "yakin": false
+ },
+ "daun_ubi_jalar": {
+  "src": "USDA FDC SR Legacy: Sweet potato leaves, raw",
+  "yakin": true
+ },
+ "dill": {
+  "src": "USDA FDC SR Legacy: Dill weed, fresh",
+  "yakin": true
+ },
+ "duku": {
+  "src": "Perkiraan duku/langsat",
+  "yakin": true
+ },
+ "durian": {
+  "src": "USDA FDC SR Legacy: Durian, raw or frozen",
+  "yakin": true
+ },
+ "ebi": {
+  "src": "TKPI 2017 (panganku.org): Udang kering (ebi)",
+  "yakin": false
+ },
+ "edamame": {
+  "src": "USDA FDC SR Legacy: Edamame, frozen, unprepared",
+  "yakin": true
+ },
+ "emping": {
+  "src": "TKPI 2017 (panganku.org): Emping melinjo mentah (perkiraan)",
+  "yakin": false
+ },
+ "english_muffin": {
+  "src": "USDA FDC SR Legacy: English muffins, plain, enriched",
+  "yakin": true
+ },
+ "es_batu": {
+  "src": "Air beku",
+  "yakin": true
+ },
+ "garam": {
+  "src": "Garam: tanpa lemak",
+  "yakin": true
+ },
+ "gherkin": {
+  "src": "USDA FDC SR Legacy: Pickles, cucumber, sour",
+  "yakin": true
+ },
+ "gochujang": {
+  "src": "Label gochujang (1-2 g)",
+  "yakin": false
+ },
+ "graham_cracker": {
+  "src": "USDA FDC SR Legacy: Crackers, graham, plain or honey",
+  "yakin": true
+ },
+ "granola": {
+  "src": "Label granola (10-20 g)",
+  "yakin": false
+ },
+ "gula_halus": {
+  "src": "USDA FDC SR Legacy: Sugars, powdered",
+  "yakin": true
+ },
+ "gula_merah": {
+  "src": "Gula aren/kelapa: lemak tidak berarti",
+  "yakin": true
+ },
+ "gula_pasir": {
+  "src": "USDA FDC SR Legacy: Sugars, granulated",
+  "yakin": true
+ },
+ "gurita": {
+  "src": "USDA FDC SR Legacy: Mollusks, octopus, common, raw",
+  "yakin": true
+ },
+ "ham": {
+  "src": "USDA FDC SR Legacy: Ham, sliced, regular (approximately 11% fat)",
+  "yakin": true
+ },
+ "hati_ayam": {
+  "src": "USDA FDC SR Legacy: Chicken, liver, all classes, raw",
+  "yakin": true
+ },
+ "heavy_cream": {
+  "src": "USDA FDC SR Legacy: Cream, fluid, heavy whipping",
+  "yakin": true
+ },
+ "iga_sapi": {
+  "src": "USDA FDC SR Legacy: Beef, rib, lean and fat, raw (short ribs 36 g)",
+  "yakin": false
+ },
+ "ikan_asin": {
+  "src": "TKPI 2017 (panganku.org): Ikan asin kering (perkiraan)",
+  "yakin": false
+ },
+ "ikan_bandeng": {
+  "src": "USDA FDC SR Legacy: Fish, milkfish, raw",
+  "yakin": true
+ },
+ "ikan_baronang": {
+  "src": "Perkiraan: ikan karang (rabbitfish) 2-3 g",
+  "yakin": false
+ },
+ "ikan_cakalang": {
+  "src": "USDA FDC SR Legacy: Fish, tuna, skipjack, fresh, raw",
+  "yakin": true
+ },
+ "ikan_dori": {
+  "src": "Label fillet dori/pangasius beku (1-2,5 g)",
+  "yakin": false
+ },
+ "ikan_gabus": {
+  "src": "TKPI 2017 (panganku.org): Ikan gabus, segar",
+  "yakin": false
+ },
+ "ikan_gurami": {
+  "src": "TKPI 2017 (panganku.org): Ikan gurame, segar",
+  "yakin": false
+ },
+ "ikan_kakap": {
+  "src": "USDA FDC SR Legacy: Fish, snapper, mixed species, raw",
+  "yakin": true
+ },
+ "ikan_kembung": {
+  "src": "TKPI 2017 (panganku.org): Ikan kembung, segar",
+  "yakin": false
+ },
+ "ikan_kerapu": {
+  "src": "USDA FDC SR Legacy: Fish, grouper, mixed species, raw",
+  "yakin": true
+ },
+ "ikan_layur": {
+  "src": "Perkiraan: largehead hairtail 2-4 g",
+  "yakin": false
+ },
+ "ikan_lele": {
+  "src": "TKPI 2017 (panganku.org): Ikan lele, segar",
+  "yakin": false
+ },
+ "ikan_mas": {
+  "src": "USDA FDC SR Legacy: Fish, carp, raw",
+  "yakin": true
+ },
+ "ikan_nike": {
+  "src": "Perkiraan ikan kecil air tawar",
+  "yakin": false
+ },
+ "ikan_nila": {
+  "src": "USDA FDC SR Legacy: Fish, tilapia, raw",
+  "yakin": true
+ },
+ "ikan_pari": {
+  "src": "USDA FDC SR Legacy: Fish, skate (raja ray), raw",
+  "yakin": true
+ },
+ "ikan_patin": {
+  "src": "Perkiraan pangasius budidaya 2-6 g",
+  "yakin": false
+ },
+ "ikan_roa": {
+  "src": "Perkiraan ikan roa asap",
+  "yakin": false
+ },
+ "ikan_salmon": {
+  "src": "USDA FDC SR Legacy: Fish, salmon, Atlantic, farmed, raw",
+  "yakin": true
+ },
+ "ikan_tenggiri": {
+  "src": "TKPI 2017 (panganku.org): Ikan tenggiri, segar (perkiraan)",
+  "yakin": false
+ },
+ "ikan_teri": {
+  "src": "TKPI 2017 (panganku.org): Teri kering tawar",
+  "yakin": false
+ },
+ "ikan_tongkol": {
+  "src": "TKPI 2017 (panganku.org): Ikan tongkol, segar",
+  "yakin": false
+ },
+ "italian_seasoning": {
+  "src": "Perkiraan campuran herba kering",
+  "yakin": false
+ },
+ "jagung_kalengan": {
+  "src": "USDA FDC SR Legacy: Corn, sweet, yellow, canned, drained",
+  "yakin": true
+ },
+ "jagung_manis": {
+  "src": "USDA FDC SR Legacy: Corn, sweet, yellow, raw",
+  "yakin": true
+ },
+ "jahe": {
+  "src": "USDA FDC SR Legacy: Ginger root, raw",
+  "yakin": true
+ },
+ "jambu_air": {
+  "src": "USDA FDC SR Legacy: Rose-apples, raw",
+  "yakin": true
+ },
+ "jambu_biji": {
+  "src": "USDA FDC SR Legacy: Guavas, common, raw",
+  "yakin": true
+ },
+ "jamur_enoki": {
+  "src": "USDA FDC SR Legacy: Mushrooms, enoki, raw",
+  "yakin": true
+ },
+ "jamur_kancing": {
+  "src": "USDA FDC SR Legacy: Mushrooms, white, raw",
+  "yakin": true
+ },
+ "jamur_kuping": {
+  "src": "USDA FDC SR Legacy: Mushrooms, jew's ear (pepeao), raw",
+  "yakin": true
+ },
+ "jamur_merang": {
+  "src": "Perkiraan jamur merang segar",
+  "yakin": true
+ },
+ "jamur_portobello": {
+  "src": "USDA FDC SR Legacy: Mushrooms, portabella, raw",
+  "yakin": true
+ },
+ "jamur_shiitake": {
+  "src": "USDA FDC SR Legacy: Mushrooms, shiitake, raw",
+  "yakin": true
+ },
+ "jamur_shiitake_kering": {
+  "src": "USDA FDC SR Legacy: Mushrooms, shiitake, dried",
+  "yakin": true
+ },
+ "jamur_tiram": {
+  "src": "USDA FDC SR Legacy: Mushrooms, oyster, raw",
+  "yakin": true
+ },
+ "jantung_pisang": {
+  "src": "Perkiraan jantung pisang",
+  "yakin": false
+ },
+ "jeruk": {
+  "src": "USDA FDC SR Legacy: Oranges, raw",
+  "yakin": true
+ },
+ "jeruk_limau": {
+  "src": "Perkiraan jeruk limau (air dan daging buah)",
+  "yakin": true
+ },
+ "jeruk_nipis": {
+  "src": "USDA FDC SR Legacy: Limes, raw",
+  "yakin": true
+ },
+ "jinten": {
+  "src": "USDA FDC SR Legacy: Spices, cumin seed",
+  "yakin": true
+ },
+ "jus_apel": {
+  "src": "USDA FDC SR Legacy: Apple juice, canned or bottled, unsweetened",
+  "yakin": true
+ },
+ "kacang_almond": {
+  "src": "USDA FDC SR Legacy: Nuts, almonds",
+  "yakin": true
+ },
+ "kacang_arab": {
+  "src": "USDA FDC SR Legacy: Chickpeas, mature seeds, raw",
+  "yakin": true
+ },
+ "kacang_hijau": {
+  "src": "USDA FDC SR Legacy: Mung beans, mature seeds, raw",
+  "yakin": true
+ },
+ "kacang_hitam": {
+  "src": "USDA FDC SR Legacy: Beans, black, mature seeds, canned",
+  "yakin": true
+ },
+ "kacang_kedelai_hitam": {
+  "src": "Perkiraan kedelai hitam kering",
+  "yakin": false
+ },
+ "kacang_merah": {
+  "src": "USDA FDC SR Legacy: Beans, kidney, all types, mature seeds, raw",
+  "yakin": true
+ },
+ "kacang_mete": {
+  "src": "USDA FDC SR Legacy: Nuts, cashew nuts, raw",
+  "yakin": true
+ },
+ "kacang_panjang": {
+  "src": "USDA FDC SR Legacy: Yardlong bean, raw",
+  "yakin": true
+ },
+ "kacang_pistachio": {
+  "src": "USDA FDC SR Legacy: Nuts, pistachio nuts, raw",
+  "yakin": true
+ },
+ "kacang_putih": {
+  "src": "USDA FDC SR Legacy: Beans, white, mature seeds, canned",
+  "yakin": true
+ },
+ "kacang_tanah": {
+  "src": "USDA FDC SR Legacy: Peanuts, all types, raw",
+  "yakin": true
+ },
+ "kacang_walnut": {
+  "src": "USDA FDC SR Legacy: Nuts, walnuts, English",
+  "yakin": true
+ },
+ "kailan": {
+  "src": "USDA FDC SR Legacy: Broccoli, chinese, raw",
+  "yakin": true
+ },
+ "kaldu_ayam_cair": {
+  "src": "USDA FDC SR Legacy: Soup, chicken broth, ready-to-serve",
+  "yakin": true
+ },
+ "kaldu_sayur_cair": {
+  "src": "USDA FDC SR Legacy: Soup, vegetable broth, ready to serve",
+  "yakin": true
+ },
+ "kale": {
+  "src": "USDA FDC SR Legacy: Kale, raw",
+  "yakin": true
+ },
+ "kalkun": {
+  "src": "USDA FDC SR Legacy: Turkey, whole, meat only, roasted (Racik protein 29 g = matang)",
+  "yakin": false
+ },
+ "kangkung": {
+  "src": "USDA FDC SR Legacy: Water spinach, raw",
+  "yakin": true
+ },
+ "kapri": {
+  "src": "USDA FDC SR Legacy: Peas, green, raw",
+  "yakin": true
+ },
+ "kapulaga": {
+  "src": "USDA FDC SR Legacy: Spices, cardamom",
+  "yakin": true
+ },
+ "kayu_manis": {
+  "src": "USDA FDC SR Legacy: Spices, cinnamon, ground (batang tidak dimakan)",
+  "yakin": true
+ },
+ "kayu_manis_bubuk": {
+  "src": "USDA FDC SR Legacy: Spices, cinnamon, ground",
+  "yakin": true
+ },
+ "kecap_asin": {
+  "src": "USDA FDC SR Legacy: Soy sauce made from soy and wheat (shoyu)",
+  "yakin": true
+ },
+ "kecap_ikan": {
+  "src": "USDA FDC SR Legacy: Sauce, fish, ready-to-serve",
+  "yakin": true
+ },
+ "kecap_inggris": {
+  "src": "USDA FDC SR Legacy: Sauce, worcestershire",
+  "yakin": true
+ },
+ "kecap_manis": {
+  "src": "Label kecap manis (0-1 g)",
+  "yakin": true
+ },
+ "kecipir": {
+  "src": "USDA FDC SR Legacy: Winged bean, immature seeds, raw",
+  "yakin": true
+ },
+ "kedelai": {
+  "src": "USDA FDC SR Legacy: Soybeans, mature seeds, raw",
+  "yakin": true
+ },
+ "kedondong": {
+  "src": "Perkiraan kedondong",
+  "yakin": true
+ },
+ "keju_cheddar": {
+  "src": "USDA FDC SR Legacy: Cheese, cheddar",
+  "yakin": true
+ },
+ "keju_edam": {
+  "src": "USDA FDC SR Legacy: Cheese, edam",
+  "yakin": true
+ },
+ "keju_feta": {
+  "src": "USDA FDC SR Legacy: Cheese, feta",
+  "yakin": true
+ },
+ "keju_gouda": {
+  "src": "USDA FDC SR Legacy: Cheese, gouda",
+  "yakin": true
+ },
+ "keju_mozzarella": {
+  "src": "USDA FDC SR Legacy: Cheese, mozzarella, whole milk",
+  "yakin": true
+ },
+ "keju_parmesan": {
+  "src": "USDA FDC SR Legacy: Cheese, parmesan, hard",
+  "yakin": true
+ },
+ "keju_ricotta": {
+  "src": "USDA FDC SR Legacy: Cheese, ricotta, whole milk",
+  "yakin": true
+ },
+ "keju_slice": {
+  "src": "Label keju lembaran olahan (20-27 g)",
+  "yakin": false
+ },
+ "kelapa_muda": {
+  "src": "Perkiraan daging kelapa muda (3-7 g)",
+  "yakin": false
+ },
+ "kelapa_parut": {
+  "src": "USDA FDC SR Legacy: Nuts, coconut meat, raw",
+  "yakin": true
+ },
+ "kemangi": {
+  "src": "USDA FDC SR Legacy: Basil, fresh",
+  "yakin": true
+ },
+ "kemiri": {
+  "src": "TKPI 2017 (panganku.org): Kemiri",
+  "yakin": true
+ },
+ "kencur": {
+  "src": "TKPI 2017 (panganku.org): Kencur (perkiraan)",
+  "yakin": false
+ },
+ "kentang": {
+  "src": "USDA FDC SR Legacy: Potatoes, flesh and skin, raw",
+  "yakin": true
+ },
+ "kentang_goreng_beku": {
+  "src": "USDA FDC SR Legacy: Potatoes, french fried, frozen, unprepared",
+  "yakin": true
+ },
+ "kepiting": {
+  "src": "USDA FDC SR Legacy: Crustaceans, crab, blue, raw",
+  "yakin": true
+ },
+ "kerang_dara": {
+  "src": "Perkiraan kerang darah 0,5-1,5 g",
+  "yakin": false
+ },
+ "kerang_hijau": {
+  "src": "USDA FDC SR Legacy: Mollusks, mussel, blue, raw",
+  "yakin": true
+ },
+ "keripik_tortilla": {
+  "src": "USDA FDC SR Legacy: Snacks, tortilla chips, plain, white corn",
+  "yakin": true
+ },
+ "kerupuk_udang": {
+  "src": "Perkiraan kerupuk udang mentah (belum digoreng)",
+  "yakin": false
+ },
+ "kesemek": {
+  "src": "USDA FDC SR Legacy: Persimmons, japanese, raw",
+  "yakin": true
+ },
+ "ketan_hitam": {
+  "src": "TKPI 2017 (panganku.org): Beras ketan hitam (perkiraan)",
+  "yakin": false
+ },
+ "ketumbar": {
+  "src": "USDA FDC SR Legacy: Spices, coriander seed",
+  "yakin": true
+ },
+ "kismis": {
+  "src": "USDA FDC SR Legacy: Raisins, seedless",
+  "yakin": true
+ },
+ "kiwi": {
+  "src": "USDA FDC SR Legacy: Kiwifruit, green, raw",
+  "yakin": true
+ },
+ "kluwek": {
+  "src": "TKPI 2017 (panganku.org): Keluwak (perkiraan, belum pasti)",
+  "yakin": false
+ },
+ "kol": {
+  "src": "USDA FDC SR Legacy: Cabbage, raw",
+  "yakin": true
+ },
+ "kol_bunga": {
+  "src": "USDA FDC SR Legacy: Cauliflower, raw",
+  "yakin": true
+ },
+ "kolang_kaling": {
+  "src": "Perkiraan kolang-kaling",
+  "yakin": true
+ },
+ "kopi_bubuk": {
+  "src": "Perkiraan kopi seduh per bubuk yang dipakai",
+  "yakin": false
+ },
+ "kornet": {
+  "src": "Label kornet sapi Indonesia (10-14 g); USDA corned beef canned 14.9",
+  "yakin": false
+ },
+ "kucai": {
+  "src": "USDA FDC SR Legacy: Chives, raw",
+  "yakin": true
+ },
+ "kulit_pizza": {
+  "src": "Label kulit pizza siap pakai (3-6 g)",
+  "yakin": false
+ },
+ "kunyit": {
+  "src": "Perkiraan kunyit segar",
+  "yakin": false
+ },
+ "kunyit_bubuk": {
+  "src": "USDA FDC SR Legacy: Spices, turmeric, ground",
+  "yakin": true
+ },
+ "kurma": {
+  "src": "USDA FDC SR Legacy: Dates, deglet noor / medjool (0.15-0.4)",
+  "yakin": true
+ },
+ "kwetiau": {
+  "src": "Perkiraan kwetiau basah (0,4-1 g)",
+  "yakin": false
+ },
+ "labu_kuning": {
+  "src": "USDA FDC SR Legacy: Pumpkin, raw",
+  "yakin": true
+ },
+ "labu_siam": {
+  "src": "USDA FDC SR Legacy: Chayote, fruit, raw",
+  "yakin": true
+ },
+ "lada_hitam": {
+  "src": "USDA FDC SR Legacy: Spices, pepper, black",
+  "yakin": true
+ },
+ "leci": {
+  "src": "USDA FDC SR Legacy: Litchis, raw",
+  "yakin": true
+ },
+ "lemon": {
+  "src": "USDA FDC SR Legacy: Lemons, raw, without peel",
+  "yakin": true
+ },
+ "lengkeng": {
+  "src": "USDA FDC SR Legacy: Longans, raw",
+  "yakin": true
+ },
+ "lengkuas": {
+  "src": "Perkiraan lengkuas segar",
+  "yakin": false
+ },
+ "lentil": {
+  "src": "USDA FDC SR Legacy: Lentils, raw",
+  "yakin": true
+ },
+ "lobak": {
+  "src": "USDA FDC SR Legacy: Radishes, oriental, raw",
+  "yakin": true
+ },
+ "lobster": {
+  "src": "USDA FDC SR Legacy: Crustaceans, lobster, northern, raw",
+  "yakin": true
+ },
+ "lontong": {
+  "src": "Perkiraan nasi dimampatkan",
+  "yakin": true
+ },
+ "luncheon_meat": {
+  "src": "USDA FDC SR Legacy: Luncheon meat, pork, canned",
+  "yakin": false
+ },
+ "madu": {
+  "src": "USDA FDC SR Legacy: Honey",
+  "yakin": true
+ },
+ "makaroni": {
+  "src": "USDA FDC SR Legacy: Pasta, dry, enriched",
+  "yakin": true
+ },
+ "mangga": {
+  "src": "USDA FDC SR Legacy: Mangos, raw",
+  "yakin": true
+ },
+ "mangga_muda": {
+  "src": "Perkiraan mangga muda",
+  "yakin": true
+ },
+ "manggis": {
+  "src": "USDA FDC SR Legacy: Mangosteen, canned, syrup pack (perkiraan)",
+  "yakin": true
+ },
+ "margarin": {
+  "src": "USDA FDC SR Legacy: Margarine, regular, 80% fat",
+  "yakin": true
+ },
+ "markisa": {
+  "src": "USDA FDC SR Legacy: Passion-fruit, (granadilla), purple, raw",
+  "yakin": true
+ },
+ "marshmallow": {
+  "src": "USDA FDC SR Legacy: Candies, marshmallows",
+  "yakin": true
+ },
+ "mayones": {
+  "src": "USDA FDC SR Legacy: Salad dressing, mayonnaise, regular",
+  "yakin": true
+ },
+ "melinjo": {
+  "src": "TKPI 2017 (panganku.org): Melinjo, biji (perkiraan)",
+  "yakin": false
+ },
+ "melon": {
+  "src": "USDA FDC SR Legacy: Melons, cantaloupe, raw",
+  "yakin": true
+ },
+ "mentega": {
+  "src": "USDA FDC SR Legacy: Butter, salted",
+  "yakin": true
+ },
+ "merica": {
+  "src": "USDA FDC SR Legacy: Spices, pepper, black",
+  "yakin": true
+ },
+ "mie_instan": {
+  "src": "Label mi instan (blok mi digoreng 15-20 g)",
+  "yakin": false
+ },
+ "mie_telur": {
+  "src": "USDA FDC SR Legacy: Noodles, egg, dry, enriched",
+  "yakin": true
+ },
+ "minyak_bunga_matahari": {
+  "src": "Minyak nabati: 100 g lemak",
+  "yakin": true
+ },
+ "minyak_goreng": {
+  "src": "Minyak nabati: 100 g lemak",
+  "yakin": true
+ },
+ "minyak_kanola": {
+  "src": "Minyak nabati: 100 g lemak",
+  "yakin": true
+ },
+ "minyak_kelapa": {
+  "src": "Minyak nabati: 100 g lemak",
+  "yakin": true
+ },
+ "minyak_wijen": {
+  "src": "Minyak nabati: 100 g lemak",
+  "yakin": true
+ },
+ "minyak_zaitun": {
+  "src": "Minyak nabati: 100 g lemak",
+  "yakin": true
+ },
+ "miso": {
+  "src": "USDA FDC SR Legacy: Miso",
+  "yakin": true
+ },
+ "mustard": {
+  "src": "USDA FDC SR Legacy: Mustard, prepared, yellow",
+  "yakin": true
+ },
+ "nanas": {
+  "src": "USDA FDC SR Legacy: Pineapple, raw",
+  "yakin": true
+ },
+ "nanas_muda": {
+  "src": "Perkiraan nanas muda",
+  "yakin": true
+ },
+ "nangka": {
+  "src": "USDA FDC SR Legacy: Jackfruit, raw",
+  "yakin": true
+ },
+ "nangka_muda": {
+  "src": "Perkiraan nangka muda",
+  "yakin": true
+ },
+ "nasi_putih": {
+  "src": "USDA FDC SR Legacy: Rice, white, long-grain, regular, cooked",
+  "yakin": true
+ },
+ "nugget": {
+  "src": "USDA FDC SR Legacy: Chicken nuggets, frozen, uncooked",
+  "yakin": false
+ },
+ "nugget_ikan": {
+  "src": "Label nugget ikan (8-12 g)",
+  "yakin": false
+ },
+ "oatmeal": {
+  "src": "USDA FDC SR Legacy: Oats (rolled), raw",
+  "yakin": true
+ },
+ "oncom": {
+  "src": "TKPI 2017 (panganku.org): Oncom (perkiraan)",
+  "yakin": false
+ },
+ "oregano": {
+  "src": "USDA FDC SR Legacy: Spices, oregano, dried",
+  "yakin": true
+ },
+ "otak_otak": {
+  "src": "Perkiraan otak-otak ikan (3-6 g)",
+  "yakin": false
+ },
+ "oyong": {
+  "src": "USDA FDC SR Legacy: Gourd, dishcloth (towelgourd), raw",
+  "yakin": true
+ },
+ "pakcoy": {
+  "src": "USDA FDC SR Legacy: Cabbage, chinese (pak-choi), raw",
+  "yakin": true
+ },
+ "pakis": {
+  "src": "USDA FDC SR Legacy: Fiddlehead ferns, raw",
+  "yakin": true
+ },
+ "pala": {
+  "src": "USDA FDC SR Legacy: Spices, nutmeg, ground",
+  "yakin": true
+ },
+ "paneer": {
+  "src": "Label paneer (20-25 g)",
+  "yakin": false
+ },
+ "paprika": {
+  "src": "USDA FDC SR Legacy: Peppers, sweet, red, raw",
+  "yakin": true
+ },
+ "paprika_bubuk": {
+  "src": "USDA FDC SR Legacy: Spices, paprika",
+  "yakin": true
+ },
+ "pare": {
+  "src": "USDA FDC SR Legacy: Balsam-pear (bitter gourd), pods, raw",
+  "yakin": true
+ },
+ "pasta_lasagna": {
+  "src": "USDA FDC SR Legacy: Pasta, dry, enriched",
+  "yakin": true
+ },
+ "pasta_tomat": {
+  "src": "USDA FDC SR Legacy: Tomato products, canned, paste",
+  "yakin": true
+ },
+ "pate_hati": {
+  "src": "USDA FDC SR Legacy: Liverwurst / pate (13-44 g)",
+  "yakin": false
+ },
+ "pempek": {
+  "src": "Perkiraan pempek ikan sebelum digoreng",
+  "yakin": false
+ },
+ "pepaya": {
+  "src": "USDA FDC SR Legacy: Papayas, raw",
+  "yakin": true
+ },
+ "perut_babi": {
+  "src": "USDA FDC SR Legacy: Pork, fresh, belly, raw (53 g; Racik protein lebih tinggi)",
+  "yakin": false
+ },
+ "petai": {
+  "src": "TKPI 2017 (panganku.org): Petai segar",
+  "yakin": false
+ },
+ "peterseli": {
+  "src": "USDA FDC SR Legacy: Parsley, fresh",
+  "yakin": true
+ },
+ "pewarna_makanan": {
+  "src": "Tanpa lemak",
+  "yakin": true
+ },
+ "pir": {
+  "src": "USDA FDC SR Legacy: Pears, raw",
+  "yakin": true
+ },
+ "pisang": {
+  "src": "USDA FDC SR Legacy: Bananas, raw",
+  "yakin": true
+ },
+ "puree_tomat": {
+  "src": "USDA FDC SR Legacy: Tomato products, canned, puree",
+  "yakin": true
+ },
+ "quinoa": {
+  "src": "USDA FDC SR Legacy: Quinoa, uncooked",
+  "yakin": true
+ },
+ "ragi_instan": {
+  "src": "USDA FDC SR Legacy: Leavening agents, yeast, baker's, active dry",
+  "yakin": true
+ },
+ "rambutan": {
+  "src": "USDA FDC SR Legacy: Rambutan, canned, syrup pack (perkiraan)",
+  "yakin": true
+ },
+ "rebung": {
+  "src": "USDA FDC SR Legacy: Bamboo shoots, raw",
+  "yakin": true
+ },
+ "roti_baguette": {
+  "src": "USDA FDC SR Legacy: Bread, french or vienna",
+  "yakin": false
+ },
+ "roti_burger": {
+  "src": "USDA FDC SR Legacy: Rolls, hamburger or hot dog, plain",
+  "yakin": true
+ },
+ "roti_hotdog": {
+  "src": "USDA FDC SR Legacy: Rolls, hamburger or hot dog, plain",
+  "yakin": true
+ },
+ "roti_tawar": {
+  "src": "USDA FDC SR Legacy: Bread, white, commercially prepared",
+  "yakin": true
+ },
+ "sagu": {
+  "src": "Pati sagu (perkiraan)",
+  "yakin": true
+ },
+ "sagu_mutiara": {
+  "src": "Pati murni",
+  "yakin": true
+ },
+ "salak": {
+  "src": "Perkiraan salak",
+  "yakin": false
+ },
+ "santan": {
+  "src": "Label santan kemasan UHT (17-20 g); USDA coconut milk raw 23.8; santan encer rumahan lebih rendah",
+  "yakin": false
+ },
+ "sarden": {
+  "src": "USDA FDC SR Legacy: Fish, sardine, canned in tomato sauce / in oil (10.5-11.5)",
+  "yakin": true
+ },
+ "saus_bbq": {
+  "src": "USDA FDC SR Legacy: Sauce, barbecue",
+  "yakin": true
+ },
+ "saus_enchilada": {
+  "src": "Label saus enchilada (perkiraan)",
+  "yakin": false
+ },
+ "saus_french": {
+  "src": "USDA FDC SR Legacy: Salad dressing, french dressing, commercial, regular",
+  "yakin": false
+ },
+ "saus_pasta": {
+  "src": "USDA FDC SR Legacy: Sauce, pasta, spaghetti/marinara, ready-to-serve",
+  "yakin": true
+ },
+ "saus_pizza": {
+  "src": "Label saus pizza (perkiraan)",
+  "yakin": false
+ },
+ "saus_salad_italia": {
+  "src": "USDA FDC SR Legacy: Salad dressing, italian dressing, commercial, regular",
+  "yakin": false
+ },
+ "saus_salsa": {
+  "src": "USDA FDC SR Legacy: Sauce, salsa, ready-to-serve",
+  "yakin": true
+ },
+ "saus_sambal": {
+  "src": "Label saus sambal (0-1 g)",
+  "yakin": true
+ },
+ "saus_teriyaki": {
+  "src": "USDA FDC SR Legacy: Sauce, teriyaki, ready-to-serve",
+  "yakin": true
+ },
+ "saus_thousand_island": {
+  "src": "USDA FDC SR Legacy: Salad dressing, thousand island, commercial, regular",
+  "yakin": false
+ },
+ "saus_tiram": {
+  "src": "USDA FDC SR Legacy: Sauce, oyster, ready-to-serve",
+  "yakin": true
+ },
+ "saus_tomat": {
+  "src": "USDA FDC SR Legacy: Catsup",
+  "yakin": true
+ },
+ "saus_vinaigrette": {
+  "src": "Label balsamic vinaigrette (20-30 g)",
+  "yakin": false
+ },
+ "sawi_hijau": {
+  "src": "USDA FDC SR Legacy: Mustard greens, raw",
+  "yakin": true
+ },
+ "sawi_putih": {
+  "src": "USDA FDC SR Legacy: Cabbage, chinese (pe-tsai), raw",
+  "yakin": true
+ },
+ "sawo": {
+  "src": "USDA FDC SR Legacy: Sapodilla, raw",
+  "yakin": true
+ },
+ "sayur_beku_mix": {
+  "src": "USDA FDC SR Legacy: Vegetables, mixed, frozen, unprepared",
+  "yakin": true
+ },
+ "selada": {
+  "src": "USDA FDC SR Legacy: Lettuce, green leaf, raw",
+  "yakin": true
+ },
+ "selai_coklat_hazelnut": {
+  "src": "Label selai cokelat hazelnut (sekitar 31 g)",
+  "yakin": true
+ },
+ "selai_kacang": {
+  "src": "USDA FDC SR Legacy: Peanut butter, smooth style",
+  "yakin": true
+ },
+ "selai_nanas": {
+  "src": "USDA FDC SR Legacy: Jams and preserves",
+  "yakin": true
+ },
+ "selai_stroberi": {
+  "src": "USDA FDC SR Legacy: Jams and preserves",
+  "yakin": true
+ },
+ "selasih": {
+  "src": "Perkiraan biji selasih (mirip chia)",
+  "yakin": false
+ },
+ "seledri": {
+  "src": "USDA FDC SR Legacy: Celery, raw",
+  "yakin": true
+ },
+ "semangka": {
+  "src": "USDA FDC SR Legacy: Watermelon, raw",
+  "yakin": true
+ },
+ "serai": {
+  "src": "USDA FDC SR Legacy: Lemon grass (citronella), raw",
+  "yakin": true
+ },
+ "singkong": {
+  "src": "USDA FDC SR Legacy: Cassava, raw",
+  "yakin": true
+ },
+ "siomay_ikan": {
+  "src": "Perkiraan siomay ikan kukus",
+  "yakin": false
+ },
+ "sirsak": {
+  "src": "USDA FDC SR Legacy: Soursop, raw",
+  "yakin": true
+ },
+ "sirup_buah": {
+  "src": "Sirup gula",
+  "yakin": true
+ },
+ "sirup_jagung": {
+  "src": "USDA FDC SR Legacy: Syrups, corn, light",
+  "yakin": true
+ },
+ "sirup_maple": {
+  "src": "USDA FDC SR Legacy: Syrups, maple",
+  "yakin": true
+ },
+ "smoked_beef": {
+  "src": "Label smoked beef Indonesia (3-8 g)",
+  "yakin": false
+ },
+ "soda_kue": {
+  "src": "Natrium bikarbonat: tanpa lemak",
+  "yakin": true
+ },
+ "sosis": {
+  "src": "Label sosis sapi/ayam Indonesia (15-22 g)",
+  "yakin": false
+ },
+ "spageti": {
+  "src": "USDA FDC SR Legacy: Pasta, dry, enriched",
+  "yakin": true
+ },
+ "strawberry": {
+  "src": "USDA FDC SR Legacy: Strawberries, raw",
+  "yakin": true
+ },
+ "sukun": {
+  "src": "USDA FDC SR Legacy: Breadfruit, raw",
+  "yakin": true
+ },
+ "sup_krim_ayam_kalengan": {
+  "src": "USDA FDC SR Legacy: Soup, cream of chicken, canned, condensed (perkiraan)",
+  "yakin": false
+ },
+ "sup_krim_jamur_kalengan": {
+  "src": "USDA FDC SR Legacy: Soup, cream of mushroom, canned, condensed (perkiraan)",
+  "yakin": false
+ },
+ "susu_almond": {
+  "src": "USDA FDC SR Legacy: Beverages, almond milk, unsweetened",
+  "yakin": true
+ },
+ "susu_bubuk": {
+  "src": "USDA FDC SR Legacy: Milk, dry, whole",
+  "yakin": true
+ },
+ "susu_cair": {
+  "src": "USDA FDC SR Legacy: Milk, whole, 3.25% milkfat",
+  "yakin": true
+ },
+ "susu_coklat_malt_bubuk": {
+  "src": "Label minuman cokelat malt bubuk (7-9 g)",
+  "yakin": false
+ },
+ "susu_evaporasi": {
+  "src": "USDA FDC SR Legacy: Milk, canned, evaporated, without added vitamin A",
+  "yakin": true
+ },
+ "susu_kedelai": {
+  "src": "USDA FDC SR Legacy: Soymilk, original and vanilla, unfortified",
+  "yakin": true
+ },
+ "susu_kental_manis": {
+  "src": "USDA FDC SR Legacy: Milk, canned, condensed, sweetened",
+  "yakin": true
+ },
+ "susu_oat": {
+  "src": "Label susu oat (1-3 g)",
+  "yakin": false
+ },
+ "tahini": {
+  "src": "USDA FDC SR Legacy: Seeds, sesame butter, tahini",
+  "yakin": true
+ },
+ "tahu": {
+  "src": "USDA FDC SR Legacy: Tofu, raw, regular, prepared with calcium sulfate",
+  "yakin": true
+ },
+ "tahu_sutra": {
+  "src": "USDA FDC SR Legacy: Tofu, soft, silken",
+  "yakin": true
+ },
+ "tape_ketan": {
+  "src": "Perkiraan tape ketan",
+  "yakin": false
+ },
+ "tape_singkong": {
+  "src": "TKPI 2017 (panganku.org): Tape singkong",
+  "yakin": false
+ },
+ "tauco": {
+  "src": "Perkiraan tauco",
+  "yakin": false
+ },
+ "tauge": {
+  "src": "USDA FDC SR Legacy: Mung beans, mature seeds, sprouted, raw",
+  "yakin": true
+ },
+ "teh": {
+  "src": "Teh diseduh, daun tidak dimakan",
+  "yakin": true
+ },
+ "telur": {
+  "src": "USDA FDC SR Legacy: Egg, whole, raw, fresh",
+  "yakin": true
+ },
+ "telur_asin": {
+  "src": "TKPI 2017 (panganku.org): Telur bebek asin",
+  "yakin": false
+ },
+ "telur_bebek": {
+  "src": "USDA FDC SR Legacy: Egg, duck, whole, fresh, raw",
+  "yakin": true
+ },
+ "telur_puyuh": {
+  "src": "USDA FDC SR Legacy: Egg, quail, whole, fresh, raw",
+  "yakin": true
+ },
+ "tempe": {
+  "src": "TKPI 2017 (panganku.org): Tempe kedelai murni (USDA tempeh 10.8)",
+  "yakin": true
+ },
+ "tempe_gembus": {
+  "src": "TKPI 2017 (panganku.org): Tempe gembus (perkiraan)",
+  "yakin": false
+ },
+ "tepung_almond": {
+  "src": "Label tepung almond (sekitar 50 g)",
+  "yakin": true
+ },
+ "tepung_beras": {
+  "src": "USDA FDC SR Legacy: Rice flour, white",
+  "yakin": true
+ },
+ "tepung_gandum_utuh": {
+  "src": "USDA FDC SR Legacy: Flour, whole wheat",
+  "yakin": true
+ },
+ "tepung_hunkwe": {
+  "src": "Pati kacang hijau (pati murni)",
+  "yakin": true
+ },
+ "tepung_jagung": {
+  "src": "USDA FDC SR Legacy: Cornmeal, whole-grain, yellow",
+  "yakin": true
+ },
+ "tepung_kacang_arab": {
+  "src": "USDA FDC SR Legacy: Chickpea flour (besan)",
+  "yakin": true
+ },
+ "tepung_ketan": {
+  "src": "Perkiraan tepung beras ketan",
+  "yakin": true
+ },
+ "tepung_maizena": {
+  "src": "USDA FDC SR Legacy: Cornstarch",
+  "yakin": true
+ },
+ "tepung_mocaf": {
+  "src": "Label tepung mocaf (0,3-1 g)",
+  "yakin": false
+ },
+ "tepung_panir": {
+  "src": "USDA FDC SR Legacy: Bread crumbs, dry, grated, plain",
+  "yakin": true
+ },
+ "tepung_tapioka": {
+  "src": "USDA FDC SR Legacy: Tapioca, pearl, dry",
+  "yakin": true
+ },
+ "tepung_terigu": {
+  "src": "USDA FDC SR Legacy: Wheat flour, white, all-purpose, enriched",
+  "yakin": true
+ },
+ "terasi": {
+  "src": "TKPI 2017 (panganku.org): Terasi udang (perkiraan)",
+  "yakin": false
+ },
+ "terong": {
+  "src": "USDA FDC SR Legacy: Eggplant, raw",
+  "yakin": true
+ },
+ "terong_belanda": {
+  "src": "Perkiraan terong belanda (tamarillo)",
+  "yakin": true
+ },
+ "thyme": {
+  "src": "USDA FDC SR Legacy: Spices, thyme, dried",
+  "yakin": true
+ },
+ "timun": {
+  "src": "USDA FDC SR Legacy: Cucumber, with peel, raw",
+  "yakin": true
+ },
+ "tiram": {
+  "src": "USDA FDC SR Legacy: Mollusks, oyster, Pacific, raw",
+  "yakin": true
+ },
+ "tomat": {
+  "src": "USDA FDC SR Legacy: Tomatoes, red, ripe, raw",
+  "yakin": true
+ },
+ "tomat_kalengan": {
+  "src": "USDA FDC SR Legacy: Tomatoes, red, ripe, canned",
+  "yakin": true
+ },
+ "tortellini": {
+  "src": "Label tortellini keju kering (6-9 g)",
+  "yakin": false
+ },
+ "tortilla": {
+  "src": "USDA FDC SR Legacy: Tortillas, ready-to-bake or -fry, flour",
+  "yakin": true
+ },
+ "tuna_kaleng": {
+  "src": "USDA FDC SR Legacy: Tuna, light, canned (dalam air 0.8 / dalam minyak 8.2)",
+  "yakin": false
+ },
+ "ubi_jalar": {
+  "src": "USDA FDC SR Legacy: Sweet potato, raw",
+  "yakin": true
+ },
+ "udang": {
+  "src": "USDA FDC SR Legacy: Crustaceans, shrimp, mixed species, raw",
+  "yakin": true
+ },
+ "udang_galah": {
+  "src": "Perkiraan udang air tawar (Macrobrachium), mentah",
+  "yakin": false
+ },
+ "vanila_cair": {
+  "src": "USDA FDC SR Legacy: Vanilla extract",
+  "yakin": true
+ },
+ "vanili": {
+  "src": "Perkiraan vanili bubuk (jumlah kecil)",
+  "yakin": true
+ },
+ "wijen": {
+  "src": "USDA FDC SR Legacy: Seeds, sesame seeds, whole, dried",
+  "yakin": true
+ },
+ "wortel": {
+  "src": "USDA FDC SR Legacy: Carrots, raw",
+  "yakin": true
+ },
+ "yogurt": {
+  "src": "USDA FDC SR Legacy: Yogurt, plain, whole milk",
+  "yakin": true
+ },
+ "yogurt_greek": {
+  "src": "USDA FDC SR Legacy: Yogurt, Greek, plain, whole milk",
+  "yakin": true
+ },
+ "zaitun": {
+  "src": "USDA FDC SR Legacy: Olives, ripe, canned",
+  "yakin": true
+ },
+ "zukini": {
+  "src": "USDA FDC SR Legacy: Squash, summer, zucchini, raw",
+  "yakin": true
+ }
+}
