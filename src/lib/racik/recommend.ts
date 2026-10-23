@@ -1,5 +1,6 @@
 import { passesHalalMode, proteinPerPortion } from "./engine";
 import { INGREDIENTS } from "./data";
+import { PHOTO } from "@/components/racik/photos";
 import type { Recipe, Slot } from "./types";
 import type { RacikState } from "./store";
 
@@ -15,8 +16,12 @@ function jitter(id: string, seed: number) {
   return value % 15;
 }
 
-export function suggest(recipes: Recipe[], state: RacikState, hour: number) {
-  const slot = currentSlot(hour);
+/**
+ * Home suggestions, best first. `slot` overrides the meal the clock implies
+ * (the person tapped "malam ini" and picked another meal). Recipes with a
+ * photograph win ties only: personal fit always decides first.
+ */
+export function suggest(recipes: Recipe[], state: RacikState, hour: number, slot: Slot = currentSlot(hour)) {
   return recipes
     .filter((r) => !r.precise && !r.slots.includes("pendamping") && !state.disliked.includes(r.id))
     .filter((r) => passesHalalMode(r, state.halalMode))
@@ -25,9 +30,14 @@ export function suggest(recipes: Recipe[], state: RacikState, hour: number) {
       const recency = cooked ? 0 : 55;
       const time = Math.max(0, 28 - Math.round(recipe.time / 8));
       const slotScore = recipe.slots.includes(slot) ? 17 : 0;
-      return { recipe, score: recency + time + slotScore + jitter(recipe.id, state.suggestionSeed) };
+      const slotScore2 = slot === "camilan" && recipe.slots.includes("jajan") ? 17 : 0;
+      return {
+        recipe,
+        score: recency + time + Math.max(slotScore, slotScore2) + jitter(recipe.id, state.suggestionSeed),
+        photo: Boolean(recipe.photoUrl ?? PHOTO[recipe.id]),
+      };
     })
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score || Number(b.photo) - Number(a.photo))
     .map((x) => x.recipe);
 }
 

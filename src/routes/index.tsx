@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Minus, Plus, RotateCcw, Search } from "lucide-react";
+import { Check, ChevronDown, Minus, Plus, RotateCcw, Search } from "lucide-react";
 import { AppTabs } from "@/components/racik/AppTabs";
 import { CompactRecipe } from "@/components/racik/CompactRecipe";
 import { ImportButton } from "@/components/racik/ImportDemo";
 import { Onboarding } from "@/components/racik/Onboarding";
+import { Sheet } from "@/components/racik/Sheet";
 import { NUSANTARA } from "@/lib/racik/data";
 import { currentSlot, matchesFilter, preferProteins, suggest } from "@/lib/racik/recommend";
 import { useRacik } from "@/lib/racik/state";
@@ -32,15 +33,14 @@ export const Route = createFileRoute("/")({
   component: MasakApa,
 });
 
-const CATS = [
-  { id: "makan_siang", label: "Siang", emoji: "☀️" },
-  { id: "makan_malam", label: "Malam", emoji: "🌙" },
-  { id: "sarapan", label: "Sarapan", emoji: "🌅" },
-  { id: "sayur", label: "Sayur", emoji: "🥬" },
-  { id: "lauk", label: "Lauk", emoji: "🍖" },
-  { id: "sambal", label: "Sambal", emoji: "🌶️" },
-  { id: "jajan", label: "Jajan", emoji: "🧁" },
+/** The meal the title asks about. Tapping the phrase in the title changes it. */
+const SLOTS = [
+  { id: "sarapan", id_: "untuk sarapan", en: "for breakfast", label: "Sarapan" },
+  { id: "makan_siang", id_: "siang ini", en: "for lunch", label: "Makan siang" },
+  { id: "makan_malam", id_: "malam ini", en: "for dinner", label: "Makan malam" },
+  { id: "camilan", id_: "buat camilan", en: "for a snack", label: "Camilan" },
 ] as const;
+type SlotId = (typeof SLOTS)[number]["id"];
 
 const FILTERS = [
   { id: "cepat", key: "filter_quick" },
@@ -80,17 +80,17 @@ function Splash() {
 }
 
 function greeting(hour: number, lang: Lang) {
-  const say = (a: Parameters<typeof translate>[1], b: Parameters<typeof translate>[1]) =>
-    [translate(lang, a), translate(lang, b)];
-  if (hour < 10) return say("greeting_morning", "ask_breakfast");
-  if (hour < 15) return say("greeting_midday", "ask_lunch");
-  if (hour < 18) return say("greeting_evening", "ask_dinner");
-  return say("greeting_night", "ask_dinner");
+  if (hour < 10) return translate(lang, "greeting_morning");
+  if (hour < 15) return translate(lang, "greeting_midday");
+  if (hour < 18) return translate(lang, "greeting_evening");
+  return translate(lang, "greeting_night");
 }
 
 function MasakApa() {
   const { state, ready, update } = useRacik();
-  const [cat, setCat] = useState<string>("");
+  // null = follow the clock; a value = the person picked a meal in the title.
+  const [picked, setPicked] = useState<SlotId | null>(null);
+  const [slotSheet, setSlotSheet] = useState(false);
   const [filters, setFilters] = useState<string[]>([]);
   // Land the feed on what she said matters most, once; after that it is hers to change.
   const priorityApplied = useRef(false);
@@ -105,15 +105,18 @@ function MasakApa() {
   useEffect(() => setHour(new Date().getHours()), []);
   const t = useT();
   const lang = useLang();
-  const words = greeting(hour, lang);
-  void currentSlot;
+  const hello = greeting(hour, lang);
+  const slot: SlotId = picked ?? (currentSlot(hour) as SlotId);
+  const slotInfo = SLOTS.find((x) => x.id === slot) ?? SLOTS[2];
 
   const list = useMemo(() => {
-    const base = preferProteins(suggest(NUSANTARA, state, hour), state.proteins);
-    const byCat = cat ? base.filter((r) => r.slots.includes(cat as never)) : base;
-    const withoutCompanion = cat ? byCat : byCat.filter((r) => !r.slots.includes("pendamping") && !r.precise);
-    return withoutCompanion.filter((r) => filters.every((f) => matchesFilter(r, f))).slice(0, 6);
-  }, [cat, filters, state, hour]);
+    const base = preferProteins(suggest(NUSANTARA, state, hour, slot), state.proteins);
+    // A meal picked in the title narrows the list; the clock only reorders it.
+    const inSlot = (r: (typeof base)[number]) =>
+      slot === "camilan" ? r.slots.includes("camilan") || r.slots.includes("jajan") : r.slots.includes(slot);
+    const bySlot = picked ? base.filter(inSlot) : base.filter((r) => !r.slots.includes("pendamping") && !r.precise);
+    return bySlot.filter((r) => filters.every((f) => matchesFilter(r, f))).slice(0, 6);
+  }, [picked, slot, filters, state, hour]);
 
   // Until the saved state is read, nobody knows whether she is new: show a
   // neutral splash, not the home screen (which then flashed away into
@@ -128,21 +131,33 @@ function MasakApa() {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
-      <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
-        <p className="mb-0.5 text-15 font-bold text-primary">{words[0]}</p>
-        <h1 className="mb-1 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{words[1]}</h1>
-        <div className="mt-3 mb-[18px] flex items-center justify-between">
-          <div>
-            <p className="text-label text-ink-3">Masak untuk</p>
-            <p className="mt-0.5 text-14 font-bold">{t("for_people", { n: state.household })}</p>
+      <header className="border-b border-rule-soft bg-card px-5 pb-4 pt-[calc(2.75rem+env(safe-area-inset-top))]">
+        <p className="mb-0.5 text-15 font-bold text-primary">{hello}</p>
+        <h1 className="mb-1 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">
+          {lang === "en" ? "What to cook " : "Masak apa "}
+          <button
+            type="button"
+            onClick={() => setSlotSheet(true)}
+            aria-haspopup="dialog"
+            aria-label={`Ganti waktu makan, sekarang: ${slotInfo.label}`}
+            className="inline-flex items-baseline gap-1 rounded-lg text-primary underline decoration-2 underline-offset-4"
+          >
+            {lang === "en" ? slotInfo.en : slotInfo.id_}
+            <ChevronDown aria-hidden className="size-6 self-center" strokeWidth={2.6} />
+          </button>
+          ?
+        </h1>
+        <div className="mt-3 mb-3 flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-14 font-bold">{lang === "en" ? "Cooking for " : "Masak untuk "}{t("for_people", { n: state.household })}</p>
+            <p className="text-caption leading-snug text-ink-3">Takaran resep ikut jumlah ini.</p>
           </div>
-          <div className="flex items-center rounded-xl border border-rule bg-ground p-[3px]">
-            <button type="button" onClick={() => setHousehold(state.household - 1)} aria-label="Kurangi porsi" className="flex size-11 items-center justify-center rounded-lg bg-card text-primary disabled:text-ink-3" disabled={state.household <= 1}><Minus className="size-5" /></button>
-            <span className="w-[42px] text-center text-15 font-extrabold tabular-nums">{state.household}</span>
-            <button type="button" onClick={() => setHousehold(state.household + 1)} aria-label="Tambah porsi" className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:opacity-40" disabled={state.household >= MAX_PORTIONS}><Plus className="size-5" /></button>
+          <div className="flex shrink-0 items-center rounded-xl border border-rule bg-ground p-[3px]">
+            <button type="button" onClick={() => setHousehold(state.household - 1)} aria-label="Kurangi jumlah orang" className="flex size-11 items-center justify-center rounded-lg bg-card text-primary disabled:text-ink-3" disabled={state.household <= 1}><Minus className="size-5" /></button>
+            <span aria-live="polite" className="w-[42px] text-center text-15 font-extrabold tabular-nums">{state.household}</span>
+            <button type="button" onClick={() => setHousehold(state.household + 1)} aria-label="Tambah jumlah orang" className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:bg-tint disabled:text-ink-3" disabled={state.household >= MAX_PORTIONS}><Plus className="size-5" /></button>
           </div>
         </div>
-        <p className="-mt-2.5 mb-4 text-label text-ink-3">Takaran resep akan disesuaikan dengan jumlah ini.</p>
         <Link to="/cari" className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-rule-strong bg-tint px-3.5 py-3">
           <Search aria-hidden className="size-4 text-ink-faint" />
           <span className="text-15 text-ink-3">{t("search_placeholder")}</span>
@@ -150,35 +165,18 @@ function MasakApa() {
         <div className="mt-3"><ImportButton /></div>
       </header>
 
-      <div className="pt-5 pb-1">
-        <p className="meta-label mb-2.5 px-5">Waktu makan</p>
-        <div className="no-scrollbar flex gap-3 overflow-x-auto px-5">
-          {CATS.map((c) => {
-            const active = cat === c.id;
-            return (
-              <button key={c.id} type="button" onClick={() => setCat(active ? "" : c.id)} className={`flex size-[72px] shrink-0 flex-col items-center justify-center rounded-2xl transition-colors ${active ? "bg-primary" : "border border-rule-strong bg-card"}`}>
-                <span aria-hidden className="mb-1 text-head leading-none">{c.emoji}</span>
-                <span className={`text-micro font-semibold ${active ? "text-primary-foreground" : "text-icon-muted"}`}>{c.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="py-3">
-        <div className="mb-2.5 flex items-center justify-between px-5">
-          <p className="meta-label">Sesuaikan saran</p>
-          {filters.length ? <button type="button" onClick={() => setFilters([])} className="-my-3 min-h-11 px-1 text-label font-bold text-primary">Hapus semua</button> : null}
-        </div>
-        <div className="no-scrollbar flex gap-2 overflow-x-auto px-5">
+      <div className="pt-4">
+        <div role="group" aria-label="Sesuaikan saran" className="no-scrollbar flex gap-2 overflow-x-auto px-5">
           {FILTERS.map((f) => {
             const active = filters.includes(f.id);
             return (
-              <button key={f.id} type="button" onClick={() => toggle(f.id)} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}>
+              <button key={f.id} type="button" aria-pressed={active} onClick={() => toggle(f.id)} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}>
+                {active ? <Check aria-hidden className="mr-1 inline size-4 align-[-3px]" strokeWidth={2.6} /> : null}
                 {t(f.key)}
               </button>
             );
           })}
+          {filters.length ? <button type="button" onClick={() => setFilters([])} className="min-h-11 shrink-0 whitespace-nowrap px-2 text-label font-bold text-primary">Hapus semua</button> : null}
         </div>
       </div>
 
@@ -192,12 +190,33 @@ function MasakApa() {
         {list.length === 0 ? (
           <div className="flex flex-col items-center gap-3 py-12">
             <p className="text-center text-15 text-ink-3">{t("no_match")}</p>
-            <button type="button" onClick={() => { setFilters([]); setCat(""); }} className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">{t("clear_filters")}</button>
+            <button type="button" onClick={() => { setFilters([]); setPicked(null); }} className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">{t("clear_filters")}</button>
           </div>
         ) : (
           <div className="flex flex-col gap-3 pb-5">{list.map((r) => <CompactRecipe key={r.id} recipe={r} boxed />)}</div>
         )}
       </section>
+      <Sheet open={slotSheet} onClose={() => setSlotSheet(false)} title="Masak untuk kapan?">
+        <div role="radiogroup" aria-label="Waktu makan" className="grid grid-cols-2 gap-2.5">
+          {SLOTS.map((x) => (
+            <button
+              key={x.id}
+              type="button"
+              role="radio"
+              aria-checked={slot === x.id}
+              onClick={() => { setPicked(x.id); setSlotSheet(false); }}
+              className={`min-h-14 rounded-2xl px-4 text-left text-15 font-bold ${slot === x.id ? "border-2 border-primary bg-primary-soft text-primary-deep" : "border border-rule bg-card text-ink"}`}
+            >
+              {x.label}
+            </button>
+          ))}
+        </div>
+        {picked ? (
+          <button type="button" onClick={() => { setPicked(null); setSlotSheet(false); }} className="mt-3 min-h-11 text-14 font-bold text-primary">
+            Ikuti jam sekarang
+          </button>
+        ) : null}
+      </Sheet>
       <AppTabs />
     </main>
   );

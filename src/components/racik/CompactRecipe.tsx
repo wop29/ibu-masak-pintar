@@ -31,7 +31,7 @@ export function CompactRecipe({ recipe, boxed = false, creator }: { recipe: Reci
       params={{ id: recipe.id }}
       className={`flex items-center gap-4 py-3.5 ${boxed ? "rounded-2xl border border-rule bg-card px-3.5 shadow-card" : "border-b border-rule-soft last:border-b-0"}`}
     >
-      <div className="size-[76px] shrink-0 overflow-hidden rounded-xl bg-primary-deep">
+      <div className="size-[76px] shrink-0 overflow-hidden rounded-xl bg-tint">
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-28" />
       </div>
       <div className="min-w-0 flex-1">

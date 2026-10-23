@@ -16,7 +16,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
       params={{ id: recipe.id }}
       className="hairline-b block bg-card"
     >
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-primary-deep">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-tint">
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} />
       </div>
       <div className="px-5 py-4">
