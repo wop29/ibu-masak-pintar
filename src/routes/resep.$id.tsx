@@ -5,7 +5,7 @@ import { IncompleteBadge } from "@/components/racik/IncompleteBadge";
 import { IngredientList } from "@/components/racik/IngredientList";
 import { PHOTO, previewPhotoOf } from "@/components/racik/photos";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
-import { ProteinBlock } from "@/components/racik/ProteinBlock";
+import { NutritionBlock } from "@/components/racik/NutritionBlock";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CalendarPlus, ExternalLink, Heart, Minus, Plus } from "lucide-react";
 import { byId, findRecipe, REG } from "@/lib/racik/data";
@@ -167,7 +167,7 @@ function DetailResep() {
         </section>
 
         <section id="gizi" aria-label="Perkiraan gizi" className="pt-3 pb-2">
-          <ProteinBlock recipe={recipe} />
+          <NutritionBlock recipe={recipe} servings={servings} />
         </section>
 
         <section id="langkah" aria-labelledby="judul-langkah" className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] pt-6 pb-7">

@@ -1,14 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { REG } from "@/lib/racik/data";
-import { fmtProtein, fmtTime, proteinPerPortion, proteinUncertain } from "@/lib/racik/engine";
+import { fmtTime } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { PHOTO } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
 import { IncompleteBadge } from "./IncompleteBadge";
+import { nutritionLine } from "./NutritionBlock";
 
 export function RecipeCard({ recipe }: { recipe: Recipe }) {
   const photo = recipe.photoUrl ?? PHOTO[recipe.id];
-  const protein = proteinUncertain(recipe) ? null : fmtProtein(proteinPerPortion(recipe));
+  const gizi = nutritionLine(recipe);
   return (
     <Link
       to="/resep/$id"
@@ -24,8 +25,8 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         {recipe.incomplete ? <p className="mt-2"><IncompleteBadge recipe={recipe} /></p> : null}
         <p className="text-14 text-ink-3 mt-1">
           {fmtTime(recipe.time)} · {recipe.diff}
-          {protein ? ` · perkiraan ${protein} protein` : ""}
         </p>
+        {gizi ? <p className="text-14 text-ink-3 mt-0.5">Perkiraan per porsi: {gizi}</p> : null}
       </div>
     </Link>
   );
