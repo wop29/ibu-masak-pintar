@@ -86,7 +86,7 @@ function SharedLink() {
   if (!link) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16 pb-16">
-        <p className="eyebrow">RACIK</p>
+        <p className="text-15 font-bold text-primary">Racik</p>
         <h1 className="mt-2 text-28 font-extrabold leading-tight">Tautan ini belum bisa dibuka</h1>
         <p className="mt-3 read-line text-ink-2">
           Mungkin tautannya salah ketik, sudah dihapus, atau kamu sedang offline. Kode: {code}
@@ -126,12 +126,12 @@ function SharedLink() {
         />
       ) : (
         <header className="px-5 pt-[calc(2.5rem+env(safe-area-inset-top))]">
-          <p className="eyebrow">RACIK</p>
+          <p className="text-15 font-bold text-primary">Racik</p>
         </header>
       )}
 
       <section aria-label="Resep yang dibagikan" className="px-5">
-        <p className="eyebrow-ink mt-2">DIBAGIKAN</p>
+        <p className="meta-label mt-2">Dibagikan</p>
         <article className="mt-3 overflow-hidden rounded-3xl border border-rule bg-card shadow-raised">
           <div className="relative aspect-[4/3] bg-primary-track">
             <RecipePhoto

@@ -83,7 +83,7 @@ function Selesai() {
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pb-16 pt-10">
-      <p className="eyebrow">Sudah dimasak</p>
+      <p className="text-15 font-bold text-primary">Sudah dimasak</p>
       <h1 className="font-display text-28 mt-1 leading-[1.15]">{recipe.title}</h1>
 
       <h2 className="mt-6 text-head font-extrabold">Foto hasil masakanmu?</h2>
@@ -153,7 +153,7 @@ function Selesai() {
         </p>
       ) : null}
 
-      <h2 className="eyebrow-ink mt-8">Tadi seberapa ribet</h2>
+      <h2 className="heading-sm mt-8">Tadi seberapa ribet</h2>
       <div className="mt-3">
         {tally.map((v) => (
           <Button

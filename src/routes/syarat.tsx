@@ -18,7 +18,7 @@ export const Route = createFileRoute("/syarat")({
 function Syarat() {
   return (
     <LegalPage
-      eyebrow="SYARAT PENGGUNAAN"
+      kicker="Syarat penggunaan"
       title="Aturan singkat memakai Racik"
       intro={<p>Dengan memakai Racik, kamu setuju dengan aturan di bawah ini. Bahasanya sengaja dibuat singkat.</p>}
     >

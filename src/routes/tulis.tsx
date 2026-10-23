@@ -71,7 +71,6 @@ function Tulis() {
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-card pb-28">
       <header className="px-5 pb-5 pt-[calc(2.5rem+env(safe-area-inset-top))]">
-        <p className="eyebrow">RACIK</p>
         <h1 className="mt-1 text-display font-extrabold leading-[1.08]">
           Resep andalanmu, takarannya jelas
         </h1>
@@ -103,7 +102,7 @@ function Tulis() {
 
         {rows.length ? (
           <section className="mt-8">
-            <h2 className="eyebrow-ink">RESEP YANG KAMU TULIS</h2>
+            <h2 className="heading-sm">Resep yang kamu tulis</h2>
             <ul className="mt-2">
               {rows.map((r) => (
                 <li key={r.key}>

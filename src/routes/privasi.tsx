@@ -18,7 +18,7 @@ export const Route = createFileRoute("/privasi")({
 function Privasi() {
   return (
     <LegalPage
-      eyebrow="KEBIJAKAN PRIVASI"
+      kicker="Kebijakan privasi"
       title="Data kamu di Racik"
       intro={
         <p>

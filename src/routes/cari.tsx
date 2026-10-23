@@ -67,7 +67,7 @@ function Shelf({ title, items, onPick }: { title: string; items: Tile[]; onPick:
   });
   return (
     <section className="mt-6">
-      <h2 className="section-label mb-3 px-5 text-ink-strong">{title}</h2>
+      <h2 className="heading-sm mb-3 px-5">{title}</h2>
       <div className="no-scrollbar flex gap-3 overflow-x-auto px-5">
         {populated.map((t, i) => <PhotoTile key={t.key} tile={t} onPick={onPick} cover={covers[i]} />)}
       </div>
@@ -123,23 +123,23 @@ function buildShelves(nusantara: Recipe[], western: Recipe[]): { id: string; def
   const keyed = (id: string, items: Omit<Tile, "key">[]): ShelfDef["items"] => items.map((t) => ({ ...t, key: `${id}.${slug(t.label)}` }));
   const methods = ["Goreng", "Tumis", "Kukus", "Rebus", "Bakar"];
   const shelves: [string, string, Omit<Tile, "key">[]][] = [
-    ["cepat", "CEPAT & GAMPANG", [20, 30, 45].map((n) => ({ label: `≤ ${n} menit`, recipes: nusantara.filter((r) => r.time <= n) }))],
-    ["bahan", "BAHAN UTAMA", [...MAIN.map((m) => ({ label: m.label, recipes: withAny(nusantara, m.ids) })), { label: "Sayur", recipes: withAny(nusantara, INGREDIENTS.filter((i) => i.cat === "sayur").map((i) => i.id)) }]],
-    ["masak", "CARA MASAK", methods.map((m) => ({ label: m, recipes: nusantara.filter((r) => usesMethod(r, m)) }))],
-    ["protein", "PROTEIN TINGGI", [15, 20, 25].map((g) => ({ label: `≥ ${g} g protein`, recipes: nusantara.filter((r) => proteinPerPortion(r) >= g) }))],
-    ["pilihan", "PILIHAN MAKAN", DIET_SHELVES.map((d) => ({ label: d.label, recipes: nusantara.filter(d.match) }))],
-    ["daerah", "DAERAH", regionShelves(nusantara)],
-    ["barat", "MASAKAN BARAT", westernShelves(western)],
+    ["cepat", "Cepat & gampang", [20, 30, 45].map((n) => ({ label: `≤ ${n} menit`, recipes: nusantara.filter((r) => r.time <= n) }))],
+    ["bahan", "Bahan utama", [...MAIN.map((m) => ({ label: m.label, recipes: withAny(nusantara, m.ids) })), { label: "Sayur", recipes: withAny(nusantara, INGREDIENTS.filter((i) => i.cat === "sayur").map((i) => i.id)) }]],
+    ["masak", "Cara masak", methods.map((m) => ({ label: m, recipes: nusantara.filter((r) => usesMethod(r, m)) }))],
+    ["protein", "Protein tinggi", [15, 20, 25].map((g) => ({ label: `≥ ${g} g protein`, recipes: nusantara.filter((r) => proteinPerPortion(r) >= g) }))],
+    ["pilihan", "Pilihan makan", DIET_SHELVES.map((d) => ({ label: d.label, recipes: nusantara.filter(d.match) }))],
+    ["daerah", "Daerah", regionShelves(nusantara)],
+    ["barat", "Masakan Barat", westernShelves(western)],
   ];
   return shelves.map(([id, title, items]) => ({ id, def: { title, items: keyed(id, items) } }));
 }
 
 /** The order a kitchen is actually searched. */
 const ING_GROUPS: { label: string; cats: string[] }[] = [
-  { label: "DAGING, IKAN, TAHU & TEMPE", cats: ["daging"] },
-  { label: "SAYUR & BUAH", cats: ["sayur"] },
-  { label: "BUMBU", cats: ["bumbu"] },
-  { label: "SEMBAKO", cats: ["sembako", "lain"] },
+  { label: "Daging, ikan, tahu & tempe", cats: ["daging"] },
+  { label: "Sayur & buah", cats: ["sayur"] },
+  { label: "Bumbu", cats: ["bumbu"] },
+  { label: "Sembako", cats: ["sembako", "lain"] },
 ];
 
 function Eksplor() {
@@ -206,7 +206,6 @@ function Eksplor() {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
       <header className="border-b border-rule-soft bg-card px-5 pb-4 pt-[calc(3.5rem+env(safe-area-inset-top))]">
-        <p className="eyebrow mb-0.5">EKSPLOR RESEP</p>
         <h1 className="mb-3.5 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Temukan masakan baru</h1>
         <label className="flex min-h-12 items-center gap-3 rounded-xl border border-rule-strong bg-tint pl-3.5 focus-within:border-primary">
           <Search aria-hidden className="size-4 text-ink-faint" />
@@ -225,7 +224,7 @@ function Eksplor() {
             </p>
           ) : null}
           <div className="mt-5">
-            <p className="mb-2.5 px-5 text-micro font-bold tracking-[0.1em] text-ink-2">PILIH PROTEIN UTAMA</p>
+            <p className="meta-label mb-2.5 px-5">Pilih protein utama</p>
             <div className="no-scrollbar flex gap-2 overflow-x-auto px-5">
               {MAIN.map((m) => {
                 const tile = shelves.find((s) => s.id === "bahan")?.def.items.find((t) => t.label === m.label);
@@ -256,13 +255,13 @@ function Eksplor() {
         <div className="flex-1 px-5 pt-4">
           <div className="mb-4 flex">
             <span className="flex items-center gap-1 rounded-full bg-primary py-0.5 pl-3 text-primary-foreground">
-              <span className="text-label font-bold tracking-[0.06em]">{trimmed || picked?.label}</span>
+              <span className="text-label font-bold">{trimmed || picked?.label}</span>
               <button type="button" onClick={clear} aria-label="Hapus filter" className="flex size-9 items-center justify-center"><X className="size-3.5" strokeWidth={2.5} /></button>
             </span>
           </div>
           <div className="mb-2 flex items-center justify-between">
-            <span className="section-label text-ink-strong">{results.length} RESEP</span>
-            <button type="button" onClick={clear} className="min-h-11 px-1 text-micro font-bold tracking-[0.06em] text-primary">HAPUS FILTER</button>
+            <span className="heading-sm">{results.length} resep</span>
+            <button type="button" onClick={clear} className="min-h-11 px-1 text-14 font-bold text-primary">Hapus filter</button>
           </div>
           {results.length === 0 ? (
             <div className="flex flex-col items-center px-4 py-[52px] text-center">
@@ -290,7 +289,7 @@ function Eksplor() {
           if (!items.length) return null;
           return (
             <section key={group.label} className="mb-6">
-              <h3 className="mb-3 text-micro font-bold tracking-[0.08em] text-ink-2">{group.label}</h3>
+              <h3 className="meta-label mb-3">{group.label}</h3>
               <div className="flex flex-wrap gap-2">
                 {items.map((ing) => {
                   const on = selected.includes(ing.id);

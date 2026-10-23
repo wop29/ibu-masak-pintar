@@ -11,7 +11,7 @@ import { useRacik } from "@/lib/racik/state";
 import type { Recipe } from "@/lib/racik/types";
 
 /** The week's cooking plan and the merged shopping list. Lives on its own tab (/rencana). */
-const GROUPS: [string, string][] = [["daging", "DAGING, IKAN, TAHU & TELUR"], ["sayur", "SAYUR & BUAH"], ["bumbu", "BUMBU SEGAR"], ["sembako", "SEMBAKO & LAINNYA"], ["lain", "LAIN-LAIN"]];
+const GROUPS: [string, string][] = [["daging", "Daging, ikan, tahu & telur"], ["sayur", "Sayur & buah"], ["bumbu", "Bumbu segar"], ["sembako", "Sembako & lainnya"], ["lain", "Lain-lain"]];
 
 export function RencanaView() {
   const { state, update, setServings } = useRacik();
@@ -78,7 +78,7 @@ export function RencanaView() {
 
         {picker ? (
           <div className="rounded-2xl border border-rule bg-card p-3 shadow-raised">
-            <p className="px-0.5 pt-0.5 pb-2.5 text-label font-extrabold text-ink-3">PILIH RESEP</p>
+            <p className="px-0.5 pt-0.5 pb-2.5 text-label font-extrabold text-ink-3">Pilih resep</p>
             {candidates.map((r) => (
               <button key={r.id} type="button" onClick={() => add(r)} className="flex min-h-16 w-full items-center gap-3 border-t border-rule px-0.5 py-2 text-left">
                 <span className="size-11 shrink-0 overflow-hidden rounded-lg bg-primary-deep"><RecipePhoto src={r.photoUrl ?? thumbOf(r.id)} glyph={r.glyph} glyphClass="text-lg" /></span>
@@ -107,13 +107,13 @@ export function RencanaView() {
           <p className="mt-4 px-5 text-caption leading-normal text-ink-3">Bahan yang sama dari beberapa resep sudah dijumlahkan, walau satuannya berbeda (misalnya siung dan gram). "Beli" menunjukkan jumlah yang biasa dijual di pasar. Tandai "Ada di rumah" untuk bahan yang tidak perlu dibeli.</p>
 
           <div className="mt-5 px-5">
-            <p className="section-label mb-3 text-ink-strong">DAFTAR BELANJA</p>
+            <p className="heading-sm mb-3">Daftar belanja</p>
             {GROUPS.map(([cat, label]) => {
               const rows = list.filter((x) => x.cat === cat);
               if (!rows.length) return null;
               return (
                 <div key={cat} className="mb-5">
-                  <p className="mb-2 text-micro font-bold tracking-[0.08em] text-ink-3">{label}</p>
+                  <p className="meta-label mb-2">{label}</p>
                   <div className="overflow-hidden rounded-2xl border border-rule-strong bg-card">
                     {rows.map((item) => {
                       const on = state.planChecked.includes(item.key);

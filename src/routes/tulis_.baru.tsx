@@ -280,7 +280,6 @@ function Editor() {
           <ArrowLeft className="size-5" />
         </Link>
         <div className="min-w-0">
-          <p className="eyebrow">TULIS RESEP</p>
           <p className="text-caption text-ink-3">Tersimpan otomatis di HP ini</p>
         </div>
       </header>

@@ -41,7 +41,7 @@ function Profile() {
   if (!profile) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16 pb-16">
-        <p className="eyebrow">RACIK</p>
+        <p className="text-15 font-bold text-primary">Racik</p>
         <h1 className="mt-2 text-28 font-extrabold leading-tight">@{handle} belum ada di Racik</h1>
         <p className="mt-3 read-line text-ink-2">
           Periksa ejaannya, atau mungkin kamu sedang offline.

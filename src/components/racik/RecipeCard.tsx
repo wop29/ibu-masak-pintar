@@ -19,7 +19,7 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} />
       </div>
       <div className="px-5 py-4">
-        <p className="eyebrow">{REG[recipe.region]?.name ?? recipe.region}</p>
+        <p className="text-caption font-bold text-primary">{REG[recipe.region]?.name ?? recipe.region}</p>
         <h3 className="font-display text-head mt-1 leading-snug">{recipe.title}</h3>
         {recipe.incomplete ? <p className="mt-2"><IncompleteBadge recipe={recipe} /></p> : null}
         <p className="text-14 text-ink-3 mt-1">

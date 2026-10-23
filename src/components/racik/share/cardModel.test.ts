@@ -17,7 +17,7 @@ describe("share card model", () => {
       recipePhoto: null,
       servings: 2,
     });
-    expect(m.eyebrow).toBe("Resep @dapurmamaay");
+    expect(m.kicker).toBe("Resep @dapurmamaay");
     expect(m.cookedBy).toBe("dimasak oleh @dapur.siti");
   });
   it("never puts a real name on the card, only the handle", () => {
@@ -29,7 +29,7 @@ describe("share card model", () => {
       recipePhoto: null,
       servings: 4,
     });
-    expect(m.eyebrow).toBe("Dimasak dengan Racik");
+    expect(m.kicker).toBe("Dimasak dengan Racik");
   });
   it("a user's own recipe reads 'Resep @handle' with no 'dimasak oleh'", () => {
     const m = buildCard({
@@ -40,7 +40,7 @@ describe("share card model", () => {
       recipePhoto: null,
       servings: 4,
     });
-    expect(m.eyebrow).toBe("Resep @dapur.siti");
+    expect(m.kicker).toBe("Resep @dapur.siti");
     expect(m.cookedBy).toBeNull();
   });
   it("prefers her photo over the recipe photo", () => {

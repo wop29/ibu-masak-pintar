@@ -41,7 +41,7 @@ export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: ()
       </div>
 
       <div className="mt-auto">
-        <p className="eyebrow">AKUN RACIK</p>
+        <p className="text-15 font-bold text-primary">Akun Racik</p>
         <h1 className="mt-2 text-34 font-extrabold leading-[1.1]">{t("offer_title")}</h1>
 
         <ul className="mt-6 space-y-4">

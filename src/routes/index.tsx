@@ -129,7 +129,7 @@ function MasakApa() {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
       <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
-        <p className="eyebrow mb-0.5">{words[0]}</p>
+        <p className="mb-0.5 text-15 font-bold text-primary">{words[0]}</p>
         <h1 className="mb-1 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{words[1]}</h1>
         <div className="mt-3 mb-[18px] flex items-center justify-between">
           <div>
@@ -151,7 +151,7 @@ function MasakApa() {
       </header>
 
       <div className="pt-5 pb-1">
-        <p className="mb-2.5 px-5 text-micro font-bold tracking-[0.1em] text-ink-2">WAKTU MAKAN</p>
+        <p className="meta-label mb-2.5 px-5">Waktu makan</p>
         <div className="no-scrollbar flex gap-3 overflow-x-auto px-5">
           {CATS.map((c) => {
             const active = cat === c.id;
@@ -167,14 +167,14 @@ function MasakApa() {
 
       <div className="py-3">
         <div className="mb-2.5 flex items-center justify-between px-5">
-          <p className="text-micro font-bold tracking-[0.1em] text-ink-2">SESUAIKAN SARAN</p>
+          <p className="meta-label">Sesuaikan saran</p>
           {filters.length ? <button type="button" onClick={() => setFilters([])} className="-my-3 min-h-11 px-1 text-label font-bold text-primary">Hapus semua</button> : null}
         </div>
         <div className="no-scrollbar flex gap-2 overflow-x-auto px-5">
           {FILTERS.map((f) => {
             const active = filters.includes(f.id);
             return (
-              <button key={f.id} type="button" onClick={() => toggle(f.id)} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold tracking-[0.02em] transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}>
+              <button key={f.id} type="button" onClick={() => toggle(f.id)} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}>
                 {t(f.key)}
               </button>
             );
@@ -184,8 +184,8 @@ function MasakApa() {
 
       <section className="flex-1 px-5">
         <div className="flex items-center justify-between py-3">
-          <h2 className="section-label text-ink-strong">{t("suggestions")}</h2>
-          <button type="button" onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })} className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-micro font-bold tracking-[0.06em] text-primary">
+          <h2 className="heading-sm">{t("suggestions")}</h2>
+          <button type="button" onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })} className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-14 font-bold text-primary">
             <RotateCcw className="size-3" strokeWidth={2.5} /> {t("shuffle")}
           </button>
         </div>

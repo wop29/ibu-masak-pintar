@@ -102,16 +102,16 @@ function DetailResep() {
       <div className="relative -mt-[22px] px-5">
         <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-raised">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-primary-soft px-2.5 py-[5px] text-micro font-extrabold tracking-[0.05em] text-primary-deep">{(REG[recipe.region]?.name ?? recipe.region).toUpperCase()}</span>
+            <span className="rounded-full bg-primary-soft px-2.5 py-[5px] text-caption font-bold text-primary-deep">{REG[recipe.region]?.name ?? recipe.region}</span>
             <HalalChip recipe={recipe} />
-            {recipe.leftover ? <span className="rounded-full bg-tint px-2.5 py-[5px] text-micro font-extrabold tracking-[0.05em] text-ink-2">SISA BISA DIPAKAI</span> : null}
+            {recipe.leftover ? <span className="rounded-full bg-tint px-2.5 py-[5px] text-caption font-bold text-ink-2">Sisa bisa dipakai</span> : null}
           </div>
           <h1 className="mt-3 text-hero font-extrabold leading-[1.08] tracking-[-0.04em] [overflow-wrap:anywhere]">{recipe.title}</h1>
 
           {imported?.sourceUrl ? (
             <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-primary-line bg-primary-wash px-3 py-[11px]">
               <div className="min-w-0">
-                <p className="text-micro text-ink-3">DARI LUAR</p>
+                <p className="meta-label">Dari luar</p>
                 <p className="mt-0.5 truncate text-caption font-extrabold text-primary-deep">{creator ?? hostOf(imported.sourceUrl)}</p>
               </div>
               <a href={imported.sourceUrl} target="_blank" rel="noreferrer" className="flex min-h-11 shrink-0 items-center gap-2 rounded-lg bg-primary px-3 text-label font-extrabold text-primary-foreground">Buka sumber <ExternalLink className="size-3.5" /></a>
@@ -131,16 +131,16 @@ function DetailResep() {
           <div className="mt-5 grid grid-cols-2 border-t border-rule pt-[18px]">
             <div>
               <p className="text-15 font-extrabold">{fmtTime(recipe.time)}</p>
-              <p className="mt-0.5 text-micro text-ink-3">WAKTU</p>
+              <p className="meta-label mt-0.5">Waktu</p>
             </div>
             <div className="border-l border-rule pl-3.5">
               <p className="text-15 font-extrabold">{recipe.diff}</p>
-              <p className="mt-0.5 text-micro text-ink-3">TINGKAT</p>
+              <p className="meta-label mt-0.5">Tingkat</p>
             </div>
           </div>
           <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-tint py-1.5 pr-1.5 pl-4">
             <div>
-              <p className="text-micro text-ink-3">PORSI</p>
+              <p className="meta-label">Porsi</p>
               <p className="text-15 font-extrabold tabular-nums">{servings} porsi</p>
             </div>
             <div className="flex items-center gap-2">

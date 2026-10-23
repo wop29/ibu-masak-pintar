@@ -84,7 +84,7 @@ export function IngredientList({
                   {line[2] ? <span className="text-ink-3">, {line[2]}</span> : null}
                 </div>
                 {hasSub ? (
-                  <button type="button" onClick={() => setSub(line)} className="-my-2.5 min-h-11 shrink-0 px-2 text-micro font-extrabold uppercase tracking-[0.08em] text-primary">
+                  <button type="button" onClick={() => setSub(line)} className="-my-2.5 min-h-11 shrink-0 px-2 text-14 font-bold text-primary">
                     Ganti
                   </button>
                 ) : null}
@@ -103,7 +103,7 @@ export function IngredientList({
                 <span>{txt}</span>
               </div>
               {swaps[txt] ? (
-                <button type="button" onClick={() => setExtraSub(txt)} className="-my-2.5 min-h-11 shrink-0 px-2 text-micro font-extrabold uppercase tracking-[0.08em] text-primary">
+                <button type="button" onClick={() => setExtraSub(txt)} className="-my-2.5 min-h-11 shrink-0 px-2 text-14 font-bold text-primary">
                   Ganti
                 </button>
               ) : null}
@@ -125,13 +125,13 @@ export function IngredientList({
             ) : null}
             {localSub(sub[0], negara) ? (
               <div>
-                <p className="text-micro font-extrabold uppercase tracking-[0.08em] text-primary">Di {NEGARA[negara].name}</p>
+                <p className="text-caption font-bold text-primary">Di {NEGARA[negara].name}</p>
                 <p className="read-line mt-1">{localSub(sub[0], negara)}</p>
               </div>
             ) : null}
             {swaps[sub[0]] ? (
               <div>
-                <p className="text-micro font-extrabold uppercase tracking-[0.08em] text-primary">Saran saat impor</p>
+                <p className="text-caption font-bold text-primary">Saran saat impor</p>
                 <p className="read-line mt-1">{swaps[sub[0]]}</p>
               </div>
             ) : null}

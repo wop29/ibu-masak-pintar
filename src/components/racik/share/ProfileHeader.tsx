@@ -17,7 +17,7 @@ export function ProfileHeader({
   count: number;
   linked?: boolean;
 }) {
-  const initial = (publicName || handle).replace(/^@/, "").slice(0, 1).toUpperCase();
+  const initial = (publicName || handle).replace(/^@/, "").slice(0, 1).toLocaleUpperCase("id-ID");
   const body = (
     <div className="flex items-center gap-4">
       <span className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary-soft text-2xl font-extrabold text-primary-deep">
@@ -36,7 +36,7 @@ export function ProfileHeader({
   );
   return (
     <header className="px-5 pt-[calc(2.5rem+env(safe-area-inset-top))] pb-6">
-      <p className="eyebrow mb-4">RACIK</p>
+      <p className="mb-4 text-15 font-bold text-primary">Racik</p>
       {linked ? (
         <Link to="/u/$handle" params={{ handle }} className="block">
           {body}

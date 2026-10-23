@@ -15,7 +15,7 @@ export interface CardModel {
   photo: string | null;
   glyph: string;
   /** Small caps line above the title: who the recipe is by. */
-  eyebrow: string;
+  kicker: string;
   /** Line under the title: who cooked it, when that is someone else. */
   cookedBy: string | null;
   stats: CardStat[];
@@ -78,19 +78,19 @@ export function buildCard(ctx: CardContext): CardModel {
       ? (ctx.authorHandle ?? recipe.authorHandle ?? recipe.creator ?? myHandle ?? null)
       : null;
 
-  let eyebrow: string;
+  let kicker: string;
   let cookedBy: string | null = null;
   if (original) {
-    eyebrow = `Resep ${handleText(original)}`;
+    kicker = `Resep ${handleText(original)}`;
     cookedBy = me ? `dimasak oleh ${me}` : "dimasak dengan Racik";
   } else if (kind === "user" && author) {
-    eyebrow = `Resep ${handleText(author)}`;
+    kicker = `Resep ${handleText(author)}`;
     cookedBy = me && handleText(author) !== me ? `dimasak oleh ${me}` : null;
   } else if (kind === "import") {
-    eyebrow = "Resep dari video";
+    kicker = "Resep dari video";
     cookedBy = me ? `dimasak oleh ${me}` : null;
   } else {
-    eyebrow = me ? `Dimasak oleh ${me}` : "Dimasak dengan Racik";
+    kicker = me ? `Dimasak oleh ${me}` : "Dimasak dengan Racik";
   }
 
   const stats: CardStat[] = [{ value: String(ctx.servings), label: "porsi" }];
@@ -103,7 +103,7 @@ export function buildCard(ctx: CardContext): CardModel {
     title: recipe.title,
     photo: ctx.myPhoto ?? ctx.recipePhoto ?? null,
     glyph: recipe.glyph,
-    eyebrow,
+    kicker,
     cookedBy,
     stats,
   };

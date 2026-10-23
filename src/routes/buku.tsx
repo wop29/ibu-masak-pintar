@@ -37,7 +37,6 @@ function Koleksi() {
       <header className="border-b border-rule-soft bg-card px-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <div className="mb-1 flex items-start justify-between">
           <div>
-            <p className="eyebrow mb-0.5">MILIKMU</p>
             <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Koleksi Saya</h1>
           </div>
           <Link to="/pengaturan" aria-label="Pengaturan" className="mt-1 flex size-[38px] items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
@@ -64,7 +63,7 @@ function Koleksi() {
             ) : (
               <div className="mt-5 px-5">
                 <p className="mb-3 text-caption leading-normal text-ink-3">Resep yang Racik susun dari video, teks, atau foto.</p>
-                <p className="section-label mb-1 text-ink-strong">RESEP DARI LUAR</p>
+                <p className="heading-sm mb-1">Resep dari luar</p>
                 {state.imported.map((recipe) => (
                   <div key={recipe.id} className="flex items-center gap-1 border-b border-rule-soft last:border-b-0">
                     <div className="min-w-0 flex-1 [&>a]:border-b-0"><CompactRecipe recipe={recipe} creator={recipe.creator} /></div>
@@ -86,7 +85,7 @@ function Koleksi() {
             ) : (
               <>
                 <p className="mb-3 text-caption leading-normal text-ink-3">Resep yang ditandai untuk dibuka lagi.</p>
-                <p className="section-label mb-1 text-ink-strong">RESEP FAVORIT</p>
+                <p className="heading-sm mb-1">Resep favorit</p>
                 {saved.map((r) => <CompactRecipe key={r.id} recipe={r} />)}
               </>
             )}

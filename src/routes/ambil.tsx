@@ -38,7 +38,6 @@ function Ambil() {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
       <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
-        <p className="eyebrow mb-0.5">TAMBAH RESEP</p>
         <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">
           Ubah jadi resep
         </h1>

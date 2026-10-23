@@ -207,20 +207,18 @@ html.teks-paling_besar {
   }
 }
 
-/* Uppercase letterspaced section head. */
-@utility eyebrow {
-  font-size: var(--text-micro);
+/* Section heading. Hierarchy comes from size and weight, never from capitals. */
+@utility heading-sm {
+  font-size: var(--text-head);
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-primary);
+  line-height: 1.3;
+  color: var(--color-ink-strong);
 }
 
-@utility eyebrow-ink {
-  font-size: var(--text-label);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+/* Small field label under or above a value (Waktu, Tingkat, Porsi). */
+@utility meta-label {
+  font-size: var(--text-caption);
+  font-weight: 600;
   color: var(--color-ink-3);
 }
 
@@ -290,13 +288,6 @@ html.teks-paling_besar {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
-@utility section-label {
-  font-size: var(--text-label);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-ink);
-}
 
 .photo-tile img { transition: transform 180ms ease; }
 .photo-tile:active img { transform: scale(1.04); }

@@ -95,7 +95,6 @@ function Tulisan() {
   if (!recipe) {
     return (
       <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pt-16 pb-16">
-        <p className="eyebrow">RACIK</p>
         <h1 className="mt-2 text-28 font-extrabold leading-tight">Resep ini belum bisa dibuka</h1>
         <p className="mt-3 read-line text-ink-2">
           Mungkin penulisnya sudah menariknya, atau kamu sedang offline.

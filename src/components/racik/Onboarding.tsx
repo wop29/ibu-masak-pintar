@@ -74,7 +74,7 @@ function MeasureOverlay() {
   return (
     <div className="pointer-events-none flex w-full justify-center [@container(max-height:215px)]:hidden">
       <div className="mx-6 w-[80%] max-w-[300px] overflow-hidden rounded-2xl border border-white/15 bg-black/60 backdrop-blur-md">
-        <p className="border-b border-white/10 px-4 py-3 text-micro font-bold uppercase tracking-[0.1em] text-white/50">Konversi takaran</p>
+        <p className="border-b border-white/10 px-4 py-3 text-caption font-bold text-white/60">Konversi takaran</p>
         {rows.map((r) => (
           <div key={r.label} className="flex items-center justify-between border-b border-white/[0.06] px-4 py-2.5 last:border-b-0">
             <span className="flex items-center gap-2 text-14 font-semibold text-white"><span aria-hidden>{r.icon}</span>{r.label}</span>
@@ -99,12 +99,12 @@ function NutritionOverlay() {
     <div className="pointer-events-none flex w-full flex-col items-center [@container(max-height:250px)]:hidden">
       <div className="mx-5 w-full max-w-[300px] overflow-hidden rounded-2xl border border-white/10 bg-[rgba(10,10,10,0.7)] backdrop-blur-md">
         <div className="border-b border-white/[0.08] px-4 pt-4 pb-3">
-          <p className="mb-1 text-micro font-semibold uppercase tracking-[0.08em] text-white/45">{recipe.title} · per porsi</p>
+          <p className="mb-1 text-caption font-semibold text-white/60">{recipe.title} · per porsi</p>
           <p className="text-caption text-white/70">Perkiraan gizi per porsi</p>
         </div>
         <div className="border-b border-white/[0.08] px-4 py-3">
           <div className="mb-2 flex items-end justify-between">
-            <span className="text-label font-semibold text-white/50">PROTEIN</span>
+            <span className="text-label font-semibold text-white/60">Protein</span>
             <span className="text-head font-extrabold tracking-[-0.02em] text-white">{stats.protein}</span>
           </div>
           <div className="h-1.5 rounded-full bg-white/10"><div className="h-full rounded-full bg-primary" style={{ width: `${Math.min(100, Math.round((stats.p / 30) * 100))}%` }} /></div>
@@ -113,7 +113,7 @@ function NutritionOverlay() {
         <div className="flex gap-3 px-4 py-3">
           {[{ name: "Karbo", v: stats.carb }, { name: "Serat", v: stats.fiber }].map((m) => (
             <div key={m.name} className="flex-1">
-              <p className="mb-1 text-micro font-semibold uppercase tracking-[0.04em] text-white/55">{m.name}</p>
+              <p className="mb-1 text-caption font-semibold text-white/60">{m.name}</p>
               <p className="text-15 font-extrabold text-white">{m.v ?? "–"}</p>
             </div>
           ))}
@@ -171,7 +171,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
       </div>
 
       <div className="flex-1 px-6 pt-[54px]">
-        <p className="text-micro font-extrabold tracking-[0.12em] text-primary">LANGKAH {step + 1} DARI {QUESTIONS.length}</p>
+        <p className="text-15 font-bold text-primary">Langkah {step + 1} dari {QUESTIONS.length}</p>
         <h1 className="mt-2 max-w-[340px] text-hero font-extrabold leading-[1.12] tracking-[-0.04em]">{q.title}</h1>
         <p className="mt-3 max-w-[340px] text-15 leading-relaxed text-ink-3">{q.body}</p>
 
@@ -298,7 +298,7 @@ export function Onboarding() {
 
       <div key={animKey} className="relative z-20 shrink-0 px-6 pb-[max(40px,env(safe-area-inset-bottom))] [@media(max-height:720px)]:pb-[max(24px,env(safe-area-inset-bottom))]">
         <div className="animate-slide-up mb-5 inline-flex [@media(max-height:720px)]:mb-3 items-center rounded-full border border-white/15 bg-white/10 px-3 py-[5px] backdrop-blur-sm">
-          <span className="text-label font-semibold tracking-[0.04em] text-white/70">{slide.label}</span>
+          <span className="text-label font-semibold text-white/70">{slide.label}</span>
         </div>
         <h1 className="animate-slide-up-2 mb-3.5 text-display [@media(max-height:720px)]:mb-2 [@media(max-height:720px)]:text-28 font-extrabold leading-[1.08] tracking-[-0.03em] text-white">{slide.headline}</h1>
         <p className="animate-slide-up-2 mb-7 text-body leading-[1.65] [@media(max-height:720px)]:mb-5 [@media(max-height:720px)]:leading-[1.5] text-white/70">{slide.body}</p>

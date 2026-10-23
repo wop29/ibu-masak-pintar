@@ -234,7 +234,7 @@ export async function renderCard({
   let y = panelY + topPad;
   ctx.font = `800 ${story ? 34 : 26}px ${FONT}`;
   ctx.fillStyle = C.primary;
-  ctx.fillText(fitText(ctx, model.eyebrow, inner), pad, y);
+  ctx.fillText(fitText(ctx, model.kicker, inner), pad, y);
 
   ctx.font = `800 ${titleSize}px ${FONT}`;
   ctx.fillStyle = C.ink;

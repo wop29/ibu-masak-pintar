@@ -103,8 +103,7 @@ export function ProteinBlock({ recipe }: { recipe: Recipe }) {
   return (
     <div className="mt-[18px] rounded-2xl border border-primary-line bg-primary-wash p-3.5">
       <div className="flex items-center justify-between">
-        <p className="text-label font-extrabold text-primary-deep">PERKIRAAN GIZI PER PORSI</p>
-        <span className="text-micro font-bold text-ink-3">ESTIMASI</span>
+        <p className="text-label font-extrabold text-primary-deep">Perkiraan gizi per porsi</p>
       </div>
       <div className="mt-3 grid grid-cols-3">
         {rows.map((r, i) => <NutrientCell key={r.key} row={r} first={i === 0} />)}

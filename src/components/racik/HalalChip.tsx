@@ -19,7 +19,7 @@ export function HalalChip({ recipe, static: isStatic = false }: { recipe: Recipe
   if (status === "halal" && (isStatic || !meatOnly)) return null;
   const haram = status === "haram";
   const name = (id: string) => ING[id]?.name ?? id;
-  const cls = `inline-flex min-h-[26px] items-center gap-1 rounded-full border px-2.5 py-1 text-micro font-extrabold uppercase tracking-[0.05em] ${
+  const cls = `inline-flex min-h-[26px] items-center gap-1 rounded-full border px-2.5 py-1 text-caption font-bold ${
     haram
       ? "border-danger-line bg-danger-soft text-danger-ink"
       : meatOnly

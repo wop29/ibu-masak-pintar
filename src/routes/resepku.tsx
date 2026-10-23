@@ -53,7 +53,6 @@ function Resepku() {
           <ArrowLeft className="size-5" />
         </Link>
         <div>
-          <p className="eyebrow">RESEPKU</p>
           <h1 className="text-head font-extrabold">Siapa yang memasaknya</h1>
         </div>
       </header>
@@ -123,7 +122,7 @@ function Resepku() {
       </section>
 
       <section>
-        <h2 className="eyebrow-ink">DARI TAUTAN YANG KAMU BAGIKAN</h2>
+        <h2 className="heading-sm">Dari tautan yang kamu bagikan</h2>
         {stats === undefined ? (
           <p className="mt-3 text-14 text-ink-3">Memuat angka…</p>
         ) : stats === null ? (
@@ -195,7 +194,7 @@ function Resepku() {
 
       <section>
         <div className="flex items-center justify-between">
-          <h2 className="eyebrow-ink">RESEP YANG KAMU TULIS</h2>
+          <h2 className="heading-sm">Resep yang kamu tulis</h2>
           <Link
             to="/tulis/baru"
             className="flex min-h-11 items-center gap-1 text-14 font-bold text-primary"

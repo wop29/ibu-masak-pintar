@@ -201,7 +201,7 @@ function StepTimer({
   if (state === "ringing") {
     return (
       <div role="alert" className="mt-6 rounded-3xl border-2 border-danger-ink bg-danger-soft p-5">
-        <p className="flex items-center gap-2 text-14 font-extrabold uppercase tracking-[0.06em] text-danger-ink">
+        <p className="flex items-center gap-2 text-14 font-bold text-danger-ink">
           <BellRing className="size-5 animate-pulse" /> Waktunya habis
         </p>
         <p className="mt-1 text-timer font-extrabold leading-none tabular-nums text-danger-ink">00:00</p>
@@ -219,7 +219,7 @@ function StepTimer({
 
   return (
     <div className={`mt-6 rounded-3xl border bg-card p-5 shadow-card ${state === "running" ? "border-primary-line" : "border-rule"}`}>
-      <p className="flex items-center gap-1.5 text-micro font-extrabold uppercase tracking-[0.08em] text-ink-3">
+      <p className="flex items-center gap-1.5 text-14 font-bold text-ink-3">
         <TimerIcon className="size-3.5" />
         {state === "running" ? "Sedang berjalan" : state === "paused" ? "Dijeda" : "Waktu langkah ini"}
       </p>
@@ -427,7 +427,7 @@ function ModeMasak() {
             <ArrowLeft className="size-5" strokeWidth={2.4} />
           </button>
           <div className="min-w-0 flex-1">
-            <p className="text-micro font-extrabold uppercase tracking-[0.08em] text-ink-3">
+            <p className="text-15 font-bold text-ink-2">
               Langkah {i + 1} dari {stepCount}
             </p>
             <p className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</p>
@@ -476,10 +476,7 @@ function ModeMasak() {
           </div>
         ) : null}
 
-        <span className="inline-block rounded-full bg-primary-soft px-2.5 py-[5px] text-micro font-extrabold tracking-[0.05em] text-primary-deep">
-          LANGKAH {i + 1}
-        </span>
-        <p className="mt-3 text-28 font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">{step[0]}</p>
+        <p className="text-28 font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">{step[0]}</p>
 
         {step[1] ? <StepTimer seconds={step[1]} timer={timers[String(i)]} now={now} onChange={(t) => setTimer(i, t)} /> : null}
 

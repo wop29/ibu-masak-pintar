@@ -40,7 +40,6 @@ function HapusAkun() {
           <Link to="/pengaturan" aria-label="Kembali"><ArrowLeft /></Link>
         </Button>
         <div>
-          <p className="eyebrow">RACIK</p>
           <h1 className="text-title font-bold">Hapus akun</h1>
         </div>
       </header>
