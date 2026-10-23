@@ -7,10 +7,9 @@ export type Lang = "id" | "en";
  * is data written by cooks, not chrome. Translating the recipes is a writing
  * project; this is the switch for everything around them.
  *
- * LAUNCH: English is switched off. Most screens are still hardcoded
- * Indonesian, so "English" gave a half-translated app. The dictionary stays;
- * flip ENGLISH_ENABLED (and the row in pengaturan.tsx) back when every screen
- * goes through t(). Anyone who had picked English gets Indonesian.
+ * English is on (23 Okt 2026): every screen goes through t(), and
+ * scripts/check-i18n.mjs fails the build if new interface text skips it.
+ * Legal pages and route meta (SEO) stay Indonesian by decision.
  *
  * Indonesian is the source. English is the translation, never the reverse:
  * the app is for Indonesian home cooks and the Indonesian wording is the one
@@ -952,7 +951,7 @@ const DICT = {
 export type Key = keyof typeof DICT;
 
 /** Off for launch — see the note at the top. */
-export const ENGLISH_ENABLED = false;
+export const ENGLISH_ENABLED = true;
 
 export function effectiveLang(saved: string | undefined): Lang {
   return ENGLISH_ENABLED && saved === "en" ? "en" : "id";
