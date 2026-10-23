@@ -40,7 +40,7 @@ export const Route = createFileRoute("/resep/$id_/masak")({
   component: ModeMasak,
 });
 
-/** How long a finished timer keeps ringing before it goes quiet (it stays red on screen). */
+/** How long a finished timer keeps ringing before it goes quiet (it stays marked on screen). */
 const RING_FOR_MS = 2 * 60 * 1000;
 
 type TimerState = "idle" | "running" | "paused" | "ringing";
@@ -200,16 +200,16 @@ function StepTimer({
 
   if (state === "ringing") {
     return (
-      <div role="alert" className="mt-6 rounded-3xl border-2 border-danger-ink bg-danger-soft p-5">
-        <p className="flex items-center gap-2 text-14 font-bold text-danger-ink">
+      <div role="alert" className="mt-6 rounded-3xl border-2 border-time bg-time-soft p-5">
+        <p className="flex items-center gap-2 text-14 font-bold text-time-ink">
           <BellRing className="size-5 animate-pulse" /> Waktunya habis
         </p>
-        <p className="mt-1 text-timer font-extrabold leading-none tabular-nums text-danger-ink">00:00</p>
+        <p className="mt-1 text-timer font-extrabold leading-none tabular-nums text-time-ink">00:00</p>
         <div className="mt-4 flex gap-3">
-          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-danger-ink text-body font-extrabold text-white">
+          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-time text-body font-extrabold text-primary-foreground">
             <Check className="size-5" /> Sudah
           </button>
-          <button type="button" onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })} className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-danger-line bg-card text-body font-extrabold text-danger-ink">
+          <button type="button" onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })} className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-time bg-card text-body font-extrabold text-time-ink">
             +1 menit
           </button>
         </div>
@@ -218,15 +218,15 @@ function StepTimer({
   }
 
   return (
-    <div className={`mt-6 rounded-3xl border bg-card p-5 shadow-card ${state === "running" ? "border-primary-line" : "border-rule"}`}>
+    <div className={`mt-6 rounded-3xl border bg-card p-5 shadow-card ${state === "running" ? "border-time" : "border-rule"}`}>
       <p className="flex items-center gap-1.5 text-14 font-bold text-ink-3">
         <TimerIcon className="size-3.5" />
         {state === "running" ? "Sedang berjalan" : state === "paused" ? "Dijeda" : "Waktu langkah ini"}
       </p>
-      <p className={`mt-1 text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-primary" : "text-ink"}`}>{clock(left)}</p>
+      <p className={`mt-1 text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-time" : "text-ink"}`}>{clock(left)}</p>
       {state !== "idle" ? (
         <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-tint" aria-hidden>
-          <div className="h-full rounded-full bg-primary transition-[width] duration-500" style={{ width: `${pct}%` }} />
+          <div className="h-full rounded-full bg-time transition-[width] duration-500" style={{ width: `${pct}%` }} />
         </div>
       ) : null}
       <div className="mt-4 flex gap-3">
@@ -317,6 +317,8 @@ function ModeMasak() {
   const [i, setI] = useState(0);
   const [resumedAt, setResumedAt] = useState<number | null>(null);
   const [allOpen, setAllOpen] = useState(false);
+  const [trayOpen, setTrayOpen] = useState(false);
+  const [leaveOpen, setLeaveOpen] = useState(false);
   const stepCount = recipe?.steps.length ?? 0;
 
   useWakeLock();
@@ -368,6 +370,13 @@ function ModeMasak() {
     else navigate({ to: "/resep/$id", params: { id }, replace: true });
   };
 
+  // Back with a timer counting asks first; the timers are wall-clock, so they keep running either way.
+  const tryLeave = () => {
+    const running = Object.values(cookProgress(id)?.timers ?? {}).some((t) => t.endsAt != null && t.endsAt > Date.now());
+    if (running) setLeaveOpen(true);
+    else leave();
+  };
+
   const plan = useMemo(() => (recipe ? cookPlan(recipe) : { perStep: [], rest: [] }), [recipe]);
   const servings = recipe ? state.servings[recipe.id] ?? state.household : state.household;
 
@@ -417,17 +426,18 @@ function ModeMasak() {
   const otherTimers = Object.entries(timers)
     .map(([k, t]) => ({ step: Number(k), t }))
     .filter(({ step: s }) => s !== i && s < stepCount)
-    .sort((a, b) => a.step - b.step);
+    // A ringing timer always makes the two visible rows; then by step.
+    .sort((a, b) => Number(timerState(b.t, now) === "ringing") - Number(timerState(a.t, now) === "ringing") || a.step - b.step);
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground text-ink">
       <header className="sticky top-0 z-20 border-b border-rule bg-ground/95 pt-[env(safe-area-inset-top)] backdrop-blur-md">
         <div className="flex items-center gap-3 px-4 py-3">
-          <button type="button" onClick={leave} aria-label="Keluar dari mode masak" className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink">
+          <button type="button" onClick={tryLeave} aria-label="Keluar dari mode masak" className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink">
             <ArrowLeft className="size-5" strokeWidth={2.4} />
           </button>
           <div className="min-w-0 flex-1">
-            <p className="text-15 font-bold text-ink-2">
+            <p className="whitespace-nowrap text-15 font-bold text-ink-2">
               Langkah {i + 1} dari {stepCount}
             </p>
             <p className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</p>
@@ -439,31 +449,6 @@ function ModeMasak() {
         <div className="h-1 bg-rule" aria-hidden>
           <div className="h-full bg-primary transition-[width] duration-300" style={{ width: `${((i + 1) / stepCount) * 100}%` }} />
         </div>
-        {otherTimers.length > 0 ? (
-          <div className="flex flex-col gap-2 px-4 py-2.5" aria-label="Penghitung waktu yang berjalan">
-            {otherTimers.map(({ step: s, t }) => {
-              const st = timerState(t, now);
-              const label = recipe.steps[s]?.[0] ?? "";
-              const cls =
-                st === "ringing"
-                  ? "border-danger-ink bg-danger-ink text-white"
-                  : st === "running"
-                    ? "border-primary-line bg-primary-soft text-primary-deep"
-                    : "border-rule bg-card text-ink-2";
-              return (
-                <button key={s} type="button" onClick={() => goto(s)} className={`flex min-h-11 w-full items-center gap-2.5 rounded-xl border px-3 text-left ${cls}`}>
-                  {st === "ringing" ? <BellRing className="size-4 shrink-0 animate-pulse" /> : <TimerIcon className="size-4 shrink-0" />}
-                  <span className="min-w-0 flex-1 truncate text-14">
-                    <strong className="font-extrabold">Langkah {s + 1}</strong> · {label}
-                  </span>
-                  <span className="shrink-0 text-15 font-extrabold tabular-nums">
-                    {st === "ringing" ? "Waktunya!" : st === "paused" ? `dijeda ${clock(secondsLeft(t, 0, now))}` : clock(secondsLeft(t, 0, now))}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        ) : null}
       </header>
 
       <div className="flex-1 px-5 pt-6 pb-8">
@@ -505,12 +490,43 @@ function ModeMasak() {
         ) : null}
       </div>
 
-      <div className="sticky bottom-0 z-20 flex gap-3 border-t border-rule bg-white/95 px-5 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] backdrop-blur-md">
+      <div className="sticky bottom-0 z-20 border-t border-rule bg-card/95 px-5 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] backdrop-blur-md">
+        {otherTimers.length > 0 ? (
+          <div className="mb-3 flex flex-col gap-2" role="group" aria-label="Penghitung waktu yang berjalan">
+            {(trayOpen ? otherTimers : otherTimers.slice(0, 2)).map(({ step: s, t }) => {
+              const st = timerState(t, now);
+              const label = recipe.steps[s]?.[0] ?? "";
+              const cls =
+                st === "ringing"
+                  ? "border-2 border-time bg-time-soft text-time-ink"
+                  : st === "running"
+                    ? "border-time bg-card text-time-ink"
+                    : "border-rule bg-card text-ink-2";
+              return (
+                <button key={s} type="button" onClick={() => goto(s)} className={`flex min-h-11 w-full items-center gap-2.5 rounded-xl border px-3 text-left ${cls}`}>
+                  {st === "ringing" ? <BellRing className="size-4 shrink-0 animate-pulse" /> : st === "paused" ? <Pause className="size-4 shrink-0" /> : <TimerIcon className="size-4 shrink-0" />}
+                  <span className="min-w-0 flex-1 truncate text-14">
+                    <strong className="font-extrabold">Langkah {s + 1}</strong> · {label}
+                  </span>
+                  <span className="shrink-0 text-15 font-extrabold tabular-nums">
+                    {st === "ringing" ? "Waktunya!" : st === "paused" ? `dijeda ${clock(secondsLeft(t, 0, now))}` : clock(secondsLeft(t, 0, now))}
+                  </span>
+                </button>
+              );
+            })}
+            {otherTimers.length > 2 ? (
+              <button type="button" onClick={() => setTrayOpen((v) => !v)} aria-expanded={trayOpen} className="min-h-11 self-start px-1 text-14 font-bold text-primary">
+                {trayOpen ? "Tampilkan lebih sedikit" : `+${otherTimers.length - 2} lainnya`}
+              </button>
+            ) : null}
+          </div>
+        ) : null}
+        <div className="flex gap-3">
         <button
           type="button"
           onClick={() => goto(Math.max(0, i - 1))}
           disabled={i === 0}
-          className="flex min-h-[54px] flex-1 items-center justify-center rounded-xl border border-rule bg-card text-body font-extrabold text-ink disabled:text-ink-3/50"
+          className="flex min-h-[54px] flex-1 items-center justify-center rounded-xl border border-rule bg-card text-body font-extrabold text-ink disabled:border-dashed disabled:text-ink-3"
         >
           Sebelumnya
         </button>
@@ -530,7 +546,16 @@ function ModeMasak() {
         >
           {last ? "Selesai" : "Lanjut"}
         </button>
+        </div>
       </div>
+
+      <Sheet open={leaveOpen} onClose={() => setLeaveOpen(false)} title="Timer masih berjalan" subtitle="Keluar dari mode masak?">
+        <p className="read-line text-ink-2">Timer tetap berjalan walau kamu keluar. Buka mode masak lagi untuk melihatnya.</p>
+        <div className="mt-5 flex flex-col gap-3">
+          <button type="button" onClick={() => setLeaveOpen(false)} className={primaryBtn}>Tetap di sini</button>
+          <button type="button" onClick={() => { setLeaveOpen(false); leave(); }} className={outlineBtn}>Keluar</button>
+        </div>
+      </Sheet>
 
       <Sheet open={allOpen} onClose={() => setAllOpen(false)} title="Semua bahan" subtitle={`Takaran untuk ${servings} porsi`}>
         <ul className="divide-y divide-rule">
