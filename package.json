@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vitest run src/components/racik/IngredientList.test.tsx && vite build",
-    "build:dev": "vitest run src/components/racik/IngredientList.test.tsx && vite build --mode development",
+    "build": "node scripts/check-i18n.mjs && vitest run src/components/racik/IngredientList.test.tsx && vite build",
+    "build:dev": "node scripts/check-i18n.mjs && vitest run src/components/racik/IngredientList.test.tsx && vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write ."

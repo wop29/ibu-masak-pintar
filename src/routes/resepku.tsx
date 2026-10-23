@@ -8,6 +8,8 @@ import { useAccount } from "@/lib/racik/backend/useAccount";
 import { myRecipes } from "@/lib/racik/backend/recipes";
 import { myHandle, myShareStats, summarise, type StatsSummary } from "@/lib/racik/backend/share";
 import type { UserRecipe } from "@/lib/racik/backend/types";
+import { ENGLISH_ENABLED, t } from "@/lib/racik/i18n";
+import { LanguageSwitch } from "@/components/racik/LanguageSwitch";
 
 export const Route = createFileRoute("/resepku")({
   head: () => ({ meta: [{ title: "Resepku — Racik" }, { name: "robots", content: "noindex" }] }),
@@ -47,15 +49,24 @@ function Resepku() {
       <header className="flex items-center gap-3 px-5 pb-4 pt-[calc(2rem+env(safe-area-inset-top))]">
         <Link
           to="/tulis"
-          aria-label="Kembali"
+          aria-label={t("back")}
           className="flex size-11 items-center justify-center rounded-full border border-rule"
         >
           <ArrowLeft className="size-5" />
         </Link>
         <div>
-          <h1 className="text-head font-extrabold">Siapa yang memasaknya</h1>
+          <h1 className="text-head font-extrabold">{t("siapa_yang_memasaknya")}</h1>
         </div>
       </header>
+      {ENGLISH_ENABLED ? (
+        <div className="mx-5 mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-rule p-4">
+          <div className="min-w-0 flex-1 basis-[9rem]">
+            <p className="text-body font-bold">{t("language")}</p>
+            <p className="text-14 text-ink-3">{t("language_hint")}</p>
+          </div>
+          <LanguageSwitch />
+        </div>
+      ) : null}
       <div className="px-5">{body}</div>
     </main>
   );
@@ -63,7 +74,8 @@ function Resepku() {
   if (!available) {
     return shell(
       <p className="rounded-2xl border border-rule bg-notice p-4 read-line">
-        Racik belum tersambung ke server, jadi angkanya belum bisa ditampilkan.
+        
+        {t("racik_belum_tersambung_ke_server_2")}
       </p>,
     );
   }
@@ -72,11 +84,11 @@ function Resepku() {
     return shell(
       <div className="grid gap-3">
         <p className="read-line text-ink-2">
-          Masuk untuk memilih nama pengguna dan melihat berapa orang membuka, menyimpan, dan memasak
-          resep yang kamu bagikan.
+          
+          {t("masuk_untuk_memilih_nama_pengguna")}
         </p>
         <Button asChild size="lg">
-          <Link to="/masuk">Masuk</Link>
+          <Link to="/masuk">{t("sign_in")}</Link>
         </Button>
       </div>,
     );
@@ -86,29 +98,31 @@ function Resepku() {
     <div className="grid gap-8">
       <section className="rounded-2xl border border-rule p-4">
         {profile === undefined ? (
-          <p className="text-14 text-ink-3">Memuat…</p>
+          <p className="text-14 text-ink-3">{t("memuat")}</p>
         ) : profile?.handle && !editing ? (
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="truncate text-body font-extrabold">@{profile.handle}</p>
               <p className="truncate text-14 text-ink-3">
-                {profile.publicName || "Tanpa nama tampilan"}
+                {profile.publicName || t("tanpa_nama_tampilan")}
               </p>
             </div>
             <div className="flex shrink-0 gap-2">
               <Button asChild variant="outline" className="min-h-11">
                 <Link to="/u/$handle" params={{ handle: profile.handle }}>
-                  Lihat profil
+                  
+                  {t("lihat_profil")}
                 </Link>
               </Button>
               <Button variant="ghost" className="min-h-11" onClick={() => setEditing(true)}>
-                Ubah
+                
+                {t("ubah")}
               </Button>
             </div>
           </div>
         ) : (
           <>
-            <h2 className="mb-2 text-body font-extrabold">Nama pengguna</h2>
+            <h2 className="mb-2 text-body font-extrabold">{t("nama_pengguna")}</h2>
             <HandleForm
               initialHandle={profile?.handle ?? null}
               initialName={profile?.publicName ?? null}
@@ -122,17 +136,18 @@ function Resepku() {
       </section>
 
       <section>
-        <h2 className="heading-sm">Dari tautan yang kamu bagikan</h2>
+        <h2 className="heading-sm">{t("dari_tautan_yang_kamu_bagikan")}</h2>
         {stats === undefined ? (
-          <p className="mt-3 text-14 text-ink-3">Memuat angka…</p>
+          <p className="mt-3 text-14 text-ink-3">{t("memuat_angka")}</p>
         ) : stats === null ? (
           <p className="mt-3 text-14 text-ink-3">
-            Angkanya belum bisa diambil sekarang. Coba lagi nanti.
+            
+            {t("angkanya_belum_bisa_diambil_sekarang")}
           </p>
         ) : stats.recipes.length === 0 ? (
           <p className="mt-3 read-line text-ink-2">
-            Belum ada. Setelah selesai memasak, ketuk <b>Bagikan</b> untuk membuat kartu hasil
-            masakanmu. Angkanya muncul di sini.
+            
+            {t("belum_ada_setelah_selesai_memasak")}{" "}<b>{t("bagikan")}</b> {" "}{t("untuk_membuat_kartu_hasil_masakanmu")}
           </p>
         ) : (
           <>
@@ -152,21 +167,24 @@ function Resepku() {
             </div>
             {stats.cooks > 0 ? (
               <p className="mt-3 text-body font-bold">
-                Dimasak {n(stats.cooks)} orang lewat tautanmu.
+                
+                {t("dimasak")}{" "}{n(stats.cooks)} {" "}{t("orang_lewat_tautanmu")}
               </p>
             ) : null}
             {stats.top ? (
               <p className="mt-2 text-14 text-ink-2">
-                Paling banyak: <b>{stats.top.title}</b> ({n(stats.top.opens)} kali dibuka
-                {stats.top.cooks ? `, dimasak ${n(stats.top.cooks)} orang` : ""}).
+                
+                {t("paling_banyak")}{" "}<b>{stats.top.title}</b> ({n(stats.top.opens)} {" "}{t("kali_dibuka")}
+                {stats.top.cooks ? t("dimasak_orang", { cooks: n(stats.top.cooks) }) : ""}).
               </p>
             ) : null}
             {stats.byFormat.story + stats.byFormat.feed > 0 ? (
               <p className="mt-2 text-14 text-ink-2">
-                Kartu Story/Status dibuka {n(stats.byFormat.story)} kali, kartu feed{" "}
-                {n(stats.byFormat.feed)} kali
+                
+                {t("kartu_story_status_dibuka")}{" "}{n(stats.byFormat.story)} {" "}{t("kali_kartu_feed")}{" "}
+                {n(stats.byFormat.feed)} {" "}{t("kali")}
                 {stats.byFormat.story !== stats.byFormat.feed
-                  ? ` — ${stats.byFormat.story > stats.byFormat.feed ? "Story/Status" : "feed"} lebih banyak dibuka.`
+                  ? t("lebih_banyak_dibuka", { v1: stats.byFormat.story > stats.byFormat.feed ? "Story/Status" : "feed" })
                   : "."}
               </p>
             ) : null}
@@ -179,14 +197,14 @@ function Resepku() {
                 >
                   <span className="min-w-0 flex-1 text-body font-bold">{r.title}</span>
                   <span className="shrink-0 text-right text-caption text-ink-3 tabular-nums">
-                    {n(r.opens)} dibuka · {n(r.saves)} disimpan · {n(r.cooks)} dimasak
+                    {n(r.opens)} {" "}{t("dibuka")}{" "}{n(r.saves)} {" "}{t("disimpan")}{" "}{n(r.cooks)} {" "}{t("dimasak_2")}
                   </span>
                 </li>
               ))}
             </ul>
             <p className="mt-3 text-caption text-ink-3">
-              Satu HP dihitung sekali sehari per tautan. Ketukanmu sendiri tidak dihitung. Hanya
-              kamu yang bisa melihat angka ini.
+              
+              {t("satu_hp_dihitung_sekali_sehari")}
             </p>
           </>
         )}
@@ -194,12 +212,12 @@ function Resepku() {
 
       <section>
         <div className="flex items-center justify-between">
-          <h2 className="heading-sm">Resep yang kamu tulis</h2>
+          <h2 className="heading-sm">{t("my_recipes")}</h2>
           <Link
             to="/tulis/baru"
             className="flex min-h-11 items-center gap-1 text-14 font-bold text-primary"
           >
-            <PenLine className="size-4" /> Tulis
+            <PenLine className="size-4" /> {" "}{t("tulis")}
           </Link>
         </div>
         {mine.length ? (
@@ -214,10 +232,10 @@ function Resepku() {
                   <span className="min-w-0 flex-1 text-body font-bold">{r.title}</span>
                   <span className="shrink-0 text-caption text-ink-3">
                     {r.status === "live"
-                      ? `Terbit · dimasak ${n(r.cookedCount)}`
+                      ? t("terbit_dimasak", { cookedCount: n(r.cookedCount) })
                       : r.status === "draft"
-                        ? "Draf"
-                        : "Disembunyikan"}
+                        ? t("draft")
+                        : t("hidden")}
                   </span>
                   <ChevronRight aria-hidden className="size-4 text-ink-3" />
                 </Link>
@@ -225,7 +243,7 @@ function Resepku() {
             ))}
           </ul>
         ) : (
-          <p className="mt-2 text-14 text-ink-3">Belum ada resep yang kamu terbitkan.</p>
+          <p className="mt-2 text-14 text-ink-3">{t("belum_ada_resep_yang_kamu")}</p>
         )}
       </section>
     </div>,

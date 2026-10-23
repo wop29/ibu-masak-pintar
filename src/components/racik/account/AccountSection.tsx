@@ -5,13 +5,19 @@ import { useRacik } from "@/lib/racik/state";
 import { useAccount } from "@/lib/racik/backend/useAccount";
 import { libraryRecipeCount } from "@/lib/racik/store";
 import { ConfirmSheet } from "./AccountSheets";
+import { ENGLISH_ENABLED, t } from "@/lib/racik/i18n";
+import { LanguageSwitch } from "../LanguageSwitch";
 
 /**
  * Pengaturan › Akun & data: sign in/out, "Unduh dataku", "Hapus akun" and
  * "Hapus semua data". Every destructive action has a confirm sheet that says
  * plainly what happens on this phone and what happens to the account.
  */
-export function AccountSection() {
+/**
+ * `withLanguage`: show the interface-language row here too (the account area
+ * is where people look for it). Pengaturan has its own row, so it leaves this off.
+ */
+export function AccountSection({ withLanguage = false }: { withLanguage?: boolean } = {}) {
   const { account, available, refresh } = useAccount();
   const { state, syncStatus, signOutAndClear, eraseDevice, exportData } = useRacik();
   const navigate = useNavigate();
@@ -22,15 +28,15 @@ export function AccountSection() {
 
   const syncLine = !account
     ? count > 0
-      ? `${count} resep tersimpan di HP ini saja. Masuk supaya tidak hilang kalau ganti HP.`
-      : "Masuk gratis supaya resep yang kamu simpan tidak hilang kalau ganti HP."
+      ? t("acct_local_count", { count })
+      : t("acct_local_none")
     : syncStatus === "syncing"
-      ? "Menyimpan ke akun…"
+      ? t("acct_syncing")
       : syncStatus === "off"
-        ? "Resep di HP ini belum digabung ke akunmu. Buka lagi Racik untuk memilih."
+        ? t("acct_off")
       : syncStatus === "error"
-        ? "Belum tersambung. Perubahan disimpan di HP dulu dan dikirim ke akun saat ada internet."
-        : "Resep, rencana belanja, dan catatan masakmu tersimpan di akun.";
+        ? t("acct_error")
+        : t("acct_ok");
 
   const doSignOut = async (force: boolean) => {
     setBusy(true);
@@ -39,23 +45,29 @@ export function AccountSection() {
     if (res === "unsynced") return setSheet("signout-unsynced");
     setSheet(null);
     refresh();
-    setNote("Kamu sudah keluar. Resepmu tetap aman di akun.");
+    setNote(t("acct_signed_out"));
   };
 
   return (
     <section className="border-b border-border py-5" aria-labelledby="akun-data">
-      <h2 id="akun-data" className="text-body font-bold">Akun &amp; data</h2>
+      <h2 id="akun-data" className="text-body font-bold">{t("akun_data")}</h2>
+      {withLanguage && ENGLISH_ENABLED ? (
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+          <p className="min-w-0 flex-1 basis-[8rem] text-14 font-semibold">{t("language")}</p>
+          <LanguageSwitch />
+        </div>
+      ) : null}
       {available ? (
         <div className="mt-3 flex items-center justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <p className="text-14 font-semibold">{account ? (account.name ? `Masuk sebagai ${account.name}` : "Kamu sudah masuk") : "Belum masuk"}</p>
+            <p className="text-14 font-semibold">{account ? (account.name ? t("signed_in_as", { name: account.name }) : t("kamu_sudah_masuk")) : t("belum_masuk")}</p>
             <p className="mt-1 text-14 text-muted-foreground" role="status">{syncLine}</p>
           </div>
           {account ? (
-            <Button size="sm" variant="outline" onClick={() => setSheet("signout")}>Keluar</Button>
+            <Button size="sm" variant="outline" onClick={() => setSheet("signout")}>{t("sign_out")}</Button>
           ) : (
             <Button asChild size="sm">
-              <Link to="/masuk" search={{ next: "/pengaturan" }}>Masuk</Link>
+              <Link to="/masuk" search={{ next: "/pengaturan" }}>{t("sign_in")}</Link>
             </Button>
           )}
         </div>
@@ -64,48 +76,50 @@ export function AccountSection() {
 
       <div className="mt-4 flex flex-col gap-2">
         <Button variant="outline" className="w-full" onClick={() => void exportData()}>
-          Unduh dataku
+          
+          {t("unduh_dataku")}
         </Button>
-        <p className="text-label text-ink-3">Salinan semua data Racik milikmu dalam satu berkas (JSON).</p>
+        <p className="text-label text-ink-3">{t("salinan_semua_data_racik_milikmu")}</p>
         {account ? (
           <Button asChild variant="outline" className="mt-2 w-full text-danger-ink">
-            <Link to="/hapus-akun">Hapus akun</Link>
+            <Link to="/hapus-akun">{t("hapus_akun")}</Link>
           </Button>
         ) : null}
         <Button variant="outline" className="mt-2 w-full text-danger-ink" onClick={() => setSheet("erase")}>
-          Hapus semua data di HP ini
+          
+          {t("hapus_semua_data_di_hp")}
         </Button>
       </div>
 
       <ConfirmSheet
         open={sheet === "signout"}
-        title="Keluar dari akun?"
-        confirmLabel="Keluar"
+        title={t("keluar_dari_akun")}
+        confirmLabel={t("sign_out")}
         destructive={false}
         busy={busy}
         onCancel={() => setSheet(null)}
         onConfirm={() => void doSignOut(false)}
       >
-        <p>Resep, rencana belanja, dan catatan masakmu akan dihapus dari HP ini, tapi tetap aman di akunmu. Masuk lagi kapan saja untuk mengambilnya.</p>
-        <p className="mt-2">Ukuran tulisan, satuan, dan jumlah porsi tetap seperti sekarang.</p>
+        <p>{t("resep_rencana_belanja_dan_catatan")}</p>
+        <p className="mt-2">{t("ukuran_tulisan_satuan_dan_jumlah")}</p>
       </ConfirmSheet>
 
       <ConfirmSheet
         open={sheet === "signout-unsynced"}
-        title="Ada perubahan yang belum tersimpan"
-        confirmLabel="Keluar saja"
+        title={t("ada_perubahan_yang_belum_tersimpan")}
+        confirmLabel={t("keluar_saja")}
         busy={busy}
         onCancel={() => setSheet(null)}
         onConfirm={() => void doSignOut(true)}
       >
-        <p>Perubahan terakhir di HP ini belum sempat dikirim ke akunmu (sepertinya tidak ada internet). Kalau keluar sekarang, perubahan itu hilang.</p>
-        <p className="mt-2">Sambungkan internet lalu coba lagi, atau keluar saja.</p>
+        <p>{t("perubahan_terakhir_di_hp_ini")}</p>
+        <p className="mt-2">{t("sambungkan_internet_lalu_coba_lagi")}</p>
       </ConfirmSheet>
 
       <ConfirmSheet
         open={sheet === "erase"}
-        title="Hapus semua data di HP ini?"
-        confirmLabel="Hapus dari HP ini"
+        title={t("hapus_semua_data_di_hp_2")}
+        confirmLabel={t("hapus_dari_hp_ini")}
         busy={busy}
         onCancel={() => setSheet(null)}
         onConfirm={async () => {
@@ -119,23 +133,24 @@ export function AccountSection() {
         extra={
           account ? (
             <Button asChild variant="ghost" size="lg" className="mt-2 w-full text-danger-ink">
-              <Link to="/hapus-akun">Hapus akun juga</Link>
+              <Link to="/hapus-akun">{t("hapus_akun_juga")}</Link>
             </Button>
           ) : null
         }
       >
         {account ? (
           <>
-            <p>Semua data Racik di HP ini dihapus dan kamu keluar dari akun di HP ini. Pengaturan kembali ke awal.</p>
-            <p className="mt-2 font-semibold text-ink">Akunmu tidak terhapus: resepmu tetap aman di akun dan kembali saat kamu masuk lagi.</p>
-            <p className="mt-2">Mau menghapus akun dan semua isinya? Pilih “Hapus akun juga”.</p>
+            <p>{t("semua_data_racik_di_hp")}</p>
+            <p className="mt-2 font-semibold text-ink">{t("akunmu_tidak_terhapus_resepmu_tetap")}</p>
+            <p className="mt-2">{t("mau_menghapus_akun_dan_semua")}</p>
           </>
         ) : (
           <>
             <p>
-              Koleksimu{count > 0 ? ` (${count} resep)` : ""}, resep dari luar, rencana belanja, catatan masak, foto, dan pengaturan akan hilang dari HP ini.
+              
+              {t("koleksimu")}{count > 0 ? t("resep_4", { count }) : ""}{t("resep_dari_luar_rencana_belanja")}
             </p>
-            <p className="mt-2 font-semibold text-ink">Ini tidak bisa dibatalkan.</p>
+            <p className="mt-2 font-semibold text-ink">{t("ini_tidak_bisa_dibatalkan")}</p>
           </>
         )}
       </ConfirmSheet>
