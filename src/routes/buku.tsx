@@ -34,21 +34,21 @@ function Koleksi() {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
-      <header className="border-b border-[#f0f0ed] bg-card px-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
+      <header className="border-b border-rule-soft bg-card px-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <div className="mb-1 flex items-start justify-between">
           <div>
             <p className="eyebrow mb-0.5">MILIKMU</p>
-            <h1 className="text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#111]">Koleksi Saya</h1>
+            <h1 className="text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Koleksi Saya</h1>
           </div>
-          <Link to="/pengaturan" aria-label="Pengaturan" className="mt-1 flex size-[38px] items-center justify-center rounded-full border border-[#e8e8e4] bg-tint text-[#555]"><Settings className="size-4" /></Link>
+          <Link to="/pengaturan" aria-label="Pengaturan" className="mt-1 flex size-[38px] items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
         </div>
         <div className="mt-4 flex">
           {tabs.map((x) => {
             const on = tab === x.id;
             return (
-              <button key={x.id} type="button" onClick={() => setCurrentTab(x.id)} className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 pt-1 pb-3 text-caption font-bold transition-colors ${on ? "border-primary text-primary" : "border-transparent text-[#9ca3af]"}`}>
+              <button key={x.id} type="button" onClick={() => setCurrentTab(x.id)} className={`flex flex-1 items-center justify-center gap-1.5 border-b-2 pt-1 pb-3 text-caption font-bold transition-colors ${on ? "border-primary text-primary" : "border-transparent text-ink-3"}`}>
                 {x.label}
-                <span className={`rounded-full px-1.5 py-0.5 text-micro font-bold ${on ? "bg-primary text-primary-foreground" : "bg-[#e8e8e4] text-[#9ca3af]"}`}>{x.n}</span>
+                <span className={`rounded-full px-1.5 py-0.5 text-micro font-bold ${on ? "bg-primary text-primary-foreground" : "bg-rule-strong text-ink-3"}`}>{x.n}</span>
               </button>
             );
           })}
@@ -60,15 +60,15 @@ function Koleksi() {
           <div>
             <div className="mx-5 mt-5"><ImportDemo /></div>
             {state.imported.length === 0 ? (
-              <p className="mt-8 px-5 text-center text-14 leading-relaxed text-[#9ca3af]">Belum ada resep dari luar.<br />Tambahkan dari link video, teks, atau foto.</p>
+              <p className="mt-8 px-5 text-center text-14 leading-relaxed text-ink-3">Belum ada resep dari luar.<br />Tambahkan dari link video, teks, atau foto.</p>
             ) : (
               <div className="mt-5 px-5">
                 <p className="mb-3 text-caption leading-normal text-ink-3">Resep yang Racik susun dari video, teks, atau foto.</p>
-                <p className="section-label mb-1 text-[#111]">RESEP DARI LUAR</p>
+                <p className="section-label mb-1 text-ink-strong">RESEP DARI LUAR</p>
                 {state.imported.map((recipe) => (
-                  <div key={recipe.id} className="flex items-center gap-1 border-b border-[#f0f0ed] last:border-b-0">
+                  <div key={recipe.id} className="flex items-center gap-1 border-b border-rule-soft last:border-b-0">
                     <div className="min-w-0 flex-1 [&>a]:border-b-0"><CompactRecipe recipe={recipe} creator={recipe.creator} /></div>
-                    <button type="button" aria-label={`Hapus ${recipe.title}`} onClick={() => update((s) => ({ imported: s.imported.filter((item) => item.id !== recipe.id) }))} className="flex size-10 shrink-0 items-center justify-center text-[#8b8f88]"><Trash2 className="size-4" /></button>
+                    <button type="button" aria-label={`Hapus ${recipe.title}`} onClick={() => update((s) => ({ imported: s.imported.filter((item) => item.id !== recipe.id) }))} className="flex size-10 shrink-0 items-center justify-center text-ink-3"><Trash2 className="size-4" /></button>
                   </div>
                 ))}
               </div>
@@ -80,13 +80,13 @@ function Koleksi() {
           <div className="px-5 pt-4">
             {saved.length === 0 ? (
               <div className="flex flex-col items-center gap-4 py-12">
-                <p className="text-center text-14 leading-relaxed text-[#9ca3af]">Belum ada resep yang disimpan.<br />Ketuk tanda ♡ di resep mana pun untuk menyimpannya.</p>
+                <p className="text-center text-14 leading-relaxed text-ink-3">Belum ada resep yang disimpan.<br />Ketuk tanda ♡ di resep mana pun untuk menyimpannya.</p>
                 <Link to="/cari" className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">Cari resep</Link>
               </div>
             ) : (
               <>
                 <p className="mb-3 text-caption leading-normal text-ink-3">Resep yang ditandai untuk dibuka lagi.</p>
-                <p className="section-label mb-1 text-[#111]">RESEP FAVORIT</p>
+                <p className="section-label mb-1 text-ink-strong">RESEP FAVORIT</p>
                 {saved.map((r) => <CompactRecipe key={r.id} recipe={r} />)}
               </>
             )}

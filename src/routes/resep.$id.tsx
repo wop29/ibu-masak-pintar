@@ -67,7 +67,7 @@ function DetailResep() {
   const recipe = shipped ?? imported;
   if (!recipe && !ready) {
     // Imported recipes live in IndexedDB: wait for it before saying "not here".
-    return <main aria-busy="true" className="mx-auto min-h-dvh w-full max-w-[430px] bg-ground"><div className="h-[292px] animate-pulse bg-[#e8eee7]" /></main>;
+    return <main aria-busy="true" className="mx-auto min-h-dvh w-full max-w-[430px] bg-ground"><div className="h-[292px] animate-pulse bg-primary-track" /></main>;
   }
   if (!recipe) {
     return (
@@ -92,15 +92,15 @@ function DetailResep() {
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-ground pb-[calc(7rem+env(safe-area-inset-bottom))]">
-      <div className="relative h-[292px] bg-[#e8eee7]">
+      <div className="relative h-[292px] bg-primary-track">
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-[64px]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.25),transparent_40%,rgba(0,0,0,0.12))]" />
-        <Link to="/" aria-label="Kembali" onClick={(e) => { if (window.history.length > 1) { e.preventDefault(); window.history.back(); } }} className="absolute top-[calc(3rem+env(safe-area-inset-top))] left-5 flex size-11 items-center justify-center rounded-full bg-white/95 text-ink shadow-[0_4px_16px_rgba(0,0,0,0.12)]"><ArrowLeft className="size-5" strokeWidth={2.4} /></Link>
-        <button type="button" onClick={toggleHeart} aria-pressed={saved} aria-label={saved ? "Hapus dari Favorit" : "Simpan ke Favorit"} className={`absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 flex size-11 items-center justify-center rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.12)] ${saved ? "bg-primary text-primary-foreground" : "bg-white/95 text-ink"}`}><Heart className={`size-[21px] ${saved ? "fill-current" : ""}`} /></button>
+        <Link to="/" aria-label="Kembali" onClick={(e) => { if (window.history.length > 1) { e.preventDefault(); window.history.back(); } }} className="absolute top-[calc(3rem+env(safe-area-inset-top))] left-5 flex size-11 items-center justify-center rounded-full bg-white/95 text-ink shadow-float"><ArrowLeft className="size-5" strokeWidth={2.4} /></Link>
+        <button type="button" onClick={toggleHeart} aria-pressed={saved} aria-label={saved ? "Hapus dari Favorit" : "Simpan ke Favorit"} className={`absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 flex size-11 items-center justify-center rounded-full shadow-float ${saved ? "bg-primary text-primary-foreground" : "bg-white/95 text-ink"}`}><Heart className={`size-[21px] ${saved ? "fill-current" : ""}`} /></button>
       </div>
 
       <div className="relative -mt-[22px] px-5">
-        <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-[0_10px_30px_rgba(18,23,18,0.07)]">
+        <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-raised">
           <div className="flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-primary-soft px-2.5 py-[5px] text-micro font-extrabold tracking-[0.05em] text-primary-deep">{(REG[recipe.region]?.name ?? recipe.region).toUpperCase()}</span>
             <HalalChip recipe={recipe} />
@@ -109,7 +109,7 @@ function DetailResep() {
           <h1 className="mt-3 text-[clamp(28px,8vw,36px)] font-extrabold leading-[1.08] tracking-[-0.04em] [overflow-wrap:anywhere]">{recipe.title}</h1>
 
           {imported?.sourceUrl ? (
-            <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-primary-line bg-[#f7faf6] px-3 py-[11px]">
+            <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-primary-line bg-primary-wash px-3 py-[11px]">
               <div className="min-w-0">
                 <p className="text-micro text-ink-3">DARI LUAR</p>
                 <p className="mt-0.5 truncate text-caption font-extrabold text-primary-deep">{creator ?? hostOf(imported.sourceUrl)}</p>
@@ -119,7 +119,7 @@ function DetailResep() {
           ) : null}
 
           {recipe.incomplete ? (
-            <div className="mt-3 rounded-xl bg-notice p-3 text-[#66551c]">
+            <div className="mt-3 rounded-xl bg-notice p-3 text-notice-ink">
               <IncompleteBadge recipe={recipe} />
               <p className="mt-2 text-caption leading-normal">Takaran bumbunya cuma ditulis di layar videonya, jadi Racik belum bisa membacanya. Buka videonya untuk melihat takarannya.</p>
             </div>

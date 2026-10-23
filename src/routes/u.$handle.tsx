@@ -68,7 +68,7 @@ function Profile() {
               params={{ id: r.id }}
               className="flex min-h-16 items-center gap-3 border-b border-rule py-3"
             >
-              <span className="size-16 shrink-0 overflow-hidden rounded-xl bg-[#e8eee7]">
+              <span className="size-16 shrink-0 overflow-hidden rounded-xl bg-primary-track">
                 <RecipePhoto
                   src={storageUrl(r.photo_path) ?? undefined}
                   glyph={"\u{1F372}"}

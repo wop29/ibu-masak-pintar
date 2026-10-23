@@ -132,8 +132,8 @@ function SharedLink() {
 
       <section aria-label="Resep yang dibagikan" className="px-5">
         <p className="eyebrow-ink mt-2">DIBAGIKAN</p>
-        <article className="mt-3 overflow-hidden rounded-3xl border border-rule bg-card shadow-[0_10px_30px_rgba(18,23,18,0.07)]">
-          <div className="relative aspect-[4/3] bg-[#e8eee7]">
+        <article className="mt-3 overflow-hidden rounded-3xl border border-rule bg-card shadow-raised">
+          <div className="relative aspect-[4/3] bg-primary-track">
             <RecipePhoto
               src={photo}
               glyph={catalogue?.glyph ?? "\u{1F372}"}
@@ -223,7 +223,7 @@ function SharedLink() {
                     params={{ id: r.id }}
                     className="flex min-h-14 items-center gap-3 border-b border-rule py-3"
                   >
-                    <span className="size-12 shrink-0 overflow-hidden rounded-xl bg-[#e8eee7]">
+                    <span className="size-12 shrink-0 overflow-hidden rounded-xl bg-primary-track">
                       <RecipePhoto
                         src={storageUrl(r.photo_path) ?? undefined}
                         glyph={"\u{1F372}"}

@@ -78,6 +78,26 @@
   --color-primary-soft: var(--primary-soft);
   --color-primary-line: var(--primary-line);
   --color-glow: var(--glow);
+
+  /* Named tokens for colours that used to be hard-coded in components.
+     Values are unchanged; the palette is swapped here, in one place. */
+  --color-ink-strong: var(--ink-strong);
+  --color-ink-faint: var(--ink-faint);
+  --color-icon-muted: var(--icon-muted);
+  --color-rule-soft: var(--rule-soft);
+  --color-rule-strong: var(--rule-strong);
+  --color-control-line: var(--control-line);
+  --color-primary-wash: var(--primary-wash);
+  --color-primary-track: var(--primary-track);
+  --color-time: var(--time);
+  --color-time-soft: var(--time-soft);
+  --color-time-ink: var(--time-ink);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-ink: var(--danger-ink);
+  --color-danger-line: var(--danger-line);
+  --color-notice-ink: var(--notice-ink);
+  --color-notice-line: var(--notice-line);
+  --color-scrim: var(--scrim);
 }
 
 :root {
@@ -96,6 +116,29 @@
   --glow: rgba(46, 125, 50, 0.24);
   --dark: oklch(0.14 0.012 150);
   --notice: #fbf4d9;
+
+  /* Strongest text (titles, list names). */
+  --ink-strong: #111111;
+  /* 2.5:1 on --ground: decorative icons and dividers only, never text. */
+  --ink-faint: #9ca3af;
+  --icon-muted: #555555;
+  --rule-soft: #f0f0ed;
+  --rule-strong: #e8e8e4;
+  /* Outline of tick circles and other controls. */
+  --control-line: #c9cec7;
+  --primary-wash: #f7faf6;
+  --primary-track: #e8eee7;
+  /* Time (cook timers, time chips). Same green as primary for now. */
+  --time: #2e7d32;
+  --time-soft: #eef6ee;
+  --time-ink: #1c5633;
+  /* Red family: "tidak halal", errors, destructive actions only. */
+  --danger-soft: #fdecea;
+  --danger-ink: #b71c1c;
+  --danger-line: #f4caca;
+  --notice-ink: #66551c;
+  --notice-line: #fde68a;
+  --scrim: rgba(18, 23, 18, 0.48);
 
   --background: var(--ground);
   --foreground: var(--ink);
@@ -204,6 +247,41 @@ html.teks-paling_besar {
 
 @utility shadow-card {
   box-shadow: 0 5px 18px rgba(18, 23, 18, 0.035);
+}
+
+/* Raised cards and popovers (recipe header card, plan picker). */
+@utility shadow-raised {
+  box-shadow: 0 10px 30px rgba(18, 23, 18, 0.07);
+}
+
+/* Bottom sheet. */
+@utility shadow-sheet {
+  box-shadow: 0 -12px 48px rgba(18, 23, 18, 0.16);
+}
+
+/* Bottom tab bar. */
+@utility shadow-bar {
+  box-shadow: 0 -8px 28px rgba(18, 23, 18, 0.05);
+}
+
+/* Selected segment in a segmented control. */
+@utility shadow-chip {
+  box-shadow: 0 2px 8px rgba(18, 23, 18, 0.07);
+}
+
+/* Round buttons floating on a photo. */
+@utility shadow-float {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Toasts and snackbars on dark. */
+@utility shadow-toast {
+  box-shadow: 0 8px 28px rgba(18, 23, 18, 0.25);
+}
+
+/* Illustrations over onboarding photography. */
+@utility shadow-deep {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 
 @utility section-label {

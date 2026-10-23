@@ -29,20 +29,20 @@ export function CompactRecipe({ recipe, boxed = false, creator }: { recipe: Reci
     <Link
       to="/resep/$id"
       params={{ id: recipe.id }}
-      className={`flex items-center gap-4 py-3.5 ${boxed ? "rounded-2xl border border-rule bg-card px-3.5 shadow-card" : "border-b border-[#f0f0ed] last:border-b-0"}`}
+      className={`flex items-center gap-4 py-3.5 ${boxed ? "rounded-2xl border border-rule bg-card px-3.5 shadow-card" : "border-b border-rule-soft last:border-b-0"}`}
     >
       <div className="size-[76px] shrink-0 overflow-hidden rounded-xl bg-primary-deep">
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-28" />
       </div>
       <div className="min-w-0 flex-1">
-        <h3 className="mb-1 text-body font-bold leading-tight tracking-[-0.02em] text-[#111] [overflow-wrap:anywhere]">{recipe.title}</h3>
+        <h3 className="mb-1 text-body font-bold leading-tight tracking-[-0.02em] text-ink-strong [overflow-wrap:anywhere]">{recipe.title}</h3>
         <p className="text-label leading-snug text-ink-3">{shortTime(recipe.time)} · {recipe.diff}</p>
         <p className="mt-0.5 text-label leading-snug text-ink-3">{region}{protein ? ` · ±${protein} protein/porsi` : ""}</p>
         {recipe.incomplete ? <p className="mt-1.5"><IncompleteBadge recipe={recipe} /></p> : null}
         <span className="mt-1.5 block empty:hidden"><HalalChip recipe={recipe} static /></span>
         {creator ? <p className="mt-0.5 text-micro text-primary">Dari luar · {creator}</p> : null}
       </div>
-      <ChevronRight aria-hidden className="size-4 shrink-0 text-[#d1d5db]" />
+      <ChevronRight aria-hidden className="size-4 shrink-0 text-ink-faint" />
     </Link>
   );
 }

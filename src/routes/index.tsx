@@ -128,9 +128,9 @@ function MasakApa() {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
-      <header className="border-b border-[#f0f0ed] bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
+      <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <p className="eyebrow mb-0.5">{words[0]}</p>
-        <h1 className="mb-1 text-[clamp(26px,7vw,32px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#111]">{words[1]}</h1>
+        <h1 className="mb-1 text-[clamp(26px,7vw,32px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{words[1]}</h1>
         <div className="mt-3 mb-[18px] flex items-center justify-between">
           <div>
             <p className="text-label text-ink-3">Masak untuk</p>
@@ -143,9 +143,9 @@ function MasakApa() {
           </div>
         </div>
         <p className="-mt-2.5 mb-4 text-label text-ink-3">Takaran resep akan disesuaikan dengan jumlah ini.</p>
-        <Link to="/cari" className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-[#e8e8e4] bg-tint px-3.5 py-3">
-          <Search aria-hidden className="size-4 text-[#9ca3af]" />
-          <span className="text-15 text-[#adadad]">{t("search_placeholder")}</span>
+        <Link to="/cari" className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-rule-strong bg-tint px-3.5 py-3">
+          <Search aria-hidden className="size-4 text-ink-faint" />
+          <span className="text-15 text-ink-3">{t("search_placeholder")}</span>
         </Link>
         <div className="mt-3"><ImportButton /></div>
       </header>
@@ -156,9 +156,9 @@ function MasakApa() {
           {CATS.map((c) => {
             const active = cat === c.id;
             return (
-              <button key={c.id} type="button" onClick={() => setCat(active ? "" : c.id)} className={`flex size-[72px] shrink-0 flex-col items-center justify-center rounded-2xl transition-colors ${active ? "bg-primary" : "border border-[#e8e8e4] bg-card"}`}>
+              <button key={c.id} type="button" onClick={() => setCat(active ? "" : c.id)} className={`flex size-[72px] shrink-0 flex-col items-center justify-center rounded-2xl transition-colors ${active ? "bg-primary" : "border border-rule-strong bg-card"}`}>
                 <span aria-hidden className="mb-1 text-[22px] leading-none">{c.emoji}</span>
-                <span className={`text-micro font-semibold ${active ? "text-primary-foreground" : "text-[#555]"}`}>{c.label}</span>
+                <span className={`text-micro font-semibold ${active ? "text-primary-foreground" : "text-icon-muted"}`}>{c.label}</span>
               </button>
             );
           })}
@@ -174,7 +174,7 @@ function MasakApa() {
           {FILTERS.map((f) => {
             const active = filters.includes(f.id);
             return (
-              <button key={f.id} type="button" onClick={() => toggle(f.id)} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold tracking-[0.02em] transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-[#e0e0db] bg-card text-[#555]"}`}>
+              <button key={f.id} type="button" onClick={() => toggle(f.id)} className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold tracking-[0.02em] transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}>
                 {t(f.key)}
               </button>
             );
@@ -184,14 +184,14 @@ function MasakApa() {
 
       <section className="flex-1 px-5">
         <div className="flex items-center justify-between py-3">
-          <h2 className="section-label text-[#111]">{t("suggestions")}</h2>
+          <h2 className="section-label text-ink-strong">{t("suggestions")}</h2>
           <button type="button" onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })} className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-micro font-bold tracking-[0.06em] text-primary">
             <RotateCcw className="size-3" strokeWidth={2.5} /> {t("shuffle")}
           </button>
         </div>
         {list.length === 0 ? (
           <div className="flex flex-col items-center gap-3 py-12">
-            <p className="text-center text-15 text-[#9ca3af]">{t("no_match")}</p>
+            <p className="text-center text-15 text-ink-3">{t("no_match")}</p>
             <button type="button" onClick={() => { setFilters([]); setCat(""); }} className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">{t("clear_filters")}</button>
           </div>
         ) : (

@@ -37,9 +37,9 @@ function Ambil() {
   useEffect(() => setOpen(true), []);
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
-      <header className="border-b border-[#f0f0ed] bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
+      <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <p className="eyebrow mb-0.5">TAMBAH RESEP</p>
-        <h1 className="text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#111]">
+        <h1 className="text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">
           Ubah jadi resep
         </h1>
         <p className="mt-2 text-14 leading-normal text-ink-3">

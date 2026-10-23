@@ -58,7 +58,7 @@ function NutrientCell({ row, first }: { row: Row; first: boolean }) {
 export function ProteinBlock({ recipe }: { recipe: Recipe }) {
   if (proteinUncertain(recipe)) {
     return (
-      <p className="mt-[18px] rounded-2xl border border-primary-line bg-[#f7faf6] p-3.5 text-14 text-ink-2">
+      <p className="mt-[18px] rounded-2xl border border-primary-line bg-primary-wash p-3.5 text-14 text-ink-2">
         Perkiraan gizi belum bisa dihitung — resepnya belum lengkap.
       </p>
     );
@@ -101,7 +101,7 @@ export function ProteinBlock({ recipe }: { recipe: Recipe }) {
   if (!rows.some((r) => r.text)) return null;
 
   return (
-    <div className="mt-[18px] rounded-2xl border border-primary-line bg-[#f7faf6] p-3.5">
+    <div className="mt-[18px] rounded-2xl border border-primary-line bg-primary-wash p-3.5">
       <div className="flex items-center justify-between">
         <p className="text-label font-extrabold text-primary-deep">PERKIRAAN GIZI PER PORSI</p>
         <span className="text-micro font-bold text-ink-3">ESTIMASI</span>

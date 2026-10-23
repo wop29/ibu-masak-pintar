@@ -21,10 +21,10 @@ export function HalalChip({ recipe, static: isStatic = false }: { recipe: Recipe
   const name = (id: string) => ING[id]?.name ?? id;
   const cls = `inline-flex min-h-[26px] items-center gap-1 rounded-full border px-2.5 py-1 text-micro font-extrabold uppercase tracking-[0.05em] ${
     haram
-      ? "border-[#f4caca] bg-[#fdecec] text-[#a82b2b]"
+      ? "border-danger-line bg-danger-soft text-danger-ink"
       : meatOnly
         ? "border-rule bg-tint text-ink-2"
-        : "border-[#fde68a] bg-[#fbf4d9] text-[#765e12]"
+        : "border-notice-line bg-notice text-notice-ink"
   }`;
   const text = haram ? "Mengandung nonhalal" : meatOnly ? "Cek sembelihan" : "Perlu cek bahan";
 

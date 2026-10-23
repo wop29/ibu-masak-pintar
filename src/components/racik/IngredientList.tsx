@@ -73,7 +73,7 @@ export function IngredientList({
                   onClick={() => setTicked((t) => (t.includes(i) ? t.filter((x) => x !== i) : [...t, i]))}
                   className="-m-[11px] mt-[-9px] shrink-0 p-[11px]"
                 >
-                  <span className={`flex size-[22px] items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-[#c9cec7]"}`}>
+                  <span className={`flex size-[22px] items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-control-line"}`}>
                     {on ? <Check className="size-3" strokeWidth={3} /> : null}
                   </span>
                 </button>
@@ -98,7 +98,7 @@ export function IngredientList({
         {((recipe as Recipe & { unmatched?: string[] }).unmatched ?? []).map((txt, idx) => (
           <li key={`extra-${idx}`} data-ingredient-line className="border-b border-rule py-[15px]">
             <div className="flex items-start gap-3 text-17 leading-normal">
-              <span aria-hidden className="mt-0.5 size-[22px] shrink-0 rounded-full border-2 border-[#c9cec7]" />
+              <span aria-hidden className="mt-0.5 size-[22px] shrink-0 rounded-full border-2 border-control-line" />
               <div className="min-w-0 flex-1 [overflow-wrap:anywhere]">
                 <span>{txt}</span>
               </div>

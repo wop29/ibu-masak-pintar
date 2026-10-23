@@ -42,7 +42,7 @@ export function Sheet({
         type="button"
         aria-label="Tutup"
         onClick={onClose}
-        className="absolute inset-0 bg-[rgba(18,23,18,0.48)] backdrop-blur-[2px]"
+        className="absolute inset-0 bg-scrim backdrop-blur-[2px]"
       />
       <div
         ref={panel}
@@ -50,7 +50,7 @@ export function Sheet({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="animate-sheet-up relative max-h-[88dvh] w-full max-w-[430px] overflow-y-auto rounded-t-3xl bg-card px-5 pt-3 outline-none pb-[max(32px,env(safe-area-inset-bottom))] shadow-[0_-12px_48px_rgba(18,23,18,0.16)]"
+        className="animate-sheet-up relative max-h-[88dvh] w-full max-w-[430px] overflow-y-auto rounded-t-3xl bg-card px-5 pt-3 outline-none pb-[max(32px,env(safe-area-inset-bottom))] shadow-sheet"
       >
         <div className="mb-5 flex justify-center">
           <span className="h-1 w-10 rounded-full bg-rule" />

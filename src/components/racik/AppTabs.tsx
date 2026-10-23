@@ -26,7 +26,7 @@ export function AppTabs() {
   return (
     <nav
       aria-label="Menu utama"
-      className="fixed inset-x-0 bottom-0 z-40 mx-auto flex w-full max-w-[430px] border-t border-rule bg-card pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_28px_rgba(18,23,18,0.05)]"
+      className="fixed inset-x-0 bottom-0 z-40 mx-auto flex w-full max-w-[430px] border-t border-rule bg-card pb-[env(safe-area-inset-bottom)] shadow-bar"
     >
       {tab("/", t("tab_home"), House)}
       {tab("/cari", t("tab_search"), Search)}

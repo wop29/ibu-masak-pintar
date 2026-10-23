@@ -200,16 +200,16 @@ function StepTimer({
 
   if (state === "ringing") {
     return (
-      <div role="alert" className="mt-6 rounded-3xl border-2 border-[#c62828] bg-[#fdecea] p-5">
-        <p className="flex items-center gap-2 text-14 font-extrabold uppercase tracking-[0.06em] text-[#b71c1c]">
+      <div role="alert" className="mt-6 rounded-3xl border-2 border-danger-ink bg-danger-soft p-5">
+        <p className="flex items-center gap-2 text-14 font-extrabold uppercase tracking-[0.06em] text-danger-ink">
           <BellRing className="size-5 animate-pulse" /> Waktunya habis
         </p>
-        <p className="mt-1 text-[44px] font-extrabold leading-none tabular-nums text-[#b71c1c]">00:00</p>
+        <p className="mt-1 text-[44px] font-extrabold leading-none tabular-nums text-danger-ink">00:00</p>
         <div className="mt-4 flex gap-3">
-          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-[#c62828] text-body font-extrabold text-white">
+          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-danger-ink text-body font-extrabold text-white">
             <Check className="size-5" /> Sudah
           </button>
-          <button type="button" onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })} className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-[#e8b4b0] bg-card text-body font-extrabold text-[#b71c1c]">
+          <button type="button" onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })} className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-danger-line bg-card text-body font-extrabold text-danger-ink">
             +1 menit
           </button>
         </div>
@@ -277,7 +277,7 @@ function PrepRow({
   return (
     <li>
       <button type="button" onClick={onToggle} aria-pressed={on} className="read-line flex min-h-12 w-full items-start gap-3 py-2 text-left">
-        <span aria-hidden className={`mt-px flex size-[26px] shrink-0 items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-[#c9cec7]"}`}>
+        <span aria-hidden className={`mt-px flex size-[26px] shrink-0 items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-control-line"}`}>
           {on ? <Check className="size-4" strokeWidth={3} /> : null}
         </span>
         <span className={`min-w-0 [overflow-wrap:anywhere] ${on ? "text-ink-3 line-through" : "text-ink"}`}>
@@ -295,7 +295,7 @@ function PrepRow({
 function Notice({ title, body, children }: { title: string; body: string; children: ReactNode }) {
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col justify-center bg-ground px-5 pb-16">
-      <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-[0_10px_30px_rgba(18,23,18,0.07)]">
+      <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-raised">
         <h1 className="text-[24px] font-extrabold leading-tight tracking-[-0.03em]">{title}</h1>
         <p className="read-line mt-2 text-ink-2">{body}</p>
         <div className="mt-5 flex flex-col gap-3">{children}</div>
@@ -446,7 +446,7 @@ function ModeMasak() {
               const label = recipe.steps[s]?.[0] ?? "";
               const cls =
                 st === "ringing"
-                  ? "border-[#c62828] bg-[#c62828] text-white"
+                  ? "border-danger-ink bg-danger-ink text-white"
                   : st === "running"
                     ? "border-primary-line bg-primary-soft text-primary-deep"
                     : "border-rule bg-card text-ink-2";
@@ -499,7 +499,7 @@ function ModeMasak() {
               {extras.map(row)}
               {unmatched.map((txt, k) => (
                 <li key={`u${k}`} className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]">
-                  <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-[#c9cec7]" />
+                  <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-control-line" />
                   <span>{txt}</span>
                 </li>
               ))}
@@ -540,7 +540,7 @@ function ModeMasak() {
           {recipe.ings.map(row)}
           {unmatched.map((txt, k) => (
             <li key={`su${k}`} className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]">
-              <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-[#c9cec7]" />
+              <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-control-line" />
               <span>{txt}</span>
             </li>
           ))}

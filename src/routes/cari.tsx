@@ -46,7 +46,7 @@ const slug = (s: string) => normalise(s).replace(/ /g, "-");
 function PhotoTile({ tile, onPick, cover }: { tile: Tile; onPick: (t: Tile) => void; cover: Recipe | undefined }) {
   return (
     <button type="button" onClick={() => onPick(tile)} className="photo-tile w-[132px] shrink-0 text-left">
-      <div className="h-[108px] w-[132px] overflow-hidden rounded-2xl bg-[#e8eee7]">
+      <div className="h-[108px] w-[132px] overflow-hidden rounded-2xl bg-primary-track">
         <RecipePhoto src={cover ? thumbOf(cover.id) : undefined} glyph={cover?.glyph ?? "🍲"} alt="" glyphClass="text-[34px]" />
       </div>
       <p className="mt-2 text-caption font-bold leading-tight text-ink">{tile.label}</p>
@@ -67,7 +67,7 @@ function Shelf({ title, items, onPick }: { title: string; items: Tile[]; onPick:
   });
   return (
     <section className="mt-6">
-      <h2 className="section-label mb-3 px-5 text-[#111]">{title}</h2>
+      <h2 className="section-label mb-3 px-5 text-ink-strong">{title}</h2>
       <div className="no-scrollbar flex gap-3 overflow-x-auto px-5">
         {populated.map((t, i) => <PhotoTile key={t.key} tile={t} onPick={onPick} cover={covers[i]} />)}
       </div>
@@ -205,13 +205,13 @@ function Eksplor() {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
-      <header className="border-b border-[#f0f0ed] bg-card px-5 pb-4 pt-[calc(3.5rem+env(safe-area-inset-top))]">
+      <header className="border-b border-rule-soft bg-card px-5 pb-4 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <p className="eyebrow mb-0.5">EKSPLOR RESEP</p>
-        <h1 className="mb-3.5 text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#111]">Temukan masakan baru</h1>
-        <label className="flex min-h-12 items-center gap-3 rounded-xl border border-[#e8e8e4] bg-tint pl-3.5 focus-within:border-primary">
-          <Search aria-hidden className="size-4 text-[#9ca3af]" />
-          <input type="search" enterKeyHint="search" value={query} onChange={(e) => typed(e.target.value)} placeholder="Cari resep atau bahan" aria-label="Cari resep atau bahan" className="min-w-0 flex-1 bg-transparent py-3 text-15 text-[#111] outline-none placeholder:text-[#adadad] [&::-webkit-search-cancel-button]:hidden" />
-          {query ? <button type="button" onClick={clear} aria-label="Hapus pencarian" className="flex size-11 shrink-0 items-center justify-center"><X className="size-4 text-[#9ca3af]" /></button> : <span className="w-3.5" />}
+        <h1 className="mb-3.5 text-[clamp(24px,7vw,30px)] font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">Temukan masakan baru</h1>
+        <label className="flex min-h-12 items-center gap-3 rounded-xl border border-rule-strong bg-tint pl-3.5 focus-within:border-primary">
+          <Search aria-hidden className="size-4 text-ink-faint" />
+          <input type="search" enterKeyHint="search" value={query} onChange={(e) => typed(e.target.value)} placeholder="Cari resep atau bahan" aria-label="Cari resep atau bahan" className="min-w-0 flex-1 bg-transparent py-3 text-15 text-ink-strong outline-none placeholder:text-ink-3 [&::-webkit-search-cancel-button]:hidden" />
+          {query ? <button type="button" onClick={clear} aria-label="Hapus pencarian" className="flex size-11 shrink-0 items-center justify-center"><X className="size-4 text-ink-3" /></button> : <span className="w-3.5" />}
         </label>
         {!query ? <p className="mt-2 text-label text-ink-3">Coba cari: ayam, tempe, atau rendang</p> : null}
       </header>
@@ -235,17 +235,17 @@ function Eksplor() {
           </div>
 
           <div className="mx-5 mt-4"><ImportButton /></div>
-          <div className="mx-5 mt-3 overflow-hidden rounded-2xl border border-[#e8e8e4] bg-card">
+          <div className="mx-5 mt-3 overflow-hidden rounded-2xl border border-rule-strong bg-card">
             <Link to="/buku" search={{ tab: "disimpan" }} className="flex min-h-14 items-center gap-3 px-4 py-4">
               <Heart aria-hidden className="size-5 text-ink-2" />
-              <span className="flex-1 text-15 font-medium text-[#111]">Buka Favorit</span>
+              <span className="flex-1 text-15 font-medium text-ink-strong">Buka Favorit</span>
               <b className="mr-1.5 text-caption text-primary">{state.saved.length}</b>
-              <ChevronRight aria-hidden className="size-4 text-[#d1d5db]" />
+              <ChevronRight aria-hidden className="size-4 text-ink-faint" />
             </Link>
-            <button type="button" onClick={() => setIngredients(true)} className="flex min-h-14 w-full items-center gap-3 border-t border-[#f0f0ed] px-4 py-4 text-left">
+            <button type="button" onClick={() => setIngredients(true)} className="flex min-h-14 w-full items-center gap-3 border-t border-rule-soft px-4 py-4 text-left">
               <ShoppingBasket aria-hidden className="size-5 text-ink-2" />
-              <span className="flex-1 text-15 font-medium text-[#111]">Cari dari bahan yang ada di dapur</span>
-              <ChevronRight aria-hidden className="size-4 text-[#d1d5db]" />
+              <span className="flex-1 text-15 font-medium text-ink-strong">Cari dari bahan yang ada di dapur</span>
+              <ChevronRight aria-hidden className="size-4 text-ink-faint" />
             </button>
           </div>
 
@@ -261,7 +261,7 @@ function Eksplor() {
             </span>
           </div>
           <div className="mb-2 flex items-center justify-between">
-            <span className="section-label text-[#111]">{results.length} RESEP</span>
+            <span className="section-label text-ink-strong">{results.length} RESEP</span>
             <button type="button" onClick={clear} className="min-h-11 px-1 text-micro font-bold tracking-[0.06em] text-primary">HAPUS FILTER</button>
           </div>
           {results.length === 0 ? (
@@ -284,7 +284,7 @@ function Eksplor() {
       )}
 
       <Sheet open={ingredients} onClose={() => setIngredients(false)} title="Bahan di dapur" subtitle="Pilih bahan yang ada. Hasil berubah setiap kali pilihan ditambah.">
-        <input value={ingFilter} onChange={(e) => setIngFilter(e.target.value)} placeholder="Cari bahan, mis. tempe" aria-label="Cari bahan" className="mb-5 min-h-12 w-full rounded-xl border border-[#e8e8e4] bg-tint px-3.5 text-15 outline-none focus:border-primary" />
+        <input value={ingFilter} onChange={(e) => setIngFilter(e.target.value)} placeholder="Cari bahan, mis. tempe" aria-label="Cari bahan" className="mb-5 min-h-12 w-full rounded-xl border border-rule-strong bg-tint px-3.5 text-15 outline-none focus:border-primary" />
         {ING_GROUPS.map((group) => {
           const items = INGREDIENTS.filter((i) => !i.staple && group.cats.includes(i.cat) && (!ingWords || normalise(`${i.name} ${i.aliases.join(" ")}`).includes(ingWords) || selected.includes(i.id)));
           if (!items.length) return null;
@@ -294,7 +294,7 @@ function Eksplor() {
               <div className="flex flex-wrap gap-2">
                 {items.map((ing) => {
                   const on = selected.includes(ing.id);
-                  return <button key={ing.id} type="button" aria-pressed={on} onClick={() => setSelected((s) => (on ? s.filter((x) => x !== ing.id) : [...s, ing.id]))} className={`min-h-11 rounded-full px-3.5 text-caption font-semibold ${on ? "bg-primary text-primary-foreground" : "border border-[#e0e0db] bg-card text-[#555]"}`}>{ing.em} {ing.name}</button>;
+                  return <button key={ing.id} type="button" aria-pressed={on} onClick={() => setSelected((s) => (on ? s.filter((x) => x !== ing.id) : [...s, ing.id]))} className={`min-h-11 rounded-full px-3.5 text-caption font-semibold ${on ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}>{ing.em} {ing.name}</button>;
                 })}
               </div>
             </section>
@@ -302,7 +302,7 @@ function Eksplor() {
         })}
         <div className="sticky bottom-0 -mx-5 bg-card px-5 pt-3">
           <p className="text-body font-semibold">{selected.length ? `${ingredientRecipes.length} resep cocok` : "Belum ada bahan dipilih"}</p>
-          <button type="button" disabled={!selected.length} onClick={() => { setIngredients(false); pickKitchen(selected); }} className="mt-3 min-h-[54px] w-full rounded-xl bg-primary text-body font-bold text-primary-foreground shadow-glow disabled:bg-[#e4e5e1] disabled:text-[#71736e] disabled:shadow-none">Lihat resep</button>
+          <button type="button" disabled={!selected.length} onClick={() => { setIngredients(false); pickKitchen(selected); }} className="mt-3 min-h-[54px] w-full rounded-xl bg-primary text-body font-bold text-primary-foreground shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:shadow-none">Lihat resep</button>
         </div>
       </Sheet>
       <AppTabs />

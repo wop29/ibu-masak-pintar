@@ -177,7 +177,7 @@ function UpdatePrompt() {
   }, []);
   if (!waiting || dismissed || path.endsWith("/masak")) return null;
   return (
-    <div role="status" className="fixed inset-x-0 bottom-[calc(84px+env(safe-area-inset-bottom))] z-50 mx-auto w-[calc(100%-32px)] max-w-[398px] rounded-2xl bg-dark px-4 py-3 text-white shadow-[0_8px_28px_rgba(0,0,0,0.25)]">
+    <div role="status" className="fixed inset-x-0 bottom-[calc(84px+env(safe-area-inset-bottom))] z-50 mx-auto w-[calc(100%-32px)] max-w-[398px] rounded-2xl bg-dark px-4 py-3 text-white shadow-toast">
       <div className="flex items-center gap-3">
         <p className="min-w-0 flex-1 text-14 font-semibold">Versi baru Racik tersedia.</p>
         <button type="button" onClick={() => void reloadToUpdate()} className="min-h-11 shrink-0 rounded-xl bg-primary px-4 text-14 font-bold">Muat ulang</button>

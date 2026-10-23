@@ -119,7 +119,7 @@ function Tulisan() {
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] bg-ground pb-16">
-      <div className="relative h-[260px] bg-[#e8eee7]">
+      <div className="relative h-[260px] bg-primary-track">
         <RecipePhoto
           src={recipe.photoUrl ?? undefined}
           glyph={recipe.glyph}
@@ -129,14 +129,14 @@ function Tulisan() {
         <Link
           to="/"
           aria-label="Kembali"
-          className="absolute top-[calc(3rem+env(safe-area-inset-top))] left-5 flex size-11 items-center justify-center rounded-full bg-white/95 text-ink shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
+          className="absolute top-[calc(3rem+env(safe-area-inset-top))] left-5 flex size-11 items-center justify-center rounded-full bg-white/95 text-ink shadow-float"
         >
           <ArrowLeft className="size-5" />
         </Link>
       </div>
 
       <div className="relative -mt-[22px] px-5">
-        <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-[0_10px_30px_rgba(18,23,18,0.07)]">
+        <div className="rounded-3xl border border-rule bg-card px-5 pt-6 pb-5 shadow-raised">
           {recipe.authorHandle ? (
             <Link
               to="/u/$handle"

@@ -41,7 +41,7 @@ const SLIDES = [
 function VideoOverlay() {
   return (
     <div className="pointer-events-none flex h-full max-h-[280px] flex-col items-center justify-center">
-      <div className="relative min-h-[130px] w-[150px] flex-1 overflow-hidden [@container(max-height:175px)]:hidden rounded-[20px] border-2 border-white/25 bg-black/45 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-[2px]">
+      <div className="relative min-h-[130px] w-[150px] flex-1 overflow-hidden [@container(max-height:175px)]:hidden rounded-[20px] border-2 border-white/25 bg-black/45 shadow-deep backdrop-blur-[2px]">
         <div className="absolute inset-0 flex items-center justify-center pb-[60px]">
           <span className="flex size-9 items-center justify-center rounded-full border-[1.5px] border-white/40 bg-white/15">
             <svg width="12" height="14" viewBox="0 0 12 14" fill="white" aria-hidden><path d="M1 1l10 6-10 6V1z" /></svg>
@@ -166,7 +166,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground">
       <div className="flex items-center gap-4 px-5 pt-[calc(3rem+env(safe-area-inset-top))]">
         <button type="button" onClick={back} aria-label="Kembali" className="flex size-11 items-center justify-center rounded-full border border-rule bg-card"><ArrowLeft className="size-[19px]" strokeWidth={2.3} /></button>
-        <div className="flex flex-1 gap-2">{QUESTIONS.map((_, i) => <span key={i} className={`h-1 flex-1 rounded-full ${i <= step ? "bg-primary" : "bg-[#dfe3dc]"}`} />)}</div>
+        <div className="flex flex-1 gap-2">{QUESTIONS.map((_, i) => <span key={i} className={`h-1 flex-1 rounded-full ${i <= step ? "bg-primary" : "bg-rule"}`} />)}</div>
         <button type="button" onClick={onDone} className="min-h-11 px-1 text-caption font-bold text-ink-3">Lewati</button>
       </div>
 

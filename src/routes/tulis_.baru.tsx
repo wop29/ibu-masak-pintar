@@ -286,7 +286,7 @@ function Editor() {
       </header>
 
       {hidden ? (
-        <p className="mx-5 mb-4 rounded-2xl border border-[#fde68a] bg-[#fbf4d9] p-4 text-14 text-[#765e12]">
+        <p className="mx-5 mb-4 rounded-2xl border border-notice-line bg-notice p-4 text-14 text-notice-ink">
           Resep ini disembunyikan oleh moderator
           {draft.hiddenReason ? `: ${draft.hiddenReason}` : "."} Kamu masih bisa mengubahnya, tapi
           belum bisa menerbitkannya lagi.
@@ -703,7 +703,7 @@ function Editor() {
 function ParsedHint({ line }: { line: NonNullable<ReturnType<typeof parseIngredientLine>> }) {
   if (!line.id) {
     return (
-      <p className="mt-1 flex items-center gap-1 text-caption text-[#765e12]">
+      <p className="mt-1 flex items-center gap-1 text-caption text-notice-ink">
         <CircleAlert className="size-3.5 shrink-0" aria-hidden /> Racik belum kenal bahan ini.
         Takarannya tetap ditulis apa adanya.
       </p>
@@ -728,7 +728,7 @@ function IssueLine({ issue }: { issue: Issue }) {
   const err = issue.level === "error";
   return (
     <p
-      className={`mt-1 flex items-start gap-1.5 text-caption ${err ? "text-destructive" : "text-[#765e12]"}`}
+      className={`mt-1 flex items-start gap-1.5 text-caption ${err ? "text-destructive" : "text-notice-ink"}`}
     >
       {err ? (
         <CircleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />

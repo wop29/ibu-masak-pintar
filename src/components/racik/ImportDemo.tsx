@@ -112,13 +112,13 @@ export function ImportButton() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex min-h-14 w-full items-center gap-3 rounded-xl border border-[#e8e8e4] bg-card px-3.5 py-3 text-left"
+        className="flex min-h-14 w-full items-center gap-3 rounded-xl border border-rule-strong bg-card px-3.5 py-3 text-left"
       >
         <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary">
           <Link2 aria-hidden className="size-[18px]" />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block text-15 font-bold text-[#111]">Tambah resep</span>
+          <span className="block text-15 font-bold text-ink-strong">Tambah resep</span>
           <span className="block text-label text-ink-3">Dari link video, teks, atau foto</span>
         </span>
       </button>
@@ -577,7 +577,7 @@ export function ImportSheet({
   };
 
   const alert = error ? (
-    <div role="alert" className="mt-3 rounded-xl bg-[#fdf1ef] p-3">
+    <div role="alert" className="mt-3 rounded-xl bg-danger-soft p-3">
       <p className="text-14 font-bold text-destructive">{error.message.title}</p>
       <p className="mt-0.5 text-14 leading-normal text-ink-2">{error.message.body}</p>
       {error.code && isRetryable(error.code) && retryRef.current ? (
@@ -608,7 +608,7 @@ export function ImportSheet({
         setTab(value);
         setError(null);
       }}
-      className={`min-h-[42px] rounded-lg text-caption font-bold ${tab === value ? "bg-card text-ink shadow-[0_2px_8px_rgba(18,23,18,0.07)]" : "text-ink-3"}`}
+      className={`min-h-[42px] rounded-lg text-caption font-bold ${tab === value ? "bg-card text-ink shadow-chip" : "text-ink-3"}`}
     >
       {label}
     </button>
@@ -662,7 +662,7 @@ export function ImportSheet({
       >
         {stage === "form" ? (
           <>
-            <div className="grid grid-cols-3 rounded-xl bg-[#f3f4f1] p-1">
+            <div className="grid grid-cols-3 rounded-xl bg-tint p-1">
               {tabButton("tautan", MODE.tautan.label)}
               {tabButton("keterangan", MODE.keterangan.label)}
               {tabButton("foto", MODE.foto.label)}
@@ -709,7 +709,7 @@ export function ImportSheet({
                   <Clipboard /> Tempel dari clipboard
                 </Button>
                 <Button
-                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-[#e4e5e1] disabled:text-[#71736e] disabled:opacity-100 disabled:shadow-none"
+                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
                   disabled={!valid}
                   onClick={() => void submitLink(false)}
                 >
@@ -721,7 +721,7 @@ export function ImportSheet({
                 <button
                   type="button"
                   onClick={() => photoRef.current?.click()}
-                  className="mt-4 flex min-h-[168px] w-full flex-col items-center justify-center rounded-2xl border-[1.5px] border-dashed border-[#b8c8b8] bg-[#f7faf6] text-primary"
+                  className="mt-4 flex min-h-[168px] w-full flex-col items-center justify-center rounded-2xl border-[1.5px] border-dashed border-primary-line bg-primary-wash text-primary"
                 >
                   <ImageIcon aria-hidden className="size-[30px]" strokeWidth={1.8} />
                   <span className="mt-2.5 text-15 font-bold">Ambil atau pilih foto resep</span>
@@ -782,7 +782,7 @@ export function ImportSheet({
                   <Clipboard /> Tempel dari clipboard
                 </Button>
                 <Button
-                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-[#e4e5e1] disabled:text-[#71736e] disabled:opacity-100 disabled:shadow-none"
+                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
                   disabled={!captionReady}
                   onClick={() => void submitCaption()}
                 >
@@ -855,7 +855,7 @@ export function ImportSheet({
             <p className="mt-5 max-w-[280px] text-14 leading-relaxed text-ink-3">
               Racik sedang merapikan bahan, takaran, dan langkahnya supaya enak diikuti.
             </p>
-            <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-[#e8eee7]">
+            <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-primary-track">
               <div className="h-full w-[72%] animate-pulse rounded-full bg-primary" />
             </div>
           </div>
@@ -935,7 +935,7 @@ export function ImportSheet({
                 {unmatched.length} bahan ditulis apa adanya, takarannya tidak ikut dihitung ulang.
               </p>
             ) : null}
-            <p className="mt-3 rounded-xl bg-notice p-3 text-caption leading-normal text-[#66551c]">
+            <p className="mt-3 rounded-xl bg-notice p-3 text-caption leading-normal text-notice-ink">
               Periksa kembali bahan, takaran, dan langkah sebelum mulai memasak.
             </p>
             {label ? <p className="mt-3 text-label text-ink-3">{label}</p> : null}
@@ -950,7 +950,7 @@ export function ImportSheet({
       {banner && !open ? (
         <div
           role="status"
-          className="fixed inset-x-4 bottom-[calc(84px+env(safe-area-inset-bottom))] z-50 mx-auto flex max-w-[400px] items-center gap-3 rounded-2xl bg-[#1d2a1d] px-4 py-3 text-white shadow-[0_8px_28px_rgba(18,23,18,0.25)]"
+          className="fixed inset-x-4 bottom-[calc(84px+env(safe-area-inset-bottom))] z-50 mx-auto flex max-w-[400px] items-center gap-3 rounded-2xl bg-dark px-4 py-3 text-white shadow-toast"
         >
           <Check aria-hidden className="size-5 shrink-0" />
           <p className="min-w-0 flex-1 text-14 leading-snug">
@@ -961,7 +961,7 @@ export function ImportSheet({
             to="/buku"
             search={{ tab: "diambil" }}
             onClick={() => setBanner(null)}
-            className="shrink-0 text-14 font-bold text-[#a5d6a7]"
+            className="shrink-0 text-14 font-bold text-primary-line"
           >
             Lihat di Koleksi
           </Link>
