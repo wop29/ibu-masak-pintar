@@ -160,7 +160,7 @@ function MasakApa() {
         </div>
         <Link to="/cari" className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-rule-strong bg-tint px-3.5 py-3">
           <Search aria-hidden className="size-4 text-ink-faint" />
-          <span className="text-15 text-ink-3">{t("search_placeholder")}</span>
+          <span className="text-15 text-ink-2">{t("search_placeholder")}</span>
         </Link>
         <div className="mt-3"><ImportButton /></div>
       </header>

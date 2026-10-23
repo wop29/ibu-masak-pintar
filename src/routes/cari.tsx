@@ -47,7 +47,7 @@ function PhotoTile({ tile, onPick, cover }: { tile: Tile; onPick: (t: Tile) => v
   return (
     <button type="button" onClick={() => onPick(tile)} className="photo-tile w-[132px] shrink-0 text-left">
       <div className="h-[108px] w-[132px] overflow-hidden rounded-2xl bg-primary-track">
-        <RecipePhoto src={cover ? thumbOf(cover.id) : undefined} glyph={cover?.glyph ?? "🍲"} alt="" glyphClass="text-[34px]" />
+        <RecipePhoto src={cover ? thumbOf(cover.id) : undefined} alt="" title={tile.label} />
       </div>
       <p className="mt-2 text-caption font-bold leading-tight text-ink">{tile.label}</p>
       <p className="mt-0.5 text-micro text-ink-3">{tile.recipes.length} resep</p>

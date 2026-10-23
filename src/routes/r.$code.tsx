@@ -228,7 +228,7 @@ function SharedLink() {
                         src={storageUrl(r.photo_path) ?? undefined}
                         glyph={"\u{1F372}"}
                         alt=""
-                        glyphClass="text-[22px]"
+                        title={r.title}
                       />
                     </span>
                     <span className="min-w-0 flex-1 text-body font-bold">{r.title}</span>

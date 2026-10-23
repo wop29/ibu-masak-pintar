@@ -123,7 +123,7 @@ export function RencanaView({ pickDayFor, onPickDayHandled }: { pickDayFor?: str
 
   const row = ({ recipe, servings, day }: PlannedRecipe) => (
     <div key={recipe.id} className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl border border-rule-strong bg-card p-3">
-      <Link to="/resep/$id" params={{ id: recipe.id }} className="size-12 shrink-0 overflow-hidden rounded-xl bg-primary-deep" aria-label={recipe.title}><RecipePhoto src={recipe.photoUrl ?? thumbOf(recipe.id)} glyph={recipe.glyph} glyphClass="text-xl" /></Link>
+      <Link to="/resep/$id" params={{ id: recipe.id }} className="size-12 shrink-0 overflow-hidden rounded-xl bg-tint" aria-label={recipe.title}><RecipePhoto src={recipe.photoUrl ?? thumbOf(recipe.id)} title={recipe.title} /></Link>
       <Link to="/resep/$id" params={{ id: recipe.id }} className="min-w-[8.5rem] flex-1">
         <p className="text-14 font-bold leading-tight tracking-[-0.01em] text-ink-strong">{recipe.title}</p>
         <p className="text-caption text-ink-3">{REG[recipe.region]?.name ?? recipe.region} · {recipe.time} mnt</p>
@@ -176,7 +176,7 @@ export function RencanaView({ pickDayFor, onPickDayHandled }: { pickDayFor?: str
             <p className="px-0.5 pt-0.5 pb-2.5 text-caption font-extrabold text-ink-3">Pilih resep</p>
             {candidates.map((r) => (
               <button key={r.id} type="button" onClick={() => add(r)} className="flex min-h-16 w-full items-center gap-3 border-t border-rule px-0.5 py-2 text-left">
-                <span className="size-11 shrink-0 overflow-hidden rounded-lg bg-primary-deep"><RecipePhoto src={r.photoUrl ?? thumbOf(r.id)} glyph={r.glyph} glyphClass="text-lg" /></span>
+                <span className="size-11 shrink-0 overflow-hidden rounded-lg bg-tint"><RecipePhoto src={r.photoUrl ?? thumbOf(r.id)} title={r.title} /></span>
                 <span className="flex-1 text-14 font-bold">{r.title}</span>
                 <span aria-hidden className="flex size-8 items-center justify-center rounded-full bg-primary-soft text-primary"><Plus className="size-4" /></span>
               </button>

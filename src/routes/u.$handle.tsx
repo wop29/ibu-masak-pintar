@@ -73,7 +73,7 @@ function Profile() {
                   src={storageUrl(r.photo_path) ?? undefined}
                   glyph={"\u{1F372}"}
                   alt=""
-                  glyphClass="text-[26px]"
+                  title={r.title}
                 />
               </span>
               <span className="min-w-0 flex-1">
