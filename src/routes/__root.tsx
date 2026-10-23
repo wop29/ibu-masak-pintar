@@ -12,6 +12,7 @@ import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { RacikProvider, useRacik } from "@/lib/racik/state";
+import { SnackbarProvider } from "@/components/racik/Snackbar";
 import { Button } from "@/components/ui/button";
 import { isUpdateWaiting, registerRacikPwa, reloadToUpdate, UPDATE_EVENT } from "@/lib/register-pwa";
 
@@ -142,7 +143,9 @@ function RootComponent() {
       <RacikProvider>
         <TextSize />
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
+        <SnackbarProvider>
+          <Outlet />
+        </SnackbarProvider>
         <UpdatePrompt />
       </RacikProvider>
     </QueryClientProvider>
