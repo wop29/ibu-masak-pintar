@@ -68,11 +68,11 @@ export function AccountSection() {
         </Button>
         <p className="text-label text-ink-3">Salinan semua data Racik milikmu dalam satu berkas (JSON).</p>
         {account ? (
-          <Button asChild variant="outline" className="mt-2 w-full text-destructive">
+          <Button asChild variant="outline" className="mt-2 w-full text-danger-ink">
             <Link to="/hapus-akun">Hapus akun</Link>
           </Button>
         ) : null}
-        <Button variant="outline" className="mt-2 w-full text-destructive" onClick={() => setSheet("erase")}>
+        <Button variant="outline" className="mt-2 w-full text-danger-ink" onClick={() => setSheet("erase")}>
           Hapus semua data di HP ini
         </Button>
       </div>
@@ -118,7 +118,7 @@ export function AccountSection() {
         }}
         extra={
           account ? (
-            <Button asChild variant="ghost" size="lg" className="mt-2 w-full text-destructive">
+            <Button asChild variant="ghost" size="lg" className="mt-2 w-full text-danger-ink">
               <Link to="/hapus-akun">Hapus akun juga</Link>
             </Button>
           ) : null

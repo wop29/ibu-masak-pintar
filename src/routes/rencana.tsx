@@ -1,14 +1,25 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useCallback } from "react";
 import { Settings } from "lucide-react";
+import { z } from "zod";
 import { AppTabs } from "@/components/racik/AppTabs";
 import { RencanaView } from "@/components/racik/RencanaView";
 
+// ?hari=<recipeId> opens the day picker for that recipe ("Pilih hari" in the add-to-plan snackbar).
+const searchSchema = z.object({ hari: z.string().min(1).max(120).optional().catch(undefined) });
+
 export const Route = createFileRoute("/rencana")({
+  validateSearch: searchSchema,
   head: () => ({ meta: [{ title: "Rencana Masak — Racik" }, { name: "description", content: "Rencana masak seminggu dan daftar belanja yang bahannya sudah digabung." }] }),
   component: Rencana,
 });
 
 function Rencana() {
+  const { hari } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const handled = useCallback(() => {
+    navigate({ search: {}, replace: true });
+  }, [navigate]);
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
       <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
@@ -17,7 +28,7 @@ function Rencana() {
           <Link to="/pengaturan" aria-label="Pengaturan" className="mt-1 flex size-11 items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
         </div>
       </header>
-      <div className="flex-1"><RencanaView /></div>
+      <div className="flex-1"><RencanaView pickDayFor={hari} onPickDayHandled={handled} /></div>
       <AppTabs />
     </main>
   );

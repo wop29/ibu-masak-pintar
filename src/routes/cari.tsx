@@ -256,7 +256,7 @@ function Eksplor() {
           <div className="mb-4 flex">
             <span className="flex items-center gap-1 rounded-full bg-primary py-0.5 pl-3 text-primary-foreground">
               <span className="text-label font-bold">{trimmed || picked?.label}</span>
-              <button type="button" onClick={clear} aria-label="Hapus filter" className="flex size-9 items-center justify-center"><X className="size-3.5" strokeWidth={2.5} /></button>
+              <button type="button" onClick={clear} aria-label="Hapus filter" className="flex size-11 items-center justify-center rounded-full"><X className="size-3.5" strokeWidth={2.5} /></button>
             </span>
           </div>
           <div className="mb-2 flex items-center justify-between">

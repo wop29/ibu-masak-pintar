@@ -82,7 +82,7 @@ export function ImportDemo({ onImported }: { compact?: boolean; onImported?: () 
             <h2 className="text-17 font-extrabold leading-tight tracking-[-0.02em]">
               Punya resep dari luar Racik?
             </h2>
-            <p className="mt-0.5 text-caption text-primary-foreground/75">
+            <p className="mt-0.5 text-caption text-primary-foreground/95">
               Dari link video, teks resep, atau foto resep.
             </p>
           </div>
@@ -578,7 +578,7 @@ export function ImportSheet({
 
   const alert = error ? (
     <div role="alert" className="mt-3 rounded-xl bg-danger-soft p-3">
-      <p className="text-14 font-bold text-destructive">{error.message.title}</p>
+      <p className="text-14 font-bold text-danger-ink">{error.message.title}</p>
       <p className="mt-0.5 text-14 leading-normal text-ink-2">{error.message.body}</p>
       {error.code && isRetryable(error.code) && retryRef.current ? (
         <button
@@ -682,7 +682,7 @@ export function ImportSheet({
                   />
                 </label>
                 {url && !valid ? (
-                  <p className="mt-2 text-14 text-destructive">
+                  <p className="mt-2 text-14 text-danger-ink">
                     Gunakan link TikTok, Instagram, atau YouTube.
                   </p>
                 ) : null}
@@ -751,7 +751,7 @@ export function ImportSheet({
                 </label>
                 {captionLength > MAX_CAPTION_CHARS * 0.75 ? (
                   <p
-                    className={`mt-1 text-right text-label tabular-nums ${captionLength > MAX_CAPTION_CHARS ? "font-bold text-destructive" : "text-ink-3"}`}
+                    className={`mt-1 text-right text-label tabular-nums ${captionLength > MAX_CAPTION_CHARS ? "font-bold text-danger-ink" : "text-ink-3"}`}
                   >
                     {captionLength.toLocaleString("id-ID")} /{" "}
                     {MAX_CAPTION_CHARS.toLocaleString("id-ID")} huruf
@@ -794,7 +794,7 @@ export function ImportSheet({
                   </p>
                 ) : null}
                 {captionLength > MAX_CAPTION_CHARS ? (
-                  <p className="mt-2 text-14 text-destructive">
+                  <p className="mt-2 text-14 text-danger-ink">
                     Teksnya terlalu panjang. Hapus bagian yang bukan bahan dan cara masak.
                   </p>
                 ) : null}

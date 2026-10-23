@@ -1,5 +1,5 @@
 import { backend } from "./client";
-import { PLAN_MAX, type RacikState } from "../store";
+import { isPlanDay, PLAN_MAX, type PlanEntry, type RacikState } from "../store";
 import type { ImportedRecipe } from "../types";
 
 /**
@@ -178,15 +178,21 @@ export function mergeLibrary(local: RacikState, cloud: Partial<SyncSlice>): Raci
     ratings[id] = a.length >= b.length ? a : b;
   }
 
-  // Plan: per-id like the lists; the device's servings win; newest additions first if over the cap.
+  // Plan: per-id like the lists; the device's entry (servings and day) wins; newest additions first if over the cap.
   const localPlan = new Map((local.plan ?? []).map((p) => [p.id, p] as const));
-  const cloudPlan = new Map<string, { id: string; servings: number }>();
-  for (const p of Array.isArray(cloud.plan) ? cloud.plan : []) {
-    if (p && typeof p.id === "string") cloudPlan.set(p.id, { id: p.id, servings: typeof p.servings === "number" ? p.servings : local.household });
+  const cloudPlan = new Map<string, PlanEntry>();
+  for (const p of Array.isArray(cloud.plan) ? (cloud.plan as (PlanEntry & { day?: unknown })[]) : []) {
+    if (p && typeof p.id === "string") {
+      cloudPlan.set(p.id, {
+        id: p.id,
+        servings: typeof p.servings === "number" ? p.servings : local.household,
+        ...(isPlanDay(p.day) ? { day: p.day } : {}),
+      });
+    }
   }
   let plan = [...new Set([...localPlan.keys(), ...cloudPlan.keys()])]
     .filter((id) => keep(`plan:${id}`, localPlan.has(id), cloudPlan.has(id)))
-    .map((id) => (localPlan.get(id) ?? cloudPlan.get(id)) as { id: string; servings: number });
+    .map((id) => (localPlan.get(id) ?? cloudPlan.get(id)) as PlanEntry);
   if (plan.length > PLAN_MAX) {
     plan = [...plan].sort((a, b) => (stamps[`plan:${b.id}`] ?? 0) - (stamps[`plan:${a.id}`] ?? 0)).slice(0, PLAN_MAX);
   }

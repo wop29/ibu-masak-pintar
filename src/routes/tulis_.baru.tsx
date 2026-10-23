@@ -567,7 +567,7 @@ function Editor() {
         ) : null}
 
         {error ? (
-          <p role="alert" className="text-14 text-destructive">
+          <p role="alert" className="text-14 text-danger-ink">
             {error}
           </p>
         ) : null}
@@ -663,7 +663,7 @@ function Editor() {
         {!draft.remoteId ? (
           <button
             type="button"
-            className="mt-1 flex min-h-10 w-full items-center justify-center gap-1 text-caption text-ink-3"
+            className="mt-1 flex min-h-11 w-full items-center justify-center gap-1 text-caption text-ink-3"
             onClick={() => {
               deleteDraftLocal(draft.id);
               navigate({ to: "/tulis" });
@@ -727,7 +727,7 @@ function IssueLine({ issue }: { issue: Issue }) {
   const err = issue.level === "error";
   return (
     <p
-      className={`mt-1 flex items-start gap-1.5 text-caption ${err ? "text-destructive" : "text-notice-ink"}`}
+      className={`mt-1 flex items-start gap-1.5 text-caption ${err ? "text-danger-ink" : "text-notice-ink"}`}
     >
       {err ? (
         <CircleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />
