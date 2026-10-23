@@ -1,10 +1,11 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { HalalChip } from "@/components/racik/HalalChip";
 import { IncompleteBadge } from "@/components/racik/IncompleteBadge";
 import { IngredientList } from "@/components/racik/IngredientList";
 import { PHOTO, previewPhotoOf } from "@/components/racik/photos";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
+import { useSnackbar } from "@/components/racik/Snackbar";
 import { NutritionBlock } from "@/components/racik/NutritionBlock";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CalendarPlus, ExternalLink, Heart, Minus, Plus } from "lucide-react";
@@ -62,6 +63,8 @@ function DetailResep() {
   const { state, ready, update, setServings, toggleSaved } = useRacik();
   // Signed out: the first heart (and every few after) offers to keep favourites in an account.
   const askAccount = useRequireAccountForSave();
+  const snackbar = useSnackbar();
+  const navigate = useNavigate();
   const imported = state.imported.find((item) => item.id === id);
   const recipe = shipped ?? imported;
   if (!recipe && !ready) {
@@ -85,8 +88,33 @@ function DetailResep() {
   const creator = imported?.creator ?? recipe.creator;
   const step = (v: number) => setServings(recipe.id, Math.min(MAX_PORTIONS, Math.max(1, v)));
   const toggleHeart = () => {
+    if (saved) {
+      // Remember where it sat in Favorit so Urungkan puts it back in the same place.
+      const at = state.saved.indexOf(recipe.id);
+      toggleSaved(recipe.id);
+      snackbar.show({
+        message: "Dihapus dari favorit",
+        actionLabel: "Urungkan",
+        onAction: () =>
+          update((s) => {
+            if (s.saved.includes(recipe.id)) return {};
+            const next = [...s.saved];
+            next.splice(Math.min(Math.max(at, 0), next.length), 0, recipe.id);
+            return { saved: next };
+          }),
+      });
+      return;
+    }
     toggleSaved(recipe.id);
-    if (!saved) askAccount("save");
+    askAccount("save");
+  };
+  const addToPlan = () => {
+    update((s) => ({ plan: [...s.plan.filter((p) => findRecipe(p.id, s.imported)), { id: recipe.id, servings }] }));
+    snackbar.show({
+      message: "Ditambahkan ke rencana",
+      actionLabel: "Pilih hari",
+      onAction: () => void navigate({ to: "/rencana", search: { hari: recipe.id } as never }),
+    });
   };
 
   return (
@@ -95,7 +123,7 @@ function DetailResep() {
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-[64px]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.25),transparent_40%,rgba(0,0,0,0.12))]" />
         <Link to="/" aria-label="Kembali" onClick={(e) => { if (window.history.length > 1) { e.preventDefault(); window.history.back(); } }} className="absolute top-[calc(3rem+env(safe-area-inset-top))] left-5 flex size-11 items-center justify-center rounded-full bg-white/95 text-ink shadow-float"><ArrowLeft className="size-5" strokeWidth={2.4} /></Link>
-        <button type="button" onClick={toggleHeart} aria-pressed={saved} aria-label={saved ? "Hapus dari Favorit" : "Simpan ke Favorit"} className={`absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 flex size-11 items-center justify-center rounded-full shadow-float ${saved ? "bg-primary text-primary-foreground" : "bg-white/95 text-ink"}`}><Heart className={`size-[21px] ${saved ? "fill-current" : ""}`} /></button>
+        <button type="button" onClick={toggleHeart} aria-pressed={saved} aria-label={saved ? "Hapus dari favorit" : "Simpan ke favorit"} className={`absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 flex size-11 items-center justify-center rounded-full shadow-float ${saved ? "bg-primary text-primary-foreground" : "bg-white/95 text-ink"}`}><Heart className={`size-[21px] ${saved ? "fill-current" : ""}`} /></button>
       </div>
 
       <div className="relative -mt-[22px] px-5">
@@ -138,7 +166,7 @@ function DetailResep() {
             </div>
           </div>
 
-          <button type="button" disabled={recipe.incomplete || planned || planFull} onClick={() => update((s) => ({ plan: [...s.plan.filter((p) => findRecipe(p.id, s.imported)), { id: recipe.id, servings }] }))} className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-rule text-14 font-bold text-primary disabled:text-ink-3">
+          <button type="button" disabled={recipe.incomplete || planned || planFull} onClick={addToPlan} className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-rule text-14 font-bold text-primary disabled:text-ink-3">
             <CalendarPlus className="size-4" />{recipe.incomplete ? "Belum bisa masuk rencana" : planned ? "Sudah ada di rencana" : planFull ? `Rencana sudah penuh (${PLAN_MAX} resep)` : "Tambah ke rencana"}
           </button>
         </div>
