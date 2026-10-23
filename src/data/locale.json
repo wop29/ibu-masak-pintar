@@ -83,7 +83,11 @@
       "daun_jeruk": "daun limau purut",
       "asam_jawa": "asam jawa",
       "kelapa_parut": "kelapa parut",
-      "telur": "telur ayam"
+      "telur": "telur ayam",
+      "talas": "keladi",
+      "daun_talas": "daun keladi",
+      "okra": "kacang bendi",
+      "ube": "ubi keladi ungu"
     },
     "PH": {
       "bawang_merah": "sibuyas Tagalog",
@@ -141,7 +145,19 @@
       "bihun": "bihon",
       "ikan_asin": "tuyo",
       "belimbing_wuluh": "kamias",
-      "air": "tubig"
+      "air": "tubig",
+      "talas": "gabi",
+      "daun_talas": "dahon ng gabi",
+      "ube": "ube",
+      "daun_laurel": "dahon ng laurel",
+      "kaki_babi": "pata",
+      "daging_babi": "baboy",
+      "perut_babi": "liempo",
+      "babi_cincang": "giniling na baboy",
+      "usus_ayam": "isaw",
+      "okra": "okra",
+      "atsuete": "atsuete",
+      "kecap_ikan": "patis"
     }
   },
   "subs": {

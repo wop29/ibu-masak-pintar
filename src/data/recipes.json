@@ -43076,5 +43076,10736 @@
   "hasil": "± 4 buah",
   "satuan": "buah",
   "kategori": "Kue & Camilan"
+ },
+ {
+  "id": "adobong_baboy",
+  "title": "Adobong Baboy",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 55,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍖",
+  "note": "Masak tanpa diaduk sampai mendidih dulu agar bumbu meresap rata sebelum kuah dikecilkan.",
+  "ings": [
+   [
+    "daging_babi",
+    500,
+    "potong kotak 4 cm",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    6,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    1,
+    "bubuk",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    250,
+    null,
+    null,
+    1,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur daging babi dengan bawang putih, kecap asin, cuka, merica, dan daun laurel dalam panci. Diamkan 15 menit agar bumbu meresap.",
+    900
+   ],
+   [
+    "Tambahkan air, masak dengan api sedang tanpa diaduk sampai mendidih.",
+    null
+   ],
+   [
+    "Kecilkan api, tutup panci, masak 30 menit sampai daging empuk.",
+    1800
+   ],
+   [
+    "Buka tutup, aduk sesekali sampai kuah menyusut dan mengental, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Sajikan panas dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "adobong_manok",
+  "title": "Adobong Manok",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍗",
+  "note": "Jangan diaduk di awal perebusan — biarkan ayam mendidih tenang dulu agar kulitnya tidak hancur.",
+  "ings": [
+   [
+    "ayam",
+    600,
+    "potong, dengan tulang",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    6,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    1,
+    "bubuk",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    200,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "gula_pasir",
+    1,
+    null,
+    null,
+    null,
+    "sdt"
+   ]
+  ],
+  "steps": [
+   [
+    "Campur ayam dengan bawang putih, kecap asin, cuka, daun laurel, dan merica. Diamkan 10 menit.",
+    600
+   ],
+   [
+    "Pindahkan ke panci, tambahkan air, masak dengan api sedang sampai mendidih tanpa diaduk.",
+    null
+   ],
+   [
+    "Kecilkan api, masak tertutup 20 menit sampai ayam matang.",
+    1200
+   ],
+   [
+    "Buka tutup, tambahkan gula, masak lagi sampai kuah mengental, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Angkat, sajikan dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "lechon_kawali",
+  "title": "Lechon Kawali",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 80,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥓",
+  "note": "Keringkan perut babi setelah direbus — kulit yang benar-benar kering adalah kunci renyahnya.",
+  "ings": [
+   [
+    "perut_babi",
+    600,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    1,
+    "butir",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 500 ml, untuk menggoreng",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus perut babi bersama bawang putih, daun laurel, garam, dan merica sampai empuk, sekitar 45 menit.",
+    2700
+   ],
+   [
+    "Angkat, tiriskan, dan keringkan di suhu ruang atau kulkas terbuka selama 15 menit agar kulit kering.",
+    900
+   ],
+   [
+    "Panaskan minyak banyak, goreng perut babi dengan api sedang sampai kulit mengembang dan renyah, sekitar 10 menit per sisi.",
+    600
+   ],
+   [
+    "Angkat, tiriskan minyaknya, potong-potong.",
+    null
+   ],
+   [
+    "Sajikan dengan saus cuka bawang putih dan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci",
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "crispy_pata",
+  "title": "Crispy Pata",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 95,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍖",
+  "note": "Rebus sampai sangat empuk dulu, baru digoreng — jangan terbalik urutannya atau dagingnya keras.",
+  "ings": [
+   [
+    "kaki_babi",
+    1000,
+    "bagian kaki/pergelangan, utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    6,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    1,
+    "butir",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1500,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 700 ml, untuk menggoreng",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus kaki babi bersama bawang putih, daun laurel, garam, dan merica sampai empuk, sekitar 60 menit.",
+    3600
+   ],
+   [
+    "Angkat, tiriskan, dan dinginkan/keringkan minimal 20 menit agar kulit kering sebelum digoreng.",
+    1200
+   ],
+   [
+    "Panaskan minyak banyak dalam wajan besar, goreng kaki babi dengan api sedang sampai kulit mengembang keemasan, sekitar 12 menit, balik sesekali.",
+    720
+   ],
+   [
+    "Angkat, tiriskan, dan potong-potong.",
+    null
+   ],
+   [
+    "Sajikan dengan saus kecap-cuka-bawang dan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci",
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "sisig_babi",
+  "title": "Sisig Babi",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "camilan"
+  ],
+  "serv": 4,
+  "time": 50,
+  "diff": "sedang",
+  "spice": 2,
+  "glyph": "🍳",
+  "note": "Cincang kasar setelah dipanggang agar teksturnya tetap renyah di luar, bukan lembek seperti tumisan biasa.",
+  "ings": [
+   [
+    "daging_babi",
+    400,
+    "bagian pipi/kepala, rebus",
+    null,
+    null,
+    null
+   ],
+   [
+    "hati_ayam",
+    100,
+    "rebus, cincang halus",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    6,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "air_jeruk_nipis",
+    2,
+    "ambil airnya (calamansi/dayap)",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "margarin",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    1,
+    "opsional, untuk topping",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panggang atau goreng daging babi dan hati ayam yang sudah direbus sampai kecokelatan di pinggir, lalu cincang kasar.",
+    null
+   ],
+   [
+    "Panaskan minyak dan mentega di wajan datar, tumis bawang bombay dan cabai rawit sampai layu, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan daging dan hati cincang, tumis dengan api besar sampai renyah di pinggir, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Tambahkan kecap asin dan air jeruk nipis, aduk rata, masak 2 menit lagi.",
+    120
+   ],
+   [
+    "Sajikan panas di piring besi (kalau ada), topping telur mentah di atasnya agar matang saat diaduk di meja.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "bistek_tagalog",
+  "title": "Bistek Tagalog",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥩",
+  "note": "Rendam daging semalaman jika ada waktu — semakin lama, semakin empuk dan meresap rasanya.",
+  "ings": [
+   [
+    "daging_sapi",
+    500,
+    "iris tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air_jeruk_nipis",
+    2,
+    "ambil airnya",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    2,
+    "iris cincin tebal",
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    100,
+    null,
+    null,
+    1,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rendam daging sapi dengan kecap asin, air jeruk nipis, dan merica selama 15 menit.",
+    900
+   ],
+   [
+    "Panaskan sebagian minyak, goreng bawang bombay sebentar sampai layu dan sedikit kecokelatan, angkat, sisihkan.",
+    180
+   ],
+   [
+    "Di wajan yang sama, goreng daging sapi dengan sisa bumbu rendaman sampai kecokelatan, sekitar 2 menit per sisi.",
+    240
+   ],
+   [
+    "Tambahkan air, masak sampai kuah sedikit menyusut, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Sajikan daging dengan bawang bombay di atasnya dan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "persiapan": "Untuk hasil terbaik, rendam daging dalam bumbu semalaman di kulkas, bukan hanya 20 menit.",
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "kaldereta_baka",
+  "title": "Kaldereta Baka",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 90,
+  "diff": "sedang",
+  "spice": 1,
+  "glyph": "🍅",
+  "note": "Masak dengan api kecil cukup lama agar daging empuk dan kuah tomatnya mengental alami.",
+  "ings": [
+   [
+    "daging_sapi",
+    600,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "pasta_tomat",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    500,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "paprika",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "pate_hati",
+    2,
+    "sebagai pengganti liver spread",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "keju_edam",
+    30,
+    "parut, opsional",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    2,
+    "opsional, sesuai selera",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan daging sapi, aduk sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan pasta tomat dan air, masak dengan api kecil tertutup sampai daging empuk, sekitar 45 menit.",
+    2700
+   ],
+   [
+    "Masukkan kentang dan wortel, masak 10 menit, lalu masukkan paprika, pate hati, dan keju, masak 5 menit lagi.",
+    900
+   ],
+   [
+    "Masukkan cabai rawit jika suka pedas, koreksi rasa, sajikan panas dengan nasi putih.",
+    60
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "kaldereta_baboy",
+  "title": "Kaldereta Baboy",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 85,
+  "diff": "sedang",
+  "spice": 1,
+  "glyph": "🍅",
+  "note": "Masak dengan api kecil cukup lama agar daging empuk dan kuah tomatnya mengental alami.",
+  "ings": [
+   [
+    "daging_babi",
+    600,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "pasta_tomat",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    500,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "pate_hati",
+    2,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "cabai_rawit",
+    2,
+    "opsional",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan daging babi, aduk sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan pasta tomat dan air, masak tertutup api kecil sampai daging empuk, sekitar 40 menit.",
+    2400
+   ],
+   [
+    "Masukkan kentang, wortel, dan pate hati, masak 10 menit sampai sayur matang.",
+    600
+   ],
+   [
+    "Masukkan cabai rawit jika suka pedas, koreksi rasa, sajikan dengan nasi putih.",
+    60
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "mechado",
+  "title": "Mechado",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 85,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥘",
+  "note": "Mirip kaldereta tapi lebih sederhana — cukup tomat, kecap asin, dan lada hitam yang dominan.",
+  "ings": [
+   [
+    "daging_sapi",
+    600,
+    "potong dadu besar",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "saus_tomat",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    400,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan daging sapi, aduk sampai kecokelatan, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan saus tomat, kecap asin, daun laurel, merica, dan air, masak tertutup api kecil sampai empuk, sekitar 45 menit.",
+    2700
+   ],
+   [
+    "Masukkan kentang dan wortel, masak 10 menit sampai matang dan kuah mengental.",
+    600
+   ],
+   [
+    "Sajikan panas dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "menudo",
+  "title": "Menudo",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 5,
+  "time": 55,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥘",
+  "note": "Potong hati dan kentang seukuran dadu daging agar matangnya serempak.",
+  "ings": [
+   [
+    "daging_babi",
+    400,
+    "potong dadu kecil",
+    null,
+    null,
+    null
+   ],
+   [
+    "hati_ayam",
+    150,
+    "potong kecil",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "pasta_tomat",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "kapri",
+    50,
+    "opsional, kacang polong",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    300,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan daging babi, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan pasta tomat dan air, masak tertutup api kecil 20 menit.",
+    1200
+   ],
+   [
+    "Masukkan kentang, wortel, dan hati ayam, masak 10 menit sampai sayur empuk.",
+    600
+   ],
+   [
+    "Tambahkan kacang polong, masak 3 menit lagi, sajikan panas.",
+    180
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "afritada",
+  "title": "Afritada",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 5,
+  "time": 60,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🫑",
+  "note": "Masukkan paprika di akhir masak saja agar warnanya tetap cerah dan tidak lembek.",
+  "ings": [
+   [
+    "daging_babi",
+    500,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "pasta_tomat",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    350,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "paprika",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan daging babi, masak sampai kecokelatan, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan pasta tomat, daun laurel, dan air, masak tertutup 25 menit sampai daging empuk.",
+    1500
+   ],
+   [
+    "Masukkan kentang dan wortel, masak 10 menit, lalu masukkan paprika, masak 5 menit lagi.",
+    900
+   ],
+   [
+    "Sajikan panas dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "giniling",
+  "title": "Giniling",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥔",
+  "note": "Masakan rumahan sehari-hari — cocok disiapkan cepat dengan daging cincang yang sudah ada di kulkas.",
+  "ings": [
+   [
+    "babi_cincang",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "saus_tomat",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "potong dadu kecil",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong dadu kecil",
+    null,
+    null,
+    null
+   ],
+   [
+    "kismis",
+    2,
+    "opsional",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "air",
+    150,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan babi cincang, masak sambil diaduk sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan saus tomat, kentang, wortel, dan air, masak dengan api kecil sampai sayur empuk, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Masukkan kismis, masak 3 menit lagi, sajikan panas dengan nasi putih.",
+    180
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "chicken_inasal",
+  "title": "Chicken Inasal",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 50,
+  "diff": "gampang",
+  "spice": 1,
+  "glyph": "🍗",
+  "note": "Rendam ayam minimal semalaman dalam bumbu cuka-jeruk nipis agar rasa panggangnya maksimal.",
+  "ings": [
+   [
+    "ayam",
+    800,
+    "potong, dengan tulang",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "serai",
+    3,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "kunyit",
+    1,
+    "parut",
+    null,
+    null,
+    null
+   ],
+   [
+    "jahe",
+    1,
+    "parut",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_kelapa",
+    2,
+    "untuk olesan saat memanggang",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur serai, kunyit, jahe, bawang putih, cuka, kecap asin, dan gula merah menjadi bumbu rendaman.",
+    null
+   ],
+   [
+    "Lumuri ayam dengan bumbu, diamkan 30 menit.",
+    1800
+   ],
+   [
+    "Panaskan panggangan atau wajan datar, panggang ayam sambil dibalik dan diolesi minyak kelapa sampai matang dan kecokelatan, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Sajikan dengan nasi putih dan saus cuka bawang sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "persiapan": "Rendam ayam dalam bumbu minimal semalaman di kulkas untuk hasil terbaik, bukan hanya beberapa jam.",
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "inihaw_na_liempo",
+  "title": "Inihaw na Liempo",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 45,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥓",
+  "note": "Bakar dengan api sedang sambil sering dibalik agar bagian luar karamel tapi tidak gosong.",
+  "ings": [
+   [
+    "perut_babi",
+    600,
+    "iris lembaran tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "jeruk_limau",
+    2,
+    "ambil airnya, untuk cocolan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur kecap asin, cuka, bawang putih, gula merah, dan merica, lalu rendam perut babi minimal 20 menit.",
+    1200
+   ],
+   [
+    "Panaskan panggangan atau wajan datar, panggang perut babi sambil dibalik dan diolesi sisa bumbu sampai kecokelatan dan matang, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Angkat, potong-potong, sajikan dengan cocolan air jeruk limau dan kecap asin.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "lechon_manok",
+  "title": "Lechon Manok",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 100,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍗",
+  "note": "Isi rongga ayam dengan serai dan daun jeruk agar aromanya meresap sampai ke dalam saat dipanggang.",
+  "ings": [
+   [
+    "ayam_utuh",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "serai",
+    3,
+    "memarkan, untuk isian",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    6,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    1,
+    "bubuk",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    "olesan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Lumuri ayam utuh bagian luar dan dalam dengan kecap asin, merica, dan garam. Diamkan 20 menit.",
+    1200
+   ],
+   [
+    "Masukkan serai, bawang putih, dan daun laurel ke dalam rongga ayam.",
+    null
+   ],
+   [
+    "Panggang ayam di oven 180°C sambil diolesi minyak sesekali, sampai matang dan kulit kecokelatan, sekitar 70 menit.",
+    4200
+   ],
+   [
+    "Angkat, diamkan 10 menit sebelum dipotong agar sarinya tidak keluar semua.",
+    600
+   ],
+   [
+    "Sajikan dengan nasi putih dan saus cuka bawang.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "oven"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "tapang_baka",
+  "title": "Tapang Baka",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "sarapan"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥩",
+  "note": "Iris daging melawan arah serat (bukan searah) agar hasil akhirnya tidak alot.",
+  "ings": [
+   [
+    "daging_sapi",
+    500,
+    "iris tipis melawan serat",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air_jeruk_nipis",
+    2,
+    "ambil airnya",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur daging sapi dengan kecap asin, air jeruk nipis, bawang putih, gula, dan merica. Rendam 20 menit.",
+    1200
+   ],
+   [
+    "Panaskan minyak, goreng daging sampai kecokelatan dan sedikit kering di pinggir, sekitar 3 menit per sisi.",
+    360
+   ],
+   [
+    "Sajikan dengan nasi putih, telur mata sapi, dan nasi bawang goreng (sinangag).",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Daging & Unggas",
+  "persiapan": "Untuk hasil terbaik, rendam daging dalam bumbu semalaman di kulkas."
+ },
+ {
+  "id": "embutido",
+  "title": "Embutido",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "camilan"
+  ],
+  "serv": 6,
+  "time": 70,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥚",
+  "note": "Padatkan gulungan sekencang mungkin sebelum dikukus agar potongannya rapi, tidak buyar.",
+  "ings": [
+   [
+    "daging_giling",
+    400,
+    "campuran sapi-babi",
+    null,
+    null,
+    null
+   ],
+   [
+    "babi_cincang",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong korek api",
+    null,
+    null,
+    null
+   ],
+   [
+    "kismis",
+    2,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "gherkin",
+    3,
+    "iris, pengganti sweet pickle",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_panir",
+    50,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_cair",
+    50,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur_asin",
+    1,
+    "opsional, untuk dekorasi",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "daun_pisang",
+    4,
+    "atau aluminium foil",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur daging giling, babi cincang, telur, tepung panir, susu cair, garam, dan merica sampai rata.",
+    null
+   ],
+   [
+    "Bagi adonan menjadi 4, pipihkan masing-masing di atas daun pisang, isi dengan wortel, kismis, dan acar timun di tengah.",
+    null
+   ],
+   [
+    "Gulung rapat seperti lontong, bungkus dengan daun pisang lalu ikat kedua ujungnya.",
+    null
+   ],
+   [
+    "Kukus selama 40 menit sampai matang.",
+    2400
+   ],
+   [
+    "Dinginkan sebentar, potong serong, sajikan dengan saus tomat atau saus asam manis.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "kukusan"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "morcon",
+  "title": "Morcon",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 6,
+  "time": 100,
+  "diff": "agak ribet",
+  "spice": 0,
+  "glyph": "🥩",
+  "note": "Ikat gulungan daging cukup kencang di beberapa titik supaya isiannya tidak keluar saat direbus.",
+  "ings": [
+   [
+    "daging_sapi",
+    700,
+    "iris tipis lebar untuk digulung",
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    2,
+    "rebus, belah panjang",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong panjang",
+    null,
+    null,
+    null
+   ],
+   [
+    "gherkin",
+    4,
+    "iris panjang",
+    null,
+    null,
+    null
+   ],
+   [
+    "sosis",
+    2,
+    "sosis sapi, belah panjang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "pasta_tomat",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    400,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Bumbui daging sapi dengan garam dan merica, lalu tata telur, wortel, acar timun, dan sosis di atasnya.",
+    null
+   ],
+   [
+    "Gulung daging rapat dan ikat dengan tali katun di beberapa titik.",
+    null
+   ],
+   [
+    "Panaskan minyak, goreng gulungan daging sampai kecokelatan di semua sisi, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan bawang putih, pasta tomat, dan air, masak tertutup api kecil sampai daging empuk, sekitar 60 menit.",
+    3600
+   ],
+   [
+    "Angkat, buang tali, dinginkan sebentar, lalu potong melintang dan sajikan dengan kuahnya.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "chicken_pastel",
+  "title": "Chicken Pastel",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 5,
+  "time": 45,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍲",
+  "note": "Masak dengan api kecil setelah susu dimasukkan agar kuah krimnya tidak pecah.",
+  "ings": [
+   [
+    "ayam",
+    500,
+    "potong kecil, tanpa tulang",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kentang",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "sosis",
+    2,
+    "sosis sapi, iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_evaporasi",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "sup_krim_jamur_kalengan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan ayam, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan kentang dan wortel, tumis 3 menit.",
+    180
+   ],
+   [
+    "Masukkan sup krim jamur dan susu evaporasi, masak dengan api kecil sampai sayur matang dan kuah mengental, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Masukkan sosis, masak 3 menit lagi, bumbui garam secukupnya, koreksi rasa, sajikan dengan nasi putih.",
+    180
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "dinuguan",
+  "title": "Dinuguan",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 60,
+  "diff": "sedang",
+  "spice": 1,
+  "glyph": "🍲",
+  "note": "Masak dengan api kecil dan jangan terlalu sering diaduk kasar agar darahnya tidak pecah dan kuah tetap halus.",
+  "ings": [
+   [
+    "babi_cincang",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "perut_babi",
+    200,
+    "potong kecil, rebus",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    100,
+    null,
+    null,
+    null,
+    "ml"
+   ],
+   [
+    "cabai_rawit",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    300,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Catatan: darah babi segar (bahan tradisional utama dinuguan) perlu didapat langsung dari penjual daging terpercaya; bahan ini tidak tersedia di daftar bahan Racik dan harus disiapkan sendiri.",
+    null
+   ],
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan babi cincang dan perut babi, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan air, daun laurel, dan cabai rawit, masak 15 menit sampai daging empuk.",
+    900
+   ],
+   [
+    "Kecilkan api, masukkan darah babi dan cuka perlahan sambil diaduk terus agar tidak menggumpal, masak 10 menit sampai mengental. Koreksi rasa dengan garam.",
+    600
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Daging & Unggas"
+ },
+ {
+  "id": "daing_na_bangus",
+  "title": "Daing na Bangus",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "lauk"
+  ],
+  "serv": 4,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🐟",
+  "note": "Keringkan ikan sebentar di suhu ruang sebelum digoreng agar kulitnya lebih renyah.",
+  "ings": [
+   [
+    "ikan_bandeng",
+    2,
+    "belah dua, bersihkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    6,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    4,
+    "untuk menggoreng",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur cuka, bawang putih, garam, dan merica, lalu lumuri ke seluruh bagian ikan bandeng. Rendam minimal 15 menit.",
+    900
+   ],
+   [
+    "Panaskan minyak, goreng ikan dengan api sedang sampai matang dan kecokelatan, sekitar 5 menit per sisi.",
+    600
+   ],
+   [
+    "Angkat, tiriskan, sajikan dengan nasi putih dan sambal cuka-bawang.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "escabeche",
+  "title": "Escabeche",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🐟",
+  "note": "Goreng ikan sampai benar-benar kering dulu supaya tidak lembek saat disiram saus asam manis.",
+  "ings": [
+   [
+    "ikan_kakap",
+    600,
+    "bersihkan, goreng utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "paprika",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "iris korek api",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "saus_tomat",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    100,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "tepung_maizena",
+    1,
+    "larutkan sedikit air",
+    null,
+    null,
+    "sdt"
+   ],
+   [
+    "minyak_goreng",
+    4,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Goreng ikan sampai matang dan kering di luar, sekitar 8 menit, sisihkan di atas piring saji.",
+    480
+   ],
+   [
+    "Di wajan terpisah, tumis bawang bombay, wortel, dan paprika sebentar sampai sedikit layu.",
+    180
+   ],
+   [
+    "Tambahkan cuka, gula, saus tomat, dan air, masak sampai mendidih.",
+    180
+   ],
+   [
+    "Kentalkan dengan larutan maizena, masak sampai meletup-letup.",
+    120
+   ],
+   [
+    "Tuang saus panas ke atas ikan goreng, sajikan segera.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "rellenong_bangus",
+  "title": "Rellenong Bangus",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 55,
+  "diff": "agak ribet",
+  "spice": 0,
+  "glyph": "🐟",
+  "note": "Keluarkan daging ikan dari kulitnya hati-hati lewat punggung agar kulit tetap utuh untuk diisi kembali.",
+  "ings": [
+   [
+    "ikan_bandeng",
+    2,
+    "utuh, kulit dan daging dipisah hati-hati",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    0.5,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "kismis",
+    2,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "telur",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air_jeruk_nipis",
+    1,
+    "ambil airnya",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "bubuk",
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "tepung_terigu",
+    3,
+    "untuk melapisi",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    4,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Lumuri kulit bandeng dengan air jeruk nipis dan sedikit garam, sisihkan.",
+    null
+   ],
+   [
+    "Kukus daging ikan yang sudah dipisahkan sampai matang, sekitar 10 menit, lalu suwir halus.",
+    600
+   ],
+   [
+    "Campur suwiran ikan dengan wortel, bawang bombay, kismis, telur, garam, dan merica.",
+    null
+   ],
+   [
+    "Masukkan kembali adonan isi ke dalam kulit bandeng, bentuk seperti ikan utuh, lumuri tepung terigu.",
+    null
+   ],
+   [
+    "Goreng dengan minyak sedang sampai kecokelatan di semua sisi, sekitar 10 menit, sajikan hangat.",
+    600
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "ginataang_hipon",
+  "title": "Ginataang Hipon",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 4,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 1,
+  "glyph": "🦐",
+  "note": "Masukkan udang paling akhir dan jangan terlalu lama dimasak agar teksturnya tetap kenyal.",
+  "ings": [
+   [
+    "udang",
+    500,
+    "sisakan kulit dan kepala",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "jahe",
+    1,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    3,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "labu_siam",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih, bawang bombay, dan jahe sampai harum.",
+    180
+   ],
+   [
+    "Masukkan udang, masak sampai berubah warna, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Tuang santan, masukkan labu siam dan cabai rawit, masak dengan api kecil sampai sayur matang dan kuah sedikit menyusut, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Koreksi rasa dengan garam, sajikan panas dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "camaron_rebosado",
+  "title": "Camaron Rebosado",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "camilan"
+  ],
+  "serv": 4,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🦐",
+  "note": "Pastikan minyak benar-benar panas sebelum menggoreng agar lapisan tepungnya renyah, bukan lembek.",
+  "ings": [
+   [
+    "udang",
+    500,
+    "kupas, sisakan ekor",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_terigu",
+    100,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "tepung_maizena",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    80,
+    "dingin",
+    null,
+    1,
+    null
+   ],
+   [
+    "baking_powder",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 500 ml, untuk menggoreng",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung terigu, maizena, baking powder, dan garam, lalu tambahkan telur dan air sampai jadi adonan kental.",
+    null
+   ],
+   [
+    "Pegang bagian ekor udang, celupkan badan udang ke adonan tepung.",
+    null
+   ],
+   [
+    "Panaskan minyak banyak, goreng udang berlapis tepung sampai keemasan dan renyah, sekitar 3 menit per sisi.",
+    360
+   ],
+   [
+    "Angkat, tiriskan, sajikan dengan saus asam manis atau saus tartar.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "kinilaw_na_isda",
+  "title": "Kinilaw na Isda",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "camilan"
+  ],
+  "serv": 4,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 1,
+  "glyph": "🐟",
+  "note": "Gunakan ikan paling segar yang bisa didapat — cuka jeruk nipis 'memasak' ikan tanpa panas, jadi kesegaran bahan sangat menentukan.",
+  "ings": [
+   [
+    "ikan_tenggiri",
+    400,
+    "daging segar, potong dadu kecil",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    100,
+    null,
+    null,
+    null,
+    "ml"
+   ],
+   [
+    "air_jeruk_nipis",
+    2,
+    "ambil airnya",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "jahe",
+    1,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    3,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rendam potongan ikan dalam cuka dan air jeruk nipis selama 10 menit sampai daging memutih.",
+    600
+   ],
+   [
+    "Tiriskan sebagian cairan rendaman, sisakan sedikit.",
+    null
+   ],
+   [
+    "Campurkan bawang bombay, jahe, cabai rawit, dan garam ke dalam ikan, aduk rata.",
+    null
+   ],
+   [
+    "Dinginkan di kulkas 10 menit sebelum disajikan sebagai hidangan pembuka dingin.",
+    600
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "dingin"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "halabos_na_hipon",
+  "title": "Halabos na Hipon",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "camilan"
+  ],
+  "serv": 4,
+  "time": 15,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🦐",
+  "note": "Masak sebentar saja sampai udang berubah warna — terlalu lama membuat dagingnya keras.",
+  "ings": [
+   [
+    "udang",
+    600,
+    "dengan kulit dan kepala, cuci bersih",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    3,
+    null,
+    null,
+    1,
+    "sdm"
+   ]
+  ],
+  "steps": [
+   [
+    "Masukkan udang ke wajan atau panci tanpa minyak tambahan, taburi garam.",
+    null
+   ],
+   [
+    "Tambahkan sedikit air, masak dengan api sedang tertutup sambil diaduk sesekali sampai udang matang dan berwarna merah-oranye, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Angkat, sajikan segera dengan cocolan cuka-bawang-cabai.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "ginataang_alimasag",
+  "title": "Ginataang Alimasag",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 35,
+  "diff": "sedang",
+  "spice": 1,
+  "glyph": "🦀",
+  "note": "Masukkan kepiting setelah santan mendidih agar dagingnya matang merata tanpa terlalu lama dimasak.",
+  "ings": [
+   [
+    "kepiting",
+    4,
+    "bersihkan, belah dua",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "jahe",
+    1,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    4,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "labu_siam",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih, bawang bombay, dan jahe sampai harum.",
+    180
+   ],
+   [
+    "Masukkan kepiting, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang santan, masukkan labu siam dan cabai rawit, masak dengan api kecil sampai kepiting matang dan kuah mengental, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Koreksi rasa, sajikan panas dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "sinaing_na_tulingan",
+  "title": "Sinaing na Tulingan",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🐟",
+  "note": "Masak dengan api kecil dan sabar — proses lama inilah yang membuat tulang ikan jadi lunak dan bisa dimakan.",
+  "ings": [
+   [
+    "ikan_tongkol",
+    4,
+    "bersihkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "belimbing_wuluh",
+    8,
+    "belah dua (kamias)",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "jahe",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_hijau",
+    2,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    300,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_kelapa",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Susun ikan tongkol di dasar panci, tambahkan belimbing wuluh, bawang putih, jahe, dan cabai hijau di atasnya.",
+    null
+   ],
+   [
+    "Taburi garam, tuang air dan minyak kelapa.",
+    null
+   ],
+   [
+    "Masak dengan api kecil tertutup tanpa diaduk sampai ikan matang dan kuah menyusut, sekitar 30 menit.",
+    1800
+   ],
+   [
+    "Sajikan hangat dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "pesang_isda",
+  "title": "Pesang Isda",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 4,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🐟",
+  "note": "Masak ikan dengan api kecil dan jangan terlalu sering diaduk agar potongannya tetap utuh.",
+  "ings": [
+   [
+    "ikan_nila",
+    2,
+    "bersihkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "jahe",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "sawi_putih",
+    500,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    800,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_ikan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus air bersama jahe dan bawang bombay sampai mendidih dan harum, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Masukkan ikan, masak dengan api kecil sampai matang, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Tambahkan sawi putih dan daun bawang, masak 3 menit lagi.",
+    180
+   ],
+   [
+    "Bumbui dengan garam dan kecap ikan, sajikan panas sebagai sup pendamping nasi.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Ulam Ikan & Seafood"
+ },
+ {
+  "id": "sinigang_na_baboy",
+  "title": "Sinigang na Baboy",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 55,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍲",
+  "note": "Masukkan sayur dari yang paling keras ke paling lembut (labu siam dulu, kangkung terakhir) agar matangnya pas.",
+  "ings": [
+   [
+    "daging_babi",
+    500,
+    "potong dadu, bagian iga/perut",
+    null,
+    null,
+    null
+   ],
+   [
+    "asam_jawa",
+    3,
+    "larutkan dengan sedikit air (atau pakai bubuk sinigang asli tamarind)",
+    null,
+    null,
+    null
+   ],
+   [
+    "tomat",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "labu_siam",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "terong",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kangkung",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_hijau",
+    2,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1200,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kecap_ikan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus daging babi, tomat, dan bawang bombay dalam air sampai mendidih, buang buih, masak sampai daging empuk, sekitar 30 menit.",
+    1800
+   ],
+   [
+    "Masukkan larutan asam jawa, koreksi rasa asam sesuai selera.",
+    60
+   ],
+   [
+    "Tambahkan labu siam dan kacang panjang, masak 8 menit.",
+    480
+   ],
+   [
+    "Masukkan terong dan cabai hijau, masak 5 menit lagi.",
+    300
+   ],
+   [
+    "Terakhir masukkan kangkung, masak 1 menit sampai layu, bumbui kecap ikan, sajikan panas.",
+    60
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "sinigang_na_hipon",
+  "title": "Sinigang na Hipon",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 5,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍲",
+  "note": "Masukkan udang paling akhir dan masak sebentar saja agar tidak keras.",
+  "ings": [
+   [
+    "udang",
+    400,
+    "dengan kulit dan kepala",
+    null,
+    null,
+    null
+   ],
+   [
+    "asam_jawa",
+    3,
+    "larutkan dengan air",
+    null,
+    null,
+    null
+   ],
+   [
+    "tomat",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "labu_siam",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "kangkung",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_hijau",
+    2,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kecap_ikan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus air bersama tomat dan bawang bombay sampai mendidih, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Masukkan labu siam dan kacang panjang, masak 8 menit.",
+    480
+   ],
+   [
+    "Tambahkan udang dan larutan asam jawa, masak 5 menit sampai udang matang.",
+    300
+   ],
+   [
+    "Masukkan kangkung dan cabai hijau, masak 1 menit, bumbui kecap ikan, sajikan panas.",
+    60
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "sinigang_na_isda",
+  "title": "Sinigang na Isda",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 5,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍲",
+  "note": "Masak ikan dengan api kecil supaya potongannya tidak hancur dalam kuah asam.",
+  "ings": [
+   [
+    "ikan_bandeng",
+    1,
+    "potong besar",
+    null,
+    null,
+    null
+   ],
+   [
+    "asam_jawa",
+    3,
+    "larutkan dengan air",
+    null,
+    null,
+    null
+   ],
+   [
+    "tomat",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "labu_siam",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kangkung",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_hijau",
+    2,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kecap_ikan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus air bersama tomat dan bawang bombay sampai mendidih, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Masukkan labu siam, masak 8 menit sampai agak empuk.",
+    480
+   ],
+   [
+    "Masukkan ikan dan larutan asam jawa, masak dengan api kecil sampai ikan matang, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Masukkan kangkung dan cabai hijau, masak 1 menit, bumbui kecap ikan, sajikan panas.",
+    60
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "bulalo",
+  "title": "Bulalo",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 120,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍖",
+  "note": "Masak sabar dengan api kecil cukup lama — sumsum tulang yang meleleh perlahan itulah yang membuat kuahnya gurih.",
+  "ings": [
+   [
+    "daging_sapi",
+    800,
+    "sengkel dengan tulang sumsum",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "belah",
+    null,
+    null,
+    null
+   ],
+   [
+    "jagung_manis",
+    2,
+    "potong-potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "belah",
+    null,
+    null,
+    null
+   ],
+   [
+    "kol",
+    300,
+    "potong besar",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    2000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "butir",
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus daging sengkel bersama bawang bombay, garam, dan merica dalam air sampai mendidih, buang buih.",
+    300
+   ],
+   [
+    "Kecilkan api, masak tertutup sampai daging dan sumsum empuk, sekitar 80 menit.",
+    4800
+   ],
+   [
+    "Masukkan jagung dan kentang, masak 15 menit.",
+    900
+   ],
+   [
+    "Masukkan kol dan daun bawang, masak 5 menit lagi, koreksi rasa, sajikan panas.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "nilagang_baka",
+  "title": "Nilagang Baka",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 5,
+  "time": 100,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍲",
+  "note": "Buang buih di awal perebusan agar kuahnya bening, bukan keruh.",
+  "ings": [
+   [
+    "daging_sapi",
+    700,
+    "potong besar, bagian sandung lamur",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "belah",
+    null,
+    null,
+    null
+   ],
+   [
+    "kentang",
+    2,
+    "belah",
+    null,
+    null,
+    null
+   ],
+   [
+    "kol",
+    300,
+    "potong besar",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "air",
+    2000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "merica",
+    null,
+    "butir",
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus daging sapi bersama bawang bombay, garam, dan merica sampai mendidih, buang buih.",
+    300
+   ],
+   [
+    "Kecilkan api, masak tertutup sampai daging empuk, sekitar 70 menit.",
+    4200
+   ],
+   [
+    "Masukkan kentang, masak 10 menit.",
+    600
+   ],
+   [
+    "Masukkan kol dan kacang panjang, masak 5 menit lagi, koreksi rasa, sajikan panas.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "tinolang_manok",
+  "title": "Tinolang Manok",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍲",
+  "note": "Tumis jahe sampai benar-benar harum dulu — ini kunci aroma khas tinola, bukan sekadar pelengkap.",
+  "ings": [
+   [
+    "ayam",
+    600,
+    "potong, dengan tulang",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "jahe",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "pepaya",
+    200,
+    "muda, potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_katuk",
+    1,
+    "atau daun pepaya muda",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_ikan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih, bawang bombay, dan jahe sampai harum.",
+    180
+   ],
+   [
+    "Masukkan ayam, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang air dan kecap ikan, masak dengan api kecil sampai ayam empuk, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Masukkan pepaya muda, masak 8 menit, lalu masukkan daun katuk, masak 2 menit lagi, sajikan panas.",
+    600
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "sopas",
+  "title": "Sopas",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "lauk"
+  ],
+  "serv": 4,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥣",
+  "note": "Masukkan susu evaporasi di akhir dengan api kecil agar tidak pecah.",
+  "ings": [
+   [
+    "ayam",
+    300,
+    "suwir atau potong kecil",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "makaroni",
+    100,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong kecil",
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_evaporasi",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    800,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan ayam, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang air, masukkan wortel dan makaroni, masak sampai makaroni matang, sekitar 12 menit.",
+    720
+   ],
+   [
+    "Tuang susu evaporasi, masak 3 menit lagi, koreksi rasa dengan garam, sajikan panas.",
+    180
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "kare_kare",
+  "title": "Kare-Kare",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 110,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥜",
+  "note": "Haluskan kacang tanah sangrai sendiri jika bisa — rasanya jauh lebih gurih dibanding selai kacang instan saja.",
+  "ings": [
+   [
+    "daging_sapi",
+    600,
+    "bagian sengkel/buntut, potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "selai_kacang",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_tanah",
+    50,
+    "sangrai, haluskan",
+    null,
+    null,
+    null
+   ],
+   [
+    "atsuete",
+    1,
+    "larutkan sedikit air untuk pewarna",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "terong",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    800,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "terasi",
+    2,
+    "untuk cocolan (bagoong)",
+    null,
+    null,
+    "sdm"
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus daging sapi sampai empuk, sekitar 60 menit, sisihkan kaldunya.",
+    3600
+   ],
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan kaldu, daging, selai kacang, kacang tanah halus, dan air larutan atsuete, masak sampai kuah kental, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Masukkan kacang panjang dan terong, masak 10 menit sampai sayur matang.",
+    600
+   ],
+   [
+    "Sajikan panas dengan nasi dan terasi/bagoong sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "pochero",
+  "title": "Pochero",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_siang"
+  ],
+  "serv": 5,
+  "time": 85,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍌",
+  "note": "Goreng pisang saba sebentar sebelum dimasukkan ke kuah agar teksturnya tidak lembek hancur.",
+  "ings": [
+   [
+    "daging_sapi",
+    600,
+    "potong besar",
+    null,
+    null,
+    null
+   ],
+   [
+    "pisang",
+    2,
+    "saba, belah, goreng sebentar",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "kol",
+    300,
+    "potong besar",
+    null,
+    null,
+    null
+   ],
+   [
+    "pasta_tomat",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    800,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan daging sapi, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan pasta tomat dan air, masak tertutup api kecil sampai daging empuk, sekitar 50 menit.",
+    3000
+   ],
+   [
+    "Masukkan pisang goreng dan kacang panjang, masak 8 menit.",
+    480
+   ],
+   [
+    "Masukkan kol, masak 3 menit lagi, sajikan panas.",
+    180
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "bicol_express",
+  "title": "Bicol Express",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "sedang",
+  "spice": 3,
+  "glyph": "🌶️",
+  "note": "Masak santan dengan api kecil sambil sesekali diaduk agar tidak pecah sebelum kuahnya mengental.",
+  "ings": [
+   [
+    "daging_babi",
+    400,
+    "potong kecil, bagian perut",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_hijau",
+    6,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    6,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "terasi",
+    2,
+    "bagoong alamang",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan daging babi, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Masukkan terasi, aduk rata, lalu tuang santan, masak dengan api kecil sampai daging empuk, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Masukkan cabai hijau dan cabai rawit, masak sampai kuah mengental, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Sajikan panas dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "papaitan",
+  "title": "Papaitan",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "camilan"
+  ],
+  "serv": 4,
+  "time": 90,
+  "diff": "sedang",
+  "spice": 1,
+  "glyph": "🍲",
+  "note": "Rasa pahit-gurihnya khas — jangan dihilangkan asamnya, itu identitas utama hidangan ini.",
+  "ings": [
+   [
+    "babat",
+    400,
+    "sapi, rebus dan potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "hati_ayam",
+    100,
+    "rebus, potong (pengganti jeroan hati sapi)",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "jahe",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    4,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    800,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih, bawang bombay, dan jahe sampai harum.",
+    180
+   ],
+   [
+    "Masukkan babat dan hati, masak sampai sedikit kecokelatan, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang air dan cuka, masak dengan api kecil sampai kuah terasa pahit-gurih khas, sekitar 40 menit.",
+    2400
+   ],
+   [
+    "Masukkan cabai rawit, masak 5 menit lagi, sajikan panas.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "humba",
+  "title": "Humba",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 90,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍖",
+  "note": "Masak lama dengan api kecil sampai kuahnya benar-benar mengental dan mengilap seperti karamel.",
+  "ings": [
+   [
+    "perut_babi",
+    600,
+    "potong besar",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "memarkan",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_laurel",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_kedelai_hitam",
+    3,
+    "rendam (pengganti fermented black beans)",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "air",
+    400,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur perut babi dengan kecap asin, cuka, bawang putih, dan daun laurel, diamkan 15 menit.",
+    900
+   ],
+   [
+    "Panaskan minyak, masak daging beserta bumbunya sampai mendidih.",
+    null
+   ],
+   [
+    "Tambahkan gula merah, kacang kedelai hitam, dan air, masak tertutup api kecil sampai daging empuk dan kuah mengental, sekitar 60 menit.",
+    3600
+   ],
+   [
+    "Sajikan panas dengan nasi putih.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sup & Rebusan"
+ },
+ {
+  "id": "pancit_canton",
+  "title": "Pancit Canton",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Masukkan mi di akhir dan aduk cepat agar menyerap kuah tanpa jadi lembek.",
+  "ings": [
+   [
+    "mie_telur",
+    300,
+    "rebus sebentar, tiriskan",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ayam",
+    200,
+    "iris tipis",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "udang",
+    150,
+    "kupas",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "iris korek api",
+    null,
+    null,
+    null
+   ],
+   [
+    "kol",
+    300,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "saus_tiram",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    100,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan ayam dan udang, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Masukkan wortel, kol, dan kacang panjang, tumis 3 menit.",
+    180
+   ],
+   [
+    "Tambahkan kecap asin, saus tiram, dan air, masak sampai sayur hampir matang, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan mie telur, aduk rata sampai kuah menyusut dan mi matang, sekitar 5 menit, sajikan panas.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "pancit_bihon_guisado",
+  "title": "Pancit Bihon Guisado",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Rendam bihun sampai benar-benar lunak dulu sebelum ditumis agar tidak menggumpal.",
+  "ings": [
+   [
+    "bihun",
+    250,
+    "rendam air hangat sampai lunak, tiriskan",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ayam",
+    200,
+    "iris tipis",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "wortel",
+    1,
+    "iris korek api",
+    null,
+    null,
+    null
+   ],
+   [
+    "kol",
+    300,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    150,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan ayam, masak sampai berubah warna, sekitar 4 menit.",
+    240
+   ],
+   [
+    "Masukkan wortel, kol, dan kacang panjang, tumis 3 menit.",
+    180
+   ],
+   [
+    "Tambahkan kecap asin dan air, masak sampai mendidih.",
+    null
+   ],
+   [
+    "Masukkan bihun, aduk rata sampai kuah terserap habis, sekitar 5 menit, sajikan panas.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "pancit_palabok",
+  "title": "Pancit Palabok",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "camilan"
+  ],
+  "serv": 5,
+  "time": 40,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Kentalkan saus perlahan dengan api kecil agar teksturnya licin, tidak bergerindil.",
+  "ings": [
+   [
+    "bihun",
+    300,
+    "rebus sebentar, tiriskan",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "udang",
+    200,
+    "kupas, sisakan kulit untuk kaldu",
+    null,
+    null,
+    null
+   ],
+   [
+    "atsuete",
+    1,
+    "larutkan sedikit air",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_beras",
+    2,
+    "untuk kekentalan saus",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    500,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kecap_ikan",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur_asin",
+    1,
+    "iris, untuk topping",
+    null,
+    null,
+    null
+   ],
+   [
+    "chicharon",
+    50,
+    "remukkan, untuk topping",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus kulit udang dalam air untuk membuat kaldu sederhana, saring, sisihkan kaldunya.",
+    600
+   ],
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum, masukkan udang, masak sampai matang, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Tuang kaldu udang dan air larutan atsuete, masukkan tepung beras yang sudah dilarutkan sedikit air, masak sampai saus mengental, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Bumbui dengan kecap ikan, siram saus ini ke atas bihun yang sudah ditata di piring.",
+    null
+   ],
+   [
+    "Taburi dengan telur asin iris, chicharon remuk, dan daun bawang sebelum disajikan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan",
+   "panci"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "pancit_malabon",
+  "title": "Pancit Malabon",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "camilan"
+  ],
+  "serv": 5,
+  "time": 40,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Siapkan semua topping seafood matang sebelum menata, karena saus harus segera disiram selagi panas.",
+  "ings": [
+   [
+    "bihun",
+    300,
+    "rebus sebentar, tiriskan",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "udang",
+    200,
+    "kupas",
+    null,
+    null,
+    null
+   ],
+   [
+    "cumi",
+    150,
+    "potong cincin",
+    null,
+    null,
+    null
+   ],
+   [
+    "kerang_hijau",
+    150,
+    "rebus, ambil dagingnya",
+    null,
+    null,
+    null
+   ],
+   [
+    "atsuete",
+    1,
+    "larutkan sedikit air",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_beras",
+    2,
+    "untuk kekentalan saus",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    500,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kecap_ikan",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan udang dan cumi, masak sampai matang, sekitar 4 menit.",
+    240
+   ],
+   [
+    "Tuang air dan larutan atsuete, masukkan tepung beras yang sudah dilarutkan sedikit air, masak sampai saus mengental, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Bumbui dengan kecap ikan, siram ke atas bihun, taburi kerang hijau dan daun bawang, sajikan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan",
+   "panci"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "sotanghon_guisado",
+  "title": "Sotanghon Guisado",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Rendam soun sampai benar-benar lunak agar tidak keras saat dicampur ke tumisan panas.",
+  "ings": [
+   [
+    "bihun",
+    200,
+    "soun, rendam sampai lunak",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ayam",
+    200,
+    "suwir",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "jamur_kuping",
+    30,
+    "rendam, iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "iris korek api",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    200,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan ayam, masak sampai berubah warna, sekitar 4 menit.",
+    240
+   ],
+   [
+    "Masukkan jamur kuping dan wortel, tumis 3 menit.",
+    180
+   ],
+   [
+    "Tambahkan kecap asin dan air, masak sampai mendidih, lalu masukkan soun, aduk sampai kuah terserap, sekitar 5 menit, sajikan panas.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "pancit_molo",
+  "title": "Pancit Molo",
+  "region": "filipina",
+  "slots": [
+   "lauk",
+   "camilan"
+  ],
+  "serv": 5,
+  "time": 40,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥟",
+  "note": "Jangan isi pangsit terlalu penuh — biarkan bagian atasnya terbuka seperti mangkuk kecil khas Molo.",
+  "ings": [
+   [
+    "babi_cincang",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "udang",
+    100,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "kulit_pangsit",
+    30,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur babi cincang, udang cincang, sebagian bawang putih, dan kecap asin untuk isian.",
+    null
+   ],
+   [
+    "Bungkus sedikit isian dengan kulit pangsit, bentuk seperti pangsit kecil.",
+    null
+   ],
+   [
+    "Rebus air bersama sisa bawang putih sampai mendidih, masukkan pangsit, masak sampai mengapung dan matang, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Bumbui dengan garam, taburi daun bawang, sajikan panas sebagai sup.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "batchoy",
+  "title": "Batchoy",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 50,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Sisihkan sebagian bawang putih goreng untuk taburan akhir — ini yang memberi aroma khas batchoy.",
+  "ings": [
+   [
+    "mie_telur",
+    300,
+    "rebus sebentar",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "babi_cincang",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "chicharon",
+    50,
+    "remukkan, untuk topping",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "telur",
+    4,
+    "rebus setengah matang",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai kecokelatan dan harum, sisihkan sedikit untuk taburan.",
+    null
+   ],
+   [
+    "Masukkan babi cincang, masak sampai matang, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang air dan kecap asin, masak sampai mendidih, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Tata mi di mangkuk, siram kuah dan daging panas di atasnya.",
+    null
+   ],
+   [
+    "Taburi chicharon remuk, bawang putih goreng, dan daun bawang, lengkapi dengan telur rebus, sajikan segera.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan",
+   "panci"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "mami",
+  "title": "Mami",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Masak daging dengan api kecil cukup lama agar kaldunya terasa gurih alami, bukan hambar.",
+  "ings": [
+   [
+    "mie_telur",
+    300,
+    "rebus sebentar",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "daging_sapi",
+    300,
+    "iris tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan daging sapi, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang air dan kecap asin, masak dengan api kecil sampai daging empuk dan kaldu terasa, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Tata mie telur di mangkuk, siram kuah dan daging panas, taburi daun bawang, sajikan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "lomi",
+  "title": "Lomi",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍜",
+  "note": "Tuang telur kocok sambil api dimatikan dan diaduk perlahan agar membentuk serat halus, bukan gumpalan.",
+  "ings": [
+   [
+    "mie_telur",
+    300,
+    "mi tebal, rebus sebentar",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "babi_cincang",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "udang",
+    100,
+    "kupas",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "iris korek api",
+    null,
+    null,
+    null
+   ],
+   [
+    "kol",
+    300,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_maizena",
+    2,
+    "larutkan sedikit air",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    800,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "telur",
+    1,
+    "kocok lepas",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan babi cincang dan udang, masak sampai matang, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang air dan kecap asin, masukkan wortel dan kol, masak 5 menit.",
+    300
+   ],
+   [
+    "Kentalkan dengan larutan maizena, masukkan mi, masak 5 menit sampai kuah kental.",
+    300
+   ],
+   [
+    "Matikan api, tuang telur kocok sambil diaduk perlahan sampai membentuk serat, sajikan panas.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "filipino_spaghetti",
+  "title": "Filipino Spaghetti",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 5,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍝",
+  "note": "Jangan khawatir soal rasa manisnya — banana ketchup memang lebih manis dari saus tomat biasa, itu ciri khasnya.",
+  "ings": [
+   [
+    "spageti",
+    300,
+    "rebus sesuai petunjuk kemasan",
+    null,
+    null,
+    null
+   ],
+   [
+    "daging_giling",
+    250,
+    "sapi",
+    null,
+    null,
+    null
+   ],
+   [
+    "saus_kecap_pisang",
+    150,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "saus_tomat",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "sosis",
+    4,
+    "sosis sapi, iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "keju_cheddar",
+    50,
+    "parut, untuk taburan",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    150,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan daging giling, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tambahkan banana ketchup, saus tomat, gula, dan air, masak dengan api kecil 10 menit.",
+    600
+   ],
+   [
+    "Masukkan sosis, masak 5 menit lagi.",
+    null
+   ],
+   [
+    "Campur saus dengan spageti matang, taburi keju parut, sajikan hangat.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Pansit & Mi"
+ },
+ {
+  "id": "arroz_caldo",
+  "title": "Arroz Caldo",
+  "region": "filipina",
+  "slots": [
+   "sarapan"
+  ],
+  "serv": 5,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥣",
+  "note": "Aduk sesekali saat beras mulai hancur agar tidak lengket di dasar panci.",
+  "ings": [
+   [
+    "beras",
+    200,
+    "cuci bersih",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ayam",
+    300,
+    "potong kecil, dengan tulang",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "jahe",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_ikan",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1200,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    2,
+    "rebus, untuk topping",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih, bawang bombay, dan jahe sampai harum.",
+    180
+   ],
+   [
+    "Masukkan ayam, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Masukkan beras, aduk rata, tuang air dan kecap ikan.",
+    60
+   ],
+   [
+    "Masak dengan api kecil sambil sesekali diaduk sampai bubur mengental dan nasi hancur, sekitar 25 menit.",
+    1500
+   ],
+   [
+    "Sajikan panas, taburi daun bawang dan telur rebus iris.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "lugaw",
+  "title": "Lugaw",
+  "region": "filipina",
+  "slots": [
+   "sarapan"
+  ],
+  "serv": 4,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥣",
+  "note": "Sangrai bawang putih sampai kecokelatan tapi jangan sampai gosong — ini penentu rasa gurihnya.",
+  "ings": [
+   [
+    "beras",
+    200,
+    "cuci bersih",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kaldu_bubuk",
+    1,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "air",
+    1200,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_bawang",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "air_jeruk_nipis",
+    1,
+    "untuk perasan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum dan kecokelatan, sisihkan sebagian untuk taburan.",
+    null
+   ],
+   [
+    "Masukkan beras, aduk rata, tuang air dan kaldu bubuk.",
+    60
+   ],
+   [
+    "Masak dengan api kecil sambil sesekali diaduk sampai bubur mengental, sekitar 25 menit.",
+    1500
+   ],
+   [
+    "Sajikan panas, taburi bawang putih goreng dan daun bawang, beri perasan jeruk nipis.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "sinangag",
+  "title": "Sinangag",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "pendamping"
+  ],
+  "serv": 4,
+  "time": 15,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍚",
+  "note": "Pakai nasi dingin sisa kemarin, bukan nasi baru — hasilnya lebih kering dan tidak lembek.",
+  "ings": [
+   [
+    "nasi_putih",
+    600,
+    "sebaiknya nasi dingin sisa kemarin",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    6,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai kecokelatan dan harum, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan nasi, aduk rata sambil ditekan-tekan agar butiran nasi lepas.",
+    120
+   ],
+   [
+    "Goreng sampai nasi panas merata dan sedikit kecokelatan, bumbui garam, sekitar 5 menit, sajikan sebagai pendamping lauk sarapan.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "tapsilog",
+  "title": "Tapsilog",
+  "region": "filipina",
+  "slots": [
+   "sarapan"
+  ],
+  "serv": 4,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍳",
+  "note": "Goreng daging sampai agak kering di pinggirnya — tekstur sedikit garing adalah ciri khas tapa yang enak.",
+  "ings": [
+   [
+    "daging_sapi",
+    400,
+    "iris tipis, bagian sirloin",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "nasi_putih",
+    600,
+    "sebaiknya nasi dingin sisa kemarin",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "minyak_goreng",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur daging sapi dengan kecap asin, cuka, separuh bawang putih, dan gula, diamkan 20 menit.",
+    1200
+   ],
+   [
+    "Panaskan sedikit minyak, goreng daging beserta bumbu marinasinya sampai matang dan kering, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Di wajan lain, goreng telur mata sapi, sisihkan.",
+    null
+   ],
+   [
+    "Tumis sisa bawang putih dengan minyak, masukkan nasi, goreng sampai panas merata, bumbui garam, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Sajikan nasi goreng bawang, daging, dan telur mata sapi dalam satu piring.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "longsilog",
+  "title": "Longsilog",
+  "region": "filipina",
+  "slots": [
+   "sarapan"
+  ],
+  "serv": 4,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🌭",
+  "note": "Goreng longganisa dengan sedikit air dulu supaya matang merata sebelum dikecokelatkan.",
+  "ings": [
+   [
+    "longganisa_babi",
+    8,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "nasi_putih",
+    600,
+    "sebaiknya nasi dingin sisa kemarin",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Goreng longganisa dengan sedikit air dan minyak sampai matang dan agak kecokelatan, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Di wajan lain, goreng telur mata sapi, sisihkan.",
+    null
+   ],
+   [
+    "Tumis bawang putih dengan minyak, masukkan nasi, goreng sampai panas merata, bumbui garam, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Sajikan nasi goreng bawang, longganisa, dan telur mata sapi dalam satu piring.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "tocilog",
+  "title": "Tocilog",
+  "region": "filipina",
+  "slots": [
+   "sarapan"
+  ],
+  "serv": 4,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥓",
+  "note": "Goreng dengan api sedang — gula pada tocino mudah gosong jika apinya terlalu besar.",
+  "ings": [
+   [
+    "tocino",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "nasi_putih",
+    600,
+    "sebaiknya nasi dingin sisa kemarin",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Goreng tocino dengan sedikit minyak sampai matang dan karamel gulanya kecokelatan, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Di wajan lain, goreng telur mata sapi, sisihkan.",
+    null
+   ],
+   [
+    "Tumis bawang putih dengan minyak, masukkan nasi, goreng sampai panas merata, bumbui garam, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Sajikan nasi goreng bawang, tocino, dan telur mata sapi dalam satu piring.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "arroz_a_la_valenciana",
+  "title": "Arroz a la Valenciana",
+  "region": "filipina",
+  "slots": [
+   "makan_siang",
+   "makan_malam"
+  ],
+  "serv": 6,
+  "time": 55,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍚",
+  "note": "Masak tertutup dengan api kecil tanpa sering dibuka agar nasi matang merata menyerap santan.",
+  "ings": [
+   [
+    "beras",
+    300,
+    "cuci bersih",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "santan",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "ayam",
+    300,
+    "potong kecil",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "sosis",
+    4,
+    "sosis sapi, iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "kunyit_bubuk",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kismis",
+    2,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "kapri",
+    50,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan ayam dan sosis, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Masukkan beras dan kunyit bubuk, aduk rata sampai beras terlapisi warna.",
+    120
+   ],
+   [
+    "Tuang santan, masukkan garam, masak dengan api kecil tertutup sampai nasi matang, sekitar 25 menit.",
+    1500
+   ],
+   [
+    "Masukkan kismis dan kacang polong, aduk rata, masak 5 menit lagi, sajikan hangat.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "champorado",
+  "title": "Champorado",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "camilan"
+  ],
+  "serv": 5,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍫",
+  "note": "Aduk terus saat mengental agar tidak gosong di dasar panci.",
+  "ings": [
+   [
+    "beras_ketan",
+    200,
+    "cuci bersih",
+    null,
+    null,
+    null
+   ],
+   [
+    "cokelat_bubuk",
+    4,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "gula_pasir",
+    5,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "susu_evaporasi",
+    100,
+    "untuk penyajian",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus beras ketan dalam air sambil sesekali diaduk sampai mulai lunak, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Masukkan coklat bubuk dan gula, masak dengan api kecil sambil terus diaduk sampai bubur kental, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Sajikan hangat dengan siraman susu evaporasi di atasnya.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Nasi & Bubur"
+ },
+ {
+  "id": "pinakbet",
+  "title": "Pinakbet",
+  "region": "filipina",
+  "slots": [
+   "sayur",
+   "lauk"
+  ],
+  "serv": 5,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 1,
+  "glyph": "🥦",
+  "note": "Jangan terlalu lama memasak sayurnya — pinakbet enak saat sayurannya masih sedikit renyah, tidak lembek.",
+  "ings": [
+   [
+    "labu_siam",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "terong",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "okra",
+    100,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "tomat",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "terasi",
+    2,
+    "bagoong alamang",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "udang",
+    100,
+    "kupas, ukuran kecil",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    100,
+    null,
+    null,
+    1,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan udang dan terasi, masak sampai udang berubah warna, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan tomat, masak sampai layu, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan labu siam, terong, kacang panjang, dan okra, tuang sedikit air, masak sampai sayur matang tapi tidak lembek, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Sajikan panas sebagai lauk sayur.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "laing",
+  "title": "Laing",
+  "region": "filipina",
+  "slots": [
+   "sayur",
+   "lauk"
+  ],
+  "serv": 5,
+  "time": 45,
+  "diff": "sedang",
+  "spice": 2,
+  "glyph": "🌿",
+  "note": "Jangan terlalu sering diaduk saat santan menyusut — daun talas butuh waktu diam agar minyaknya keluar sempurna.",
+  "ings": [
+   [
+    "daun_talas",
+    300,
+    "kering atau segar, iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    500,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "terasi",
+    2,
+    "bagoong alamang",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "jahe",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    4,
+    "utuh",
+    null,
+    null,
+    null
+   ],
+   [
+    "daging_babi",
+    100,
+    "potong kecil, opsional untuk gurih (bisa dihilangkan)",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan sedikit santan, tumis bawang putih, bawang bombay, dan jahe sampai harum.",
+    180
+   ],
+   [
+    "Masukkan daging babi (jika dipakai) dan terasi, masak sampai berubah warna, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tuang sisa santan, masukkan daun talas, masak dengan api kecil tanpa banyak diaduk sampai santan menyusut dan berminyak, sekitar 30 menit.",
+    1800
+   ],
+   [
+    "Masukkan cabai rawit, masak 5 menit lagi, sajikan panas.",
+    300
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "ginisang_monggo",
+  "title": "Ginisang Monggo",
+  "region": "filipina",
+  "slots": [
+   "sayur",
+   "lauk"
+  ],
+  "serv": 5,
+  "time": 45,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🫘",
+  "note": "Rebus kacang hijau sampai benar-benar lunak dulu sebelum dicampur tumisan agar teksturnya pas.",
+  "ings": [
+   [
+    "kacang_hijau",
+    200,
+    "cuci bersih",
+    null,
+    null,
+    null
+   ],
+   [
+    "bayam",
+    1,
+    "atau daun kelor/malunggay",
+    null,
+    null,
+    null
+   ],
+   [
+    "tomat",
+    2,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_ikan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    1000,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus kacang hijau dalam air sampai lunak, sekitar 25 menit.",
+    1500
+   ],
+   [
+    "Di wajan lain, panaskan minyak, tumis bawang putih, bawang bombay, dan tomat sampai layu.",
+    240
+   ],
+   [
+    "Masukkan tumisan ke dalam rebusan kacang hijau, masak 5 menit.",
+    300
+   ],
+   [
+    "Masukkan bayam dan kecap ikan, masak 2 menit sampai layu, sajikan panas.",
+    120
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "dinengdeng",
+  "title": "Dinengdeng",
+  "region": "filipina",
+  "slots": [
+   "sayur"
+  ],
+  "serv": 4,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥬",
+  "note": "Masukkan daun kelor paling akhir dan masak sebentar saja agar warnanya tetap hijau segar.",
+  "ings": [
+   [
+    "labu_siam",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "terong",
+    1,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_kelor",
+    1,
+    "malunggay",
+    null,
+    null,
+    null
+   ],
+   [
+    "terasi",
+    2,
+    "bagoong",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    600,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Tuang air, masukkan terasi, masak sampai mendidih dan larut.",
+    300
+   ],
+   [
+    "Masukkan labu siam, kacang panjang, dan terong, masak 10 menit sampai sayur empuk.",
+    600
+   ],
+   [
+    "Masukkan daun kelor, masak 2 menit sampai layu, sajikan panas.",
+    120
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "ginataang_gulay",
+  "title": "Ginataang Gulay",
+  "region": "filipina",
+  "slots": [
+   "sayur",
+   "lauk"
+  ],
+  "serv": 5,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🎃",
+  "note": "Masak labu kuning dulu sampai agak empuk sebelum sayur yang lebih cepat matang dimasukkan.",
+  "ings": [
+   [
+    "labu_kuning",
+    300,
+    "potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "potong",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "udang",
+    150,
+    "kupas",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "terasi",
+    1,
+    "bagoong",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu.",
+    180
+   ],
+   [
+    "Masukkan udang dan terasi, masak sampai udang berubah warna, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Tuang santan, masukkan labu kuning, masak 10 menit.",
+    600
+   ],
+   [
+    "Masukkan kacang panjang, masak 8 menit lagi sampai sayur matang dan kuah sedikit mengental, sajikan panas.",
+    480
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "chopsuey",
+  "title": "Chopsuey",
+  "region": "filipina",
+  "slots": [
+   "sayur",
+   "lauk"
+  ],
+  "serv": 5,
+  "time": 20,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥦",
+  "note": "Masak sayuran sebentar saja dengan api besar agar tetap renyah dan warnanya cerah.",
+  "ings": [
+   [
+    "wortel",
+    1,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "brokoli",
+    100,
+    "potong kecil, pengganti kembang kol",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "kapri",
+    100,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "jagung_manis",
+    100,
+    "pipil, pengganti baby corn",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "udang",
+    100,
+    "kupas",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "saus_tiram",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    100,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "tepung_maizena",
+    1,
+    "larutkan sedikit air",
+    null,
+    null,
+    "sdt"
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan udang, masak sampai berubah warna, sekitar 2 menit.",
+    120
+   ],
+   [
+    "Masukkan wortel, brokoli, dan jagung putren, tumis 3 menit.",
+    180
+   ],
+   [
+    "Tuang air dan saus tiram, masak 3 menit, masukkan kacang kapri.",
+    180
+   ],
+   [
+    "Kentalkan dengan larutan maizena, masak 1 menit lagi, sajikan panas.",
+    60
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "ensaladang_talong",
+  "title": "Ensaladang Talong",
+  "region": "filipina",
+  "slots": [
+   "sayur",
+   "pendamping"
+  ],
+  "serv": 4,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍆",
+  "note": "Bakar terong sampai kulitnya benar-benar hangus — ini yang memberi rasa smoky khasnya.",
+  "ings": [
+   [
+    "terong",
+    3,
+    "panjang",
+    null,
+    null,
+    null
+   ],
+   [
+    "tomat",
+    2,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "iris tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_ikan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panggang atau bakar terong di atas api sampai kulitnya hangus dan dagingnya lunak, sekitar 10 menit, balik sesekali.",
+    600
+   ],
+   [
+    "Kupas kulit terong yang hangus, belah dagingnya memanjang, susun di piring.",
+    null
+   ],
+   [
+    "Taburi tomat dan bawang bombay iris di atasnya.",
+    null
+   ],
+   [
+    "Siram dengan campuran cuka, kecap ikan, dan minyak, sajikan sebagai salad segar.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "dinakdakan",
+  "title": "Dinakdakan",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "lauk"
+  ],
+  "serv": 4,
+  "time": 50,
+  "diff": "sedang",
+  "spice": 1,
+  "glyph": "🍖",
+  "note": "Panggang daging yang sudah direbus sampai permukaannya kecokelatan dulu, baru dipotong kecil — ini memberi aroma panggang yang khas.",
+  "ings": [
+   [
+    "daging_babi",
+    400,
+    "bagian kepala/pipi, atau ganti perut babi",
+    null,
+    null,
+    null
+   ],
+   [
+    "hati_ayam",
+    100,
+    "rebus, potong (pengganti hati babi)",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_bombay",
+    1,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_rawit",
+    4,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air_jeruk_nipis",
+    1,
+    "peras",
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus daging babi sampai empuk, sekitar 30 menit, tiriskan.",
+    1800
+   ],
+   [
+    "Panggang daging yang sudah direbus di atas api atau teflon sampai permukaannya kecokelatan, sekitar 8 menit, lalu potong kecil-kecil.",
+    480
+   ],
+   [
+    "Campur daging panggang dan hati rebus dengan bawang bombay, cabai rawit, cuka, dan perasan jeruk nipis.",
+    null
+   ],
+   [
+    "Bumbui garam, aduk rata, sajikan sebagai hidangan pembuka/teman minum.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci",
+   "wajan"
+  ],
+  "kategori": "Sayur"
+ },
+ {
+  "id": "lumpiang_shanghai",
+  "title": "Lumpiang Shanghai",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 6,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥟",
+  "note": "Gulung rapat dan jangan terlalu tebal isinya agar matang merata saat digoreng.",
+  "ings": [
+   [
+    "babi_cincang",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "daging_giling",
+    150,
+    "sapi",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "parut halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    0.5,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kulit_lumpia",
+    20,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 500 ml, untuk menggoreng",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur babi cincang, daging giling, wortel parut, bawang bombay, bawang putih, telur, dan kecap asin sampai rata.",
+    null
+   ],
+   [
+    "Ambil sedikit adonan, bungkus memanjang dengan kulit lumpia, rekatkan ujungnya dengan sedikit air.",
+    null
+   ],
+   [
+    "Panaskan minyak banyak, goreng lumpia dengan api sedang sampai kecokelatan dan matang, sekitar 8 menit per batch.",
+    480
+   ],
+   [
+    "Angkat, tiriskan, potong serong, sajikan dengan saus cocolan manis-asam.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "lumpiang_sariwa",
+  "title": "Lumpiang Sariwa",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 5,
+  "time": 35,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥬",
+  "note": "Dinginkan isian tumisan sebelum dibungkus agar kulit lumpia tidak basah dan sobek.",
+  "ings": [
+   [
+    "kulit_lumpia",
+    10,
+    "kulit segar/crepe tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "udang",
+    150,
+    "kupas, cincang kasar",
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_panjang",
+    100,
+    "iris tipis",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "wortel",
+    1,
+    "iris tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "tauge",
+    100,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "selada",
+    6,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan minyak, tumis bawang putih sampai harum.",
+    null
+   ],
+   [
+    "Masukkan udang, masak sampai berubah warna, sekitar 3 menit.",
+    180
+   ],
+   [
+    "Masukkan wortel dan kacang panjang, tumis 4 menit, lalu masukkan tauge dan kecap asin, masak 2 menit lagi, angkat dan dinginkan.",
+    360
+   ],
+   [
+    "Letakkan selada dan isian tumis di atas kulit lumpia, gulung rapat, sajikan langsung tanpa digoreng.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "siomai",
+  "title": "Siomai",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 6,
+  "time": 40,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥟",
+  "note": "Jangan padatkan isian terlalu keras — siomai yang lembut justru lebih enak.",
+  "ings": [
+   [
+    "babi_cincang",
+    250,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "udang",
+    100,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "parut halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "kulit_pangsit",
+    25,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_wijen",
+    1,
+    null,
+    null,
+    null,
+    "sdt"
+   ],
+   [
+    "air_jeruk_nipis",
+    1,
+    "untuk cocolan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur daging babi, udang, wortel parut, bawang putih, kecap asin, dan minyak wijen sampai rata.",
+    null
+   ],
+   [
+    "Ambil sedikit adonan, bungkus dengan kulit pangsit berbentuk terbuka di atas, bentuk seperti mangkuk kecil.",
+    null
+   ],
+   [
+    "Kukus selama 20 menit sampai matang.",
+    1200
+   ],
+   [
+    "Sajikan panas dengan kecap asin dan perasan jeruk nipis sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "kukusan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "siopao_asado",
+  "title": "Siopao Asado",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 8,
+  "time": 90,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥟",
+  "note": "Biarkan adonan mengembang benar-benar dua kali lipat sebelum dibentuk, jangan diburu-buru.",
+  "ings": [
+   [
+    "tepung_terigu",
+    400,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ragi_instan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    4,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_cair",
+    200,
+    "hangat",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "daging_babi",
+    300,
+    "rebus dan suwir, bagian perut/bahu",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_maizena",
+    1,
+    "larutkan sedikit air",
+    null,
+    null,
+    "sdt"
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung, ragi, gula, dan susu hangat, uleni sampai kalis, diamkan tertutup sampai mengembang 2 kali lipat, sekitar 45 menit.",
+    2700
+   ],
+   [
+    "Sementara menunggu, panaskan minyak, tumis bawang putih, masukkan daging babi suwir, kecap asin, dan gula merah, masak sampai kental, kentalkan dengan larutan maizena, dinginkan.",
+    600
+   ],
+   [
+    "Kempiskan adonan, bagi menjadi 8 bagian, pipihkan, isi dengan daging asado, bentuk bulat dan rapatkan di bagian bawah.",
+    null
+   ],
+   [
+    "Diamkan 15 menit lagi, lalu kukus selama 15 menit sampai mengembang dan matang, sajikan hangat.",
+    900
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "persiapan": "Proses fermentasi ragi butuh waktu dan suhu ruang hangat yang stabil — siapkan waktu luang sebelum mulai.",
+  "alat": [
+   "kukusan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "ukoy",
+  "title": "Ukoy",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 5,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🦐",
+  "note": "Jangan membalik terlalu cepat — biarkan satu sisi benar-benar renyah dulu sebelum dibalik.",
+  "ings": [
+   [
+    "udang",
+    200,
+    "ukuran kecil, boleh dengan kulit",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_terigu",
+    150,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "tepung_beras",
+    50,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "tauge",
+    100,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "iris korek api",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    150,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "telur",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 300 ml, untuk menggoreng",
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    "untuk cocolan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung terigu, tepung beras, air, telur, dan garam sampai jadi adonan kental.",
+    null
+   ],
+   [
+    "Masukkan tauge dan wortel ke adonan, aduk rata.",
+    null
+   ],
+   [
+    "Panaskan minyak banyak, tuang satu sendok sayur adonan ke wajan, tata beberapa udang di atasnya, goreng sampai kecokelatan dan renyah, sekitar 4 menit per sisi.",
+    480
+   ],
+   [
+    "Angkat, tiriskan, sajikan dengan cuka sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "fishballs",
+  "title": "Fishballs",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 6,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🐟",
+  "note": "Basahi tangan saat membentuk bola ikan agar adonan tidak lengket.",
+  "ings": [
+   [
+    "ikan_bandeng",
+    300,
+    "fillet, haluskan dagingnya",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "tepung_tapioka",
+    100,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_terigu",
+    50,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih_bubuk",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "air",
+    100,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 400 ml, untuk menggoreng",
+    null,
+    null
+   ],
+   [
+    "saus_tomat",
+    3,
+    "untuk cocolan",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    "untuk cocolan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur daging ikan halus, tepung tapioka, tepung terigu, bawang putih bubuk, garam, dan air sampai jadi adonan lembut.",
+    null
+   ],
+   [
+    "Bentuk adonan menjadi bola-bola kecil pipih.",
+    null
+   ],
+   [
+    "Panaskan minyak, goreng bola ikan dengan api sedang sampai kecokelatan dan matang, sekitar 6 menit.",
+    360
+   ],
+   [
+    "Tiriskan, tusuk dengan tusuk sate, sajikan dengan campuran saus tomat dan cuka sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "kwek_kwek",
+  "title": "Kwek Kwek",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 5,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥚",
+  "note": "Pastikan telur benar-benar kering sebelum dicelup tepung agar lapisannya menempel rata.",
+  "ings": [
+   [
+    "telur_puyuh",
+    20,
+    "rebus, kupas",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_terigu",
+    150,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "atsuete",
+    1,
+    "larutkan sedikit air, untuk warna oranye",
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    150,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 400 ml, untuk menggoreng",
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    "untuk cocolan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung terigu, larutan atsuete, air, dan garam sampai jadi adonan kental berwarna oranye.",
+    null
+   ],
+   [
+    "Celupkan telur puyuh rebus ke adonan sampai terlapisi rata.",
+    null
+   ],
+   [
+    "Panaskan minyak, goreng telur berlapis tepung sampai renyah dan matang, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Tiriskan, tusuk dengan tusuk sate, sajikan dengan cuka sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "empanada_filipina",
+  "title": "Empanada Filipina",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 8,
+  "time": 55,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥟",
+  "note": "Dinginkan isian sebelum dibungkus agar kulit pastry tidak jadi lembek dan sobek.",
+  "ings": [
+   [
+    "tepung_terigu",
+    300,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "margarin",
+    100,
+    "dingin, potong kecil",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "air",
+    80,
+    "air es/dingin",
+    null,
+    1,
+    null
+   ],
+   [
+    "daging_giling",
+    250,
+    "sapi",
+    null,
+    null,
+    null
+   ],
+   [
+    "kentang",
+    1,
+    "potong dadu kecil, rebus",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "potong dadu kecil",
+    null,
+    null,
+    null
+   ],
+   [
+    "kismis",
+    2,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "bawang_bombay",
+    0.5,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    2,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    1,
+    "kocok, untuk olesan",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    2,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung dan mentega sampai berbutir, tambahkan air es sedikit demi sedikit, uleni sampai kalis, diamkan tertutup 20 menit.",
+    1200
+   ],
+   [
+    "Panaskan minyak, tumis bawang putih dan bawang bombay sampai layu, masukkan daging giling, masak sampai matang, sekitar 6 menit.",
+    360
+   ],
+   [
+    "Masukkan kentang, wortel, dan kismis, masak 5 menit lagi, dinginkan isian.",
+    null
+   ],
+   [
+    "Pipihkan adonan kulit bulat, isi dengan isian, lipat jadi setengah lingkaran, rapatkan pinggirnya dengan motif cubit.",
+    null
+   ],
+   [
+    "Oles permukaan dengan telur kocok, panggang di oven 180°C sampai kecokelatan, sekitar 25 menit.",
+    1500
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "oven",
+   "wajan"
+  ],
+  "suhu": "180°C",
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "kikiam",
+  "title": "Kikiam",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 6,
+  "time": 35,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥟",
+  "note": "Kukus dulu sampai matang sebelum digoreng — ini membuat teksturnya kenyal di dalam, renyah di luar.",
+  "ings": [
+   [
+    "babi_cincang",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "udang",
+    100,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kulit_lumpia",
+    6,
+    "lembaran tipis untuk membungkus",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "parut halus",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    3,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_maizena",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 400 ml, untuk menggoreng",
+    null,
+    null
+   ],
+   [
+    "saus_tartar",
+    3,
+    "untuk cocolan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur daging babi, udang, wortel parut, bawang putih, kecap asin, dan maizena sampai rata.",
+    null
+   ],
+   [
+    "Bungkus adonan dengan kulit tahu memanjang seperti lontong kecil, kukus selama 15 menit.",
+    900
+   ],
+   [
+    "Panaskan minyak, goreng kikiam yang sudah dikukus sampai kecokelatan, sekitar 5 menit.",
+    300
+   ],
+   [
+    "Potong serong, sajikan dengan saus tartar sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "kukusan",
+   "wajan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "isaw_manok",
+  "title": "Isaw Manok",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "jajan"
+  ],
+  "serv": 5,
+  "time": 40,
+  "diff": "sedang",
+  "spice": 1,
+  "glyph": "🍢",
+  "note": "Rebus sampai benar-benar empuk dulu sebelum dibakar, supaya tidak alot saat digigit.",
+  "ings": [
+   [
+    "usus_ayam",
+    500,
+    "bersihkan, rebus sampai empuk",
+    null,
+    null,
+    null
+   ],
+   [
+    "kecap_asin",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_putih",
+    4,
+    "cincang",
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "saus_sambal",
+    3,
+    "untuk cocolan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus usus ayam dalam air sampai empuk, sekitar 20 menit, tiriskan dan potong-potong.",
+    1200
+   ],
+   [
+    "Campur kecap asin, cuka, bawang putih, gula, dan minyak goreng sebagai marinasi, rendam usus selama 10 menit.",
+    600
+   ],
+   [
+    "Tusuk usus ke tusukan sate, bakar atau panggang di atas bara/teflon sambil dioles sisa marinasi, sekitar 8 menit sampai kecokelatan.",
+    480
+   ],
+   [
+    "Sajikan panas dengan saus sambal sebagai cocolan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci",
+   "wajan"
+  ],
+  "kategori": "Gorengan & Jajanan"
+ },
+ {
+  "id": "pandesal",
+  "title": "Pandesal",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "kue"
+  ],
+  "serv": 12,
+  "time": 120,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍞",
+  "note": "Jangan terburu-buru pada waktu mengembangnya — adonan yang benar-benar dua kali lipat hasilkan roti paling lembut.",
+  "ings": [
+   [
+    "tepung_terigu",
+    500,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ragi_instan",
+    1.5,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    80,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_cair",
+    200,
+    "hangat",
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "margarin",
+    50,
+    "lelehkan",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "tepung_panir",
+    100,
+    "untuk taburan/breadcrumb",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung, ragi, gula, dan garam, tambahkan susu hangat, telur, dan mentega leleh, uleni sampai kalis.",
+    900
+   ],
+   [
+    "Diamkan adonan tertutup sampai mengembang dua kali lipat, sekitar 45 menit.",
+    2700
+   ],
+   [
+    "Kempiskan adonan, bagi menjadi 12 bagian, bentuk bulat lonjong, gulingkan di atas tepung roti.",
+    null
+   ],
+   [
+    "Diamkan lagi 20 menit, lalu panggang di oven 190°C sampai bagian bawah kecokelatan, sekitar 15 menit.",
+    900
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "oven"
+  ],
+  "suhu": "190°C",
+  "hasil": "12",
+  "satuan": "buah",
+  "kategori": "Roti & Kue Kering"
+ },
+ {
+  "id": "ensaymada",
+  "title": "Ensaymada",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "kue"
+  ],
+  "serv": 10,
+  "time": 130,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥐",
+  "note": "Oles mentega dan taburi gula-keju selagi rotinya masih hangat agar menempel sempurna.",
+  "ings": [
+   [
+    "tepung_terigu",
+    400,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ragi_instan",
+    1.5,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    80,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "telur",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_cair",
+    100,
+    "hangat",
+    null,
+    null,
+    null
+   ],
+   [
+    "margarin",
+    100,
+    "lunak, dibagi dua",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "keju_cheddar",
+    80,
+    "parut, untuk taburan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung, ragi, dan gula, tambahkan telur dan susu hangat, uleni, lalu masukkan setengah mentega sedikit demi sedikit sampai kalis dan elastis.",
+    900
+   ],
+   [
+    "Diamkan adonan tertutup sampai mengembang dua kali lipat, sekitar 50 menit.",
+    3000
+   ],
+   [
+    "Kempiskan, bagi menjadi 10 bagian, bentuk gulungan spiral kecil, letakkan di cetakan.",
+    null
+   ],
+   [
+    "Diamkan 20 menit, panggang di oven 180°C sampai matang dan kecokelatan, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Oles permukaan dengan sisa mentega dan taburi gula serta keju parut sebelum disajikan.",
+    null
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "oven"
+  ],
+  "suhu": "180°C",
+  "hasil": "10",
+  "satuan": "buah",
+  "kategori": "Roti & Kue Kering"
+ },
+ {
+  "id": "pan_de_coco",
+  "title": "Pan de Coco",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "kue"
+  ],
+  "serv": 10,
+  "time": 110,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥥",
+  "note": "Masak isian kelapa sampai benar-benar lengket dan tidak berair agar tidak membuat roti basah dari dalam.",
+  "ings": [
+   [
+    "tepung_terigu",
+    400,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ragi_instan",
+    1.5,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    50,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "susu_cair",
+    180,
+    "hangat",
+    null,
+    null,
+    null
+   ],
+   [
+    "margarin",
+    40,
+    "lelehkan",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "kelapa_parut",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    100,
+    "parut/serut",
+    null,
+    null,
+    "gram"
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung, ragi, gula, susu hangat, dan mentega leleh, uleni sampai kalis, diamkan tertutup sampai mengembang, sekitar 45 menit.",
+    2700
+   ],
+   [
+    "Masak kelapa parut dengan gula merah di wajan sampai lengket dan karamel, sekitar 8 menit, dinginkan untuk isian.",
+    480
+   ],
+   [
+    "Kempiskan adonan, bagi menjadi 10 bagian, pipihkan, isi dengan isian kelapa, bulatkan kembali.",
+    null
+   ],
+   [
+    "Diamkan 15 menit, panggang di oven 180°C sampai kecokelatan, sekitar 18 menit.",
+    1080
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "oven"
+  ],
+  "suhu": "180°C",
+  "hasil": "10",
+  "satuan": "buah",
+  "kategori": "Roti & Kue Kering"
+ },
+ {
+  "id": "polvoron",
+  "title": "Polvoron",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 15,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍬",
+  "note": "Padatkan adonan sekuat mungkin di cetakan sebelum dikeluarkan, atau polvoron akan mudah hancur.",
+  "ings": [
+   [
+    "tepung_terigu",
+    200,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "susu_bubuk",
+    80,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    80,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "margarin",
+    100,
+    "lelehkan",
+    null,
+    null,
+    "gram"
+   ]
+  ],
+  "steps": [
+   [
+    "Sangrai tepung terigu di wajan kering dengan api kecil sambil diaduk terus sampai agak kecokelatan dan beraroma, sekitar 10 menit, dinginkan.",
+    600
+   ],
+   [
+    "Campur tepung sangrai, susu bubuk, dan gula dalam mangkuk.",
+    null
+   ],
+   [
+    "Tuang mentega leleh sedikit demi sedikit, aduk sampai adonan bisa dipadatkan (seperti pasir basah).",
+    null
+   ],
+   [
+    "Padatkan adonan ke dalam cetakan kecil, keluarkan perlahan, dinginkan di kulkas sebelum disajikan.",
+    null
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "wajan",
+   "cetakan",
+   "dingin"
+  ],
+  "hasil": "15",
+  "satuan": "buah",
+  "kategori": "Roti & Kue Kering"
+ },
+ {
+  "id": "otap",
+  "title": "Otap",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 12,
+  "time": 50,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥐",
+  "note": "Giling dan lipat adonan berlapis-lapis — ini yang membuat teksturnya renyah berserat khas otap.",
+  "ings": [
+   [
+    "tepung_terigu",
+    250,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_pasir",
+    60,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ragi_instan",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    80,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "margarin",
+    60,
+    "lunak",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_halus",
+    3,
+    "untuk taburan",
+    null,
+    null,
+    "sdm"
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung, gula, dan ragi, tambahkan santan, uleni sampai kalis, diamkan tertutup sampai mengembang, sekitar 30 menit.",
+    1800
+   ],
+   [
+    "Kempiskan adonan, giling tipis, oles mentega lunak, lipat berlapis-lapis, lalu giling lagi hingga tipis.",
+    null
+   ],
+   [
+    "Potong adonan menjadi bentuk oval kecil, panggang di oven 170°C sampai kecokelatan dan renyah, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Taburi gula halus di permukaan selagi masih hangat, dinginkan sebelum disajikan.",
+    null
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "oven"
+  ],
+  "suhu": "170°C",
+  "hasil": "12",
+  "satuan": "buah",
+  "kategori": "Roti & Kue Kering"
+ },
+ {
+  "id": "hopia",
+  "title": "Hopia",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 10,
+  "time": 70,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥮",
+  "note": "Masak pasta kacang hijau sampai benar-benar kalis dan tidak lengket di wajan sebelum dibungkus kulit.",
+  "ings": [
+   [
+    "tepung_terigu",
+    250,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "minyak_goreng",
+    80,
+    null,
+    null,
+    null,
+    "ml"
+   ],
+   [
+    "air",
+    60,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kacang_hijau",
+    200,
+    "rebus sampai lunak, haluskan jadi pasta",
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    80,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "telur",
+    1,
+    "kocok, untuk olesan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Masak kacang hijau yang sudah dihaluskan dengan gula di wajan sampai kalis dan tidak lengket, sekitar 10 menit, dinginkan.",
+    600
+   ],
+   [
+    "Campur tepung, minyak, dan air, uleni sampai kalis untuk kulit.",
+    null
+   ],
+   [
+    "Pipihkan kulit, isi dengan pasta kacang hijau, bulatkan, pipihkan lagi sedikit.",
+    null
+   ],
+   [
+    "Oles permukaan dengan telur kocok, panggang di oven 180°C sampai kecokelatan, sekitar 20 menit.",
+    1200
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "oven",
+   "wajan"
+  ],
+  "suhu": "180°C",
+  "hasil": "10",
+  "satuan": "buah",
+  "kategori": "Roti & Kue Kering"
+ },
+ {
+  "id": "leche_flan",
+  "title": "Leche Flan",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 8,
+  "time": 55,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🍮",
+  "note": "Saring adonan telur sebelum dituang agar teksturnya benar-benar halus tanpa gumpalan.",
+  "ings": [
+   [
+    "telur",
+    8,
+    "kuningnya saja",
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_kental_manis",
+    1,
+    "397 g",
+    null,
+    null,
+    "kaleng"
+   ],
+   [
+    "susu_evaporasi",
+    370,
+    "1 kaleng",
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    150,
+    "untuk karamel",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "vanili",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Panaskan gula di cetakan logam/llanera dengan api kecil sampai meleleh dan menjadi karamel kecokelatan, ratakan di dasar cetakan, sisihkan dingin.",
+    300
+   ],
+   [
+    "Kocok lepas kuning telur, tambahkan susu kental manis, susu evaporasi, dan vanili, aduk sampai rata (jangan sampai berbusa), saring.",
+    null
+   ],
+   [
+    "Tuang adonan ke atas karamel di cetakan, tutup dengan aluminium foil.",
+    null
+   ],
+   [
+    "Kukus dengan api kecil selama 35 menit sampai set dan padat, dinginkan di kulkas sebelum dibalik dan disajikan.",
+    2100
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "kukusan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "biko",
+  "title": "Biko",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 8,
+  "time": 55,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍚",
+  "note": "Aduk terus dengan api kecil setelah ketan dimasukkan agar tidak gosong di dasar wajan.",
+  "ings": [
+   [
+    "beras_ketan",
+    300,
+    "rendam 1 jam, kukus setengah matang",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    400,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    200,
+    "serut",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/4 sdt",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Kukus beras ketan yang sudah direndam sampai setengah matang, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Masak santan dengan gula merah dan garam di wajan sampai gula larut dan agak mengental, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Masukkan ketan kukus ke dalam campuran santan gula, aduk rata dengan api kecil sampai santan terserap dan ketan lengket, sekitar 15 menit.",
+    900
+   ],
+   [
+    "Ratakan di loyang, biarkan dingin dan memadat sebelum dipotong dan disajikan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "kukusan",
+   "wajan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "suman",
+  "title": "Suman",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 8,
+  "time": 90,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍌",
+  "note": "Bungkus memanjang serapat mungkin agar ketan tidak keluar saat dikukus lama.",
+  "ings": [
+   [
+    "beras_ketan",
+    300,
+    "rendam 2 jam",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    300,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/4 sdt",
+    null,
+    null
+   ],
+   [
+    "daun_pisang",
+    8,
+    "untuk membungkus",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur beras ketan yang sudah direndam dengan santan, gula, dan garam, aduk rata.",
+    null
+   ],
+   [
+    "Ambil sedikit ketan, bungkus memanjang dengan daun pisang seperti lontong, rapatkan ujungnya dengan lidi atau tali.",
+    null
+   ],
+   [
+    "Kukus selama 60 menit sampai ketan matang dan padat.",
+    3600
+   ],
+   [
+    "Dinginkan sebentar, sajikan sebagai camilan manis, cocok dengan gula merah cair atau mangga matang.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "kukusan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "puto",
+  "title": "Puto",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 12,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🧁",
+  "note": "Jangan isi cetakan sampai penuh — sisakan ruang karena adonan akan mengembang saat dikukus.",
+  "ings": [
+   [
+    "tepung_beras",
+    250,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_pasir",
+    150,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "baking_powder",
+    1,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "santan",
+    250,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "keju_cheddar",
+    30,
+    "parut, untuk taburan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung beras, gula, dan baking powder dalam mangkuk.",
+    null
+   ],
+   [
+    "Tambahkan santan dan telur, aduk sampai adonan licin tanpa gumpalan.",
+    null
+   ],
+   [
+    "Tuang adonan ke cetakan puto kecil (atau cetakan muffin mini) sampai 3/4 penuh.",
+    null
+   ],
+   [
+    "Kukus selama 15 menit sampai mengembang dan matang, taburi keju parut di atasnya sebelum disajikan.",
+    900
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "kukusan",
+   "cetakan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "bibingka",
+  "title": "Bibingka",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 8,
+  "time": 45,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🥮",
+  "note": "Alasi cetakan dengan daun pisang — ini memberi aroma khas yang tidak bisa didapat tanpanya.",
+  "ings": [
+   [
+    "tepung_beras",
+    250,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_pasir",
+    100,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "baking_powder",
+    1,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "santan",
+    300,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    2,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "margarin",
+    30,
+    "lelehkan, untuk olesan",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "kelapa_parut",
+    50,
+    "untuk taburan",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_pisang",
+    2,
+    "untuk alas cetakan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Lapisi cetakan bundar dengan daun pisang.",
+    null
+   ],
+   [
+    "Campur tepung beras, gula, dan baking powder, tambahkan santan dan telur, aduk sampai licin.",
+    null
+   ],
+   [
+    "Tuang adonan ke cetakan yang sudah dilapisi daun pisang.",
+    null
+   ],
+   [
+    "Panggang di oven 180°C sampai matang dan permukaannya kecokelatan, sekitar 25 menit.",
+    1500
+   ],
+   [
+    "Olesi mentega leleh dan taburi kelapa parut di atasnya sebelum disajikan hangat.",
+    null
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "oven"
+  ],
+  "suhu": "180°C",
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "maja_blanca",
+  "title": "Maja Blanca",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 8,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🌽",
+  "note": "Tuang larutan maizena sedikit demi sedikit sambil terus diaduk agar tidak bergerindil.",
+  "ings": [
+   [
+    "santan",
+    500,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_kental_manis",
+    100,
+    null,
+    null,
+    null,
+    "ml"
+   ],
+   [
+    "jagung_manis",
+    200,
+    "pipil",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "tepung_maizena",
+    80,
+    "larutkan dengan sedikit air",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_pasir",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kelapa_parut",
+    30,
+    "sangrai, untuk taburan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Masak santan, susu kental manis, jagung, dan gula di panci dengan api sedang sampai mendidih.",
+    300
+   ],
+   [
+    "Kecilkan api, tuang larutan maizena sedikit demi sedikit sambil terus diaduk sampai adonan kental dan meletup-letup, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Tuang ke loyang, ratakan, dinginkan sampai memadat.",
+    null
+   ],
+   [
+    "Taburi kelapa parut sangrai di atasnya, potong, dan sajikan dingin.",
+    null
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "turon",
+  "title": "Turon",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 6,
+  "time": 25,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍌",
+  "note": "Taburkan sisa gula merah ke minyak panas di akhir penggorengan agar terbentuk lapisan karamel renyah.",
+  "ings": [
+   [
+    "pisang",
+    6,
+    "saba, belah memanjang",
+    null,
+    null,
+    null
+   ],
+   [
+    "nangka",
+    60,
+    "opsional, iris tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "kulit_lumpia",
+    12,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    4,
+    "serut",
+    null,
+    null,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 300 ml, untuk menggoreng",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Taburi pisang dengan sedikit gula merah serut, bungkus bersama nangka (jika pakai) dengan kulit lumpia, rapatkan dengan air.",
+    null
+   ],
+   [
+    "Panaskan minyak, goreng turon dengan api sedang sampai kulitnya kecokelatan dan karamel, sekitar 6 menit.",
+    360
+   ],
+   [
+    "Taburi sisa gula merah ke minyak panas di akhir penggorengan agar melekat karamel renyah di kulit.",
+    null
+   ],
+   [
+    "Tiriskan, sajikan hangat.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "halo_halo",
+  "title": "Halo-Halo",
+  "region": "filipina",
+  "slots": [
+   "camilan",
+   "minuman"
+  ],
+  "serv": 4,
+  "time": 20,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍧",
+  "note": "Susun topping di dasar gelas dulu, es di atasnya — baru disiram susu saat akan dimakan agar tetap segar.",
+  "ings": [
+   [
+    "es_batu",
+    null,
+    "diserut/dihaluskan",
+    "4 mangkuk",
+    null,
+    null
+   ],
+   [
+    "susu_evaporasi",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "kacang_merah",
+    4,
+    "manis, rebus dengan gula",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "nangka",
+    40,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "kelapa_muda",
+    4,
+    "daging kelapa muda, serut",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "ube",
+    4,
+    "kukus, haluskan dengan sedikit gula - atau pakai Ube Halaya buatan sendiri",
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "es_krim_vanila",
+    null,
+    "opsional untuk topping",
+    "4 scoop",
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Siapkan gelas besar, susun kacang merah manis, nangka, dan kelapa muda di dasar gelas.",
+    null
+   ],
+   [
+    "Tambahkan es batu yang sudah diserut/dihaluskan dalam jumlah banyak di atasnya.",
+    null
+   ],
+   [
+    "Letakkan satu sendok ubi ungu halus (ube halaya) dan es krim vanila (jika pakai) di puncak es.",
+    null
+   ],
+   [
+    "Siram dengan susu evaporasi sebelum disajikan, aduk rata saat akan dimakan.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "dingin"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "taho",
+  "title": "Taho",
+  "region": "filipina",
+  "slots": [
+   "sarapan",
+   "camilan"
+  ],
+  "serv": 4,
+  "time": 20,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🥤",
+  "note": "Gunakan tahu sutra yang masih hangat agar teksturnya tetap lembut, bukan tahu dingin dari kulkas.",
+  "ings": [
+   [
+    "tahu_sutra",
+    400,
+    "sutra/silken, kukus hangat",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_merah",
+    100,
+    "serut",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "air",
+    150,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "sagu_mutiara",
+    4,
+    "rebus sampai matang",
+    null,
+    null,
+    "sdm"
+   ]
+  ],
+  "steps": [
+   [
+    "Masak gula merah dengan air di panci kecil sampai larut dan membentuk sirup kental, sekitar 8 menit.",
+    480
+   ],
+   [
+    "Rebus sagu mutiara sampai matang dan kenyal, tiriskan.",
+    600
+   ],
+   [
+    "Sendoki tahu sutra hangat ke gelas saji.",
+    null
+   ],
+   [
+    "Siram dengan sirup gula merah dan tambahkan sagu mutiara di atasnya, sajikan hangat.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "ube_halaya",
+  "title": "Ube Halaya",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 8,
+  "time": 45,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🟣",
+  "note": "Aduk terus dengan api kecil sampai benar-benar kental dan tidak lengket di wajan — jangan diburu-buru.",
+  "ings": [
+   [
+    "ube",
+    500,
+    "kukus, haluskan",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    200,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "susu_kental_manis",
+    200,
+    null,
+    null,
+    null,
+    "ml"
+   ],
+   [
+    "margarin",
+    50,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_pasir",
+    3,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Masak ubi ungu halus dengan santan, susu kental manis, dan gula di wajan dengan api kecil.",
+    120
+   ],
+   [
+    "Aduk terus sampai adonan kental dan tidak lengket di wajan, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Masukkan mentega, aduk rata sampai mengilap, sekitar 5 menit lagi.",
+    300
+   ],
+   [
+    "Ratakan di loyang kecil, dinginkan, sajikan sebagai selai/kue potong atau topping halo-halo.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan",
+   "kukusan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "sapin_sapin",
+  "title": "Sapin-Sapin",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 10,
+  "time": 60,
+  "diff": "sedang",
+  "spice": 0,
+  "glyph": "🎨",
+  "note": "Kukus satu lapisan sampai matang dulu sebelum menuang lapisan berikutnya, agar warnanya tidak bercampur.",
+  "ings": [
+   [
+    "tepung_ketan",
+    300,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    500,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_pasir",
+    200,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "ube",
+    100,
+    "kukus, haluskan, untuk pewarna lapisan ungu",
+    null,
+    null,
+    null
+   ],
+   [
+    "daun_pandan",
+    3,
+    "untuk pewarna/aroma lapisan hijau",
+    null,
+    null,
+    null
+   ],
+   [
+    "kelapa_parut",
+    50,
+    "sangrai, untuk taburan",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung ketan, santan, dan gula, bagi adonan menjadi 3 bagian sama rata.",
+    null
+   ],
+   [
+    "Campur satu bagian dengan ubi ungu halus, satu bagian dengan ekstrak daun pandan, satu bagian dibiarkan polos (kuning/putih).",
+    null
+   ],
+   [
+    "Tuang satu per satu lapisan ke loyang yang sudah diminyaki, kukus tiap lapisan sampai set sebelum menuang lapisan berikutnya, total sekitar 30 menit.",
+    1800
+   ],
+   [
+    "Setelah semua lapisan matang dan dingin, taburi kelapa parut sangrai, potong, dan sajikan.",
+    null
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "kukusan",
+   "cetakan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "maruya",
+  "title": "Maruya",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 5,
+  "time": 20,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍌",
+  "note": "Pakai pisang saba yang benar-benar matang agar rasa manisnya cukup tanpa perlu banyak gula tambahan.",
+  "ings": [
+   [
+    "pisang",
+    6,
+    "saba, haluskan atau iris tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "tepung_terigu",
+    150,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "gula_pasir",
+    3,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "telur",
+    1,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "air",
+    80,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "minyak_goreng",
+    null,
+    null,
+    "± 300 ml, untuk menggoreng",
+    null,
+    null
+   ],
+   [
+    "gula_halus",
+    2,
+    "untuk taburan",
+    null,
+    null,
+    "sdm"
+   ]
+  ],
+  "steps": [
+   [
+    "Campur tepung terigu, gula, telur, dan air sampai jadi adonan kental.",
+    null
+   ],
+   [
+    "Masukkan pisang ke adonan, aduk sampai terlapisi rata.",
+    null
+   ],
+   [
+    "Panaskan minyak, goreng satu sendok sayur adonan pisang sampai kecokelatan dan matang, sekitar 4 menit per sisi.",
+    480
+   ],
+   [
+    "Tiriskan, taburi gula halus, sajikan hangat.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "wajan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "binignit",
+  "title": "Binignit",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 8,
+  "time": 40,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍠",
+  "note": "Masukkan bahan dari yang paling lama matang (ketan, umbi) ke yang paling cepat matang (pisang, sagu mutiara).",
+  "ings": [
+   [
+    "ubi_jalar",
+    200,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "talas",
+    150,
+    "potong dadu",
+    null,
+    null,
+    null
+   ],
+   [
+    "pisang",
+    3,
+    "saba, potong",
+    null,
+    null,
+    null
+   ],
+   [
+    "sagu_mutiara",
+    4,
+    null,
+    null,
+    null,
+    "sdm"
+   ],
+   [
+    "beras_ketan",
+    80,
+    "rendam",
+    null,
+    null,
+    null
+   ],
+   [
+    "santan",
+    600,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    150,
+    "serut",
+    null,
+    null,
+    "gram"
+   ]
+  ],
+  "steps": [
+   [
+    "Rebus beras ketan dalam sedikit air sampai setengah lunak, sekitar 10 menit.",
+    600
+   ],
+   [
+    "Masukkan ubi jalar dan gabi, masak 10 menit sampai agak lunak.",
+    600
+   ],
+   [
+    "Tuang santan dan gula merah, masak dengan api kecil sambil diaduk, masukkan pisang dan sagu mutiara, masak 10 menit lagi sampai semua bahan matang dan kuah mengental.",
+    600
+   ],
+   [
+    "Sajikan hangat sebagai bubur manis.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "kutsinta",
+  "title": "Kutsinta",
+  "region": "filipina",
+  "slots": [
+   "kue",
+   "camilan"
+  ],
+  "serv": 10,
+  "time": 35,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🟤",
+  "note": "Saring larutan gula merah sebelum dicampur tepung agar teksturnya halus, bebas kotoran gula.",
+  "ings": [
+   [
+    "tepung_beras",
+    150,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "tepung_tapioka",
+    50,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "gula_merah",
+    150,
+    "serut",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "air",
+    400,
+    null,
+    null,
+    1,
+    null
+   ],
+   [
+    "kelapa_parut",
+    80,
+    "untuk pelengkap",
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Larutkan gula merah dalam air panas, saring, dinginkan.",
+    null
+   ],
+   [
+    "Campur tepung beras dan tepung tapioka, tuang larutan gula merah sedikit demi sedikit sambil diaduk sampai licin tanpa gumpalan.",
+    null
+   ],
+   [
+    "Tuang adonan ke cetakan kecil (cetakan puto/mangkuk kecil tahan panas) sampai 3/4 penuh.",
+    null
+   ],
+   [
+    "Kukus selama 20 menit sampai kenyal dan matang, dinginkan sebentar, sajikan dengan kelapa parut.",
+    1200
+   ]
+  ],
+  "precise": true,
+  "imported": false,
+  "alat": [
+   "kukusan",
+   "cetakan"
+  ],
+  "kategori": "Panghimagas"
+ },
+ {
+  "id": "atchara",
+  "title": "Atchara",
+  "region": "filipina",
+  "slots": [
+   "pendamping"
+  ],
+  "serv": 10,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 1,
+  "glyph": "🥒",
+  "note": "Peras air pepaya dan wortel sampai benar-benar kering sebelum direndam cuka, supaya acarnya tidak lembek dan encer.",
+  "ings": [
+   [
+    "pepaya",
+    400,
+    "muda, parut kasar",
+    null,
+    null,
+    null
+   ],
+   [
+    "wortel",
+    1,
+    "parut kasar",
+    null,
+    null,
+    null
+   ],
+   [
+    "bawang_bombay",
+    0.5,
+    "iris tipis",
+    null,
+    null,
+    null
+   ],
+   [
+    "cabai_merah",
+    2,
+    "iris",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    200,
+    null,
+    null,
+    null,
+    "ml"
+   ],
+   [
+    "gula_pasir",
+    100,
+    null,
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "garam",
+    1,
+    null,
+    null,
+    null,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Taburi pepaya dan wortel parut dengan garam, diamkan 15 menit, lalu peras airnya sampai kering.",
+    900
+   ],
+   [
+    "Masak cuka dan gula di panci kecil sampai gula larut, dinginkan untuk larutan acar.",
+    300
+   ],
+   [
+    "Campur pepaya, wortel, bawang bombay, dan cabai dalam toples.",
+    null
+   ],
+   [
+    "Tuang larutan cuka gula ke dalam toples, pastikan semua bahan terendam, diamkan minimal 1 hari di kulkas sebelum disajikan sebagai pelengkap lauk berminyak.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "persiapan": "Acar perlu didiamkan minimal satu hari di kulkas sebelum disajikan agar rasanya benar-benar meresap.",
+  "alat": [
+   "dingin"
+  ],
+  "kategori": "Acar & Sambal"
+ },
+ {
+  "id": "banana_ketchup",
+  "title": "Banana Ketchup",
+  "region": "filipina",
+  "slots": [
+   "pendamping"
+  ],
+  "serv": 10,
+  "time": 30,
+  "diff": "gampang",
+  "spice": 0,
+  "glyph": "🍌",
+  "note": "Masak sampai benar-benar kental seperti saus tomat kemasan, jangan diangkat terlalu cepat.",
+  "ings": [
+   [
+    "pisang",
+    4,
+    "matang, haluskan",
+    null,
+    null,
+    null
+   ],
+   [
+    "cuka",
+    100,
+    null,
+    null,
+    null,
+    "ml"
+   ],
+   [
+    "gula_merah",
+    80,
+    "serut",
+    null,
+    null,
+    "gram"
+   ],
+   [
+    "bawang_putih_bubuk",
+    0.5,
+    null,
+    null,
+    null,
+    null
+   ],
+   [
+    "garam",
+    null,
+    null,
+    "1/2 sdt",
+    null,
+    null
+   ],
+   [
+    "air",
+    100,
+    null,
+    null,
+    1,
+    null
+   ]
+  ],
+  "steps": [
+   [
+    "Haluskan pisang matang sampai menjadi pure lembut.",
+    null
+   ],
+   [
+    "Masak pure pisang dengan cuka, gula merah, bawang putih bubuk, garam, dan air di panci dengan api kecil.",
+    120
+   ],
+   [
+    "Masak sambil terus diaduk sampai mengental seperti saus botolan, sekitar 20 menit.",
+    1200
+   ],
+   [
+    "Dinginkan, simpan di toples bersih, gunakan sebagai cocolan gorengan atau bahan Filipino spaghetti.",
+    null
+   ]
+  ],
+  "precise": false,
+  "imported": false,
+  "alat": [
+   "panci"
+  ],
+  "kategori": "Acar & Sambal"
  }
 ]

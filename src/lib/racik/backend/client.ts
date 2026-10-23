@@ -19,7 +19,7 @@ const key = import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"] as string | undefin
 let client: SupabaseClient | null = null;
 
 /**
- * Null when the app is running without a backend configured. Racik's 299
+ * Null when the app is running without a backend configured. Racik's 399
  * shipped recipes, the scaling engine and cook mode all work offline with no
  * server at all, and they must keep working — so every caller handles null
  * rather than assuming a connection exists.

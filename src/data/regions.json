@@ -128,5 +128,10 @@
   "id": "barat",
   "name": "Barat",
   "desc": "Masakan rumahan Amerika dan Eropa: sup, pasta, sandwich, oven."
+ },
+ {
+  "id": "filipina",
+  "name": "Filipina",
+  "desc": "Asam, asin, manis berimbang: cuka, kecap asin, kalamansi, santan."
  }
 ]

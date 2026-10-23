@@ -6,7 +6,7 @@ import { AppTabs } from "@/components/racik/AppTabs";
 import { CompactRecipe } from "@/components/racik/CompactRecipe";
 import { ImportButton } from "@/components/racik/ImportDemo";
 import { Sheet } from "@/components/racik/Sheet";
-import { INGREDIENTS, NUSANTARA, RECIPES, REG, WESTERN } from "@/lib/racik/data";
+import { FILIPINO, INGREDIENTS, NUSANTARA, RECIPES, REG, WESTERN } from "@/lib/racik/data";
 import { buildIndex, EXACT_ONLY, normalise, passesHalalMode, proteinPerPortion, search } from "@/lib/racik/engine";
 import { DIET_SHELVES } from "@/lib/racik/diet";
 import { useRacik } from "@/lib/racik/state";
@@ -106,6 +106,26 @@ function westernShelves(western: Recipe[]): Omit<Tile, "key">[] {
   return [{ label: t("semua"), recipes: western }, ...groups, ...(rest.length ? [{ label: t("lainnya"), recipes: rest }] : [])];
 }
 
+/** Filipino recipes: their own shelf, grouped like a Filipino cookbook. */
+const FILIPINO_ORDER = ["Ulam Daging & Unggas", "Ulam Ikan & Seafood", "Sup & Rebusan", "Sayur", "Pansit & Mi", "Nasi & Bubur", "Gorengan & Jajanan", "Panghimagas", "Roti & Kue Kering", "Acar & Sambal"];
+const FILIPINO_KEY: Record<string, Key> = {
+  "Ulam Daging & Unggas": "kat_ph_1",
+  "Ulam Ikan & Seafood": "kat_ph_2",
+  "Sup & Rebusan": "kat_ph_3",
+  "Sayur": "kat_ph_4",
+  "Pansit & Mi": "kat_ph_5",
+  "Nasi & Bubur": "kat_ph_6",
+  "Gorengan & Jajanan": "kat_ph_7",
+  "Panghimagas": "kat_ph_8",
+  "Roti & Kue Kering": "kat_ph_9",
+  "Acar & Sambal": "kat_ph_10",
+};
+function filipinoShelves(filipino: Recipe[]): Omit<Tile, "key">[] {
+  const groups = FILIPINO_ORDER.map((k) => ({ label: FILIPINO_KEY[k] ? t(FILIPINO_KEY[k]!) : k, recipes: filipino.filter((r) => r.kategori === k) }));
+  const rest = filipino.filter((r) => !r.kategori || !FILIPINO_ORDER.includes(r.kategori));
+  return [{ label: t("semua"), recipes: filipino }, ...groups, ...(rest.length ? [{ label: t("lainnya"), recipes: rest }] : [])];
+}
+
 const MAIN: { label: string; ids: string[] }[] = [
   { get label() { return t("ayam"); }, ids: ["ayam_utuh", "ayam"] },
   { get label() { return t("ikan_udang"); }, ids: ["ikan_kembung", "ikan_cakalang", "udang"] },
@@ -133,7 +153,7 @@ const usesMethod = (r: Recipe, method: string) => {
   return Boolean(re) && r.steps.some((s) => re!.test(s[0].toLowerCase().replace(NOT_THE_METHOD, "")));
 };
 
-function buildShelves(nusantara: Recipe[], western: Recipe[]): { id: string; def: ShelfDef }[] {
+function buildShelves(nusantara: Recipe[], western: Recipe[], filipino: Recipe[], negara: string): { id: string; def: ShelfDef }[] {
   const keyed = (id: string, items: Omit<Tile, "key">[]): ShelfDef["items"] => items.map((t) => ({ ...t, key: `${id}.${slug(t.label)}` }));
   const methods = ["Goreng", "Tumis", "Kukus", "Rebus", "Bakar"];
   const shelves: [string, string, Omit<Tile, "key">[]][] = [
@@ -143,8 +163,11 @@ function buildShelves(nusantara: Recipe[], western: Recipe[]): { id: string; def
     ["protein", t("shelf_protein"), [15, 20, 25].map((g) => ({ label: t("g_protein", { g }), recipes: nusantara.filter((r) => proteinPerPortion(r) >= g) }))],
     ["pilihan", t("shelf_pilihan"), DIET_SHELVES.map((d) => ({ label: d.label, recipes: nusantara.filter(d.match) }))],
     ["daerah", t("shelf_daerah"), regionShelves(nusantara)],
+    ["filipina", t("shelf_filipina"), filipinoShelves(filipino)],
     ["barat", t("shelf_barat"), westernShelves(western)],
   ];
+  // In the Philippines the Filipino shelf leads.
+  if (negara === "PH") shelves.unshift(...shelves.splice(shelves.findIndex(([id]) => id === "filipina"), 1));
   return shelves.map(([id, title, items]) => ({ id, def: { title, items: keyed(id, items) } }));
 }
 
@@ -173,8 +196,9 @@ function Eksplor() {
   const pool = useMemo(() => [...RECIPES, ...state.imported].filter((r) => passesHalalMode(r, halal)), [halal, state.imported]);
   const nusantara = useMemo(() => NUSANTARA.filter((r) => passesHalalMode(r, halal)), [halal]);
   const western = useMemo(() => WESTERN.filter((r) => passesHalalMode(r, halal)), [halal]);
-  const hiddenCount = RECIPES.length - nusantara.length - western.length;
-  const shelves = useMemo(() => buildShelves(nusantara, western), [nusantara, western]);
+  const filipino = useMemo(() => FILIPINO.filter((r) => passesHalalMode(r, halal)), [halal]);
+  const hiddenCount = RECIPES.length - nusantara.length - western.length - filipino.length;
+  const shelves = useMemo(() => buildShelves(nusantara, western, filipino, state.negara), [nusantara, western, filipino, state.negara]);
   const index = useMemo(() => buildIndex(pool), [pool]);
 
   const kitchen = useMemo(() => (b ? b.split(",").filter(Boolean) : []), [b]);

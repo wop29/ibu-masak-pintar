@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { BERAT, INGREDIENTS, NUSANTARA, PROT100, RECIPES, WESTERN, byId } from "../data";
+import { BERAT, ING, INGREDIENTS, NUSANTARA, PROT100, RECIPES, WESTERN, byId } from "../data";
 import { suggest } from "../recommend";
 import { defaultState } from "../store";
 import type { IngLine, Recipe } from "../types";
@@ -30,7 +30,7 @@ const qty = (id: string, ingId: string, servings: number) => {
 
 describe("catalogue", () => {
   it("every recipe ingredient resolves, and import-only entries are present", () => {
-    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(299);
+    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(399);
     expect(NUSANTARA).toHaveLength(199);
     expect(WESTERN).toHaveLength(100);
     // The dictionary deliberately carries many ingredients used only for import
@@ -38,7 +38,7 @@ describe("catalogue", () => {
     const known = new Set(INGREDIENTS.map((i) => i.id));
     const used = new Set(RECIPES.flatMap((r) => r.ings.map((l) => l[0])));
     for (const id of used) expect(known.has(id)).toBe(true);
-    for (const id of ["ikan_cakalang", "gochujang", "daging_babi"]) {
+    for (const id of ["ikan_cakalang", "gochujang"]) {
       expect(known.has(id)).toBe(true);
       expect(used.has(id)).toBe(false);
     }
@@ -384,7 +384,12 @@ describe("search: sensitive words and word boundaries (Agent E)", () => {
     expect(ids).not.toContain("soto_babat_bali");
     expect(ids).not.toContain("ayam_betutu");
     expect(ids).not.toContain("sate_lilit");
-    expect(ids).toEqual([]);
+    // Only the Filipino pork dishes may answer "babi", and each really contains pork.
+    for (const id of ids) {
+      const r = RECIPES.find((x) => x.id === id)!;
+      expect(r.region, id).toBe("filipina");
+      expect(r.ings.some((l) => ING[l[0]]?.halal === "haram"), id).toBe(true);
+    }
   });
   it("still forgives a typo in a title and finds squashed titles", () => {
     expect(search(index, "rendag").map((r) => r.id)).toContain("rendang");

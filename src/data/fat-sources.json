@@ -1650,5 +1650,73 @@
  "zukini": {
   "src": "USDA FDC SR Legacy: Squash, summer, zucchini, raw",
   "yakin": true
+ },
+ "atsuete": {
+  "src": "Perkiraan (rempah biji); dipakai sangat sedikit",
+  "yakin": false
+ },
+ "ube": {
+  "src": "USDA FDC SR Legacy: Yam, raw",
+  "yakin": true
+ },
+ "chicharon": {
+  "src": "USDA FDC SR Legacy: Snacks, pork skins, plain",
+  "yakin": true
+ },
+ "saus_kecap_pisang": {
+  "src": "Perkiraan dari label banana ketchup (mirip saus tomat)",
+  "yakin": false
+ },
+ "longganisa_babi": {
+  "src": "Perkiraan: USDA Pork sausage, fresh, raw + gula longganisa",
+  "yakin": false
+ },
+ "tocino": {
+  "src": "Perkiraan dari label tocino kemasan",
+  "yakin": false
+ },
+ "okra": {
+  "src": "USDA FDC SR Legacy: Okra, raw",
+  "yakin": true
+ },
+ "daun_talas": {
+  "src": "USDA FDC SR Legacy: Taro leaves, raw",
+  "yakin": true
+ },
+ "usus_ayam": {
+  "src": "Perkiraan (jeroan ayam)",
+  "yakin": false
+ },
+ "es_krim_vanila": {
+  "src": "USDA FDC SR Legacy: Ice creams, vanilla",
+  "yakin": true
+ },
+ "talas": {
+  "src": "USDA FDC SR Legacy: Taro, raw",
+  "yakin": true
+ },
+ "daun_laurel": {
+  "src": "USDA FDC SR Legacy: Spices, bay leaf",
+  "yakin": true
+ },
+ "kaki_babi": {
+  "src": "Perkiraan: USDA Pork, fresh, leg (ham), whole, raw; bagian yang dimakan ±60% (sisanya tulang)",
+  "yakin": false
+ },
+ "kulit_pangsit": {
+  "src": "USDA FDC SR Legacy: Wonton wrappers (includes egg roll wrappers)",
+  "yakin": true
+ },
+ "kulit_lumpia": {
+  "src": "USDA FDC SR Legacy: Wonton wrappers (includes egg roll wrappers)",
+  "yakin": true
+ },
+ "kaldu_bubuk": {
+  "src": "USDA FDC SR Legacy: Soup, chicken broth or bouillon, dry",
+  "yakin": true
+ },
+ "saus_tartar": {
+  "src": "USDA FDC SR Legacy: Sauce, tartar, ready-to-serve",
+  "yakin": true
  }
 }

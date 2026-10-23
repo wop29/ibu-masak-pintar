@@ -5,7 +5,7 @@ import { thumbOf } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
 import { Sheet } from "./Sheet";
 import { useSnackbar } from "./Snackbar";
-import { findRecipe, NUSANTARA, REG } from "@/lib/racik/data";
+import { findRecipe, REG, suggestionPool } from "@/lib/racik/data";
 import { liveChecked, resolvedPlan, shoppingList, shoppingText, type PlannedRecipe } from "@/lib/racik/plan";
 import { clampPortions, PLAN_MAX, type PlanDay, type PlanEntry } from "@/lib/racik/store";
 import { suggest } from "@/lib/racik/recommend";
@@ -56,7 +56,7 @@ export function RencanaView({ pickDayFor, onPickDayHandled }: { pickDayFor?: str
   const done = list.filter((i) => state.planChecked.includes(i.key)).length;
   const toggleHave = (id: string) => update((s) => ({ pantryHave: s.pantryHave.includes(id) ? s.pantryHave.filter((x) => x !== id) : [...s.pantryHave, id] }));
   const inPlan = new Set(state.plan.map((p) => p.id));
-  const candidates = [...saved, ...state.imported, ...suggest(NUSANTARA, state, 12).slice(0, 12)].filter((r, i, all) => !inPlan.has(r.id) && !r.incomplete && all.findIndex((x) => x.id === r.id) === i).slice(0, 15);
+  const candidates = [...saved, ...state.imported, ...suggest(suggestionPool(state.negara), state, 12).slice(0, 12)].filter((r, i, all) => !inPlan.has(r.id) && !r.incomplete && all.findIndex((x) => x.id === r.id) === i).slice(0, 15);
   const today = todayPlanDay();
 
   // "Pilih hari" from the "Ditambahkan ke rencana" snackbar lands here with ?hari=<id>.

@@ -8,8 +8,19 @@ export const INGREDIENTS = ingredientsRaw as Ingredient[];
 export const RECIPES = recipesRaw as unknown as Recipe[];
 /** Region id of the public-domain Western recipes. They live on their own shelf and in search, not on the Nusantara shelves or the home suggestions. */
 export const BARAT = "barat";
-export const NUSANTARA = RECIPES.filter((r) => r.region !== BARAT);
+/** Region id of the Filipino recipes. Own shelf; on the home suggestions only for people in the Philippines. */
+export const FILIPINA = "filipina";
+export const NUSANTARA = RECIPES.filter((r) => r.region !== BARAT && r.region !== FILIPINA);
 export const WESTERN = RECIPES.filter((r) => r.region === BARAT);
+export const FILIPINO = RECIPES.filter((r) => r.region === FILIPINA);
+/**
+ * What the home suggestions and the plan picker draw from. In the Philippines
+ * the Filipino recipes join the pool; elsewhere they stay on their own shelf
+ * (26 of them use pork, so they never appear unasked on an Indonesian home screen).
+ */
+export function suggestionPool(negara: string): Recipe[] {
+  return negara === "PH" ? [...FILIPINO, ...NUSANTARA] : NUSANTARA;
+}
 export const REGIONS = regionsRaw as Region[];
 
 export const ING: Record<string, Ingredient> = Object.fromEntries(

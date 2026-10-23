@@ -6,7 +6,7 @@ import { CompactRecipe } from "@/components/racik/CompactRecipe";
 import { ImportButton } from "@/components/racik/ImportDemo";
 import { Onboarding } from "@/components/racik/Onboarding";
 import { Sheet } from "@/components/racik/Sheet";
-import { NUSANTARA } from "@/lib/racik/data";
+import { suggestionPool } from "@/lib/racik/data";
 import { currentSlot, matchesFilter, preferProteins, suggest } from "@/lib/racik/recommend";
 import { useRacik } from "@/lib/racik/state";
 import { t, translate, type Lang, useLang } from "@/lib/racik/i18n";
@@ -110,7 +110,7 @@ function MasakApa() {
   const slotInfo = SLOTS.find((x) => x.id === slot) ?? SLOTS[2];
 
   const list = useMemo(() => {
-    const base = preferProteins(suggest(NUSANTARA, state, hour, slot), state.proteins);
+    const base = preferProteins(suggest(suggestionPool(state.negara), state, hour, slot), state.proteins);
     // A meal picked in the title narrows the list; the clock only reorders it.
     const inSlot = (r: (typeof base)[number]) =>
       slot === "camilan" ? r.slots.includes("camilan") || r.slots.includes("jajan") : r.slots.includes(slot);

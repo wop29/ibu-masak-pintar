@@ -1,0 +1,405 @@
+{
+  "_about": "New catalogue entries for the 100 Filipino recipes (23 Oct 2026). Nutrition per 100 g edible portion; sources per entry in fat-sources.json. Values marked yakin:false need checking.",
+  "regions": [
+    {
+      "id": "filipina",
+      "name": "Filipina",
+      "desc": "Asam, asin, manis berimbang: cuka, kecap asin, kalamansi, santan."
+    }
+  ],
+  "rename": {
+    "Gabi (talas Filipina)": "talas",
+    "Daun salam": "daun_laurel"
+  },
+  "ingredients": [
+    {
+      "id": "atsuete",
+      "name": "Atsuete (biji annatto)",
+      "cat": "bumbu",
+      "halal": "halal",
+      "unit": "sdt",
+      "staple": 0,
+      "aliases": [
+        "annatto",
+        "achuete",
+        "atsuete",
+        "biji kesumba keling",
+        "kesumba"
+      ],
+      "em": "🟠"
+    },
+    {
+      "id": "ube",
+      "name": "Ubi ungu (ube)",
+      "cat": "sayur",
+      "halal": "halal",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "ube",
+        "purple yam",
+        "ubi ungu"
+      ],
+      "em": "🍠"
+    },
+    {
+      "id": "chicharon",
+      "name": "Chicharon (kerupuk kulit babi)",
+      "cat": "daging",
+      "halal": "haram",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "chicharon",
+        "chicharrón",
+        "pork rinds",
+        "kerupuk kulit babi"
+      ],
+      "em": "🥓"
+    },
+    {
+      "id": "saus_kecap_pisang",
+      "name": "Saus kecap pisang (banana ketchup)",
+      "cat": "sembako",
+      "halal": "halal",
+      "unit": "sdm",
+      "staple": 0,
+      "aliases": [
+        "banana ketchup",
+        "saus pisang"
+      ],
+      "em": "🍌"
+    },
+    {
+      "id": "longganisa_babi",
+      "name": "Longganisa babi",
+      "cat": "daging",
+      "halal": "haram",
+      "unit": "buah",
+      "staple": 0,
+      "aliases": [
+        "longganisa",
+        "longanisa",
+        "sosis babi filipina"
+      ],
+      "em": "🌭"
+    },
+    {
+      "id": "tocino",
+      "name": "Tocino (daging babi cured manis)",
+      "cat": "daging",
+      "halal": "haram",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "tocino",
+        "pork tocino"
+      ],
+      "em": "🥓"
+    },
+    {
+      "id": "okra",
+      "name": "Okra",
+      "cat": "sayur",
+      "halal": "halal",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "okra",
+        "lady finger",
+        "bendi",
+        "kacang bendi"
+      ],
+      "em": "🫛"
+    },
+    {
+      "id": "daun_talas",
+      "name": "Daun talas",
+      "cat": "sayur",
+      "halal": "halal",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "taro leaves",
+        "dahon ng gabi",
+        "daun keladi"
+      ],
+      "em": "🍃"
+    },
+    {
+      "id": "usus_ayam",
+      "name": "Usus ayam",
+      "cat": "daging",
+      "halal": "cert",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "chicken intestine",
+        "isaw",
+        "usus"
+      ],
+      "em": "🍗"
+    },
+    {
+      "id": "es_krim_vanila",
+      "name": "Es krim vanila",
+      "cat": "lain",
+      "halal": "cert",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "vanilla ice cream",
+        "es krim"
+      ],
+      "em": "🍦"
+    },
+    {
+      "id": "talas",
+      "name": "Talas",
+      "cat": "sayur",
+      "halal": "halal",
+      "unit": "gram",
+      "staple": 0,
+      "aliases": [
+        "gabi",
+        "taro",
+        "keladi",
+        "talas bogor"
+      ],
+      "em": "🥔"
+    },
+    {
+      "id": "daun_laurel",
+      "name": "Daun laurel",
+      "cat": "bumbu",
+      "halal": "halal",
+      "unit": "lembar",
+      "staple": 0,
+      "aliases": [
+        "bay leaf",
+        "dahon ng laurel",
+        "laurel"
+      ],
+      "em": "🍃"
+    }
+  ],
+  "tables": {
+    "BERAT": {
+      "atsuete": 2.5,
+      "saus_kecap_pisang": 17,
+      "longganisa_babi": 50,
+      "daun_laurel": 0.2
+    },
+    "PROT100": {
+      "atsuete": 13,
+      "ube": 1.5,
+      "chicharon": 61.3,
+      "saus_kecap_pisang": 0.5,
+      "longganisa_babi": 15,
+      "tocino": 17,
+      "okra": 1.9,
+      "daun_talas": 5,
+      "usus_ayam": 13,
+      "es_krim_vanila": 3.5,
+      "talas": 1.5,
+      "daun_laurel": 7.6
+    },
+    "CARB100": {
+      "atsuete": 50,
+      "ube": 27.9,
+      "chicharon": 0,
+      "saus_kecap_pisang": 30,
+      "longganisa_babi": 10,
+      "tocino": 12,
+      "okra": 7.5,
+      "daun_talas": 6.7,
+      "usus_ayam": 0,
+      "es_krim_vanila": 23.6,
+      "talas": 26.5,
+      "daun_laurel": 75
+    },
+    "FAT100": {
+      "atsuete": 3,
+      "ube": 0.2,
+      "chicharon": 31.3,
+      "saus_kecap_pisang": 0.1,
+      "longganisa_babi": 25,
+      "tocino": 20,
+      "okra": 0.2,
+      "daun_talas": 0.7,
+      "usus_ayam": 11,
+      "es_krim_vanila": 11,
+      "talas": 0.2,
+      "daun_laurel": 8.4
+    },
+    "FIBER100": {
+      "atsuete": 20,
+      "ube": 4.1,
+      "chicharon": 0,
+      "saus_kecap_pisang": 0.5,
+      "longganisa_babi": 0,
+      "tocino": 0,
+      "okra": 3.2,
+      "daun_talas": 3.7,
+      "usus_ayam": 0,
+      "es_krim_vanila": 0.7,
+      "talas": 4.1,
+      "daun_laurel": 26.3
+    },
+    "SUBS": {
+      "atsuete": "Untuk warnanya: ½ sdt paprika bubuk ditambah sejumput kunyit bubuk.",
+      "ube": "Ubi ungu lokal, jumlah sama. Warnanya sedikit lebih pucat.",
+      "chicharon": "Kerupuk kulit sapi atau kerupuk udang yang diremukkan.",
+      "saus_kecap_pisang": "Saus tomat ditambah 1 sdt gula untuk tiap 3 sdm.",
+      "longganisa_babi": "Sosis sapi atau ayam yang dimasak dengan sedikit gula merah dan bawang putih.",
+      "tocino": "Irisan daging sapi atau ayam yang direndam semalam dengan gula merah, garam, dan bawang putih.",
+      "okra": "Kacang panjang atau buncis, jumlah sama.",
+      "daun_talas": "Daun singkong yang direbus dulu sampai lunak.",
+      "usus_ayam": "Ampela ati ayam, dipotong kecil.",
+      "es_krim_vanila": "Lewati saja, atau pakai susu kental manis secukupnya.",
+      "daun_laurel": "Daun salam, jumlah sama. Aromanya berbeda tapi cukup dekat untuk adobo."
+    }
+  },
+  "fat_sources": {
+    "atsuete": {
+      "src": "Perkiraan (rempah biji); dipakai sangat sedikit",
+      "yakin": false
+    },
+    "ube": {
+      "src": "USDA FDC SR Legacy: Yam, raw",
+      "yakin": true
+    },
+    "chicharon": {
+      "src": "USDA FDC SR Legacy: Snacks, pork skins, plain",
+      "yakin": true
+    },
+    "saus_kecap_pisang": {
+      "src": "Perkiraan dari label banana ketchup (mirip saus tomat)",
+      "yakin": false
+    },
+    "longganisa_babi": {
+      "src": "Perkiraan: USDA Pork sausage, fresh, raw + gula longganisa",
+      "yakin": false
+    },
+    "tocino": {
+      "src": "Perkiraan dari label tocino kemasan",
+      "yakin": false
+    },
+    "okra": {
+      "src": "USDA FDC SR Legacy: Okra, raw",
+      "yakin": true
+    },
+    "daun_talas": {
+      "src": "USDA FDC SR Legacy: Taro leaves, raw",
+      "yakin": true
+    },
+    "usus_ayam": {
+      "src": "Perkiraan (jeroan ayam)",
+      "yakin": false
+    },
+    "es_krim_vanila": {
+      "src": "USDA FDC SR Legacy: Ice creams, vanilla",
+      "yakin": true
+    },
+    "talas": {
+      "src": "USDA FDC SR Legacy: Taro, raw",
+      "yakin": true
+    },
+    "daun_laurel": {
+      "src": "USDA FDC SR Legacy: Spices, bay leaf",
+      "yakin": true
+    }
+  },
+  "step_replace": {
+    "Adobong Baboy": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Adobong Manok": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Afritada": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Crispy Pata": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Dinuguan": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Humba": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Lechon Kawali": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Lechon Manok": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ],
+    "Mechado": [
+      [
+        "daun salam",
+        "daun laurel"
+      ],
+      [
+        "Daun salam",
+        "Daun laurel"
+      ]
+    ]
+  }
+}

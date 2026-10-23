@@ -5817,7 +5817,8 @@
   "aliases": [
    "pickle",
    "acar timun impor",
-   "cornichon"
+   "cornichon",
+   "acar timun"
   ],
   "em": "🥒"
  },
@@ -6355,5 +6356,189 @@
    "wholemeal flour"
   ],
   "em": "🌾"
+ },
+ {
+  "id": "atsuete",
+  "name": "Atsuete (biji annatto)",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdt",
+  "staple": 0,
+  "aliases": [
+   "annatto",
+   "achuete",
+   "atsuete",
+   "biji kesumba keling",
+   "kesumba"
+  ],
+  "em": "🟠"
+ },
+ {
+  "id": "ube",
+  "name": "Ubi ungu (ube)",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "ube",
+   "purple yam",
+   "ubi ungu"
+  ],
+  "em": "🍠"
+ },
+ {
+  "id": "chicharon",
+  "name": "Chicharon (kerupuk kulit babi)",
+  "cat": "daging",
+  "halal": "haram",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "chicharon",
+   "chicharrón",
+   "pork rinds",
+   "kerupuk kulit babi"
+  ],
+  "em": "🥓"
+ },
+ {
+  "id": "saus_kecap_pisang",
+  "name": "Saus kecap pisang (banana ketchup)",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "banana ketchup",
+   "saus pisang"
+  ],
+  "em": "🍌"
+ },
+ {
+  "id": "longganisa_babi",
+  "name": "Longganisa babi",
+  "cat": "daging",
+  "halal": "haram",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "longganisa",
+   "longanisa",
+   "sosis babi filipina"
+  ],
+  "em": "🌭"
+ },
+ {
+  "id": "tocino",
+  "name": "Tocino (daging babi cured manis)",
+  "cat": "daging",
+  "halal": "haram",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "tocino",
+   "pork tocino"
+  ],
+  "em": "🥓"
+ },
+ {
+  "id": "okra",
+  "name": "Okra",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "okra",
+   "lady finger",
+   "bendi",
+   "kacang bendi"
+  ],
+  "em": "🫛"
+ },
+ {
+  "id": "daun_talas",
+  "name": "Daun talas",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "taro leaves",
+   "dahon ng gabi",
+   "daun keladi"
+  ],
+  "em": "🍃"
+ },
+ {
+  "id": "usus_ayam",
+  "name": "Usus ayam",
+  "cat": "daging",
+  "halal": "cert",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "chicken intestine",
+   "isaw",
+   "usus"
+  ],
+  "em": "🍗"
+ },
+ {
+  "id": "es_krim_vanila",
+  "name": "Es krim vanila",
+  "cat": "lain",
+  "halal": "cert",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "vanilla ice cream",
+   "es krim"
+  ],
+  "em": "🍦"
+ },
+ {
+  "id": "talas",
+  "name": "Talas",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "gabi",
+   "taro",
+   "keladi",
+   "talas bogor"
+  ],
+  "em": "🥔"
+ },
+ {
+  "id": "daun_laurel",
+  "name": "Daun laurel",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "bay leaf",
+   "dahon ng laurel",
+   "laurel"
+  ],
+  "em": "🍃"
+ },
+ {
+  "id": "kaki_babi",
+  "name": "Kaki babi (pata)",
+  "cat": "daging",
+  "halal": "haram",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "pata",
+   "pork hock",
+   "kaki babi"
+  ],
+  "em": "🍖"
  }
 ]
