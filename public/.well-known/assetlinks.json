@@ -1,11 +1,13 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "online.racik.app",
       "sha256_cert_fingerprints": [
-        "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+        "8B:A0:E2:E7:DD:46:04:8B:BD:9A:51:D3:09:E9:4D:72:2A:34:02:FE:58:C9:A8:94:5A:0C:63:2F:DB:18:B0:4A"
       ]
     }
   }
