@@ -160,6 +160,26 @@ export async function confirmEmailCode(email: string, token: string): Promise<st
   }
 }
 
+/**
+ * Password sign-in, only for the Google Play review account. It is reached
+ * from /masuk?metode=sandi and is not linked anywhere in the app. Ordinary
+ * people sign in with an email code or Google. The account and its password
+ * are created by hand in the Supabase dashboard; nobody can sign up this way.
+ */
+export async function signInWithPassword(email: string, password: string): Promise<string | null> {
+  const db = backend();
+  if (!db) return t("not_connected");
+  try {
+    const { error } = await db.auth.signInWithPassword({ email: email.trim(), password });
+    if (!error) return null;
+    console.warn("[racik] signInWithPassword failed:", error.status, error.message);
+    if (error.status === 400 || /invalid/i.test(error.message)) return t("err_password_wrong");
+    return emailErrorText(error, "verify");
+  } catch (e) {
+    return emailErrorText({ message: e instanceof Error ? e.message : String(e) }, "verify");
+  }
+}
+
 /** Phone sign-in matters more than email here; most people have WhatsApp, not inboxes. */
 export async function sendPhoneCode(phone: string): Promise<string | null> {
   const db = backend();

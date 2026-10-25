@@ -14,6 +14,7 @@ import {
   saveProfile,
   sendEmailCode,
   signInWith,
+  signInWithPassword,
   type OAuthProvider,
   type Providers,
 } from "@/lib/racik/backend/auth";
@@ -28,7 +29,11 @@ const safeNext = (v: unknown): string | undefined =>
 const NEXT_KEY = "racik.masuk.next";
 
 export const Route = createFileRoute("/masuk")({
-  validateSearch: z.object({ next: z.string().optional().catch(undefined) }),
+  validateSearch: z.object({
+    next: z.string().optional().catch(undefined),
+    // Play review account only; not linked anywhere in the app.
+    metode: z.enum(["sandi"]).optional().catch(undefined),
+  }),
   head: () => ({ meta: [{ title: "Masuk — Racik" }, { name: "robots", content: "noindex" }] }),
   component: Masuk,
 });
@@ -61,6 +66,8 @@ function Masuk() {
   const [providers, setProviders] = useState<Providers | null>(null);
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+  const usePassword = search.metode === "sandi";
   const [name, setName] = useState("");
   const [photoPath, setPhotoPath] = useState<string | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -207,15 +214,44 @@ function Masuk() {
             onChange={(e) => setEmail(e.target.value)}
             className="mt-2 h-12 w-full rounded-xl border border-border bg-card px-4 text-body"
           />
-          <Button
-            size="lg"
-            variant={social.length ? "outline" : "default"}
-            className="mt-3 w-full"
-            disabled={busy || !/.+@.+\..+/.test(email.trim())}
-            onClick={sendCode}
-          >
-            {t("continue_")}
-          </Button>
+          {usePassword ? (
+            <>
+              <label className="mt-4 block text-body font-semibold" htmlFor="sandi">{t("password_label")}</label>
+              <input
+                id="sandi"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-2 h-12 w-full rounded-xl border border-border bg-card px-4 text-body"
+              />
+              <Button
+                size="lg"
+                className="mt-3 w-full"
+                disabled={busy || !/.+@.+\..+/.test(email.trim()) || password.length < 6}
+                onClick={async () => {
+                  setBusy(true); setError("");
+                  const err = await signInWithPassword(email, password);
+                  setBusy(false);
+                  if (err) return setError(err);
+                  setPassword("");
+                  refresh();
+                }}
+              >
+                {t("password_signin")}
+              </Button>
+            </>
+          ) : (
+            <Button
+              size="lg"
+              variant={social.length ? "outline" : "default"}
+              className="mt-3 w-full"
+              disabled={busy || !/.+@.+\..+/.test(email.trim())}
+              onClick={sendCode}
+            >
+              {t("continue_")}
+            </Button>
+          )}
           <p className="mt-6 text-label leading-relaxed text-ink-3">
             
             {t("dengan_masuk_kamu_setuju_dengan")}{" "}<a href="/privasi" className="font-semibold text-primary underline">{t("kebijakan_privasi")}</a> {" "}{t("racik_akun_gratis_dipakai_untuk")}
