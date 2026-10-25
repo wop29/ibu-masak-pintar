@@ -28,6 +28,13 @@ const safeNext = (v: unknown): string | undefined =>
 
 const NEXT_KEY = "racik.masuk.next";
 
+/**
+ * The Google Play review account. Typing this address on /masuk shows a
+ * password field instead of sending a code, because reviewers cannot receive
+ * our emails. The account is created by hand in Supabase with a password.
+ */
+const REVIEW_EMAIL = "peninjau@racik.online";
+
 export const Route = createFileRoute("/masuk")({
   validateSearch: z.object({
     next: z.string().optional().catch(undefined),
@@ -67,7 +74,7 @@ function Masuk() {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
-  const usePassword = search.metode === "sandi";
+  const usePassword = search.metode === "sandi" || email.trim().toLowerCase() === REVIEW_EMAIL;
   const [name, setName] = useState("");
   const [photoPath, setPhotoPath] = useState<string | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
