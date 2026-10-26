@@ -1,12 +1,7 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+> [!NOTE]
+> Disconnected from Lovable on 26 Oct 2026. GitHub (wop29/ibu-masak-pintar) is
+> the only remote. The app is deployed from the Mac with `npm run build` and
+> `npx wrangler deploy` (Cloudflare Worker "racik", app.racik.online).
+> Push only when Octavia says so. Never force-push or rewrite pushed history.
 
 - Production builds run the all-recipe ingredient rendering regression test so catalogue lines cannot disappear silently.
