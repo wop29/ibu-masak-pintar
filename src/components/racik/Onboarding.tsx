@@ -144,7 +144,6 @@ const PROTEINS = [
   { v: "telur", get label() { return t("protein_pick_telur"); } },
   { v: "tahu_tempe", get label() { return t("protein_pick_tahu_tempe"); } },
   { v: "daging", get label() { return t("protein_pick_daging"); } },
-  { v: "sayur", get label() { return t("protein_pick_sayur"); } },
 ] as const;
 const QUESTIONS = [
   { get title() { return t("biasanya_masak_untuk_apa"); }, get body() { return t("pilih_yang_paling_sering_porsinya"); } },
