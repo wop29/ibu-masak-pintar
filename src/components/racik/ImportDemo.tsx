@@ -615,7 +615,7 @@ export function ImportSheet({
         setTab(value);
         setError(null);
       }}
-      className={`min-h-[42px] rounded-lg text-caption font-bold ${tab === value ? "bg-card text-ink shadow-chip" : "text-ink-3"}`}
+      className={`min-h-[42px] rounded-lg text-caption font-bold ${tab === value || (value === "tautan" && tab === "keterangan") ? "bg-card text-ink shadow-chip" : "text-ink-3"}`}
     >
       {label}
     </button>
@@ -669,9 +669,8 @@ export function ImportSheet({
       >
         {stage === "form" ? (
           <>
-            <div className="grid grid-cols-3 rounded-xl bg-tint p-1">
+            <div className="grid grid-cols-2 rounded-xl bg-tint p-1">
               {tabButton("tautan", MODE.tautan.label)}
-              {tabButton("keterangan", MODE.keterangan.label)}
               {tabButton("foto", MODE.foto.label)}
             </div>
             {label ? <p className="mt-3 text-label font-bold text-ink-3">{label}</p> : null}
