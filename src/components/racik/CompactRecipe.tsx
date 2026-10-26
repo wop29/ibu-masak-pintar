@@ -4,10 +4,9 @@ import { thumbOf } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
 import { IncompleteBadge } from "./IncompleteBadge";
 import { HalalChip } from "./HalalChip";
-import { nutritionLine } from "./NutritionBlock";
-import { REG } from "@/lib/racik/data";
+import { CARD_KEYS, nutritionLine } from "./NutritionBlock";
 import type { Recipe } from "@/lib/racik/types";
-import { diffLabel, t } from "@/lib/racik/i18n";
+import { t } from "@/lib/racik/i18n";
 
 function shortTime(minutes: number) {
   if (minutes < 60) return t("fmt_min", { minutes });
@@ -17,15 +16,14 @@ function shortTime(minutes: number) {
 }
 
 /**
- * The list row used everywhere: square photo, title, the two lines a cook
- * decides on (time · difficulty, region · protein), and a label only when an
- * ingredient needs a halal check. `boxed` wraps it in a white card for the
+ * The list row used everywhere: square photo, title, time, and kalori + protein
+ * (decided 25 Oct 2026: no difficulty, no region, no other nutrients on cards;
+ * those live on the recipe page). A label only when an ingredient needs a halal check. `boxed` wraps it in a white card for the
  * home feed.
  */
 export function CompactRecipe({ recipe, boxed = false, creator }: { recipe: Recipe; boxed?: boolean; creator?: string | undefined }) {
   const photo = recipe.photoUrl ?? thumbOf(recipe.id);
-  const gizi = nutritionLine(recipe);
-  const region = REG[recipe.region]?.name ?? recipe.region;
+  const gizi = nutritionLine(recipe, CARD_KEYS);
   return (
     <Link
       to="/resep/$id"
@@ -37,8 +35,7 @@ export function CompactRecipe({ recipe, boxed = false, creator }: { recipe: Reci
       </div>
       <div className="min-w-0 flex-1">
         <h3 className="mb-1 text-body font-bold leading-tight tracking-[-0.02em] text-ink-strong [overflow-wrap:anywhere]">{recipe.title}</h3>
-        <p className="text-label leading-snug text-ink-3">{shortTime(recipe.time)} · {diffLabel(recipe.diff)}</p>
-        <p className="mt-0.5 text-label leading-snug text-ink-3">{region}</p>
+        <p className="text-label leading-snug text-ink-3">{shortTime(recipe.time)}</p>
         {gizi ? <p className="mt-0.5 text-label leading-snug text-ink-3">{gizi} <span className="whitespace-nowrap">{t("per_porsi")}</span></p> : null}
         {recipe.incomplete ? <p className="mt-1.5"><IncompleteBadge recipe={recipe} /></p> : null}
         <span className="mt-1.5 block empty:hidden"><HalalChip recipe={recipe} static /></span>

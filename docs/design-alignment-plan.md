@@ -209,10 +209,10 @@ Decision (22 Oct): show **kalori, protein, karbo, lemak, serat** to every user. 
 1. Rename `ProteinBlock.tsx` to `NutritionBlock.tsx`. On the recipe page it shows one compact row of five, each "±value" over its name: **kkal, protein, karbo, lemak, serat**. Wrap to two rows at large text sizes. Header "Perkiraan gizi per porsi".
 2. A value that can't be computed shows "belum bisa dihitung" in `text-ink-3`, never "–" or 0.
 3. Tapping the row opens the existing breakdown sheet, extended with a toggle **Per porsi / Seluruh resep** (seluruh resep = per portion × `recipe.serv` × current scale) and the coverage line.
-4. `CompactRecipe.tsx` (cards): replace "±N g protein/porsi" with one short line for every user: "±420 kkal · 34 g protein · 18 g karbo · 22 g lemak · 3 g serat". Drop values that can't be computed instead of showing a placeholder. Allow wrapping; never truncate.
+4. **Cards (changed 25 Oct, already built):** `CompactRecipe.tsx` and `RecipeCard.tsx` show only time plus kalori and protein (`nutritionLine(recipe, CARD_KEYS)`). No difficulty, no region, no karbo/lemak/serat on cards. Do not add them back.
 
 **Done when**
-- Five values on the recipe page and on cards, all with "±".
+- Five values on the recipe page, kalori and protein on cards, all with "±".
 - No "–" anywhere in nutrition (`grep -n '"–"' src/components/racik/NutritionBlock.tsx` returns nothing).
 - New engine tests pass.
 

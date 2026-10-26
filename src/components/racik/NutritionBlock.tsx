@@ -42,11 +42,14 @@ function valueText(key: Key, n: Nutrition, factor = 1): string | null {
 }
 
 /** The one-line summary on recipe cards: "±420 kkal · 34 g protein · …". Unknown values are left out. */
-export function nutritionLine(recipe: Recipe): string | null {
+/** Recipe cards show only kalori and protein (decided 25 Oct 2026); the recipe page shows all five. */
+export const CARD_KEYS: Key[] = ["kcal", "protein"];
+
+export function nutritionLine(recipe: Recipe, keys: Key[] = ORDER): string | null {
   if (proteinUncertain(recipe)) return null;
   const n = nutritionPerPortion(recipe);
   const parts: string[] = [];
-  for (const key of ORDER) {
+  for (const key of ORDER.filter((k) => keys.includes(k))) {
     const v = n[key];
     if (v == null) continue;
     const t = key === "kcal" ? fmtKcal(v) : fmtGrams(v);
