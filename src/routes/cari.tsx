@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
 import { ChevronRight, Heart, Search, ShoppingBasket, X } from "lucide-react";
 import { AppTabs } from "@/components/racik/AppTabs";
-import { CompactRecipe } from "@/components/racik/CompactRecipe";
+import { RecipeList, ViewToggle } from "@/components/racik/RecipeList";
 import { ImportButton } from "@/components/racik/ImportDemo";
 import { Sheet } from "@/components/racik/Sheet";
 import { FILIPINO, INGREDIENTS, NUSANTARA, RECIPES, REG, WESTERN } from "@/lib/racik/data";
@@ -299,7 +299,10 @@ function Eksplor() {
           </div>
           <div className="mb-2 flex items-center justify-between">
             <span className="heading-sm">{results.length} {" "}{t("resep")}</span>
-            <button type="button" onClick={clear} className="min-h-11 px-1 text-14 font-bold text-primary">{t("hapus_filter")}</button>
+            <div className="flex items-center gap-2">
+              <button type="button" onClick={clear} className="min-h-11 px-1 text-14 font-bold text-primary">{t("hapus_filter")}</button>
+              <ViewToggle />
+            </div>
           </div>
           {results.length === 0 ? (
             <div className="flex flex-col items-center px-4 py-[52px] text-center">
@@ -316,7 +319,7 @@ function Eksplor() {
               )}
               <button type="button" onClick={clear} className="mt-[18px] min-h-11 rounded-full border border-primary bg-card px-[18px] text-caption font-bold text-primary">{t("kembali_ke_eksplor")}</button>
             </div>
-          ) : results.map((r) => <CompactRecipe key={r.id} recipe={r} />)}
+          ) : <RecipeList recipes={results} />}
         </div>
       )}
 

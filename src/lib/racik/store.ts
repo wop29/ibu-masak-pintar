@@ -6,6 +6,9 @@ const STORE = "state";
 const KEY = "app";
 const LS_KEY = "racik.state";
 
+export type Tampilan = "foto" | "baris" | "grid";
+export const TAMPILAN: Tampilan[] = ["foto", "baris", "grid"];
+
 export interface RacikState {
   household: number;
   halalMode: boolean;
@@ -22,6 +25,8 @@ export interface RacikState {
   photoFull: boolean;
   satuan: "rumah" | "gram";
   teks: "normal" | "besar" | "paling_besar";
+  /** How recipe lists look on Masak and Cari: big photos, rows, or a two-column grid. She picks; remembered on this phone. */
+  tampilan: Tampilan;
   /**
    * Where she is in each recipe's cook mode, and any timer she started.
    *
@@ -165,6 +170,7 @@ export const defaultState: RacikState = {
   photoFull: false,
   satuan: "rumah",
   teks: "normal",
+  tampilan: "foto",
   cooking: {},
   lang: "id",
   authAsked: false,
@@ -290,6 +296,7 @@ export function normaliseState(raw: unknown): RacikState {
     photoFull: s.photoFull === true,
     satuan: s.satuan === "gram" ? "gram" : "rumah",
     teks: s.teks === "besar" || s.teks === "paling_besar" ? s.teks : "normal",
+    tampilan: s.tampilan === "baris" || s.tampilan === "grid" ? s.tampilan : "foto",
     cooking: Object.fromEntries(
       Object.entries(obj<unknown>(s.cooking)).flatMap(([k, v]) => {
         const p = normaliseCook(v);

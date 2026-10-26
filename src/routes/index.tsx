@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Check, ChevronDown, Minus, Plus, RotateCcw, Search } from "lucide-react";
 import { AppTabs } from "@/components/racik/AppTabs";
-import { CompactRecipe } from "@/components/racik/CompactRecipe";
+import { RecipeList, ViewToggle } from "@/components/racik/RecipeList";
 import { ImportButton } from "@/components/racik/ImportDemo";
 import { Onboarding } from "@/components/racik/Onboarding";
 import { Sheet } from "@/components/racik/Sheet";
@@ -183,9 +183,12 @@ function MasakApa() {
       <section className="flex-1 px-5">
         <div className="flex items-center justify-between py-3">
           <h2 className="heading-sm">{t("suggestions")}</h2>
-          <button type="button" onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })} className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-14 font-bold text-primary">
-            <RotateCcw className="size-3" strokeWidth={2.5} /> {t("shuffle")}
-          </button>
+          <div className="flex items-center gap-2">
+            <button type="button" onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })} className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-14 font-bold text-primary">
+              <RotateCcw className="size-3" strokeWidth={2.5} /> {t("shuffle")}
+            </button>
+            <ViewToggle />
+          </div>
         </div>
         {list.length === 0 ? (
           <div className="flex flex-col items-center gap-3 py-12">
@@ -193,7 +196,7 @@ function MasakApa() {
             <button type="button" onClick={() => { setFilters([]); setPicked(null); }} className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary">{t("clear_filters")}</button>
           </div>
         ) : (
-          <div className="flex flex-col gap-3 pb-5">{list.map((r) => <CompactRecipe key={r.id} recipe={r} boxed />)}</div>
+          <RecipeList recipes={list} />
         )}
       </section>
       <Sheet open={slotSheet} onClose={() => setSlotSheet(false)} title={t("masak_untuk_kapan")}>
