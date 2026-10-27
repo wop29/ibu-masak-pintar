@@ -1,7 +1,7 @@
 import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, Flag } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { IngredientList } from "@/components/racik/IngredientList";
 import { PortionStepper } from "@/components/racik/PortionStepper";
@@ -246,7 +246,7 @@ function Tulisan() {
 
       <div className="mt-6 px-5">
         <Button variant="ghost" className="min-h-11 text-ink-3" onClick={() => setReporting(true)}>
-          <Flag /> {" "}{t("laporkan_resep_ini")}
+          <BrandIcon name="laporkan" className="size-6 rounded-md" /> {" "}{t("laporkan_resep_ini")}
         </Button>
       </div>
 

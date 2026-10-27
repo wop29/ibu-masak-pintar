@@ -1,4 +1,4 @@
-import { Cloud } from "lucide-react";
+import { BrandIcon } from "../BrandIcon";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/racik/Sheet";
 import { t } from "@/lib/racik/i18n";
@@ -31,7 +31,7 @@ export function SaveSignInSheet({
       subtitle={t("supaya_tidak_hilang_kalau_ganti")}
     >
       <div className="flex gap-3 rounded-2xl bg-tint p-4 text-14 leading-relaxed text-ink-2">
-        <Cloud aria-hidden className="mt-0.5 size-5 shrink-0 text-primary" />
+        <BrandIcon name="sinkron" className="size-9" />
         <p>
           {kind === "import" ? t("resep_dari_luar_ini_sudah") : t("resep_ini_sudah_tersimpan_di")}
           

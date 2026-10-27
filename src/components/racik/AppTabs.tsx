@@ -13,11 +13,11 @@ export function AppTabs() {
   const path = useRouterState({ select: (s) => s.location.pathname });
 
   const item = "flex min-h-[68px] min-w-0 flex-1 flex-col items-center justify-center gap-1 text-micro tracking-[0.02em]";
-  const tab = (to: TabPath, label: string, icon: string) => {
+  const tab = (to: TabPath, label: string, aktif: string, diam: string) => {
     const active = to === "/" ? path === "/" : path.startsWith(to);
     return (
       <Link key={to} to={to} aria-current={active ? "page" : undefined} className={`${item} ${active ? "font-bold text-primary-deep" : "font-medium text-ink-3"}`}>
-        <BrandIcon name={icon} className={`size-8 rounded-lg ${active ? "" : "opacity-55 grayscale"}`} />
+        <BrandIcon name={active ? aktif : diam} className={`size-8 rounded-lg ${!active && aktif === diam ? "opacity-55 grayscale" : ""}`} />
         <span className="w-full px-0.5 text-center leading-tight">{label}</span>
       </Link>
     );
@@ -28,10 +28,10 @@ export function AppTabs() {
       aria-label={t("menu_utama")}
       className="fixed inset-x-0 bottom-0 z-40 mx-auto flex w-full max-w-[430px] border-t border-rule bg-card pb-[env(safe-area-inset-bottom)] shadow-bar"
     >
-      {tab("/", t("tab_home"), "nav-home-aktif")}
-      {tab("/cari", t("tab_search"), "cari")}
-      {tab("/rencana", t("tab_plan"), "nav-rencana")}
-      {tab("/buku", t("tab_book"), "koleksi-saya")}
+      {tab("/", t("tab_home"), "nav-home-aktif", "nav-home")}
+      {tab("/cari", t("tab_search"), "nav-cari-aktif", "nav-cari")}
+      {tab("/rencana", t("tab_plan"), "nav-rencana", "nav-rencana")}
+      {tab("/buku", t("tab_book"), "nav-koleksi-aktif", "nav-koleksi")}
     </nav>
   );
 }

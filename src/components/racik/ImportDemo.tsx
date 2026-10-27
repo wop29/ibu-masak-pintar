@@ -1,18 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  Camera,
-  Check,
-  Clipboard,
-  Clock,
-  ImageIcon,
-  Link2,
-  PenLine,
-  RotateCcw,
-  Upload,
-  Volume2,
-  X,
-} from "lucide-react";
+import { Camera, Check, Clock, ImageIcon, Link2, PenLine, RotateCcw, Upload, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import {
@@ -526,7 +514,7 @@ export function ImportSheet({
         return valid ? (
           <div key={action}>
             <Button variant={variant} className={cls} onClick={() => doAction(action)}>
-              <Volume2 /> {" "}{t("dengarkan_suara_videonya")}
+              <BrandIcon name="suara" className="size-6 rounded-md" /> {" "}{t("dengarkan_suara_videonya")}
             </Button>
             <p className="mt-1.5 text-label text-ink-3">
               
@@ -549,7 +537,7 @@ export function ImportSheet({
       case "paste":
         return (
           <Button key={action} variant={variant} className={cls} onClick={() => doAction(action)}>
-            <Clipboard /> {" "}{t("tempel_teks_resep")}
+            <BrandIcon name="tempel" className="size-6 rounded-md" /> {" "}{t("tempel_teks_resep")}
           </Button>
         );
       case "edit_text":
@@ -713,7 +701,7 @@ export function ImportSheet({
                     }
                   }}
                 >
-                  <Clipboard /> {" "}{t("tempel_dari_clipboard")}
+                  <BrandIcon name="tempel" className="size-6 rounded-md" /> {" "}{t("tempel_dari_clipboard")}
                 </Button>
                 <Button
                   className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
@@ -788,7 +776,7 @@ export function ImportSheet({
                     }
                   }}
                 >
-                  <Clipboard /> {" "}{t("tempel_dari_clipboard")}
+                  <BrandIcon name="tempel" className="size-6 rounded-md" /> {" "}{t("tempel_dari_clipboard")}
                 </Button>
                 <Button
                   className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
@@ -816,7 +804,7 @@ export function ImportSheet({
                       className="mt-5 min-h-12 w-full rounded-xl text-14 font-bold"
                       onClick={() => void submitLink(true)}
                     >
-                      <Volume2 /> {" "}{t("dengarkan_suara_videonya")}
+                      <BrandIcon name="suara" className="size-6 rounded-md" /> {" "}{t("dengarkan_suara_videonya")}
                     </Button>
                     <p className="mt-1.5 text-label text-ink-3">
                       

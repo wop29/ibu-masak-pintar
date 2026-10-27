@@ -158,13 +158,19 @@ function DetailResep() {
           {imported?.servAssumed ? <p className="mt-2 text-label text-ink-3">{t("jumlah_porsi_tidak_disebut_di")}{" "}{imported.serv} {" "}{t("porsi_sebagai_dasar_hitungan")}</p> : null}
 
           <div className="mt-5 grid grid-cols-2 border-t border-rule pt-[18px]">
-            <div>
-              <p className="text-15 font-extrabold">{fmtTime(recipe.time)}</p>
-              <p className="meta-label mt-0.5">{t("waktu")}</p>
+            <div className="flex items-center gap-2.5">
+              <BrandIcon name="timer" className="size-9" />
+              <div>
+                <p className="text-15 font-extrabold">{fmtTime(recipe.time)}</p>
+                <p className="meta-label mt-0.5">{t("waktu")}</p>
+              </div>
             </div>
-            <div className="border-l border-rule pl-3.5">
-              <p className="text-15 font-extrabold">{diffLabel(recipe.diff)}</p>
-              <p className="meta-label mt-0.5">{t("tingkat")}</p>
+            <div className="flex items-center gap-2.5 border-l border-rule pl-3.5">
+              <BrandIcon name="tingkat" className="size-9" />
+              <div>
+                <p className="text-15 font-extrabold">{diffLabel(recipe.diff)}</p>
+                <p className="meta-label mt-0.5">{t("tingkat")}</p>
+              </div>
             </div>
           </div>
 
@@ -178,7 +184,7 @@ function DetailResep() {
         <section id="bahan" aria-labelledby="judul-bahan" className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] pt-5 pb-2">
           <div className="flex items-center gap-2.5"><BrandIcon name="bahan" className="size-8" /><h2 id="judul-bahan" className="heading-sm">{t("bahan")}</h2></div>
           <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-tint py-1.5 pr-1.5 pl-4">
-            <p className="text-15 tabular-nums">{t("untuk")}{" "}<b className="font-extrabold">{servings}</b> {" "}{t("portions")}</p>
+            <p className="flex items-center gap-2 text-15 tabular-nums"><BrandIcon name="porsi-orang" className="size-7" />{t("untuk")}{" "}<b className="font-extrabold">{servings}</b> {" "}{t("portions")}</p>
             <div className="flex items-center gap-2">
               <button type="button" onClick={() => step(servings - 1)} disabled={servings <= 1} aria-label={t("kurangi_porsi")} className="flex size-11 items-center justify-center rounded-xl border border-rule bg-card text-primary disabled:border-dashed disabled:text-ink-3"><Minus className="size-5" /></button>
               <button type="button" onClick={() => step(servings + 1)} disabled={servings >= MAX_PORTIONS} aria-label={t("tambah_porsi")} className="flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:bg-tint disabled:text-ink-3"><Plus className="size-5" /></button>

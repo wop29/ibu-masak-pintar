@@ -1,11 +1,11 @@
-import { GalleryVertical, LayoutGrid, List } from "lucide-react";
+import { BrandIcon } from "./BrandIcon";
 import { CompactRecipe } from "./CompactRecipe";
 import { useRacik } from "@/lib/racik/state";
 import { TAMPILAN, type Tampilan } from "@/lib/racik/store";
 import { t } from "@/lib/racik/i18n";
 import type { Recipe } from "@/lib/racik/types";
 
-const ICON = { foto: GalleryVertical, baris: List, grid: LayoutGrid } as const;
+const ICON = { foto: "tampilan-foto-besar", baris: "tampilan-list", grid: "tampilan-grid" } as const;
 
 /** The view switch above recipe lists, like a shop's list/grid toggle. Her choice is remembered. */
 export function ViewToggle() {
@@ -13,7 +13,6 @@ export function ViewToggle() {
   return (
     <div role="radiogroup" aria-label={t("tampilan")} className="flex shrink-0 gap-0.5 rounded-xl bg-tint p-0.5">
       {TAMPILAN.map((v) => {
-        const Icon = ICON[v];
         const on = state.tampilan === v;
         return (
           <button
@@ -25,7 +24,7 @@ export function ViewToggle() {
             onClick={() => update({ tampilan: v })}
             className={`flex size-11 items-center justify-center rounded-[10px] ${on ? "bg-card text-primary shadow-card" : "text-ink-3"}`}
           >
-            <Icon className="size-5" strokeWidth={on ? 2.2 : 1.8} aria-hidden />
+            <BrandIcon name={ICON[v]} className={`size-8 rounded-lg ${on ? "" : "opacity-60 grayscale"}`} />
           </button>
         );
       })}
