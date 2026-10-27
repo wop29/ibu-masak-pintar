@@ -10,6 +10,7 @@ import { findRecipe } from "@/lib/racik/data";
 import { useRacik } from "@/lib/racik/state";
 import { PLAN_MAX } from "@/lib/racik/store";
 import type { Recipe } from "@/lib/racik/types";
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { t } from "@/lib/racik/i18n";
 
 const searchSchema = z.object({ tab: z.enum(["diambil", "disimpan", "rencana"]).optional().catch("diambil") });
@@ -116,11 +117,11 @@ function Koleksi() {
           <div>
             <div className="mx-5 mt-5"><ImportDemo /></div>
             {state.imported.length === 0 ? (
-              <p className="mt-8 px-5 text-center text-14 leading-relaxed text-ink-3">{t("belum_ada_resep_dari_luar")}<br />{t("tambahkan_dari_link_video_teks")}</p>
+              <div className="mt-8"><div className="flex justify-center"><BrandIcon name="koleksi-saya" className="size-16" /></div><p className="mt-4 px-5 text-center text-14 leading-relaxed text-ink-3">{t("belum_ada_resep_dari_luar")}<br />{t("tambahkan_dari_link_video_teks")}</p></div>
             ) : (
               <div className="mt-5 px-5">
                 <p className="mb-3 text-caption leading-normal text-ink-3">{t("resep_yang_racik_susun_dari")}</p>
-                <p className="heading-sm mb-1">{t("resep_dari_luar")}</p>
+                <div className="mb-1 flex items-center gap-2.5"><BrandIcon name="dari-video" className="size-8" /><p className="heading-sm">{t("resep_dari_luar")}</p></div>
                 {state.imported.map((recipe) => (
                   <div key={recipe.id} className="flex items-center gap-1 border-b border-rule-soft last:border-b-0">
                     <div className="min-w-0 flex-1 [&>a]:border-b-0"><CompactRecipe recipe={recipe} creator={recipe.creator} /></div>
@@ -142,7 +143,7 @@ function Koleksi() {
             ) : (
               <>
                 <p className="mb-3 text-caption leading-normal text-ink-3">{t("resep_yang_ditandai_untuk_dibuka")}</p>
-                <p className="heading-sm mb-1">{t("resep_favorit")}</p>
+                <div className="mb-1 flex items-center gap-2.5"><BrandIcon name="resep-favorit" className="size-8" /><p className="heading-sm">{t("resep_favorit")}</p></div>
                 {saved.map((r) => (
                   <div key={r.id} className="flex items-center gap-1 border-b border-rule-soft last:border-b-0">
                     <div className="min-w-0 flex-1 [&>a]:border-b-0"><CompactRecipe recipe={r} /></div>

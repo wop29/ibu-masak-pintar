@@ -614,8 +614,9 @@ export function ImportSheet({
         setTab(value);
         setError(null);
       }}
-      className={`min-h-[42px] rounded-lg text-caption font-bold ${tab === value || (value === "tautan" && tab === "keterangan") ? "bg-card text-ink shadow-chip" : "text-ink-3"}`}
+      className={`flex min-h-[46px] items-center justify-center gap-2 rounded-lg text-caption font-bold ${tab === value || (value === "tautan" && tab === "keterangan") ? "bg-card text-ink shadow-chip" : "text-ink-3"}`}
     >
+      <BrandIcon name={value === "foto" ? "dari-foto" : "import-link"} className="size-6 rounded-md" />
       {label}
     </button>
   );

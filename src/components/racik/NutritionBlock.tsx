@@ -15,6 +15,7 @@ import {
 } from "@/lib/racik/engine";
 import type { Recipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
+import { BrandIcon } from "./BrandIcon";
 import { t } from "@/lib/racik/i18n";
 
 /**
@@ -82,7 +83,7 @@ export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings:
   if (proteinUncertain(recipe)) {
     return (
       <div className="rounded-2xl border border-primary-line bg-primary-wash p-3.5">
-        <h2 className="heading-sm">{t("perkiraan_gizi_per_porsi")}</h2>
+        <div className="flex items-center gap-2.5"><BrandIcon name="ringkasan-gizi" className="size-8" /><h2 className="heading-sm">{t("perkiraan_gizi_per_porsi")}</h2></div>
         <p className="mt-1.5 text-14 text-ink-2">{t("perkiraan_gizi_belum_bisa_dihitung")}</p>
       </div>
     );
@@ -97,7 +98,7 @@ export function NutritionBlock({ recipe, servings }: { recipe: Recipe; servings:
 
   return (
     <div className="rounded-2xl border border-primary-line bg-primary-wash p-3.5">
-      <h2 className="heading-sm">{t("perkiraan_gizi_per_porsi")}</h2>
+      <div className="flex items-center gap-2.5"><BrandIcon name="ringkasan-gizi" className="size-8" /><h2 className="heading-sm">{t("perkiraan_gizi_per_porsi")}</h2></div>
       <button
         type="button"
         onClick={() => setOpen(true)}

@@ -6,6 +6,7 @@ import { IngredientList } from "@/components/racik/IngredientList";
 import { PHOTO, previewPhotoOf } from "@/components/racik/photos";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
 import { useSnackbar } from "@/components/racik/Snackbar";
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { NutritionBlock } from "@/components/racik/NutritionBlock";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CalendarPlus, ExternalLink, Heart, Minus, Plus } from "lucide-react";
@@ -175,7 +176,7 @@ function DetailResep() {
         <JumpBar ings={recipe.ings.length} steps={recipe.steps.length} />
 
         <section id="bahan" aria-labelledby="judul-bahan" className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] pt-5 pb-2">
-          <h2 id="judul-bahan" className="heading-sm">{t("bahan")}</h2>
+          <div className="flex items-center gap-2.5"><BrandIcon name="bahan" className="size-8" /><h2 id="judul-bahan" className="heading-sm">{t("bahan")}</h2></div>
           <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-tint py-1.5 pr-1.5 pl-4">
             <p className="text-15 tabular-nums">{t("untuk")}{" "}<b className="font-extrabold">{servings}</b> {" "}{t("portions")}</p>
             <div className="flex items-center gap-2">
@@ -201,7 +202,7 @@ function DetailResep() {
         </section>
 
         <section id="langkah" aria-labelledby="judul-langkah" className="scroll-mt-[calc(4.5rem+env(safe-area-inset-top))] pt-6 pb-7">
-          <h2 id="judul-langkah" className="heading-sm">{t("langkah")}</h2>
+          <div className="flex items-center gap-2.5"><BrandIcon name="langkah" className="size-8" /><h2 id="judul-langkah" className="heading-sm">{t("langkah")}</h2></div>
           <ol className="pt-1">
             {recipe.steps.map(([text, seconds], i) => (
               <li key={i} className="flex items-start gap-4 border-b border-rule py-[18px]">

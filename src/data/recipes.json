@@ -16568,8 +16568,16 @@
    ],
    [
     "daun_pandan",
-    2,
+    6,
+    "4 lembar untuk pewarna adonan, 2 lembar untuk air rebusan",
     null,
+    null,
+    null
+   ],
+   [
+    "daun_suji",
+    10,
+    "untuk pewarna hijau adonan",
     null,
     null,
     null
@@ -16597,7 +16605,11 @@
     600
    ],
    [
-    "Campur tepung ketan dan garam, tuang air hangat sedikit demi sedikit sampai adonan bisa dibentuk.",
+    "Blender daun suji dan 4 lembar daun pandan dengan air hangat, lalu saring. Air hijau inilah yang mewarnai klepon.",
+    300
+   ],
+   [
+    "Campur tepung ketan dan garam, tuang air pandan-suji sedikit demi sedikit sampai adonan hijau rata dan bisa dibentuk.",
     480
    ],
    [
@@ -16605,7 +16617,7 @@
     null
    ],
    [
-    "Didihkan air bersama daun pandan. Masukkan klepon.",
+    "Didihkan air bersama 2 lembar daun pandan sisanya. Masukkan klepon.",
     600
    ],
    [
@@ -16620,7 +16632,8 @@
   "precise": true,
   "imported": false,
   "alat": [
-   "panci"
+   "panci",
+   "blender"
   ],
   "hasil": "± 30 buah",
   "satuan": "buah"

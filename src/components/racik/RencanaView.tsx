@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { CalendarDays, Check, ChevronDown, Home, Minus, Plus, Undo2, X } from "lucide-react";
+import { BrandIcon } from "./BrandIcon";
 import { thumbOf } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
 import { Sheet } from "./Sheet";
@@ -211,7 +212,7 @@ export function RencanaView({ pickDayFor, onPickDayHandled }: { pickDayFor?: str
           <p className="mt-4 px-5 text-caption leading-normal text-ink-3">{t("bahan_yang_sama_dari_beberapa")}</p>
 
           <div className="mt-5 px-5">
-            <h2 className="heading-sm mb-3">{t("daftar_belanja")}</h2>
+            <div className="mb-3 flex items-center gap-2.5"><BrandIcon name="daftar-belanja" className="size-8" /><h2 className="heading-sm">{t("daftar_belanja")}</h2></div>
             {GROUPS.map(({ cat, label }) => {
               const rows = list.filter((x) => x.cat === cat);
               if (!rows.length) return null;
