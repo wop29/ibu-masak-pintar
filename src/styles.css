@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Racik: Plus Jakarta Sans, green actions, 16px body, 18px cooking text. */
+/* Racik brand (26 Okt 2026): Baloo 2 headings, Nunito body, Racik Green actions on cream. */
 
 @theme inline {
   --radius-sm: 8px;
@@ -15,8 +15,8 @@
   --radius-3xl: 28px;
   --radius-4xl: 32px;
 
-  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Baloo 2", "Nunito", system-ui, sans-serif;
+  --font-sans: "Nunito", system-ui, sans-serif;
 
   /* Every text size goes through --teks (reading text) or --teks-h
      (headings, which grow by half as much so titles don't break the layout).
@@ -104,47 +104,48 @@
   --color-notice-ink: var(--notice-ink);
   --color-notice-line: var(--notice-line);
   --color-scrim: var(--scrim);
+  --color-primary-strong: var(--primary-strong);
 }
 
 :root {
   --radius: 12px;
-  --ground: #fafaf8;
-  --tint: #f4f4f1;
-  --rule: #e7e5e1;
+  --ground: #f8faf1; /* Cream */
+  --tint: #e8f7ea; /* Mint */
+  --rule: #dbe8db;
   --ink: #1a1a1a;
-  --ink-2: #5a5a5a;
+  --ink-2: #4f5d55;
   /* Secondary text. Measured against --ground and against white: 4.80:1 and
      5.01:1. The old value was 2.65:1, which is not readable at arm's length. */
-  --ink-3: #6b7280;
-  --primary-deep: #1c5633;
-  --primary-soft: #eef6ee;
-  --primary-line: #dce9dc;
-  --glow: rgba(46, 125, 50, 0.24);
-  --dark: oklch(0.14 0.012 150);
-  --notice: #fbf4d9;
+  --ink-3: #5f7367;
+  --primary-deep: #0f3d2e; /* Deep Green */
+  --primary-soft: #e8f7ea; /* Mint */
+  --primary-line: #bfe8cc;
+  --glow: rgba(34, 197, 94, 0.26);
+  --dark: #0f3d2e;
+  --notice: #fff3d1; /* wash of Warm Yellow #FFD166 */
 
   /* Strongest text (titles, list names). */
-  --ink-strong: #111111;
+  --ink-strong: #0f3d2e; /* Deep Green titles */
   /* 2.5:1 on --ground: decorative icons and dividers only, never text. */
-  --ink-faint: #9ca3af;
-  --icon-muted: #555555;
-  --rule-soft: #f0f0ed;
-  --rule-strong: #e8e8e4;
+  --ink-faint: #9db3a4;
+  --icon-muted: #4f5d55;
+  --rule-soft: #ecf4ec;
+  --rule-strong: #cfe3d2;
   /* Outline of tick circles and other controls. */
-  --control-line: #c9cec7;
-  --primary-wash: #f7faf6;
-  --primary-track: #e8eee7;
+  --control-line: #b9cfbe;
+  --primary-wash: #f1faf2;
+  --primary-track: #d7f0de;
   /* Time (cook timers, time chips). Same green as primary for now. */
-  --time: #2e7d32;
-  --time-soft: #eef6ee;
-  --time-ink: #1c5633;
+  --time: #15803d;
+  --time-soft: #e8f7ea;
+  --time-ink: #0f3d2e;
   /* Red family: "tidak halal", errors, destructive actions only. */
   --danger-soft: #fdecea;
   --danger-ink: #b71c1c;
   --danger-line: #f4caca;
   --notice-ink: #66551c;
-  --notice-line: #fde68a;
-  --scrim: rgba(18, 23, 18, 0.48);
+  --notice-line: #ffd166; /* Warm Yellow */
+  --scrim: rgba(15, 61, 46, 0.5);
 
   --background: var(--ground);
   --foreground: var(--ink);
@@ -152,8 +153,11 @@
   --card-foreground: var(--ink);
   --popover: var(--ground);
   --popover-foreground: var(--ink);
-  --primary: #2e7d32;
-  --primary-foreground: oklch(1 0 0);
+  /* Racik Green #22C55E. White text on it is 2.3:1, so actions carry
+     Deep Green text (5.3:1). --primary-strong is for white-on-green spots. */
+  --primary: #22c55e;
+  --primary-foreground: #0f3d2e;
+  --primary-strong: #15803d;
   --secondary: var(--tint);
   --secondary-foreground: var(--ink);
   --muted: var(--tint);
@@ -164,7 +168,7 @@
   --destructive-foreground: oklch(1 0 0);
   --border: var(--rule);
   --input: var(--rule);
-  --ring: var(--primary);
+  --ring: #15803d; /* focus: 3:1+ on cream, --primary is not */
 }
 
 /* Pengaturan › Ukuran tulisan. The class is set on <html> from saved state. */
@@ -180,6 +184,12 @@ html.teks-paling_besar {
 @layer base {
   * {
     border-color: var(--color-rule);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
   }
 
   html {

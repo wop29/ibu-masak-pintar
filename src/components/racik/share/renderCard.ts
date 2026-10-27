@@ -14,23 +14,23 @@ export const CARD_SIZE: Record<CardFormat, { w: number; h: number }> = {
 };
 
 const C = {
-  ground: "#fafaf8",
+  ground: "#f8faf1",
   card: "#ffffff",
   ink: "#1a1a1a",
   ink2: "#5a5a5a",
   ink3: "#6b7280",
-  rule: "#e7e5e1",
-  primary: "#2e7d32",
-  deep: "#1c5633",
-  soft: "#eef6ee",
-  line: "#dce9dc",
+  rule: "#dbe8db",
+  primary: "#15803d",
+  deep: "#0f3d2e",
+  soft: "#e8f7ea",
+  line: "#bfe8cc",
 };
-const FONT = '"Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+const FONT = '"Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
 
 async function fontsReady(): Promise<void> {
   if (typeof document === "undefined" || !document.fonts) return;
   const loads = ["800 80px", "700 40px", "600 30px"].map((w) =>
-    document.fonts.load(`${w} "Plus Jakarta Sans"`),
+    document.fonts.load(`${w} "Nunito"`),
   );
   await Promise.race([Promise.allSettled(loads), new Promise((r) => setTimeout(r, 1500))]);
 }

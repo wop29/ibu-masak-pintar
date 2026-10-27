@@ -280,7 +280,7 @@ export function Onboarding() {
             <span className="flex size-8 items-center justify-center rounded-lg bg-primary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M12 2C6.5 2 3 6.5 3 12c0 3.5 1.8 6.6 4.5 8.4L12 22l4.5-1.6C19.2 18.6 21 15.5 21 12c0-5.5-3.5-10-9-10z" fill="white" opacity="0.9" />
-                <path d="M12 6v16" stroke="#2e7d32" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+                <path d="M12 6v16" stroke="#15803d" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
               </svg>
             </span>
             <span className="text-xl font-extrabold tracking-[-0.02em] text-white">{t("racik")}</span>
