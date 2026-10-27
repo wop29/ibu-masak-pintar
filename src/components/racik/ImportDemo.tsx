@@ -65,6 +65,7 @@ import { useRacik } from "@/lib/racik/state";
 import type { Negara } from "@/lib/racik/locale";
 import type { ImportedRecipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
+import { BrandIcon } from "./BrandIcon";
 import { t } from "@/lib/racik/i18n";
 
 type Tab = "tautan" | "keterangan" | "foto";
@@ -76,9 +77,7 @@ export function ImportDemo({ onImported }: { compact?: boolean; onImported?: () 
     <>
       <section className="rounded-2xl bg-primary p-5 text-primary-foreground">
         <div className="mb-4 flex items-start gap-3">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-foreground/15">
-            <Link2 className="size-5" />
-          </span>
+          <BrandIcon name="import-link" className="size-12" />
           <div>
             <h2 className="text-17 font-extrabold leading-tight tracking-[-0.02em]">
               
