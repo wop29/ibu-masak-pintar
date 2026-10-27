@@ -1,6 +1,7 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, Flag, Share2, ChefHat } from "lucide-react";
+import { ArrowLeft, Flag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { IngredientList } from "@/components/racik/IngredientList";
 import { PortionStepper } from "@/components/racik/PortionStepper";
@@ -194,10 +195,10 @@ function Tulisan() {
 
           <div className="mt-5 grid gap-2">
             <Button size="lg" className="w-full" onClick={cook}>
-              <ChefHat /> {saved ? t("buka_di_koleksi") : t("simpan_masak")}
+              <BrandIcon name="masak" className="size-6 rounded-md" /> {saved ? t("buka_di_koleksi") : t("simpan_masak")}
             </Button>
             <Button variant="outline" className="min-h-11 w-full" onClick={() => setSharing(true)}>
-              <Share2 /> {" "}{t("bagikan_resep")}
+              <BrandIcon name="bagikan" className="size-6 rounded-md" /> {" "}{t("bagikan_resep")}
             </Button>
           </div>
         </div>

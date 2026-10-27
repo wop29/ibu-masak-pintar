@@ -9,7 +9,7 @@ import { useSnackbar } from "@/components/racik/Snackbar";
 import { BrandIcon } from "@/components/racik/BrandIcon";
 import { NutritionBlock } from "@/components/racik/NutritionBlock";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, CalendarPlus, ExternalLink, Heart, Minus, Plus } from "lucide-react";
+import { ArrowLeft, ExternalLink, Minus, Plus } from "lucide-react";
 import { byId, findRecipe, REG } from "@/lib/racik/data";
 import { planIsFull } from "@/lib/racik/plan";
 import { PLAN_MAX } from "@/lib/racik/store";
@@ -125,7 +125,7 @@ function DetailResep() {
         <RecipePhoto src={photo} glyph={recipe.glyph} alt={recipe.title} glyphClass="text-[64px]" />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.25),transparent_40%,rgba(0,0,0,0.12))]" />
         <Link to="/" aria-label={t("back")} onClick={(e) => { if (window.history.length > 1) { e.preventDefault(); window.history.back(); } }} className="absolute top-[calc(3rem+env(safe-area-inset-top))] left-5 flex size-11 items-center justify-center rounded-full bg-white/95 text-ink shadow-float"><ArrowLeft className="size-5" strokeWidth={2.4} /></Link>
-        <button type="button" onClick={toggleHeart} aria-pressed={saved} aria-label={saved ? t("hapus_dari_favorit_2") : t("simpan_ke_favorit")} className={`absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 flex size-11 items-center justify-center rounded-full shadow-float ${saved ? "bg-primary text-primary-foreground" : "bg-white/95 text-ink"}`}><Heart className={`size-[21px] ${saved ? "fill-current" : ""}`} /></button>
+        <button type="button" onClick={toggleHeart} aria-pressed={saved} aria-label={saved ? t("hapus_dari_favorit_2") : t("simpan_ke_favorit")} className="absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 size-11 overflow-hidden rounded-2xl shadow-float"><BrandIcon name={saved ? "disukai" : "favorit"} className="size-11 rounded-2xl" /></button>
       </div>
 
       <div className="relative -mt-[22px] px-5">
@@ -169,7 +169,7 @@ function DetailResep() {
           </div>
 
           <button type="button" disabled={recipe.incomplete || planned || planFull} onClick={addToPlan} className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-rule text-14 font-bold text-primary disabled:text-ink-3">
-            <CalendarPlus className="size-4" />{recipe.incomplete ? t("belum_bisa_masuk_rencana") : planned ? t("sudah_ada_di_rencana") : planFull ? t("rencana_sudah_penuh_resep", { plan_max: PLAN_MAX }) : t("tambah_ke_rencana")}
+            <BrandIcon name="tambah-rencana" className="size-6 rounded-md" />{recipe.incomplete ? t("belum_bisa_masuk_rencana") : planned ? t("sudah_ada_di_rencana") : planFull ? t("rencana_sudah_penuh_resep", { plan_max: PLAN_MAX }) : t("tambah_ke_rencana")}
           </button>
         </div>
 

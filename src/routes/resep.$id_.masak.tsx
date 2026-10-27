@@ -1,6 +1,7 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, notFound, useNavigate, useRouter } from "@tanstack/react-router";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, BellRing, Check, ListChecks, Pause, Play, RotateCcw, Timer as TimerIcon } from "lucide-react";
+import { ArrowLeft, BellRing, Check, Pause, Play, RotateCcw, Timer as TimerIcon } from "lucide-react";
 import { Sheet } from "@/components/racik/Sheet";
 import { byId, ING } from "@/lib/racik/data";
 import { cookPlan, qtyDisplay, scaledQty, unitOf } from "@/lib/racik/engine";
@@ -446,7 +447,7 @@ function ModeMasak() {
             <h1 className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</h1>
           </div>
           <button type="button" onClick={() => setAllOpen(true)} className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-rule bg-card px-4 text-14 font-extrabold text-primary">
-            <ListChecks className="size-4" /> {" "}{t("bahan")}
+            <BrandIcon name="bahan" className="size-6 rounded-md" /> {" "}{t("bahan")}
           </button>
         </div>
         <div className="h-1 bg-rule" aria-hidden>

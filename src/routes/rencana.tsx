@@ -1,6 +1,6 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback } from "react";
-import { Settings } from "lucide-react";
 import { z } from "zod";
 import { AppTabs } from "@/components/racik/AppTabs";
 import { RencanaView } from "@/components/racik/RencanaView";
@@ -26,7 +26,7 @@ function Rencana() {
       <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <div className="flex items-start justify-between">
           <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{t("tab_plan")}</h1>
-          <Link to="/pengaturan" aria-label={t("settings")} className="mt-1 flex size-11 items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
+          <Link to="/pengaturan" aria-label={t("settings")} className="mt-1 size-11 overflow-hidden rounded-2xl shadow-chip"><BrandIcon name="pengaturan" className="size-11 rounded-2xl" /></Link>
         </div>
       </header>
       <div className="flex-1"><RencanaView pickDayFor={hari} onPickDayHandled={handled} /></div>

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { useState } from "react";
-import { Heart, Settings, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { z } from "zod";
 import { AppTabs } from "@/components/racik/AppTabs";
 import { CompactRecipe } from "@/components/racik/CompactRecipe";
@@ -97,7 +97,7 @@ function Koleksi() {
           <div>
             <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{t("koleksi_saya")}</h1>
           </div>
-          <Link to="/pengaturan" aria-label={t("settings")} className="mt-1 flex size-11 items-center justify-center rounded-full border border-rule-strong bg-tint text-icon-muted"><Settings className="size-4" /></Link>
+          <Link to="/pengaturan" aria-label={t("settings")} className="mt-1 size-11 overflow-hidden rounded-2xl shadow-chip"><BrandIcon name="pengaturan" className="size-11 rounded-2xl" /></Link>
         </div>
         <div className="mt-4 flex">
           {tabs.map((x) => {
@@ -148,7 +148,7 @@ function Koleksi() {
                   <div key={r.id} className="flex items-center gap-1 border-b border-rule-soft last:border-b-0">
                     <div className="min-w-0 flex-1 [&>a]:border-b-0"><CompactRecipe recipe={r} /></div>
                     <button type="button" aria-label={t("hapus_dari_favorit", { title: r.title })} onClick={() => unsave(r.id)} className="flex size-11 shrink-0 items-center justify-center rounded-full text-primary">
-                      <Heart className="size-5 fill-current" aria-hidden />
+                      <BrandIcon name="disukai" className="size-8" />
                     </button>
                   </div>
                 ))}

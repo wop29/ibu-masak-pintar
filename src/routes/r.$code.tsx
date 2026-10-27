@@ -1,6 +1,7 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { ArrowRight, ExternalLink, Heart } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
 import { PHOTO, previewPhotoOf } from "@/components/racik/photos";
@@ -183,7 +184,7 @@ function SharedLink() {
                       toggleSaved(catalogue.id);
                     }}
                   >
-                    <Heart className={saved ? "fill-current text-primary" : ""} />
+                    <BrandIcon name={saved ? "disukai" : "favorit"} className="size-6 rounded-md" />
                     {saved ? t("tersimpan_di_koleksi") : t("simpan_ke_koleksi")}
                   </Button>
                 </>

@@ -1,5 +1,6 @@
+import { BrandIcon } from "../BrandIcon";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Download, Link2, Share2 } from "lucide-react";
+import { Link2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Sheet } from "@/components/racik/Sheet";
 import { Button } from "@/components/ui/button";
@@ -214,11 +215,11 @@ export function ShareSheet({
 
       <div className="mt-5 grid gap-2">
         <Button size="lg" className="w-full" disabled={!current} onClick={share}>
-          <Share2 /> {" "}{t("bagikan")}
+          <BrandIcon name="bagikan" className="size-6 rounded-md" /> {" "}{t("bagikan")}
         </Button>
         <div className="grid grid-cols-2 gap-2">
           <Button variant="outline" className="min-h-11" disabled={!current} onClick={download}>
-            <Download /> {" "}{t("simpan_gambar")}
+            <BrandIcon name="unduh" className="size-6 rounded-md" /> {" "}{t("simpan_gambar")}
           </Button>
           <Button variant="outline" className="min-h-11" disabled={!current} onClick={copy}>
             <Link2 /> {" "}{t("salin_tautan")}

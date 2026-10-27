@@ -1,7 +1,8 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { z } from "zod";
-import { ChevronRight, Heart, Search, ShoppingBasket, X } from "lucide-react";
+import { ChevronRight, Search, X } from "lucide-react";
 import { AppTabs } from "@/components/racik/AppTabs";
 import { RecipeList, ViewToggle } from "@/components/racik/RecipeList";
 import { ImportButton } from "@/components/racik/ImportDemo";
@@ -56,7 +57,8 @@ function PhotoTile({ tile, onPick, cover }: { tile: Tile; onPick: (t: Tile) => v
   );
 }
 
-function Shelf({ title, items, onPick }: { title: string; items: Tile[]; onPick: (t: Tile) => void }) {
+const SHELF_ICON: Record<string, string> = { cepat: "timer", bahan: "bahan", masak: "masak", protein: "daging", pilihan: "menu-harian", daerah: "nusantara", barat: "barat", filipina: "asia" };
+function Shelf({ title, icon, items, onPick }: { title: string; icon?: string | undefined; items: Tile[]; onPick: (t: Tile) => void }) {
   const populated = items.filter((item) => item.recipes.length > 0);
   if (!populated.length) return null;
   // Each tile in a shelf gets a different photograph where the shelf allows it.
@@ -68,7 +70,7 @@ function Shelf({ title, items, onPick }: { title: string; items: Tile[]; onPick:
   });
   return (
     <section className="mt-6">
-      <h2 className="heading-sm mb-3 px-5">{title}</h2>
+      <div className="mb-3 flex items-center gap-2.5 px-5">{icon ? <BrandIcon name={icon} className="size-8" /> : null}<h2 className="heading-sm">{title}</h2></div>
       <div className="no-scrollbar flex gap-3 overflow-x-auto px-5">
         {populated.map((t, i) => <PhotoTile key={t.key} tile={t} onPick={onPick} cover={covers[i]} />)}
       </div>
@@ -274,19 +276,19 @@ function Eksplor() {
           <div className="mx-5 mt-4"><ImportButton /></div>
           <div className="mx-5 mt-3 overflow-hidden rounded-2xl border border-rule-strong bg-card">
             <Link to="/buku" search={{ tab: "disimpan" }} className="flex min-h-14 items-center gap-3 px-4 py-4">
-              <Heart aria-hidden className="size-5 text-ink-2" />
+              <BrandIcon name="resep-favorit" className="size-9" />
               <span className="flex-1 text-15 font-medium text-ink-strong">{t("buka_favorit")}</span>
               <b className="mr-1.5 text-caption text-primary">{state.saved.length}</b>
               <ChevronRight aria-hidden className="size-4 text-ink-faint" />
             </Link>
             <button type="button" onClick={() => setIngredients(true)} className="flex min-h-14 w-full items-center gap-3 border-t border-rule-soft px-4 py-4 text-left">
-              <ShoppingBasket aria-hidden className="size-5 text-ink-2" />
+              <BrandIcon name="bahan" className="size-9" />
               <span className="flex-1 text-15 font-medium text-ink-strong">{t("cari_dari_bahan_yang_ada")}</span>
               <ChevronRight aria-hidden className="size-4 text-ink-faint" />
             </button>
           </div>
 
-          {shelves.map(({ id, def }) => <Shelf key={id} title={def.title} onPick={pick} items={def.items} />)}
+          {shelves.map(({ id, def }) => <Shelf key={id} title={def.title} icon={SHELF_ICON[id]} onPick={pick} items={def.items} />)}
           <div className="h-6" />
         </div>
       ) : (

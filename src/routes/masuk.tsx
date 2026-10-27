@@ -1,7 +1,8 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
-import { ArrowLeft, Camera } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { t } from "@/lib/racik/i18n";
 import {
@@ -314,7 +315,7 @@ function Masuk() {
             <span className="relative flex size-20 items-center justify-center overflow-hidden rounded-full bg-tint">
               {photoPreview
                 ? <img src={photoPreview} alt="" className="size-full object-cover" />
-                : <Camera aria-hidden className="size-7 text-muted-foreground" />}
+                : <BrandIcon name="dari-foto" className="size-9" />}
             </span>
             <span className="text-body font-semibold text-primary">{t("add_photo")}</span>
           </button>

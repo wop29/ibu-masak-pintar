@@ -1,6 +1,6 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Camera, Share2 } from "lucide-react";
 import { byId } from "@/lib/racik/data";
 import { useRacik } from "@/lib/racik/state";
 import { shrinkPhoto } from "@/lib/racik/store";
@@ -97,7 +97,7 @@ function Selesai() {
           <img src={photo} alt={t("hasil_masakan")} className="h-full w-full object-cover" />
         ) : (
           <span className="flex flex-col items-center gap-2 text-body text-ink-3">
-            <Camera aria-hidden className="size-7" />
+            <BrandIcon name="dari-foto" className="size-9" />
             
             {t("ambil_atau_pilih_foto")}
           </span>
@@ -129,7 +129,7 @@ function Selesai() {
       ) : null}
 
       <Button size="lg" className="mt-4 w-full" onClick={() => setSharing(true)}>
-        <Share2 /> {" "}{t("bagikan")}
+        <BrandIcon name="bagikan" className="size-6 rounded-md" /> {" "}{t("bagikan")}
       </Button>
       <p className="mt-2 text-caption text-ink-3">
         {photo

@@ -1,6 +1,7 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { BarChart3, ChevronRight, PenLine } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { AppTabs } from "@/components/racik/AppTabs";
 import { Button } from "@/components/ui/button";
 import { useAccount } from "@/lib/racik/backend/useAccount";
@@ -85,7 +86,7 @@ function Tulis() {
       <div className="px-5">
         <Button asChild size="lg" className="w-full">
           <Link to="/tulis/baru">
-            <PenLine /> {" "}{t("tulis_resep_baru")}
+            <BrandIcon name="edit" className="size-6 rounded-md" /> {" "}{t("tulis_resep_baru")}
           </Link>
         </Button>
 
@@ -95,7 +96,7 @@ function Tulis() {
             className="mt-3 flex min-h-12 items-center justify-between rounded-xl border border-rule px-4 text-body font-bold"
           >
             <span className="flex items-center gap-2">
-              <BarChart3 className="size-5 text-primary" /> {" "}{t("resepku_siapa_yang_memasaknya")}
+              <BrandIcon name="statistik" className="size-7" /> {" "}{t("resepku_siapa_yang_memasaknya")}
             </span>
             <ChevronRight className="size-4 text-ink-3" />
           </Link>

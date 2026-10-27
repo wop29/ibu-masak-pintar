@@ -1,6 +1,7 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ArrowLeft, ChevronRight, PenLine } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HandleForm } from "@/components/racik/share/HandleForm";
 import { byId } from "@/lib/racik/data";
@@ -217,7 +218,7 @@ function Resepku() {
             to="/tulis/baru"
             className="flex min-h-11 items-center gap-1 text-14 font-bold text-primary"
           >
-            <PenLine className="size-4" /> {" "}{t("tulis")}
+            <BrandIcon name="edit" className="size-6 rounded-md" /> {" "}{t("tulis")}
           </Link>
         </div>
         {mine.length ? (

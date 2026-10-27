@@ -1,17 +1,7 @@
+import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  AlertTriangle,
-  ArrowLeft,
-  Camera,
-  Check,
-  CircleAlert,
-  Plus,
-  Share2,
-  Timer,
-  Trash2,
-  X,
-} from "lucide-react";
+import { AlertTriangle, ArrowLeft, Check, CircleAlert, Plus, Share2, Timer, Trash2, X,  } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PortionStepper } from "@/components/racik/PortionStepper";
 import { HandleForm } from "@/components/racik/share/HandleForm";
@@ -306,7 +296,7 @@ function Editor() {
               <img src={draft.photo} alt={t("foto_masakan")} className="h-full w-full object-cover" />
             ) : (
               <span className="flex flex-col items-center gap-2 text-14 text-ink-3">
-                <Camera className="size-7" aria-hidden /> {" "}{t("foto_masakan_boleh_nanti")}
+                <BrandIcon name="dari-foto" className="size-9" /> {" "}{t("foto_masakan_boleh_nanti")}
               </span>
             )}
           </button>
