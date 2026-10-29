@@ -29,7 +29,7 @@ const BENEFITS = [
   { id: "sync", tile: tileSync, get title() { return t("offer2_sync_t"); }, get body() { return t("offer2_sync_b"); } },
 ];
 
-/** Google's "G" mark, in its own colours, as Google's sign-in guidelines ask. */
+/** Google's "G" mark, in its own colours, on the white button Google's sign-in guidelines ask for. */
 function GoogleMark() {
   return (
     <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white">
@@ -120,14 +120,13 @@ export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: ()
 
       <div className="mt-6 space-y-3">
         {google ? (
-          <Button size="lg" className="h-14 w-full gap-3 rounded-2xl text-body font-extrabold" disabled={busy} onClick={toGoogle}>
+          <Button size="lg" variant="outline" className="h-14 w-full gap-3 rounded-2xl bg-card text-body font-extrabold text-ink-strong" disabled={busy} onClick={toGoogle}>
             <GoogleMark />
             {t("continue_google")}
           </Button>
         ) : null}
         <Button
           size="lg"
-          variant={google ? "outline" : "default"}
           className="h-14 w-full gap-3 rounded-2xl text-body font-extrabold"
           disabled={busy}
           onClick={toEmail}
