@@ -135,6 +135,36 @@ const DICT = {
     "Without an account you still get all {n} recipes, the measurements and cook mode — signal or no signal.",
   ],
   offer_later: ["Nanti saja", "Maybe later"],
+  // the sign-in offer, redesigned 29 Okt 2026
+  offer2_title: ["Simpan, tulis, dan bagikan resep andalanmu.", "Save, write and share your favourite recipes."],
+  offer2_body: [
+    "Buat akun gratis supaya resepmu aman, bisa dibagikan, dan bisa dibuka di semua perangkat.",
+    "Make a free account so your recipes stay safe, can be shared, and open on every device.",
+  ],
+  offer2_save_t: ["Simpan resep favorit", "Keep your favourite recipes"],
+  offer2_save_b: [
+    "Resep dari link Instagram, TikTok, atau blog tersimpan di akunmu, tidak hilang saat ganti HP.",
+    "Recipes from Instagram, TikTok or blog links are kept in your account, even when you change phones.",
+  ],
+  offer2_share_t: ["Tulis dan bagikan resep andalanmu", "Write and share your best recipes"],
+  offer2_share_b: [
+    "Bagikan resep buatanmu agar bisa dicoba orang lain, dan lihat berapa orang yang memasaknya.",
+    "Share your own recipes for others to try, and see how many people cooked them.",
+  ],
+  offer2_sync_t: ["Tetap tersimpan di akun", "Kept in your account"],
+  offer2_sync_b: [
+    "Buka koleksi resepmu kapan saja, dari laptop maupun HP.",
+    "Open your recipe collection any time, from a laptop or a phone.",
+  ],
+  offer2_email: ["Daftar dengan Email", "Sign up with email"],
+  offer2_or: ["atau", "or"],
+  offer2_free_note: [
+    "Tanpa akun pun {n} resep, takaran, dan mode masak tetap jalan.",
+    "Without an account, all {n} recipes, measurements and cook mode still work.",
+  ],
+  offer2_terms_pre: ["Dengan membuat akun, kamu menyetujui", "By creating an account, you agree to Racik's"],
+  offer2_terms_and: ["dan", "and"],
+  offer2_terms_post: [" Racik.", "."],
 
   continue_facebook: ["Lanjut dengan Facebook", "Continue with Facebook"],
   continue_apple: ["Lanjut dengan Apple", "Continue with Apple"],
