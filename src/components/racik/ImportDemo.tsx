@@ -1,6 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Camera, Check, Clock, ImageIcon, Link2, PenLine, RotateCcw, Upload, X } from "lucide-react";
+import {
+  Camera,
+  Check,
+  Clock,
+  ImageIcon,
+  Link2,
+  PenLine,
+  RotateCcw,
+  Upload,
+  X,
+} from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,6 +46,7 @@ import {
 import {
   codeFromThrown,
   errorMessage,
+  isOutage,
   isRetryable,
   noRecipeMessage,
   type ImportAction,
@@ -54,7 +65,7 @@ import type { Negara } from "@/lib/racik/locale";
 import type { ImportedRecipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
 import { BrandIcon } from "./BrandIcon";
-import { t } from "@/lib/racik/i18n";
+import { t, type Key } from "@/lib/racik/i18n";
 
 type Tab = "tautan" | "keterangan" | "foto";
 
@@ -68,11 +79,9 @@ export function ImportDemo({ onImported }: { compact?: boolean; onImported?: () 
           <BrandIcon name="import-link" className="size-12" />
           <div>
             <h2 className="text-17 font-extrabold leading-tight tracking-[-0.02em]">
-              
               {t("punya_resep_dari_luar_racik")}
             </h2>
             <p className="mt-0.5 text-caption text-primary-foreground/95">
-              
               {t("dari_link_video_teks_resep_2")}
             </p>
           </div>
@@ -82,7 +91,6 @@ export function ImportDemo({ onImported }: { compact?: boolean; onImported?: () 
           onClick={() => setOpen(true)}
           className="min-h-12 w-full rounded-xl bg-card text-14 font-extrabold text-primary"
         >
-          
           {t("tab_import")}
         </button>
       </section>
@@ -128,9 +136,30 @@ export function findVideoLink(text: string): string | null {
 }
 
 const MODE: Record<Tab, { label: string; action: string }> = {
-  tautan: { get label() { return t("link_video"); }, get action() { return t("ubah_jadi_resep"); } },
-  keterangan: { get label() { return t("teks_resep"); }, get action() { return t("ubah_jadi_resep"); } },
-  foto: { get label() { return t("foto_resep"); }, get action() { return t("pick_recipe_photo"); } },
+  tautan: {
+    get label() {
+      return t("link_video");
+    },
+    get action() {
+      return t("ubah_jadi_resep");
+    },
+  },
+  keterangan: {
+    get label() {
+      return t("teks_resep");
+    },
+    get action() {
+      return t("ubah_jadi_resep");
+    },
+  },
+  foto: {
+    get label() {
+      return t("foto_resep");
+    },
+    get action() {
+      return t("pick_recipe_photo");
+    },
+  },
 };
 
 type Stage = "form" | "working" | "listening" | "done" | "kosong" | "habis" | "istirahat";
@@ -181,6 +210,15 @@ export function ImportSheet({
   const [needCaption, setNeedCaption] = useState(false);
   const [quota, setQuota] = useState<QuotaInfo | null>(null);
   const [banner, setBanner] = useState<{ title: string } | null>(null);
+  /** After an outage the button rests a few minutes, so nobody hammers a broken service. */
+  const [restUntil, setRestUntil] = useState(0);
+  const [, setTick] = useState(0);
+  const resting = restUntil > Date.now();
+  useEffect(() => {
+    if (!restUntil) return;
+    const timer = setTimeout(() => setTick((n) => n + 1), Math.max(0, restUntil - Date.now()) + 50);
+    return () => clearTimeout(timer);
+  }, [restUntil]);
   const valid = isVideoLink(url);
   const captionLength = caption.trim().length;
   const captionReady = captionLength > 0 && captionLength <= MAX_CAPTION_CHARS;
@@ -303,6 +341,7 @@ export function ImportSheet({
       setStage("istirahat");
       return;
     }
+    if (isOutage(code)) setRestUntil(Date.now() + OUTAGE_REST_MS);
     setError({ message: errorMessage(code, from), code });
     setTab(
       from === "teks"
@@ -501,6 +540,13 @@ export function ImportSheet({
       case "retry":
         retryRef.current?.();
         break;
+      case "new_link":
+        setError(null);
+        setNeedCaption(false);
+        setUrl("");
+        setStage("form");
+        setTab("tautan");
+        break;
       case "write":
         break;
     }
@@ -514,55 +560,56 @@ export function ImportSheet({
         return valid ? (
           <div key={action}>
             <Button variant={variant} className={cls} onClick={() => doAction(action)}>
-              <BrandIcon name="suara" className="size-6 rounded-md" /> {" "}{t("dengarkan_suara_videonya")}
+              <BrandIcon name="suara" className="size-6 rounded-md" />{" "}
+              {t("dengarkan_suara_videonya")}
             </Button>
-            <p className="mt-1.5 text-label text-ink-3">
-              
-              {t("bisa_sampai_satu_menit_racik")}
-            </p>
+            <p className="mt-1.5 text-label text-ink-3">{t("bisa_sampai_satu_menit_racik")}</p>
           </div>
         ) : null;
       case "upload":
         return (
           <div key={action}>
             <Button variant={variant} className={cls} onClick={() => doAction(action)}>
-              <Upload /> {" "}{t("unggah_videonya")}
+              <Upload /> {t("unggah_videonya")}
             </Button>
-            <p className="mt-1.5 text-label text-ink-3">
-              
-              {t("video_atau_rekaman_suara_paling")}
-            </p>
+            <p className="mt-1.5 text-label text-ink-3">{t("video_atau_rekaman_suara_paling")}</p>
           </div>
         );
       case "paste":
         return (
           <Button key={action} variant={variant} className={cls} onClick={() => doAction(action)}>
-            <BrandIcon name="tempel" className="size-6 rounded-md" /> {" "}{t("tempel_teks_resep")}
+            <BrandIcon name="tempel" className="size-6 rounded-md" /> {t("tempel_teks_resep")}
           </Button>
         );
       case "edit_text":
         return (
           <Button key={action} variant={variant} className={cls} onClick={() => doAction(action)}>
-            <PenLine /> {" "}{t("ubah_teksnya")}
+            <PenLine /> {t("ubah_teksnya")}
           </Button>
         );
       case "photo_again":
         return (
           <Button key={action} variant={variant} className={cls} onClick={() => doAction(action)}>
-            <Camera /> {" "}{t("pilih_foto_lain")}
+            <Camera /> {t("pilih_foto_lain")}
           </Button>
         );
       case "retry":
         return retryRef.current ? (
           <Button key={action} variant={variant} className={cls} onClick={() => doAction(action)}>
-            <RotateCcw /> {" "}{t("coba_lagi")}
+            <RotateCcw /> {t("coba_lagi")}
           </Button>
         ) : null;
+      case "new_link":
+        return (
+          <Button key={action} variant={variant} className={cls} onClick={() => doAction(action)}>
+            <Link2 /> {t("coba_link_lain")}
+          </Button>
+        );
       case "write":
         return (
           <Button key={action} asChild variant={variant} className={cls}>
             <Link to="/tulis" onClick={() => setOpen(false)}>
-              <PenLine /> {" "}{t("write_recipe")}
+              <PenLine /> {t("write_recipe")}
             </Link>
           </Button>
         );
@@ -579,7 +626,7 @@ export function ImportSheet({
           onClick={() => doAction("retry")}
           className="mt-2 inline-flex min-h-11 items-center gap-1.5 text-14 font-bold text-primary"
         >
-          <RotateCcw className="size-4" /> {" "}{t("coba_lagi")}
+          <RotateCcw className="size-4" /> {t("coba_lagi")}
         </button>
       ) : null}
       {error.code && !isRetryable(error.code) && error.message.actions.includes("write") ? (
@@ -588,7 +635,6 @@ export function ImportSheet({
           onClick={() => setOpen(false)}
           className="mt-2 inline-flex min-h-11 items-center text-14 font-bold text-primary"
         >
-          
           {t("write_recipe")}
         </Link>
       ) : null}
@@ -604,7 +650,10 @@ export function ImportSheet({
       }}
       className={`flex min-h-[46px] items-center justify-center gap-2 rounded-lg text-caption font-bold ${tab === value || (value === "tautan" && tab === "keterangan") ? "bg-card text-ink shadow-chip" : "text-ink-3"}`}
     >
-      <BrandIcon name={value === "foto" ? "dari-foto" : "import-link"} className="size-6 rounded-md" />
+      <BrandIcon
+        name={value === "foto" ? "dari-foto" : "import-link"}
+        className="size-6 rounded-md"
+      />
       {label}
     </button>
   );
@@ -650,8 +699,7 @@ export function ImportSheet({
         title={sheetTitle}
         {...(stage === "form"
           ? {
-              subtitle:
-                t("masukkan_link_video_teks_resep"),
+              subtitle: t("masukkan_link_video_teks_resep"),
             }
           : {})}
       >
@@ -669,7 +717,10 @@ export function ImportSheet({
                   <span className="sr-only">{t("link_video")}</span>
                   <input
                     value={url}
-                    onChange={(e) => setUrl(findVideoLink(e.target.value) ?? e.target.value)}
+                    onChange={(e) => {
+                      setError(null);
+                      setUrl(findVideoLink(e.target.value) ?? e.target.value);
+                    }}
                     type="url"
                     placeholder={t("link_tiktok_reels_atau_youtube")}
                     className="min-w-0 flex-1 bg-transparent text-14 outline-none placeholder:text-ink-3"
@@ -677,7 +728,6 @@ export function ImportSheet({
                 </label>
                 {url && !valid ? (
                   <p className="mt-2 text-14 text-danger-ink">
-                    
                     {t("gunakan_link_tiktok_instagram_atau")}
                   </p>
                 ) : null}
@@ -688,6 +738,7 @@ export function ImportSheet({
                   onClick={async () => {
                     try {
                       const t = await navigator.clipboard.readText();
+                      setError(null);
                       setUrl(findVideoLink(t) ?? t);
                     } catch {
                       setError({
@@ -701,15 +752,21 @@ export function ImportSheet({
                     }
                   }}
                 >
-                  <BrandIcon name="tempel" className="size-6 rounded-md" /> {" "}{t("tempel_dari_clipboard")}
+                  <BrandIcon name="tempel" className="size-6 rounded-md" />{" "}
+                  {t("tempel_dari_clipboard")}
                 </Button>
                 <Button
                   className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
-                  disabled={!valid}
+                  disabled={!valid || resting}
                   onClick={() => void submitLink(false)}
                 >
                   {MODE.tautan.action}
                 </Button>
+                {resting ? (
+                  <p className="mt-2 text-center text-14 text-ink-3">
+                    {t("bisa_dicoba_lagi_beberapa_menit")}
+                  </p>
+                ) : null}
               </>
             ) : tab === "foto" ? (
               <>
@@ -719,9 +776,10 @@ export function ImportSheet({
                   className="mt-4 flex min-h-[168px] w-full flex-col items-center justify-center rounded-2xl border-[1.5px] border-dashed border-primary-line bg-primary-wash text-primary"
                 >
                   <ImageIcon aria-hidden className="size-[30px]" strokeWidth={1.8} />
-                  <span className="mt-2.5 text-15 font-bold">{t("ambil_atau_pilih_foto_resep")}</span>
+                  <span className="mt-2.5 text-15 font-bold">
+                    {t("ambil_atau_pilih_foto_resep")}
+                  </span>
                   <span className="mt-1 text-label text-ink-3">
-                    
                     {t("bisa_berupa_tulisan_tangan_atau")}
                   </span>
                 </button>
@@ -739,7 +797,10 @@ export function ImportSheet({
                   <span className="sr-only">{t("teks_resep")}</span>
                   <textarea
                     value={caption}
-                    onChange={(e) => setCaption(e.target.value)}
+                    onChange={(e) => {
+                      setError(null);
+                      setCaption(e.target.value);
+                    }}
                     rows={6}
                     placeholder={t("tempel_bahan_dan_cara_memasak")}
                     className="min-h-[132px] w-full resize-none rounded-xl border border-rule bg-ground p-3.5 text-body leading-relaxed outline-none focus:border-primary"
@@ -750,11 +811,10 @@ export function ImportSheet({
                     className={`mt-1 text-right text-label tabular-nums ${captionLength > MAX_CAPTION_CHARS ? "font-bold text-danger-ink" : "text-ink-3"}`}
                   >
                     {captionLength.toLocaleString("id-ID")} /{" "}
-                    {MAX_CAPTION_CHARS.toLocaleString("id-ID")} {" "}{t("huruf")}
+                    {MAX_CAPTION_CHARS.toLocaleString("id-ID")} {t("huruf")}
                   </p>
                 ) : null}
                 <p className="mt-2 text-14 text-muted-foreground">
-                  
                   {t("dari_video_buka_videonya_tahan")}
                 </p>
                 {alert}
@@ -764,6 +824,7 @@ export function ImportSheet({
                   onClick={async () => {
                     try {
                       setCaption(await navigator.clipboard.readText());
+                      setError(null);
                     } catch {
                       setError({
                         code: null,
@@ -776,24 +837,23 @@ export function ImportSheet({
                     }
                   }}
                 >
-                  <BrandIcon name="tempel" className="size-6 rounded-md" /> {" "}{t("tempel_dari_clipboard")}
+                  <BrandIcon name="tempel" className="size-6 rounded-md" />{" "}
+                  {t("tempel_dari_clipboard")}
                 </Button>
                 <Button
                   className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
-                  disabled={!captionReady}
+                  disabled={!captionReady || resting}
                   onClick={() => void submitCaption()}
                 >
                   {MODE.keterangan.action}
                 </Button>
                 {captionLength > 0 && captionLength < MIN_CAPTION_CHARS ? (
                   <p className="mt-2 text-14 text-muted-foreground">
-                    
                     {t("teks_sependek_ini_biasanya_belum")}
                   </p>
                 ) : null}
                 {captionLength > MAX_CAPTION_CHARS ? (
                   <p className="mt-2 text-14 text-danger-ink">
-                    
                     {t("teksnya_terlalu_panjang_hapus_bagian")}
                   </p>
                 ) : null}
@@ -804,10 +864,10 @@ export function ImportSheet({
                       className="mt-5 min-h-12 w-full rounded-xl text-14 font-bold"
                       onClick={() => void submitLink(true)}
                     >
-                      <BrandIcon name="suara" className="size-6 rounded-md" /> {" "}{t("dengarkan_suara_videonya")}
+                      <BrandIcon name="suara" className="size-6 rounded-md" />{" "}
+                      {t("dengarkan_suara_videonya")}
                     </Button>
                     <p className="mt-1.5 text-label text-ink-3">
-                      
                       {t("bisa_sampai_satu_menit_racik")}
                     </p>
                     <Button
@@ -815,10 +875,9 @@ export function ImportSheet({
                       className="mt-3 min-h-12 w-full rounded-xl text-14 font-bold"
                       onClick={() => fileRef.current?.click()}
                     >
-                      <Upload /> {" "}{t("unggah_videonya")}
+                      <Upload /> {t("unggah_videonya")}
                     </Button>
                     <p className="mt-1.5 text-label text-ink-3">
-                      
                       {t("video_atau_rekaman_suara_paling")}
                     </p>
                   </>
@@ -826,27 +885,17 @@ export function ImportSheet({
               </>
             )}
             {tab === "foto" ? (
-              <p className="mt-4 text-label text-ink-3">
-                
-                {t("boleh_sampai_4_foto_sekaligus")}
-              </p>
+              <p className="mt-4 text-label text-ink-3">{t("boleh_sampai_4_foto_sekaligus")}</p>
             ) : tab === "tautan" ? (
-              <p className="mt-4 text-label text-ink-3">
-                
-                {t("bisa_dari_bahasa_apa_saja")}
-              </p>
+              <p className="mt-4 text-label text-ink-3">{t("bisa_dari_bahasa_apa_saja")}</p>
             ) : (
-              <p className="mt-4 text-label text-ink-3">
-                
-                {t("bisa_dari_bahasa_apa_saja_2")}
-              </p>
+              <p className="mt-4 text-label text-ink-3">{t("bisa_dari_bahasa_apa_saja_2")}</p>
             )}
             <Link
               to="/tulis"
               onClick={() => setOpen(false)}
               className="mt-4 block text-center text-14 font-bold text-primary"
             >
-              
               {t("atau_tulis_resep_sendiri")}
             </Link>
           </>
@@ -855,21 +904,14 @@ export function ImportSheet({
             <span className="flex size-[72px] items-center justify-center rounded-full bg-primary-soft text-primary">
               <Clock className="size-8" strokeWidth={1.8} />
             </span>
-            <p className="mt-5 max-w-[280px] text-14 leading-relaxed text-ink-3">
-              
-              {t("racik_sedang_merapikan_bahan_takaran")}
-            </p>
-            <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-primary-track">
-              <div className="h-full w-[72%] animate-pulse rounded-full bg-primary" />
-            </div>
+            <StepStatus source={source} />
           </div>
         ) : stage === "listening" ? (
-          <div className="py-10 text-center">
-            <p className="text-title font-bold">{t("mendengarkan_videonya")}</p>
-            <p className="mt-2 text-body text-muted-foreground">
-              
-              {t("bisa_sampai_satu_menit_kalau")}
-            </p>
+          <div className="flex flex-col items-center px-3 pt-6 pb-10 text-center">
+            <span className="flex size-[72px] items-center justify-center rounded-full bg-primary-soft text-primary">
+              <Clock className="size-8" strokeWidth={1.8} />
+            </span>
+            <StepStatus source={source} />
           </div>
         ) : stage === "kosong" ? (
           <div className="py-2">
@@ -883,7 +925,6 @@ export function ImportSheet({
               onClick={() => setOpen(false)}
               className="mt-5 block text-center text-14 font-bold text-primary"
             >
-              
               {t("atau_tulis_resep_sendiri")}
             </Link>
           </div>
@@ -891,9 +932,11 @@ export function ImportSheet({
           <div className="py-2">
             <h3 className="text-title font-bold">{t("jatah_bulan_ini_sudah_habis")}</h3>
             <p className="mt-2 text-body text-muted-foreground">
-              {quota?.limit != null ? t("kamu_sudah_menambah_resep_bulan", { limit: quota.limit }) : ""}
-              
-              {t("jatahnya_terisi_lagi_tanggal")}{" "}{quota ? resetLabel(quota) : t("n1_bulan_depan")}{t("resep_yang_sudah_tersimpan_tetap")}
+              {quota?.limit != null
+                ? t("kamu_sudah_menambah_resep_bulan", { limit: quota.limit })
+                : ""}
+              {t("jatahnya_terisi_lagi_tanggal")} {quota ? resetLabel(quota) : t("n1_bulan_depan")}
+              {t("resep_yang_sudah_tersimpan_tetap")}
             </p>
             {actionButton("write", true)}
             <Button
@@ -901,7 +944,6 @@ export function ImportSheet({
               className="mt-3 min-h-12 w-full rounded-xl text-14 font-bold"
               onClick={() => setOpen(false)}
             >
-              
               {t("tutup")}
             </Button>
           </div>
@@ -917,7 +959,6 @@ export function ImportSheet({
               className="mt-3 min-h-12 w-full rounded-xl text-14 font-bold"
               onClick={() => setOpen(false)}
             >
-              
               {t("tutup")}
             </Button>
           </div>
@@ -931,8 +972,8 @@ export function ImportSheet({
             </p>
             {fromLanguage ? (
               <p className="mt-2 text-caption leading-normal text-ink-3">
-                
-                {t("diterjemahkan_dari")}{" "}{fromLanguage}{t("takaran_asingnya_sudah_diubah_ke")}
+                {t("diterjemahkan_dari")} {fromLanguage}
+                {t("takaran_asingnya_sudah_diubah_ke")}
               </p>
             ) : null}
             {notice ? (
@@ -940,17 +981,15 @@ export function ImportSheet({
             ) : null}
             {unmatched.length ? (
               <p className="mt-2 text-caption leading-normal text-ink-3">
-                {unmatched.length} {" "}{t("bahan_ditulis_apa_adanya_takarannya")}
+                {unmatched.length} {t("bahan_ditulis_apa_adanya_takarannya")}
               </p>
             ) : null}
             <p className="mt-3 rounded-xl bg-notice p-3 text-caption leading-normal text-notice-ink">
-              
               {t("periksa_kembali_bahan_takaran_dan")}
             </p>
             {label ? <p className="mt-3 text-label text-ink-3">{label}</p> : null}
             <Button asChild className="mt-6 min-h-[54px] w-full rounded-xl text-body font-bold">
               <Link to="/buku" search={{ tab: "diambil" }} onClick={() => setOpen(false)}>
-                
                 {t("lihat_di_koleksi")}
               </Link>
             </Button>
@@ -973,7 +1012,6 @@ export function ImportSheet({
             onClick={() => setBanner(null)}
             className="shrink-0 text-14 font-bold text-primary-line"
           >
-            
             {t("lihat_di_koleksi")}
           </Link>
           <button
@@ -986,6 +1024,83 @@ export function ImportSheet({
           </button>
         </div>
       ) : null}
+    </>
+  );
+}
+
+/** How long the import button rests after the service itself failed. */
+const OUTAGE_REST_MS = 3 * 60_000;
+
+/**
+ * Stepped status instead of a bar that pretends to move. The steps follow the
+ * pipeline's usual timing; the server does not report progress, so the text
+ * only moves forward and never claims to be done.
+ */
+const STEPS: Record<ImportSource, [number, Key][]> = {
+  link: [
+    [0, "step_ambil_video"],
+    [5, "step_baca_keterangan"],
+    [12, "step_baca_takaran"],
+    [22, "step_susun_langkah"],
+    [40, "step_dengarkan"],
+    [80, "step_hampir"],
+  ],
+  suara: [
+    [0, "step_ambil_video"],
+    [6, "step_dengarkan"],
+    [45, "step_baca_takaran"],
+    [60, "step_susun_langkah"],
+    [85, "step_hampir"],
+  ],
+  berkas: [
+    [0, "step_kirim_berkas"],
+    [8, "step_dengarkan"],
+    [45, "step_baca_takaran"],
+    [60, "step_susun_langkah"],
+    [90, "step_hampir"],
+  ],
+  teks: [
+    [0, "step_baca_teks"],
+    [6, "step_baca_takaran"],
+    [15, "step_susun_langkah"],
+    [35, "step_hampir"],
+  ],
+  foto: [
+    [0, "step_baca_foto"],
+    [8, "step_baca_takaran"],
+    [18, "step_susun_langkah"],
+    [40, "step_hampir"],
+  ],
+};
+
+function StepStatus({ source }: { source: ImportSource }) {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    const started = Date.now();
+    const timer = setInterval(() => setSeconds(Math.floor((Date.now() - started) / 1000)), 1000);
+    return () => clearInterval(timer);
+  }, [source]);
+  const steps = STEPS[source];
+  let current = 0;
+  steps.forEach(([at], i) => {
+    if (seconds >= at) current = i;
+  });
+  return (
+    <>
+      <p className="mt-5 text-title font-bold" aria-live="polite">
+        {t(steps[current]![1])}
+      </p>
+      <div className="mt-4 flex w-full max-w-[240px] gap-1.5" aria-hidden>
+        {steps.map(([at], i) => (
+          <span
+            key={at}
+            className={`h-1.5 flex-1 rounded-full transition-colors duration-500 ${i <= current ? "bg-primary" : "bg-primary-track"}`}
+          />
+        ))}
+      </div>
+      <p className="mt-4 max-w-[280px] text-14 leading-relaxed text-ink-3">
+        {t("biasanya_30_60_detik")}
+      </p>
     </>
   );
 }

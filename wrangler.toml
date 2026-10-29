@@ -6,3 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = ".output/public"
 binding = "ASSETS"
+
+# Cuts a still of the finished dish from imported videos (recipe cover).
+[media]
+binding = "MEDIA"

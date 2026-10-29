@@ -153,7 +153,7 @@ export function videoFileProblem(file: {
 /** The server gives up first (55–105 s); this only catches a connection that never answers. */
 export const CLIENT_TIMEOUT_MS: Record<ImportSource, number> = {
   teks: 70_000,
-  link: 75_000,
+  link: 120_000,
   foto: 80_000,
   suara: 120_000,
   berkas: 150_000,

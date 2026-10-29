@@ -70,6 +70,8 @@ const T = {
   oembed: 8_000,
   shortLink: 6_000,
   media: 20_000,
+  cover: 6_000,
+  frame: 15_000,
   extract: 45_000,
   transcribe: 80_000,
 };
@@ -535,6 +537,62 @@ function mediaUrlFromHtml(html: string) {
   return "";
 }
 
+/**
+ * TikTok's video page often answers a server with a bot check and no file. Its
+ * embed page is lighter and still names a playable file, the caption and covers.
+ */
+async function tiktokEmbed(url: string, budget: Budget) {
+  const empty = { mediaUrl: "", caption: "", cover: "" };
+  const id = url.match(/\/video\/(\d{8,})/)?.[1];
+  if (!id) return empty;
+  const { html } = await fetchHtml(`https://www.tiktok.com/embed/v2/${id}`, budget);
+  const raw = html.match(
+    /<script[^>]+id=["']__FRONTITY_CONNECT_STATE__["'][^>]*>([\s\S]*?)<\/script>/i,
+  )?.[1];
+  if (!raw) return empty;
+  try {
+    type Item = { text?: unknown; covers?: unknown; video?: { urls?: unknown } };
+    const state = JSON.parse(raw) as {
+      source?: { data?: Record<string, { videoData?: { itemInfos?: Item } }> };
+    };
+    const item = Object.values(state.source?.data ?? {})[0]?.videoData?.itemInfos;
+    const list = (value: unknown) =>
+      Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
+    return {
+      mediaUrl: list(item?.video?.urls).find((u) => isMediaHostAllowed(u)) ?? "",
+      caption: typeof item?.text === "string" ? item.text : "",
+      cover: list(item?.covers).find((u) => isMediaHostAllowed(u)) ?? "",
+    };
+  } catch {
+    return empty;
+  }
+}
+
+/**
+ * Instagram and TikTok covers are signed links that expire within days, and
+ * Instagram's refuse to show on other sites. So the cover is copied into the
+ * recipe as a small data URL. YouTube covers are stable and stay as links.
+ */
+const MAX_COVER_BYTES = 300_000;
+async function keepCover(cover: string | undefined, budget: Budget) {
+  if (!cover || !isMediaHostAllowed(cover)) return cover;
+  if (budget.left() < T.cover + 2_000) return undefined;
+  try {
+    const response = await fetch(cover, {
+      redirect: "follow",
+      headers: { "User-Agent": BROWSER_UA, Accept: "image/webp,image/jpeg,image/png,image/*" },
+      signal: budget.signal(T.cover),
+    });
+    const type = (response.headers.get("content-type") ?? "").split(";")[0]!.trim().toLowerCase();
+    if (!response.ok || !/^image\/(jpeg|png|webp)$/.test(type)) return undefined;
+    const bytes = await readCapped(response, MAX_COVER_BYTES);
+    if (!bytes || bytes.byteLength === 0) return undefined;
+    return toDataUrl(bytes, type);
+  } catch {
+    return undefined;
+  }
+}
+
 async function fetchMedia(mediaUrl: string, referer: string, cookie: string, budget: Budget) {
   try {
     const headers: Record<string, string> = {
@@ -596,7 +654,18 @@ function fixSpokenTerms(text: string) {
 // Verbatim in whatever language is spoken: translating while transcribing loses
 // amounts and names. The extraction step translates into Bahasa Indonesia.
 const TRANSCRIBE_PROMPT =
-  "Transkripsikan semua ucapan dalam berkas ini apa adanya, dalam bahasa aslinya (jangan diterjemahkan). Tulis angka dan satuan persis seperti diucapkan. Keluarkan hanya teks ucapannya, tanpa komentar.";
+  "Transkripsikan semua ucapan dalam berkas ini apa adanya, dalam bahasa aslinya (jangan diterjemahkan). Tulis angka dan satuan persis seperti diucapkan. Keluarkan hanya teks ucapannya, tanpa komentar. Lalu tambahkan satu baris terakhir persis dalam bentuk FOTO_DETIK: <angka>, yaitu detik saat masakan yang sudah jadi terlihat paling jelas dan menggugah selera (tanpa wajah atau tulisan besar menutupi). Jika masakan jadi tidak pernah terlihat, tulis FOTO_DETIK: -1.";
+
+/** Splits the trailing FOTO_DETIK line off a transcript. -1 means no good food shot. */
+export function splitFoodSecond(text: string): { text: string; foodSeconds: number } {
+  const match = text.match(/FOTO_DETIK\s*:\s*(-?\d+(?:[.,]\d+)?)\s*$/i);
+  if (!match) return { text: text.trim(), foodSeconds: -1 };
+  const value = Number(match[1]!.replace(",", "."));
+  return {
+    text: text.slice(0, match.index).trim(),
+    foodSeconds: Number.isFinite(value) && value >= 0 ? value : -1,
+  };
+}
 
 /**
  * Gemini reads audio and video directly. A video is cut at three minutes
@@ -644,9 +713,64 @@ async function transcribe(
   if (!reply.ok) {
     if (reply.why === "timeout" || reply.why === "busy") failFromReply(reply);
     console.warn("[racik-import] transcription failed", reply.why, reply.status, reply.detail);
-    return "";
+    return { text: "", foodSeconds: -1 };
   }
-  return fixSpokenTerms(reply.text.replace(/\s+/g, " ").trim().slice(0, 40_000));
+  const { text, foodSeconds } = splitFoodSecond(reply.text);
+  return {
+    text: fixSpokenTerms(text.replace(/\s+/g, " ").trim().slice(0, 40_000)),
+    foodSeconds: isVideo ? foodSeconds : -1,
+  };
+}
+
+/** Minimal shape of the Workers Media Transformations binding (env.MEDIA). */
+type MediaBinding = {
+  input: (stream: ReadableStream<Uint8Array>) => {
+    transform: (opts: Record<string, unknown>) => {
+      output: (opts: Record<string, unknown>) => { response: () => Promise<Response> };
+    };
+  };
+};
+
+function toDataUrl(bytes: Uint8Array, type: string) {
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return `data:${type};base64,${btoa(binary)}`;
+}
+
+/**
+ * A still of the finished dish, cut from the video at the second the model
+ * picked. Needs the MEDIA binding in wrangler.toml; without it, or on any
+ * error, the platform cover is used instead.
+ */
+async function foodFrame(
+  media: { bytes: Uint8Array; mime: string },
+  seconds: number,
+  budget: Budget,
+): Promise<string | undefined> {
+  const binding = (globalThis as { __env__?: { MEDIA?: MediaBinding } }).__env__?.MEDIA;
+  if (!binding || seconds < 0 || !media.mime.startsWith("video/")) return undefined;
+  if (budget.left() < T.frame + 15_000) return undefined;
+  try {
+    const stream = new Blob([
+      media.bytes as Uint8Array<ArrayBuffer>,
+    ]).stream() as ReadableStream<Uint8Array>;
+    const work = binding
+      .input(stream)
+      .transform({ width: 720, fit: "scale-down" })
+      .output({ mode: "frame", time: `${Math.round(seconds)}s`, format: "jpg" })
+      .response();
+    const response = await Promise.race([
+      work,
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), T.frame)),
+    ]);
+    if (!response || !response.ok) return undefined;
+    const bytes = await readCapped(response, MAX_COVER_BYTES);
+    return bytes && bytes.byteLength > 0 ? toDataUrl(bytes, "image/jpeg") : undefined;
+  } catch (error) {
+    console.warn("[racik-import] food frame failed", error);
+    return undefined;
+  }
 }
 
 type Caption = {
@@ -943,11 +1067,12 @@ async function buildRecipe(
     ctx.diag.branch += " → extractor: insufficient";
     return { ok: false, kind: "noRecipe", source: ctx.source };
   }
+  const cover = await keepCover(thumbnail, ctx.budget);
   const recipe = normaliseImported(
     { ...result, title: result.title },
     url,
     `import-${crypto.randomUUID()}`,
-    thumbnail,
+    cover,
   );
   if (recipe.ings.length + recipe.unmatched.length < 2) {
     ctx.diag.branch += " → bahan < 2";
@@ -982,7 +1107,8 @@ const requestIdOf = (value: unknown) =>
 
 const BUDGET_MS: Record<ImportSource, number> = {
   teks: 55_000,
-  link: 60_000,
+  // A link can turn into listening when the caption holds no recipe.
+  link: 105_000,
   foto: 65_000,
   suara: 105_000,
   berkas: 105_000,
@@ -1130,9 +1256,26 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
     const url = canon.url;
     if (!isAllowedUrl(url)) return { ok: false, kind: "error", code: "bad_link" };
 
-    const oembed = await fetchOembed(url, ctx.budget);
+    let oembed = await fetchOembed(url, ctx.budget);
     ctx.diag.status = oembed.status;
     ctx.diag.branch = "oEmbed";
+    // TikTok's oEmbed often refuses Cloudflare's addresses (403/429). Its embed
+    // page still answers, with the caption, the cover and a playable file.
+    let embed: Awaited<ReturnType<typeof tiktokEmbed>> | null = null;
+    const isTiktok = new URL(url).hostname.toLowerCase().includes("tiktok");
+    if (
+      isTiktok &&
+      !oembed.unavailable &&
+      (oembed.limited || oembed.caption.length < MIN_CAPTION_CHARS)
+    ) {
+      embed = await tiktokEmbed(url, ctx.budget);
+      if (oembed.limited && (embed.caption || embed.mediaUrl)) {
+        ctx.diag.branch = `oEmbed ${oembed.status}: dibatasi, embed dipakai`;
+        oembed = captionFrom(embed.caption, null, oembed.status, embed.cover || undefined);
+      } else if (!oembed.thumbnail && embed.cover) {
+        oembed = { ...oembed, thumbnail: embed.cover };
+      }
+    }
     // Three different failures, three different screens.
     if (oembed.limited) {
       ctx.diag.branch = `oEmbed ${oembed.status}: dibatasi platform`;
@@ -1143,13 +1286,15 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
       return { ok: false, kind: "unavailable" };
     }
 
+    let pageFetch: { html: string; cookie: string } | null = null;
     if (!data.listen) {
       if (oembed.caption.length >= MIN_CAPTION_CHARS) {
         ctx.diag.branch = "oEmbed, keterangan cukup panjang";
         return buildRecipe(ctx, url, usableEvidence(oembed.parts), oembed.thumbnail);
       }
-      // Before asking the reader for anything, read the page itself.
-      const page = pageCaption((await fetchHtml(url, ctx.budget)).html);
+      // Before listening, read the page itself.
+      pageFetch = await fetchHtml(url, ctx.budget);
+      const page = pageCaption(pageFetch.html);
       if (page.caption.length >= MIN_CAPTION_CHARS) {
         ctx.diag.branch = "oEmbed pendek, keterangan halaman dipakai";
         return buildRecipe(
@@ -1159,32 +1304,41 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
           oembed.thumbnail,
         );
       }
-      ctx.diag.branch = "keterangan terlalu pendek";
-      return {
-        ok: false,
-        kind: "needCaption",
-        partial: oembed.caption.length >= page.caption.length ? oembed.caption : page.caption,
-      };
+      // No recipe in the words: go straight on to listening, no extra tap.
+      ctx.diag.branch = "keterangan terlalu pendek, langsung didengarkan";
     }
 
-    // Listening is slow and costly, so it only runs when the reader asks for it.
-    const { html, cookie } = await fetchHtml(url, ctx.budget);
+    const { html, cookie } = pageFetch ?? (await fetchHtml(url, ctx.budget));
     const parts = [...oembed.parts, ...pageEvidence(html)];
     let spoken = await youtubeCaptions(url, html, ctx.budget);
     let notice: string | undefined;
+    let cover = oembed.thumbnail;
     ctx.diag.branch = "takarir";
     if (spoken) parts.push(`takarir video: ${spoken}`);
     else {
-      const mediaUrl = mediaUrlFromHtml(html);
+      let mediaUrl = mediaUrlFromHtml(html);
+      let mediaCookie = cookie;
+      let referer = url;
       ctx.diag.branch = mediaUrl ? "berkas video" : "tidak ada berkas video di halaman";
+      if (!mediaUrl && isTiktok) {
+        embed = embed ?? (await tiktokEmbed(url, ctx.budget));
+        mediaUrl = embed.mediaUrl;
+        mediaCookie = "";
+        referer = "https://www.tiktok.com/";
+        ctx.diag.branch = mediaUrl ? "berkas video (embed)" : "tidak ada berkas video (embed)";
+      }
       if (mediaUrl) {
-        const media = await fetchMedia(mediaUrl, url, cookie, ctx.budget);
+        const media = await fetchMedia(mediaUrl, referer, mediaCookie, ctx.budget);
         ctx.diag.branch = media ? "berkas video" : "berkas video tidak bisa diunduh";
         if (media) {
           const seconds = mp4DurationSeconds(media.bytes);
           if (seconds != null && seconds > MAX_LISTEN_SECONDS + 5) notice = LONG_VIDEO_NOTICE;
-          spoken = await transcribe(media, ctx.key, ctx.meter, ctx.budget);
-          if (spoken) parts.push(`suara video: ${spoken}`);
+          const heard = await transcribe(media, ctx.key, ctx.meter, ctx.budget);
+          spoken = heard.text;
+          if (spoken) {
+            parts.push(`suara video: ${spoken}`);
+            cover = (await foodFrame(media, heard.foodSeconds, ctx.budget)) ?? cover;
+          }
         }
       }
     }
@@ -1193,7 +1347,7 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
       ctx.diag.branch = `baca suara gagal (${ctx.diag.branch})`;
       return { ok: false, kind: "needCaption", partial: oembed.caption };
     }
-    const built = await buildRecipe(ctx, url, usableEvidence(parts), oembed.thumbnail);
+    const built = await buildRecipe(ctx, url, usableEvidence(parts), cover);
     return built.ok && notice ? { ...built, notice } : built;
   });
 }
@@ -1231,7 +1385,8 @@ export async function uploadImport(data: FormData): Promise<ImportResult> {
       seconds != null && seconds > MAX_LISTEN_SECONDS + 5 && mime.startsWith("video/")
         ? LONG_VIDEO_NOTICE
         : undefined;
-    const spoken = await transcribe({ bytes, mime }, ctx.key, ctx.meter, ctx.budget);
+    const heard = await transcribe({ bytes, mime }, ctx.key, ctx.meter, ctx.budget);
+    const spoken = heard.text;
     if (!spoken) {
       ctx.diag.branch += " → suara tidak terbaca";
       return { ok: false, kind: "error", code: "audio_unreadable" };
@@ -1242,7 +1397,7 @@ export async function uploadImport(data: FormData): Promise<ImportResult> {
       ctx,
       canon.url,
       usableEvidence([...oembed.parts, `suara video: ${spoken}`]),
-      oembed.thumbnail,
+      (await foodFrame({ bytes, mime }, heard.foodSeconds, ctx.budget)) ?? oembed.thumbnail,
     );
     return built.ok && notice ? { ...built, notice } : built;
   });

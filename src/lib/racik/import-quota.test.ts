@@ -14,6 +14,7 @@ import {
 import {
   codeFromThrown,
   errorMessage,
+  isOutage,
   isRetryable,
   noRecipeMessage,
   type ImportErrorCode,
@@ -140,9 +141,20 @@ describe("honest messages", () => {
     expect(noRecipeMessage("foto").actions).toEqual(["photo_again"]);
   });
 
-  it("offers listening only for a link that has not been listened to", () => {
-    expect(noRecipeMessage("link").actions).toContain("listen");
-    expect(noRecipeMessage("suara").actions).not.toContain("listen");
+  it("a video with no recipe offers another link or pasted text, never another listen", () => {
+    // Links are listened to automatically when the caption holds no recipe.
+    expect(noRecipeMessage("link").actions).toEqual(["new_link", "paste"]);
+    expect(noRecipeMessage("suara").actions).toEqual(["new_link", "paste"]);
+    expect(noRecipeMessage("link").title).toContain("tidak berisi resep");
+  });
+
+  it("an outage says so and rests the button instead of offering Coba lagi", () => {
+    expect(errorMessage("unavailable", "link").title).toContain("gangguan");
+    expect(isOutage("unavailable")).toBe(true);
+    expect(isOutage("not_configured")).toBe(true);
+    expect(isRetryable("unavailable")).toBe(false);
+    expect(codeFromThrown(new Error("HTTP 503 Service Unavailable"), true)).toBe("unavailable");
+    expect(errorMessage("timeout", "link").body).toBe("Coba lagi ya.");
   });
 
   it("names the right thing in a generic failure", () => {
@@ -169,6 +181,7 @@ describe("honest messages", () => {
       "photo_unreadable",
       "audio_unreadable",
       "not_configured",
+      "unavailable",
       "failed",
     ];
     for (const code of codes) {

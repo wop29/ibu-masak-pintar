@@ -26,6 +26,7 @@ export type ImportErrorCode =
   | "photo_unreadable"
   | "audio_unreadable"
   | "not_configured"
+  | "unavailable" // the import service itself is down (5xx, missing config, provider down)
   | "failed";
 
 /** What the sheet maps the four input routes to. `suara` = Racik listened to the video. */
@@ -38,7 +39,8 @@ export type ImportAction =
   | "edit_text" // back to the text she pasted
   | "photo_again" // pick another photo
   | "retry" // same request again
-  | "write"; // write it yourself (/tulis)
+  | "write" // write it yourself (/tulis)
+  | "new_link"; // clear the link field and try another one
 
 export interface ImportMessage {
   title: string;
@@ -47,11 +49,21 @@ export interface ImportMessage {
 }
 
 const SOURCE_NOUN: Record<SheetSource, string> = {
-  get link() { return t("noun_link"); },
-  get suara() { return t("noun_suara"); },
-  get berkas() { return t("noun_berkas"); },
-  get teks() { return t("noun_teks"); },
-  get foto() { return t("noun_foto"); },
+  get link() {
+    return t("noun_link");
+  },
+  get suara() {
+    return t("noun_suara");
+  },
+  get berkas() {
+    return t("noun_berkas");
+  },
+  get teks() {
+    return t("noun_teks");
+  },
+  get foto() {
+    return t("noun_foto");
+  },
 };
 
 /** The "nothing to cook from" screen, per source. */
@@ -61,14 +73,14 @@ export function noRecipeMessage(source: SheetSource): ImportMessage {
       return {
         title: t("resepnya_belum_tertulis_di_keterangan"),
         body: t("bahan_dan_langkahnya_tidak_ada"),
-        actions: ["listen", "upload", "paste"],
+        actions: ["new_link", "paste"],
       };
     case "suara":
     case "berkas":
       return {
         title: t("resepnya_tidak_terdengar_di_video"),
         body: t("racik_sudah_mendengarkan_videonya_tapi"),
-        actions: ["paste", "upload"],
+        actions: ["new_link", "paste"],
       };
     case "teks":
       return {
@@ -108,10 +120,12 @@ export function errorMessage(code: ImportErrorCode, source: SheetSource): Import
         actions: ["retry"],
       };
     case "busy":
+    case "unavailable":
+    case "not_configured":
       return {
-        title: t("racik_sedang_ramai"),
-        body: t("coba_lagi_sebentar_lagi_resep"),
-        actions: ["retry"],
+        title: t("impor_lagi_gangguan"),
+        body: t("coba_lagi_nanti_ya"),
+        actions: ["write"],
       };
     case "timeout":
       return {
@@ -197,12 +211,6 @@ export function errorMessage(code: ImportErrorCode, source: SheetSource): Import
         body: t("suara_di_berkas_itu_tidak"),
         actions: ["upload", "paste"],
       };
-    case "not_configured":
-      return {
-        title: t("tambah_resep_belum_tersambung"),
-        body: t("coba_lagi_nanti_resep_yang"),
-        actions: ["write"],
-      };
     case "failed":
     default:
       return {
@@ -213,15 +221,14 @@ export function errorMessage(code: ImportErrorCode, source: SheetSource): Import
   }
 }
 
+/** Errors that mean the service is down: the button rests for a few minutes. */
+export function isOutage(code: ImportErrorCode): boolean {
+  return code === "unavailable" || code === "busy" || code === "not_configured";
+}
+
 /** Errors that are worth an automatic "Coba lagi" button. */
 export function isRetryable(code: ImportErrorCode): boolean {
-  return (
-    code === "busy" ||
-    code === "timeout" ||
-    code === "offline" ||
-    code === "failed" ||
-    code === "rate"
-  );
+  return code === "timeout" || code === "offline" || code === "failed" || code === "rate";
 }
 
 /** A thrown client-side error (network, timeout) → a code. Raw text never reaches the screen; log it to the console instead. */
@@ -229,6 +236,9 @@ export function codeFromThrown(caught: unknown, online: boolean): ImportErrorCod
   if (!online) return "offline";
   const raw = caught instanceof Error ? `${caught.name} ${caught.message}` : String(caught ?? "");
   if (/timeout|timed out|aborterror/i.test(raw)) return "timeout";
+  // The Worker answered 5xx (cut off, misconfigured, or down): not worth hammering.
+  if (/\b50[0-4]\b|service unavailable|bad gateway|internal server error/i.test(raw))
+    return "unavailable";
   // A network error while the phone says it is online is usually a blip, not "no internet".
   return "failed";
 }
