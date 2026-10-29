@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import {
   Camera,
   Check,
-  Clock,
   ImageIcon,
   Link2,
   PenLine,
@@ -64,6 +63,7 @@ import { useRacik } from "@/lib/racik/state";
 import type { Negara } from "@/lib/racik/locale";
 import type { ImportedRecipe } from "@/lib/racik/types";
 import { Sheet } from "./Sheet";
+import { ImportProgress } from "./ImportProgress";
 import { BrandIcon } from "./BrandIcon";
 import { t, type Key } from "@/lib/racik/i18n";
 
@@ -697,6 +697,7 @@ export function ImportSheet({
         open={open}
         onClose={() => setOpen(false)}
         title={sheetTitle}
+        large={stage === "working" || stage === "listening"}
         {...(stage === "form"
           ? {
               subtitle: t("masukkan_link_video_teks_resep"),
@@ -899,20 +900,8 @@ export function ImportSheet({
               {t("atau_tulis_resep_sendiri")}
             </Link>
           </>
-        ) : stage === "working" ? (
-          <div className="flex flex-col items-center px-3 pt-6 pb-10 text-center">
-            <span className="flex size-[72px] items-center justify-center rounded-full bg-primary-soft text-primary">
-              <Clock className="size-8" strokeWidth={1.8} />
-            </span>
-            <StepStatus source={source} />
-          </div>
-        ) : stage === "listening" ? (
-          <div className="flex flex-col items-center px-3 pt-6 pb-10 text-center">
-            <span className="flex size-[72px] items-center justify-center rounded-full bg-primary-soft text-primary">
-              <Clock className="size-8" strokeWidth={1.8} />
-            </span>
-            <StepStatus source={source} />
-          </div>
+        ) : stage === "working" || stage === "listening" ? (
+          <ImportProgress source={source} />
         ) : stage === "kosong" ? (
           <div className="py-2">
             <h3 className="text-title font-bold">{empty.title}</h3>
@@ -1031,76 +1020,3 @@ export function ImportSheet({
 /** How long the import button rests after the service itself failed. */
 const OUTAGE_REST_MS = 3 * 60_000;
 
-/**
- * Stepped status instead of a bar that pretends to move. The steps follow the
- * pipeline's usual timing; the server does not report progress, so the text
- * only moves forward and never claims to be done.
- */
-const STEPS: Record<ImportSource, [number, Key][]> = {
-  link: [
-    [0, "step_ambil_video"],
-    [5, "step_baca_keterangan"],
-    [12, "step_baca_takaran"],
-    [22, "step_susun_langkah"],
-    [40, "step_dengarkan"],
-    [80, "step_hampir"],
-  ],
-  suara: [
-    [0, "step_ambil_video"],
-    [6, "step_dengarkan"],
-    [45, "step_baca_takaran"],
-    [60, "step_susun_langkah"],
-    [85, "step_hampir"],
-  ],
-  berkas: [
-    [0, "step_kirim_berkas"],
-    [8, "step_dengarkan"],
-    [45, "step_baca_takaran"],
-    [60, "step_susun_langkah"],
-    [90, "step_hampir"],
-  ],
-  teks: [
-    [0, "step_baca_teks"],
-    [6, "step_baca_takaran"],
-    [15, "step_susun_langkah"],
-    [35, "step_hampir"],
-  ],
-  foto: [
-    [0, "step_baca_foto"],
-    [8, "step_baca_takaran"],
-    [18, "step_susun_langkah"],
-    [40, "step_hampir"],
-  ],
-};
-
-function StepStatus({ source }: { source: ImportSource }) {
-  const [seconds, setSeconds] = useState(0);
-  useEffect(() => {
-    const started = Date.now();
-    const timer = setInterval(() => setSeconds(Math.floor((Date.now() - started) / 1000)), 1000);
-    return () => clearInterval(timer);
-  }, [source]);
-  const steps = STEPS[source];
-  let current = 0;
-  steps.forEach(([at], i) => {
-    if (seconds >= at) current = i;
-  });
-  return (
-    <>
-      <p className="mt-5 text-title font-bold" aria-live="polite">
-        {t(steps[current]![1])}
-      </p>
-      <div className="mt-4 flex w-full max-w-[240px] gap-1.5" aria-hidden>
-        {steps.map(([at], i) => (
-          <span
-            key={at}
-            className={`h-1.5 flex-1 rounded-full transition-colors duration-500 ${i <= current ? "bg-primary" : "bg-primary-track"}`}
-          />
-        ))}
-      </div>
-      <p className="mt-4 max-w-[280px] text-14 leading-relaxed text-ink-3">
-        {t("biasanya_30_60_detik")}
-      </p>
-    </>
-  );
-}

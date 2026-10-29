@@ -8,12 +8,15 @@ export function Sheet({
   onClose,
   title,
   subtitle,
+  large = false,
   children,
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
   subtitle?: string;
+  /** Big Baloo 2 headline in deep green, for full-attention moments (import progress). */
+  large?: boolean;
   children: ReactNode;
 }) {
   const panel = useRef<HTMLDivElement>(null);
@@ -58,14 +61,14 @@ export function Sheet({
         </div>
         <div className="mb-5 flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <h2 className="text-[calc(22px*var(--teks-h,1))] font-extrabold leading-tight tracking-[-0.03em]">{title}</h2>
+            <h2 className={large ? "font-display text-[calc(32px*var(--teks-h,1))] font-extrabold leading-[1.02] tracking-[-0.01em] text-ink-strong" : "text-[calc(22px*var(--teks-h,1))] font-extrabold leading-tight tracking-[-0.03em]"}>{title}</h2>
             {subtitle ? <p className="mt-1 text-14 leading-normal text-ink-3">{subtitle}</p> : null}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label={t("tutup")}
-            className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink-2"
+            className="flex size-11 shrink-0 items-center justify-center rounded-full bg-tint text-primary-deep"
           >
             <X className="size-5" />
           </button>
