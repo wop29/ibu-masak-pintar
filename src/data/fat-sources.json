@@ -1718,5 +1718,121 @@
  "saus_tartar": {
   "src": "USDA FDC SR Legacy: Sauce, tartar, ready-to-serve",
   "yakin": true
+ },
+ "air_kelapa": {
+  "src": "USDA FDC SR Legacy: Coconut water",
+  "yakin": true
+ },
+ "air_soda": {
+  "src": "Perkiraan (air berkarbonasi)",
+  "yakin": false
+ },
+ "asam_kandis": {
+  "src": "Perkiraan (buah asam kering); dipakai sedikit",
+  "yakin": false
+ },
+ "sedap_malam_kering": {
+  "src": "Perkiraan (bunga kering)",
+  "yakin": false
+ },
+ "butter_cream": {
+  "src": "Perkiraan (mentega + gula)",
+  "yakin": false
+ },
+ "cingur_sapi": {
+  "src": "Perkiraan (jaringan ikat sapi)",
+  "yakin": false
+ },
+ "daun_cengkeh_kering": {
+  "src": "Perkiraan; dipakai sangat sedikit",
+  "yakin": false
+ },
+ "daun_cincau_hijau": {
+  "src": "Perkiraan (daun hijau)",
+  "yakin": false
+ },
+ "daun_jambu_biji": {
+  "src": "Perkiraan; tidak dimakan",
+  "yakin": false
+ },
+ "daun_kayu_manis_kering": {
+  "src": "Perkiraan; dipakai sangat sedikit",
+  "yakin": false
+ },
+ "daun_pala_kering": {
+  "src": "Perkiraan; dipakai sangat sedikit",
+  "yakin": false
+ },
+ "gula_batu": {
+  "src": "USDA FDC SR Legacy: Sugars, granulated",
+  "yakin": true
+ },
+ "ikan_peda": {
+  "src": "Perkiraan (ikan kembung asin fermentasi)",
+  "yakin": false
+ },
+ "jengkol": {
+  "src": "TKPI 2017: Jengkol",
+  "yakin": true
+ },
+ "kacang_tolo": {
+  "src": "USDA FDC SR Legacy: Cowpeas, mature seeds, raw",
+  "yakin": true
+ },
+ "kaki_kambing": {
+  "src": "Perkiraan (kaki kambing berdaging)",
+  "yakin": false
+ },
+ "kayu_secang": {
+  "src": "Perkiraan; direbus lalu dibuang",
+  "yakin": false
+ },
+ "kelapa_kopyor": {
+  "src": "Perkiraan (daging kelapa muda)",
+  "yakin": false
+ },
+ "kembang_tahu": {
+  "src": "USDA FDC: Yuba (bean curd skin), dried",
+  "yakin": true
+ },
+ "kerupuk_mie": {
+  "src": "Perkiraan (kerupuk tapioka goreng)",
+  "yakin": false
+ },
+ "kikil_sapi": {
+  "src": "TKPI 2017: Kikil sapi",
+  "yakin": true
+ },
+ "kulit_bawang_merah": {
+  "src": "Tidak dimakan; hanya pewarna rebusan",
+  "yakin": false
+ },
+ "mie_lidi": {
+  "src": "Perkiraan (mi kering tepung terigu)",
+  "yakin": false
+ },
+ "paru_sapi": {
+  "src": "USDA FDC SR Legacy: Beef, variety meats, lungs, raw",
+  "yakin": true
+ },
+ "pengemulsi": {
+  "src": "Perkiraan; dipakai sangat sedikit",
+  "yakin": false
+ },
+ "risoles": {
+  "src": "Perkiraan (risoles isi sayur goreng)",
+  "yakin": false
+ },
+ "sawi_asin": {
+  "src": "Perkiraan (sawi fermentasi)",
+  "yakin": false
+ },
+ "tempe_semangit": {
+  "src": "TKPI 2017: Tempe (perkiraan)",
+  "yakin": true
+ },
+ "tepung_gaplek": {
+  "src": "Perkiraan (singkong kering)",
+  "yakin": false
  }
 }

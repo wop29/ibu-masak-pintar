@@ -1,0 +1,680 @@
+{
+ "_about": "New ingredients for the 213 Indonesian recipes (26 Okt 2026). Nutrition per 100 g; 'yakin': False means estimate.",
+ "ingredients": [
+  {
+   "id": "air_kelapa",
+   "name": "Air kelapa",
+   "cat": "lain",
+   "halal": "halal",
+   "unit": "ml",
+   "staple": 0,
+   "aliases": [
+    "air kelapa muda",
+    "coconut water"
+   ],
+   "em": "🥥"
+  },
+  {
+   "id": "air_soda",
+   "name": "Air soda",
+   "cat": "lain",
+   "halal": "halal",
+   "unit": "ml",
+   "staple": 0,
+   "aliases": [
+    "soda water",
+    "sprite",
+    "air berkarbonasi"
+   ],
+   "em": "🥤"
+  },
+  {
+   "id": "asam_kandis",
+   "name": "Asam kandis",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "asam gelugur",
+    "kandis"
+   ],
+   "em": "🟤"
+  },
+  {
+   "id": "sedap_malam_kering",
+   "name": "Bunga sedap malam kering",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kim cam",
+    "sedap malam"
+   ],
+   "em": "🌼"
+  },
+  {
+   "id": "butter_cream",
+   "name": "Butter cream",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "buttercream",
+    "krim mentega"
+   ],
+   "em": "🧁"
+  },
+  {
+   "id": "cingur_sapi",
+   "name": "Cingur sapi",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "cingur",
+    "moncong sapi"
+   ],
+   "em": "🐄"
+  },
+  {
+   "id": "daun_cengkeh_kering",
+   "name": "Daun cengkeh kering",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "daun cengkih"
+   ],
+   "em": "🍂"
+  },
+  {
+   "id": "daun_cincau_hijau",
+   "name": "Daun cincau hijau",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "daun cincau",
+    "cincau rambat"
+   ],
+   "em": "🌿"
+  },
+  {
+   "id": "daun_jambu_biji",
+   "name": "Daun jambu biji",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "daun jambu"
+   ],
+   "em": "🍃"
+  },
+  {
+   "id": "daun_kayu_manis_kering",
+   "name": "Daun kayu manis kering",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "daun kayu manis"
+   ],
+   "em": "🍂"
+  },
+  {
+   "id": "daun_pala_kering",
+   "name": "Daun pala kering",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "daun pala"
+   ],
+   "em": "🍂"
+  },
+  {
+   "id": "gula_batu",
+   "name": "Gula batu",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "rock sugar",
+    "gula kristal"
+   ],
+   "em": "🧊"
+  },
+  {
+   "id": "ikan_peda",
+   "name": "Ikan peda",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "ekor",
+   "staple": 0,
+   "aliases": [
+    "peda",
+    "ikan kembung peda",
+    "peda merah"
+   ],
+   "em": "🐟"
+  },
+  {
+   "id": "jengkol",
+   "name": "Jengkol",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "jering",
+    "dogfruit"
+   ],
+   "em": "🌰"
+  },
+  {
+   "id": "kacang_tolo",
+   "name": "Kacang tolo",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kacang tunggak",
+    "black-eyed pea",
+    "kacang tholo"
+   ],
+   "em": "🫘"
+  },
+  {
+   "id": "kaki_kambing",
+   "name": "Kaki kambing",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "kikil kambing",
+    "kaki kambing potong"
+   ],
+   "em": "🐐"
+  },
+  {
+   "id": "kayu_secang",
+   "name": "Kayu secang",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "secang",
+    "serutan kayu secang"
+   ],
+   "em": "🪵"
+  },
+  {
+   "id": "kelapa_kopyor",
+   "name": "Kelapa kopyor",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "butir",
+   "staple": 0,
+   "aliases": [
+    "kopyor",
+    "degan kopyor"
+   ],
+   "em": "🥥"
+  },
+  {
+   "id": "kembang_tahu",
+   "name": "Kembang tahu",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kulit tahu kering",
+    "yuba",
+    "fuzhu"
+   ],
+   "em": "🟨"
+  },
+  {
+   "id": "kerupuk_mie",
+   "name": "Kerupuk mie",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kerupuk mi",
+    "kerupuk mie kuning"
+   ],
+   "em": "🍘"
+  },
+  {
+   "id": "kikil_sapi",
+   "name": "Kikil sapi",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kikil",
+    "tunjang",
+    "kaki sapi"
+   ],
+   "em": "🐄"
+  },
+  {
+   "id": "kulit_bawang_merah",
+   "name": "Kulit bawang merah",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kulit bawang"
+   ],
+   "em": "🧅"
+  },
+  {
+   "id": "mie_lidi",
+   "name": "Mie lidi (mie gomak)",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "mie gomak",
+    "mi gomak",
+    "mie lidi"
+   ],
+   "em": "🍜"
+  },
+  {
+   "id": "paru_sapi",
+   "name": "Paru sapi",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "paru",
+    "fusilli paru"
+   ],
+   "em": "🐄"
+  },
+  {
+   "id": "pengemulsi",
+   "name": "Pengemulsi (SP/TBM)",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "sdt",
+   "staple": 0,
+   "aliases": [
+    "sp",
+    "tbm",
+    "ovalet",
+    "emulsifier"
+   ],
+   "em": "🧪"
+  },
+  {
+   "id": "risoles",
+   "name": "Risoles",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "risol"
+   ],
+   "em": "🥟"
+  },
+  {
+   "id": "sawi_asin",
+   "name": "Sawi asin",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "asinan sawi",
+    "sayur asin",
+    "kiam chai"
+   ],
+   "em": "🥬"
+  },
+  {
+   "id": "tempe_semangit",
+   "name": "Tempe semangit",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "potong",
+   "staple": 0,
+   "aliases": [
+    "tempe bosok",
+    "tempe busuk",
+    "tempe layu"
+   ],
+   "em": "🟫"
+  },
+  {
+   "id": "tepung_gaplek",
+   "name": "Tepung gaplek",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "tepung tiwul",
+    "gaplek"
+   ],
+   "em": "🌾"
+  }
+ ],
+ "tables": {
+  "BERAT": {
+   "asam_kandis": 3,
+   "daun_cengkeh_kering": 0.5,
+   "daun_cincau_hijau": 1,
+   "daun_jambu_biji": 1,
+   "daun_kayu_manis_kering": 0.5,
+   "daun_pala_kering": 0.5,
+   "ikan_peda": 100,
+   "kaki_kambing": 250,
+   "kelapa_kopyor": 400,
+   "pengemulsi": 5,
+   "risoles": 40,
+   "tempe_semangit": 50
+  },
+  "PROT100": {
+   "air_kelapa": 0.7,
+   "air_soda": 0,
+   "asam_kandis": 1,
+   "sedap_malam_kering": 5,
+   "butter_cream": 0.5,
+   "cingur_sapi": 20,
+   "daun_cengkeh_kering": 6,
+   "daun_cincau_hijau": 6,
+   "daun_jambu_biji": 3,
+   "daun_kayu_manis_kering": 4,
+   "daun_pala_kering": 6,
+   "gula_batu": 0,
+   "ikan_peda": 30,
+   "jengkol": 6.3,
+   "kacang_tolo": 23.5,
+   "kaki_kambing": 18,
+   "kayu_secang": 0,
+   "kelapa_kopyor": 3,
+   "kembang_tahu": 50,
+   "kerupuk_mie": 1,
+   "kikil_sapi": 22,
+   "kulit_bawang_merah": 0,
+   "mie_lidi": 10,
+   "paru_sapi": 16,
+   "pengemulsi": 0,
+   "risoles": 5,
+   "sawi_asin": 1.5,
+   "tempe_semangit": 20,
+   "tepung_gaplek": 1.5
+  },
+  "CARB100": {
+   "air_kelapa": 3.7,
+   "air_soda": 0,
+   "asam_kandis": 60,
+   "sedap_malam_kering": 60,
+   "butter_cream": 40,
+   "cingur_sapi": 0,
+   "daun_cengkeh_kering": 60,
+   "daun_cincau_hijau": 6,
+   "daun_jambu_biji": 10,
+   "daun_kayu_manis_kering": 70,
+   "daun_pala_kering": 50,
+   "gula_batu": 100,
+   "ikan_peda": 0,
+   "jengkol": 20.7,
+   "kacang_tolo": 60,
+   "kaki_kambing": 0,
+   "kayu_secang": 0,
+   "kelapa_kopyor": 10,
+   "kembang_tahu": 12,
+   "kerupuk_mie": 75,
+   "kikil_sapi": 0,
+   "kulit_bawang_merah": 0,
+   "mie_lidi": 75,
+   "paru_sapi": 0,
+   "pengemulsi": 0,
+   "risoles": 25,
+   "sawi_asin": 3,
+   "tempe_semangit": 9,
+   "tepung_gaplek": 88
+  },
+  "FAT100": {
+   "air_kelapa": 0.2,
+   "air_soda": 0,
+   "asam_kandis": 0.5,
+   "sedap_malam_kering": 1,
+   "butter_cream": 40,
+   "cingur_sapi": 8,
+   "daun_cengkeh_kering": 10,
+   "daun_cincau_hijau": 1,
+   "daun_jambu_biji": 0.5,
+   "daun_kayu_manis_kering": 3,
+   "daun_pala_kering": 5,
+   "gula_batu": 0,
+   "ikan_peda": 8,
+   "jengkol": 0.1,
+   "kacang_tolo": 1.3,
+   "kaki_kambing": 10,
+   "kayu_secang": 0,
+   "kelapa_kopyor": 25,
+   "kembang_tahu": 25,
+   "kerupuk_mie": 20,
+   "kikil_sapi": 3,
+   "kulit_bawang_merah": 0,
+   "mie_lidi": 1,
+   "paru_sapi": 2.5,
+   "pengemulsi": 5,
+   "risoles": 10,
+   "sawi_asin": 0.2,
+   "tempe_semangit": 10,
+   "tepung_gaplek": 0.5
+  },
+  "FIBER100": {
+   "air_kelapa": 1.1,
+   "air_soda": 0,
+   "asam_kandis": 10,
+   "sedap_malam_kering": 10,
+   "butter_cream": 0,
+   "cingur_sapi": 0,
+   "daun_cengkeh_kering": 30,
+   "daun_cincau_hijau": 4,
+   "daun_jambu_biji": 5,
+   "daun_kayu_manis_kering": 40,
+   "daun_pala_kering": 20,
+   "gula_batu": 0,
+   "ikan_peda": 0,
+   "jengkol": 1.7,
+   "kacang_tolo": 10.6,
+   "kaki_kambing": 0,
+   "kayu_secang": 0,
+   "kelapa_kopyor": 6,
+   "kembang_tahu": 0,
+   "kerupuk_mie": 0,
+   "kikil_sapi": 0,
+   "kulit_bawang_merah": 0,
+   "mie_lidi": 3,
+   "paru_sapi": 0,
+   "pengemulsi": 0,
+   "risoles": 1,
+   "sawi_asin": 2,
+   "tempe_semangit": 1.4,
+   "tepung_gaplek": 2
+  },
+  "SUBS": {
+   "air_kelapa": "Air biasa ditambah sedikit gula pasir.",
+   "air_soda": "Air biasa; kue sedikit kurang mengembang.",
+   "asam_kandis": "Asam jawa 1 sdt untuk 2 buah asam kandis.",
+   "sedap_malam_kering": "Jamur kuping tambahan, atau lewati saja.",
+   "butter_cream": "Selai atau meses untuk isian bolu gulung.",
+   "cingur_sapi": "Kikil sapi atau babat, jumlah sama.",
+   "daun_cengkeh_kering": "2 butir cengkeh.",
+   "daun_cincau_hijau": "Cincau hijau siap pakai dari pasar.",
+   "daun_jambu_biji": "Daun teh 1 sdt, untuk warna cokelat.",
+   "daun_kayu_manis_kering": "Kayu manis 1 batang kecil.",
+   "daun_pala_kering": "Sejumput pala bubuk.",
+   "gula_batu": "Gula pasir, jumlah sama.",
+   "ikan_peda": "Ikan asin kembung atau jambal, kurangi garam.",
+   "jengkol": "Kentang atau tahu goreng untuk versi tanpa jengkol.",
+   "kacang_tolo": "Kacang merah kering, jumlah sama.",
+   "kaki_kambing": "Iga kambing atau tulang sapi berdaging.",
+   "kayu_secang": "Tidak ada pengganti untuk warna merahnya; lewati saja.",
+   "kelapa_kopyor": "Kelapa muda biasa, kerok dagingnya.",
+   "kembang_tahu": "Tahu goreng, potong tipis.",
+   "kerupuk_mie": "Kerupuk putih biasa.",
+   "kikil_sapi": "Babat sapi, jumlah sama.",
+   "kulit_bawang_merah": "Daun teh 2 sdm, untuk warna cokelat.",
+   "mie_lidi": "Spageti, jumlah sama.",
+   "paru_sapi": "Hati sapi, jumlah sama.",
+   "pengemulsi": "Lewati, lalu kocok telur lebih lama sampai putih kental.",
+   "risoles": "Pangsit goreng atau lewati saja.",
+   "sawi_asin": "Sawi hijau segar diremas garam dan sedikit cuka.",
+   "tempe_semangit": "Tempe biasa yang didiamkan 2–3 hari di suhu ruang.",
+   "tepung_gaplek": "Tepung tapioka dicampur sedikit tepung beras."
+  }
+ },
+ "fat_sources": {
+  "air_kelapa": {
+   "src": "USDA FDC SR Legacy: Coconut water",
+   "yakin": true
+  },
+  "air_soda": {
+   "src": "Perkiraan (air berkarbonasi)",
+   "yakin": false
+  },
+  "asam_kandis": {
+   "src": "Perkiraan (buah asam kering); dipakai sedikit",
+   "yakin": false
+  },
+  "sedap_malam_kering": {
+   "src": "Perkiraan (bunga kering)",
+   "yakin": false
+  },
+  "butter_cream": {
+   "src": "Perkiraan (mentega + gula)",
+   "yakin": false
+  },
+  "cingur_sapi": {
+   "src": "Perkiraan (jaringan ikat sapi)",
+   "yakin": false
+  },
+  "daun_cengkeh_kering": {
+   "src": "Perkiraan; dipakai sangat sedikit",
+   "yakin": false
+  },
+  "daun_cincau_hijau": {
+   "src": "Perkiraan (daun hijau)",
+   "yakin": false
+  },
+  "daun_jambu_biji": {
+   "src": "Perkiraan; tidak dimakan",
+   "yakin": false
+  },
+  "daun_kayu_manis_kering": {
+   "src": "Perkiraan; dipakai sangat sedikit",
+   "yakin": false
+  },
+  "daun_pala_kering": {
+   "src": "Perkiraan; dipakai sangat sedikit",
+   "yakin": false
+  },
+  "gula_batu": {
+   "src": "USDA FDC SR Legacy: Sugars, granulated",
+   "yakin": true
+  },
+  "ikan_peda": {
+   "src": "Perkiraan (ikan kembung asin fermentasi)",
+   "yakin": false
+  },
+  "jengkol": {
+   "src": "TKPI 2017: Jengkol",
+   "yakin": true
+  },
+  "kacang_tolo": {
+   "src": "USDA FDC SR Legacy: Cowpeas, mature seeds, raw",
+   "yakin": true
+  },
+  "kaki_kambing": {
+   "src": "Perkiraan (kaki kambing berdaging)",
+   "yakin": false
+  },
+  "kayu_secang": {
+   "src": "Perkiraan; direbus lalu dibuang",
+   "yakin": false
+  },
+  "kelapa_kopyor": {
+   "src": "Perkiraan (daging kelapa muda)",
+   "yakin": false
+  },
+  "kembang_tahu": {
+   "src": "USDA FDC: Yuba (bean curd skin), dried",
+   "yakin": true
+  },
+  "kerupuk_mie": {
+   "src": "Perkiraan (kerupuk tapioka goreng)",
+   "yakin": false
+  },
+  "kikil_sapi": {
+   "src": "TKPI 2017: Kikil sapi",
+   "yakin": true
+  },
+  "kulit_bawang_merah": {
+   "src": "Tidak dimakan; hanya pewarna rebusan",
+   "yakin": false
+  },
+  "mie_lidi": {
+   "src": "Perkiraan (mi kering tepung terigu)",
+   "yakin": false
+  },
+  "paru_sapi": {
+   "src": "USDA FDC SR Legacy: Beef, variety meats, lungs, raw",
+   "yakin": true
+  },
+  "pengemulsi": {
+   "src": "Perkiraan; dipakai sangat sedikit",
+   "yakin": false
+  },
+  "risoles": {
+   "src": "Perkiraan (risoles isi sayur goreng)",
+   "yakin": false
+  },
+  "sawi_asin": {
+   "src": "Perkiraan (sawi fermentasi)",
+   "yakin": false
+  },
+  "tempe_semangit": {
+   "src": "TKPI 2017: Tempe (perkiraan)",
+   "yakin": true
+  },
+  "tepung_gaplek": {
+   "src": "Perkiraan (singkong kering)",
+   "yakin": false
+  }
+ },
+ "rename": {
+  "Nanas": "nanas",
+  "Mentega": "mentega",
+  "Jeruk nipis": "jeruk_nipis"
+ }
+}

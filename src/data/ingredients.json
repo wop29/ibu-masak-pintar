@@ -6540,5 +6540,386 @@
    "kaki babi"
   ],
   "em": "🍖"
+ },
+ {
+  "id": "air_kelapa",
+  "name": "Air kelapa",
+  "cat": "lain",
+  "halal": "halal",
+  "unit": "ml",
+  "staple": 0,
+  "aliases": [
+   "air kelapa muda",
+   "coconut water"
+  ],
+  "em": "🥥"
+ },
+ {
+  "id": "air_soda",
+  "name": "Air soda",
+  "cat": "lain",
+  "halal": "halal",
+  "unit": "ml",
+  "staple": 0,
+  "aliases": [
+   "soda water",
+   "sprite",
+   "air berkarbonasi"
+  ],
+  "em": "🥤"
+ },
+ {
+  "id": "asam_kandis",
+  "name": "Asam kandis",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "asam gelugur",
+   "kandis"
+  ],
+  "em": "🟤"
+ },
+ {
+  "id": "sedap_malam_kering",
+  "name": "Bunga sedap malam kering",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kim cam",
+   "sedap malam"
+  ],
+  "em": "🌼"
+ },
+ {
+  "id": "butter_cream",
+  "name": "Butter cream",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "buttercream",
+   "krim mentega"
+  ],
+  "em": "🧁"
+ },
+ {
+  "id": "cingur_sapi",
+  "name": "Cingur sapi",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "cingur",
+   "moncong sapi"
+  ],
+  "em": "🐄"
+ },
+ {
+  "id": "daun_cengkeh_kering",
+  "name": "Daun cengkeh kering",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "daun cengkih"
+  ],
+  "em": "🍂"
+ },
+ {
+  "id": "daun_cincau_hijau",
+  "name": "Daun cincau hijau",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "daun cincau",
+   "cincau rambat"
+  ],
+  "em": "🌿"
+ },
+ {
+  "id": "daun_jambu_biji",
+  "name": "Daun jambu biji",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "daun jambu"
+  ],
+  "em": "🍃"
+ },
+ {
+  "id": "daun_kayu_manis_kering",
+  "name": "Daun kayu manis kering",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "daun kayu manis"
+  ],
+  "em": "🍂"
+ },
+ {
+  "id": "daun_pala_kering",
+  "name": "Daun pala kering",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "daun pala"
+  ],
+  "em": "🍂"
+ },
+ {
+  "id": "gula_batu",
+  "name": "Gula batu",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "rock sugar",
+   "gula kristal"
+  ],
+  "em": "🧊"
+ },
+ {
+  "id": "ikan_peda",
+  "name": "Ikan peda",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "ekor",
+  "staple": 0,
+  "aliases": [
+   "peda",
+   "ikan kembung peda",
+   "peda merah"
+  ],
+  "em": "🐟"
+ },
+ {
+  "id": "jengkol",
+  "name": "Jengkol",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "jering",
+   "dogfruit"
+  ],
+  "em": "🌰"
+ },
+ {
+  "id": "kacang_tolo",
+  "name": "Kacang tolo",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kacang tunggak",
+   "black-eyed pea",
+   "kacang tholo"
+  ],
+  "em": "🫘"
+ },
+ {
+  "id": "kaki_kambing",
+  "name": "Kaki kambing",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "kikil kambing",
+   "kaki kambing potong"
+  ],
+  "em": "🐐"
+ },
+ {
+  "id": "kayu_secang",
+  "name": "Kayu secang",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "secang",
+   "serutan kayu secang"
+  ],
+  "em": "🪵"
+ },
+ {
+  "id": "kelapa_kopyor",
+  "name": "Kelapa kopyor",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "butir",
+  "staple": 0,
+  "aliases": [
+   "kopyor",
+   "degan kopyor"
+  ],
+  "em": "🥥"
+ },
+ {
+  "id": "kembang_tahu",
+  "name": "Kembang tahu",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kulit tahu kering",
+   "yuba",
+   "fuzhu"
+  ],
+  "em": "🟨"
+ },
+ {
+  "id": "kerupuk_mie",
+  "name": "Kerupuk mie",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kerupuk mi",
+   "kerupuk mie kuning"
+  ],
+  "em": "🍘"
+ },
+ {
+  "id": "kikil_sapi",
+  "name": "Kikil sapi",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kikil",
+   "tunjang",
+   "kaki sapi"
+  ],
+  "em": "🐄"
+ },
+ {
+  "id": "kulit_bawang_merah",
+  "name": "Kulit bawang merah",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kulit bawang"
+  ],
+  "em": "🧅"
+ },
+ {
+  "id": "mie_lidi",
+  "name": "Mie lidi (mie gomak)",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "mie gomak",
+   "mi gomak",
+   "mie lidi"
+  ],
+  "em": "🍜"
+ },
+ {
+  "id": "paru_sapi",
+  "name": "Paru sapi",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "paru",
+   "fusilli paru"
+  ],
+  "em": "🐄"
+ },
+ {
+  "id": "pengemulsi",
+  "name": "Pengemulsi (SP/TBM)",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "sdt",
+  "staple": 0,
+  "aliases": [
+   "sp",
+   "tbm",
+   "ovalet",
+   "emulsifier"
+  ],
+  "em": "🧪"
+ },
+ {
+  "id": "risoles",
+  "name": "Risoles",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "risol"
+  ],
+  "em": "🥟"
+ },
+ {
+  "id": "sawi_asin",
+  "name": "Sawi asin",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "asinan sawi",
+   "sayur asin",
+   "kiam chai"
+  ],
+  "em": "🥬"
+ },
+ {
+  "id": "tempe_semangit",
+  "name": "Tempe semangit",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "potong",
+  "staple": 0,
+  "aliases": [
+   "tempe bosok",
+   "tempe busuk",
+   "tempe layu"
+  ],
+  "em": "🟫"
+ },
+ {
+  "id": "tepung_gaplek",
+  "name": "Tepung gaplek",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "tepung tiwul",
+   "gaplek"
+  ],
+  "em": "🌾"
  }
 ]
