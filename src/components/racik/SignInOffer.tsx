@@ -6,14 +6,14 @@ import { t } from "@/lib/racik/i18n";
 import { backendConfigured } from "@/lib/racik/backend/client";
 import { enabledProviders, signInWith } from "@/lib/racik/backend/auth";
 import { RECIPES } from "@/lib/racik/data";
-import hero from "@/assets/brand/onboarding/onboarding-akun.webp";
-import tileSave from "@/assets/brand/onboarding/ikon-simpan-link.png";
-import tileWrite from "@/assets/brand/onboarding/ikon-tulis-resep.png";
-import tileSync from "@/assets/brand/onboarding/ikon-perangkat.png";
+import { BrandIcon } from "@/components/racik/BrandIcon";
+import hero from "@/assets/brand/onboarding/hero-masuk.webp";
+import wordmark from "@/assets/brand/wordmark/racik-wordmark.svg";
 
 /**
- * The account offer, as the last screen of onboarding (redesigned 29 Okt 2026
- * from Octavia's mock: illustration, three benefits, Google first).
+ * The account offer, as the last screen of onboarding. Restyled 6 Nov 2026
+ * after SideChef's sign-up screen: a full-bleed dish fading into the page, the
+ * wordmark, three benefits as an icon row, Google and Email as pill buttons.
  *
  * It is a screen, not a wall: "Nanti saja" sits top right and under the
  * buttons, and taking it costs her nothing. Every recipe, the measurements and
@@ -24,13 +24,13 @@ import tileSync from "@/assets/brand/onboarding/ikon-perangkat.png";
  * collection on another device.
  */
 const BENEFITS = [
-  { id: "save", tile: tileSave, get title() { return t("offer2_save_t"); }, get body() { return t("offer2_save_b"); } },
-  { id: "share", tile: tileWrite, get title() { return t("offer2_share_t"); }, get body() { return t("offer2_share_b"); } },
-  { id: "sync", tile: tileSync, get title() { return t("offer2_sync_t"); }, get body() { return t("offer2_sync_b"); } },
+  { id: "save", icon: "koleksi-saya", get title() { return t("offer2_save_t"); }, get body() { return t("offer2_save_b"); } },
+  { id: "share", icon: "edit", get title() { return t("offer2_share_short"); }, get body() { return t("offer2_share_b"); } },
+  { id: "sync", icon: "sinkron", get title() { return t("offer2_sync_t"); }, get body() { return t("offer2_sync_b"); } },
 ];
 
 /** Google's "G" mark, in its own colours, on the white button Google's sign-in guidelines ask for. */
-function GoogleMark() {
+export function GoogleMark() {
   return (
     <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white">
       <svg viewBox="0 0 48 48" className="size-5" aria-hidden>
@@ -71,88 +71,67 @@ export function SignInOffer({ onDone, onBack }: { onDone: () => void; onBack: ()
   };
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-background px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-[calc(1rem+env(safe-area-inset-top))]">
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          aria-label={t("back")}
-          onClick={onBack}
-          className="flex size-11 shrink-0 items-center justify-center rounded-full bg-tint text-primary-deep"
-        >
-          <ArrowLeft className="size-5" strokeWidth={2.4} />
-        </button>
-        <div className="flex flex-1 gap-1.5" aria-hidden>
-          {Array.from({ length: 6 }, (_, i) => (
-            <span key={i} className={`h-1.5 flex-1 rounded-full ${i < 5 ? "bg-primary" : "bg-rule-strong"}`} />
-          ))}
+    <main className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-[max(24px,env(safe-area-inset-bottom))]">
+      {/* Full-bleed dish fading into the page, SideChef's "Cook with Confidence" screen in Racik's light. */}
+      <div className="relative h-[42dvh] max-h-[380px] min-h-[260px] shrink-0 overflow-hidden">
+        <img src={hero} alt="" aria-hidden width={780} height={1170} className="rk-settle h-full w-full object-cover object-top" />
+        <span className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(248_244_234/0)_58%,var(--color-ground)_100%)]" aria-hidden />
+        <div className="absolute inset-x-0 top-0 flex items-center justify-between px-4 pt-[calc(0.75rem+env(safe-area-inset-top))]">
+          <button
+            type="button"
+            aria-label={t("back")}
+            onClick={onBack}
+            className="flex size-11 items-center justify-center rounded-full bg-dark/45 text-white backdrop-blur-sm"
+          >
+            <ArrowLeft className="size-5" strokeWidth={2.4} />
+          </button>
+          <button type="button" onClick={onDone} className="min-h-11 rounded-full bg-dark/45 px-4 text-14 font-extrabold text-white backdrop-blur-sm">
+            {t("offer_later")}
+          </button>
         </div>
-        <Button variant="ghost" className="min-h-11 px-2 text-15 font-bold text-ink-2" onClick={onDone}>
-          {t("offer_later")}
-        </Button>
       </div>
 
-      <img
-        src={hero}
-        alt=""
-        aria-hidden
-        width={712}
-        height={513}
-        className="mx-auto mt-3 w-full max-w-[400px] [mask-image:radial-gradient(ellipse_75%_70%_at_50%_50%,#000_72%,transparent_100%)]"
-      />
+      <div className="relative -mt-10 flex flex-1 flex-col px-5 text-center">
+        <span className="animate-fade-in mx-auto inline-flex items-center gap-2 rounded-full bg-card py-2 pl-2 pr-3.5 shadow-[0_8px_22px_rgba(31,61,46,0.14)]">
+          <img src="/icons/icon-192.png" alt="" aria-hidden className="size-[30px] rounded-lg" />
+          <img src={wordmark} alt={t("akun_racik")} className="h-[22px] w-auto" />
+        </span>
+        <h1 className="animate-slide-up mx-auto mt-3.5 max-w-[330px] font-display text-28 font-extrabold leading-[1.06] text-primary">
+          {t("offer2_title")}
+        </h1>
+        <p className="sr-only">{t("offer2_body")}</p>
 
-      <p className="mt-2 text-15 font-extrabold text-primary-strong">{t("akun_racik")}</p>
-      <h1 className="mt-1 font-display text-34 font-extrabold leading-[1.05] tracking-[-0.01em] text-ink-strong">
-        {t("offer2_title")}
-      </h1>
-      <p className="mt-2 read-line text-ink-2">{t("offer2_body")}</p>
+        <ul className="animate-slide-up-2 mt-4 grid grid-cols-3 gap-2.5">
+          {BENEFITS.map(({ id, icon, title, body }) => (
+            <li key={id} className="flex flex-col items-center gap-1.5">
+              <BrandIcon name={icon} className="size-[52px] rounded-[14px]" />
+              <span className="text-caption font-extrabold leading-tight text-ink">{title}</span>
+              <span className="sr-only">{body}</span>
+            </li>
+          ))}
+        </ul>
 
-      <ul className="mt-5 space-y-3">
-        {BENEFITS.map(({ id, tile, title, body }) => (
-          <li key={id} className="flex items-center gap-4">
-            <img src={tile} alt="" aria-hidden className="size-16 shrink-0 rounded-2xl object-cover" />
-            <span className="min-w-0">
-              <span className="block text-17 font-extrabold text-ink-strong">{title}</span>
-              <span className="mt-0.5 block text-14 leading-snug text-ink-2">{body}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-6 space-y-3">
-        {google ? (
-          <Button size="lg" variant="outline" className="h-14 w-full gap-3 rounded-2xl bg-card text-body font-extrabold text-ink-strong" disabled={busy} onClick={toGoogle}>
-            <GoogleMark />
-            {t("continue_google")}
+        <div className="mt-auto space-y-2.5 pt-6">
+          {google ? (
+            <Button size="lg" variant="outline" className="h-14 w-full gap-3 rounded-full border-[1.5px] border-rule-strong bg-white text-body font-extrabold text-ink-strong" disabled={busy} onClick={toGoogle}>
+              <GoogleMark />
+              {t("continue_google")}
+            </Button>
+          ) : null}
+          <Button size="lg" variant="cta" className="h-14 w-full gap-3 rounded-full text-body font-extrabold" disabled={busy} onClick={toEmail}>
+            <Mail className="size-5" strokeWidth={2.2} aria-hidden />
+            {t("offer2_email")}
           </Button>
-        ) : null}
-        <Button
-          size="lg"
-          className="h-14 w-full gap-3 rounded-2xl text-body font-extrabold"
-          disabled={busy}
-          onClick={toEmail}
-        >
-          <Mail className="size-5" strokeWidth={2.2} aria-hidden />
-          {t("offer2_email")}
-        </Button>
+        </div>
+        <p className="mt-3 text-caption leading-snug text-ink-2">{t("offer2_free_note", { n: RECIPES.length })}</p>
+        <p className="mt-2 text-micro leading-relaxed text-ink-3">
+          {t("offer2_terms_pre")}{" "}
+          <Link to="/privasi" target="_blank" className="font-bold text-primary-strong underline underline-offset-2">{t("kebijakan_privasi")}</Link>
+          {" "}{t("offer2_terms_and")}{" "}
+          <Link to="/syarat" target="_blank" className="font-bold text-primary-strong underline underline-offset-2">{t("syarat_penggunaan")}</Link>
+          {t("offer2_terms_post")}
+        </p>
       </div>
-
-      <div className="mt-4 flex items-center gap-3 text-14 text-ink-3" aria-hidden>
-        <span className="h-px flex-1 bg-rule" />
-        {t("offer2_or")}
-        <span className="h-px flex-1 bg-rule" />
-      </div>
-      <Button variant="ghost" className="mt-1 min-h-11 w-full text-body font-extrabold text-ink-2" onClick={onDone}>
-        {t("offer_later")}
-      </Button>
-      <p className="mt-1 text-center text-caption text-ink-3">{t("offer2_free_note", { n: RECIPES.length })}</p>
-
-      <p className="mt-5 text-center text-caption leading-relaxed text-ink-3">
-        {t("offer2_terms_pre")}{" "}
-        <Link to="/privasi" target="_blank" className="font-bold text-primary-strong underline underline-offset-2">{t("kebijakan_privasi")}</Link>
-        {" "}{t("offer2_terms_and")}{" "}
-        <Link to="/syarat" target="_blank" className="font-bold text-primary-strong underline underline-offset-2">{t("syarat_penggunaan")}</Link>
-        {t("offer2_terms_post")}
-      </p>
     </main>
   );
 }

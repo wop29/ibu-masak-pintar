@@ -4,7 +4,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Racik brand (26 Okt 2026): Baloo 2 headings, Nunito body, Racik Green actions on cream. */
+/* Wide screens (Engineer Brief, 30 Okt 2026). Phone is everything below tab
+   and must not change. Same numbers as src/lib/racik/breakpoints.ts. */
+@theme {
+  --breakpoint-tab: 48rem; /* 768px: iPad portrait and landscape */
+  --breakpoint-desk: 73.75rem; /* 1180px: laptop and desktop */
+}
+
+/* Racik brand: colours from the 30 Okt 2026 board (Daun, Cabai, Kunyit, Nasi, Kayu); Baloo 2 headings, Nunito body. */
 
 @theme inline {
   --radius-sm: 8px;
@@ -105,59 +112,74 @@
   --color-notice-line: var(--notice-line);
   --color-scrim: var(--scrim);
   --color-primary-strong: var(--primary-strong);
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-cta-foreground: var(--cta-foreground);
+  --color-cabai: var(--cabai);
+  --color-kunyit: var(--kunyit);
+  --color-kayu: var(--kayu);
 }
 
 :root {
   --radius: 12px;
-  --ground: #f8faf1; /* Cream */
-  --tint: #e8f7ea; /* Mint */
-  --rule: #dbe8db;
-  --ink: #1a1a1a;
-  --ink-2: #4f5d55;
+  --ground: #f8f4ea; /* Nasi */
+  --tint: #eef0e6; /* warm sage surface */
+  --rule: #e6dfd0;
+  --ink: #1c2620;
+  --ink-2: #6b4e3d; /* Kayu, 6.9:1 on Nasi */
   /* Secondary text. Measured against --ground and against white: 4.80:1 and
      5.01:1. The old value was 2.65:1, which is not readable at arm's length. */
-  --ink-3: #5f7367;
-  --primary-deep: #0f3d2e; /* Deep Green */
-  --primary-soft: #e8f7ea; /* Mint */
-  --primary-line: #bfe8cc;
-  --glow: rgba(34, 197, 94, 0.26);
-  --dark: #0f3d2e;
-  --notice: #fff3d1; /* wash of Warm Yellow #FFD166 */
+  --ink-3: #7a6555; /* 5.0:1 on Nasi */
+  --primary-deep: #1f3d2e; /* Daun */
+  --primary-soft: #e4ece3;
+  --primary-line: #c9d6c6;
+  --glow: rgba(31, 61, 46, 0.22);
+  --dark: #1f3d2e;
+  --notice: #fbefd2; /* Kunyit wash */
 
   /* Strongest text (titles, list names). */
-  --ink-strong: #0f3d2e; /* Deep Green titles */
+  --ink-strong: #1f3d2e; /* Daun titles */
   /* 2.5:1 on --ground: decorative icons and dividers only, never text. */
-  --ink-faint: #9db3a4;
-  --icon-muted: #4f5d55;
-  --rule-soft: #ecf4ec;
-  --rule-strong: #cfe3d2;
+  --ink-faint: #b5a794;
+  --icon-muted: #6b4e3d;
+  --rule-soft: #efeadf;
+  --rule-strong: #ddd5c4;
   /* Outline of tick circles and other controls. */
-  --control-line: #b9cfbe;
-  --primary-wash: #f1faf2;
-  --primary-track: #d7f0de;
+  --control-line: #c9bba5;
+  --primary-wash: #f0f3ea;
+  --primary-track: #e3e9df;
   /* Time (cook timers, time chips). Same green as primary for now. */
-  --time: #15803d;
-  --time-soft: #e8f7ea;
-  --time-ink: #0f3d2e;
+  --time: #1f3d2e;
+  --time-soft: #e4ece3;
+  --time-ink: #1f3d2e;
   /* Red family: "tidak halal", errors, destructive actions only. */
-  --danger-soft: #fdecea;
+  --danger-soft: #f9e1da;
   --danger-ink: #b71c1c;
   --danger-line: #f4caca;
-  --notice-ink: #66551c;
-  --notice-line: #ffd166; /* Warm Yellow */
-  --scrim: rgba(15, 61, 46, 0.5);
+  --notice-ink: #6b4e1f;
+  --notice-line: #e6b44c; /* Kunyit */
+  --scrim: rgba(31, 30, 25, 0.5);
 
   --background: var(--ground);
   --foreground: var(--ink);
-  --card: oklch(1 0 0);
+  --card: #fffdf8;
   --card-foreground: var(--ink);
   --popover: var(--ground);
   --popover-foreground: var(--ink);
-  /* Racik Green #22C55E. White text on it is 2.3:1, so actions carry
-     Deep Green text (5.3:1). --primary-strong is for white-on-green spots. */
-  --primary: #22c55e;
-  --primary-foreground: #0f3d2e;
-  --primary-strong: #15803d;
+  /* Daun: buttons, active states and green text. White on it is 11.9:1. */
+  --primary: #1f3d2e; /* Daun */
+  --primary-foreground: #ffffff; /* 11.9:1 on Daun */
+  --primary-strong: #1f3d2e;
+  /* Cabai, for the main call-to-action buttons (Octavia, 30 Okt). The brand
+     #D64E3B gives white text 4.19:1, so buttons use this hair-darker shade
+     (4.55:1); #D64E3B itself stays for illustrations and decoration. */
+  --cabai: #d64e3b;
+  --cta: #d3432e;
+  --cta-hover: #b83a28;
+  --cta-foreground: #ffffff;
+  --glow-cta: rgba(211, 67, 46, 0.26);
+  --kunyit: #e6b44c;
+  --kayu: #6b4e3d;
   --secondary: var(--tint);
   --secondary-foreground: var(--ink);
   --muted: var(--tint);
@@ -168,7 +190,7 @@
   --destructive-foreground: oklch(1 0 0);
   --border: var(--rule);
   --input: var(--rule);
-  --ring: #15803d; /* focus: 3:1+ on cream, --primary is not */
+  --ring: #1f3d2e;
 }
 
 /* Pengaturan › Ukuran tulisan. The class is set on <html> from saved state. */
@@ -263,6 +285,9 @@ html.teks-paling_besar {
 
 @utility shadow-glow {
   box-shadow: 0 8px 28px var(--glow);
+}
+@utility shadow-glow-cta {
+  box-shadow: 0 8px 28px var(--glow-cta);
 }
 
 @utility shadow-card {
@@ -385,6 +410,34 @@ html.teks-paling_besar {
   background-repeat: no-repeat;
   animation: rkSheen 1.6s linear infinite;
 }
+
+/* First-run welcome (SideChef style, 6 Nov 2026). Float uses the separate
+   translate property so it stacks on top of the rotate in the other keyframes. */
+@keyframes rkDrop {
+  from { opacity: 0; transform: translateY(-120px) rotate(calc(var(--r, 0deg) - 40deg)); }
+  to { opacity: 1; transform: rotate(var(--r, 0deg)); }
+}
+@keyframes rkFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+@keyframes rkCardIn {
+  from { opacity: 0; transform: translate(30px, 20px) rotate(12deg); }
+  to { opacity: 1; transform: rotate(var(--r, 0deg)); }
+}
+@keyframes rkPop {
+  from { opacity: 0; scale: 0.92; }
+  to { opacity: 1; scale: 1; }
+}
+@keyframes rkSettle {
+  from { scale: 1.08; }
+  to { scale: 1; }
+}
+.rk-drop { transform: rotate(var(--r, 0deg)); animation: rkDrop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both, rkFloat 5s ease-in-out infinite; filter: drop-shadow(0 10px 14px rgb(31 61 46 / 0.16)); }
+.rk-card-in { transform: rotate(var(--r, 0deg)); animation: rkCardIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.rk-bob { animation: rkFloat 3.2s ease-in-out infinite; }
+.rk-pop { animation: rkPop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 0.7s both; }
+.rk-settle { animation: rkSettle 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
