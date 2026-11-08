@@ -110,6 +110,8 @@ export interface ImportedRecipe extends Recipe {
   unmatched: string[];
   /** The video never said the portion count, so serv is Racik's assumption. */
   servAssumed: boolean;
+  /** serv is Racik's estimate from the ingredient amounts, not the fixed default. */
+  servEstimated?: boolean;
   /** Language the source was in (e.g. "Inggris", "Tagalog") when not Bahasa Indonesia. */
   bahasaAsal?: string | null;
   /**

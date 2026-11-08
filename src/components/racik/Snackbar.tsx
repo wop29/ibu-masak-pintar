@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { useRouterState } from "@tanstack/react-router";
 
 /**
@@ -38,7 +46,12 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
     timer.current = setTimeout(() => setCurrent(null), SNACKBAR_MS);
   }, []);
 
-  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current);
+    },
+    [],
+  );
 
   return (
     <Ctx.Provider value={{ show, hide }}>
@@ -46,8 +59,7 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
       <div
         role="status"
         aria-live="polite"
-        className="pointer-events-none fixed inset-x-0 z-50 mx-auto w-full max-w-[430px] px-4"
-        style={{ bottom: "calc(80px + env(safe-area-inset-bottom))" }}
+        className="pointer-events-none fixed inset-x-0 bottom-[calc(80px+env(safe-area-inset-bottom))] z-50 mx-auto w-full max-w-[430px] px-4 tab:bottom-6"
       >
         {current && !inCookMode ? (
           <div
@@ -58,7 +70,11 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
             {current.actionLabel && current.onAction ? (
               <button
                 type="button"
-                onClick={() => { const act = current.onAction; hide(); act?.(); }}
+                onClick={() => {
+                  const act = current.onAction;
+                  hide();
+                  act?.();
+                }}
                 className="-my-1 min-h-11 shrink-0 rounded-xl px-3 text-15 font-bold text-primary-soft"
               >
                 {current.actionLabel}

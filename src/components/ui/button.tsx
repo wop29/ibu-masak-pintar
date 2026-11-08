@@ -10,6 +10,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        // Cabai red: the one main action on a screen (Mulai masak, Ubah jadi resep…).
+        cta: "bg-cta text-cta-foreground font-extrabold hover:bg-cta-hover shadow-glow-cta",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           // text-ink is explicit: inheriting the colour made these invisible once.

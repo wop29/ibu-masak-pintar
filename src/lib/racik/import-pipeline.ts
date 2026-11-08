@@ -61,7 +61,15 @@ export interface LinkInput extends Identity {
 }
 
 /** Server-log only. Never sent to the browser. */
-type Diag = { platform: string; branch: string; status?: number | null };
+type Diag = {
+  platform: string;
+  branch: string;
+  status?: number | null;
+  /** First words Racik heard or read in a video, logged only when no recipe came out. Public video content, never user data. */
+  heard?: string;
+  /** Caption length each source gave, to see which one TikTok left empty. */
+  captions?: Record<string, number>;
+};
 
 // Every outbound call has one. A handler also has an overall budget, so a slow
 // Gemini plus slow retries can never outlast the app's own timeout.
@@ -130,6 +138,7 @@ const geminiRecipeSchema = {
     "title",
     "creator",
     "servings",
+    "servingsEstimate",
     "timeMinutes",
     "difficulty",
     "note",
@@ -142,6 +151,7 @@ const geminiRecipeSchema = {
     title: { type: "string", nullable: true },
     creator: { type: "string", nullable: true },
     servings: { type: "integer", nullable: true },
+    servingsEstimate: { type: "integer", nullable: true },
     timeMinutes: { type: "integer", nullable: true },
     difficulty: { type: "string", nullable: true, enum: ["gampang", "sedang", "agak ribet"] },
     note: { type: "string", nullable: true },
@@ -209,7 +219,7 @@ export function meterAdd(meter: UsageMeter, body: GeminiBody, model: string) {
 async function geminiCall(
   model: string,
   parts: unknown[],
-  opts: { json: boolean; media: boolean; timeoutMs: number },
+  opts: { json: boolean; media: boolean; timeoutMs: number; readScreen?: boolean },
   key: string,
   meter: UsageMeter,
   budget: Budget,
@@ -221,8 +231,11 @@ async function geminiCall(
       : {}),
     // Extraction needs no deliberation; "low" is several times faster than the default.
     ...(level && level !== "off" ? { thinkingConfig: { thinkingLevel: level } } : {}),
-    // Fewer tokens per video frame. The words matter, not the pixels.
-    ...(opts.media ? { mediaResolution: "MEDIA_RESOLUTION_LOW" } : {}),
+    // Fewer tokens per frame, except when the recipe may be written on screen:
+    // many TikTok recipes have music only, with the amounts as text overlays.
+    ...(opts.media
+      ? { mediaResolution: opts.readScreen ? "MEDIA_RESOLUTION_MEDIUM" : "MEDIA_RESOLUTION_LOW" }
+      : {}),
   };
   let last: GeminiReply = { ok: false, why: "busy", status: null, detail: "no attempt" };
   for (const wait of [0, 1_500, 4_000]) {
@@ -299,6 +312,7 @@ const modelRecipe = z.object({
   title: z.string().nullable(),
   creator: z.string().nullable().catch(null),
   servings: posIntOrNull,
+  servingsEstimate: posIntOrNull.optional().catch(null),
   timeMinutes: posIntOrNull,
   difficulty: z.enum(["gampang", "sedang", "agak ribet"]).nullable().catch(null),
   note: z.string().nullable().catch(null),
@@ -362,18 +376,40 @@ function metaEvidence(html: string) {
   return snippets;
 }
 
+/**
+ * TikTok serves servers different page variants (video-detail, reflow, SEO),
+ * and the caption key moves between them. As a fallback, take the longest
+ * "desc" string anywhere in the page's JSON.
+ */
+function longestTiktokDesc(html: string) {
+  let best = "";
+  for (const match of html.matchAll(/"desc":"((?:\\.|[^"\\])*)"/g)) {
+    try {
+      const text = JSON.parse(`"${match[1]}"`) as string;
+      if (text.length > best.length) best = text;
+    } catch {
+      // A string JSON cannot read is skipped.
+    }
+  }
+  return best.length >= 20 ? best : "";
+}
+
 function tiktokEvidence(html: string) {
   const raw = html.match(
     /<script[^>]+id=["']__UNIVERSAL_DATA_FOR_REHYDRATION__["'][^>]*>([\s\S]*?)<\/script>/i,
   )?.[1];
-  if (!raw) return [];
+  const loose = () => {
+    const desc = longestTiktokDesc(html);
+    return desc ? [`keterangan: ${desc}`] : [];
+  };
+  if (!raw) return loose();
   try {
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     const scope = (parsed["__DEFAULT_SCOPE__"] ?? {}) as Record<string, unknown>;
     const detail = scope["webapp.video-detail"] as
       { itemInfo?: { itemStruct?: Record<string, unknown> } } | undefined;
     const item = detail?.itemInfo?.itemStruct;
-    if (!item) return [];
+    if (!item) return loose();
     const author = item["author"] as { uniqueId?: string; nickname?: string } | undefined;
     const out: string[] = [];
     if (typeof item["desc"] === "string" && item["desc"]) out.push(`keterangan: ${item["desc"]}`);
@@ -381,9 +417,9 @@ function tiktokEvidence(html: string) {
       out.push(
         `pembuat: ${author?.nickname ?? ""} ${author?.uniqueId ? `@${author.uniqueId}` : ""}`.trim(),
       );
-    return out;
+    return out.length ? out : loose();
   } catch {
-    return [];
+    return loose();
   }
 }
 
@@ -560,7 +596,7 @@ async function tiktokEmbed(url: string, budget: Budget) {
       Array.isArray(value) ? value.filter((v): v is string => typeof v === "string") : [];
     return {
       mediaUrl: list(item?.video?.urls).find((u) => isMediaHostAllowed(u)) ?? "",
-      caption: typeof item?.text === "string" ? item.text : "",
+      caption: typeof item?.text === "string" && item.text ? item.text : longestTiktokDesc(html),
       cover: list(item?.covers).find((u) => isMediaHostAllowed(u)) ?? "",
     };
   } catch {
@@ -654,7 +690,12 @@ function fixSpokenTerms(text: string) {
 // Verbatim in whatever language is spoken: translating while transcribing loses
 // amounts and names. The extraction step translates into Bahasa Indonesia.
 const TRANSCRIBE_PROMPT =
-  "Transkripsikan semua ucapan dalam berkas ini apa adanya, dalam bahasa aslinya (jangan diterjemahkan). Tulis angka dan satuan persis seperti diucapkan. Keluarkan hanya teks ucapannya, tanpa komentar. Lalu tambahkan satu baris terakhir persis dalam bentuk FOTO_DETIK: <angka>, yaitu detik saat masakan yang sudah jadi terlihat paling jelas dan menggugah selera (tanpa wajah atau tulisan besar menutupi). Jika masakan jadi tidak pernah terlihat, tulis FOTO_DETIK: -1.";
+  "Tuliskan semua isi resep dari berkas ini, dalam bahasa aslinya (jangan diterjemahkan). " +
+  "1) Semua ucapan apa adanya. 2) Semua teks yang muncul di layar (nama bahan, takaran, langkah, suhu, waktu), " +
+  "termasuk teks yang hanya muncul sebentar; tulis dengan awalan 'Layar:'. " +
+  "3) Urutan tindakan memasak yang benar-benar terlihat (misalnya menumis bawang, memasukkan ayam, menuang santan), satu baris per tindakan dengan awalan 'Terlihat:'; sebut bahan hanya kalau jelas terlihat apa itu. Tulis angka dan satuan persis seperti terlihat atau terdengar. " +
+  "Jangan menebak bahan yang tidak disebut atau tidak terlihat. Keluarkan hanya isi itu, tanpa komentar. " +
+  "Lalu tambahkan satu baris terakhir persis dalam bentuk FOTO_DETIK: <angka>, yaitu detik saat masakan yang sudah jadi terlihat paling jelas dan menggugah selera (tanpa wajah atau tulisan besar menutupi). Jika masakan jadi tidak pernah terlihat, tulis FOTO_DETIK: -1.";
 
 /** Splits the trailing FOTO_DETIK line off a transcript. -1 means no good food shot. */
 export function splitFoodSecond(text: string): { text: string; foodSeconds: number } {
@@ -673,15 +714,22 @@ export function splitFoodSecond(text: string): { text: string; foodSeconds: numb
  * matter, not the pixels. Returns "" when nothing could be heard.
  */
 async function transcribe(
-  media: { bytes: Uint8Array; mime: string },
+  media: { bytes: Uint8Array; mime: string } | { youtube: string },
   key: string,
   meter: UsageMeter,
   budget: Budget,
 ) {
-  const isVideo = media.mime.startsWith("video/");
+  // YouTube hides its files from servers, but Gemini can watch a public YouTube link itself.
+  const isVideo = "youtube" in media || media.mime.startsWith("video/");
+  const source =
+    "youtube" in media
+      ? { file_data: { file_uri: media.youtube } }
+      : {
+          inline_data: { mime_type: media.mime, data: Buffer.from(media.bytes).toString("base64") },
+        };
   const parts = [
     {
-      inline_data: { mime_type: media.mime, data: Buffer.from(media.bytes).toString("base64") },
+      ...source,
       ...(isVideo ? { video_metadata: { end_offset: `${MAX_LISTEN_SECONDS}s` } } : {}),
     },
     { text: TRANSCRIBE_PROMPT },
@@ -689,7 +737,7 @@ async function transcribe(
   let reply = await geminiCall(
     modelPrimary(),
     parts,
-    { json: false, media: true, timeoutMs: T.transcribe },
+    { json: false, media: true, timeoutMs: T.transcribe, readScreen: isVideo },
     key,
     meter,
     budget,
@@ -704,7 +752,7 @@ async function transcribe(
     reply = await geminiCall(
       modelFallback(),
       parts,
-      { json: false, media: true, timeoutMs: T.transcribe },
+      { json: false, media: true, timeoutMs: T.transcribe, readScreen: isVideo },
       key,
       meter,
       budget,
@@ -970,7 +1018,11 @@ Nama bahan: tulis dalam Bahasa Indonesia. Kalau artinya jelas sama dengan bahan 
 
 Pengganti: isi pengganti hanya untuk bahan yang sulit dicari di ${SHOPS[negara]}, misalnya heavy cream, kale, fish sauce, gochujang, mirin, buttermilk, keju tertentu. Tulis satu kalimat pendek Bahasa Indonesia yang menyebut bahan yang mudah dibeli di sana dan jumlahnya kalau perlu (contoh: "Santan kental kemasan, jumlah sama."). Untuk bahan yang mudah didapat, isi null. Pengganti tidak menggantikan bahan di daftar: nama bahan tetap bahan aslinya. Jangan memakai nama campuran seperti "bumbu ungkep" atau "bumbu halus" sebagai satu bahan; pecah jadi bahan-bahannya kalau terucap, dan kalau isinya tidak terdengar, catat di note bahwa daftar bumbunya hanya tampil di layar video.
 
+Video tanpa suara: baris "Layar:" adalah teks yang tertulis di video dan sah dipakai seperti teks tertulis. Baris "Terlihat:" adalah tindakan yang benar-benar terlihat di video: boleh dipakai untuk menyusun langkah dan untuk bahan yang jelas terlihat, tetapi jumlahnya hanya boleh diisi kalau tertulis atau terucap; kalau tidak, biarkan jumlah kosong dan catat di note bahwa takarannya tidak disebut di video.
+
 Bahan pendamping bukan bahan resep: apa pun yang disebut sebagai saran penyajian ("paling enak pakai", "temennya", "cocok sama", "pelengkap") masuk ke note, bukan ke daftar bahan.
+
+Porsi: isi servings hanya kalau jumlah porsi benar-benar disebut. Kalau tidak disebut, isi servings null dan isi servingsEstimate dengan perkiraan jumlah porsi dari banyaknya bahan utama (contoh: 500 g daging atau 7–8 potong ayam ≈ 4 porsi; 1 ekor ayam ≈ 5 porsi; 250 g pasta ≈ 2 porsi), atau dari jumlah piring atau mangkuk yang terlihat saat disajikan (baris "Terlihat:"). Kalau servings disebut, isi servingsEstimate null.
 
 Judul ditulis dengan Huruf Kapital Tiap Kata, misalnya "Bebek Bumbu Hitam Madura".
 
@@ -1190,6 +1242,8 @@ async function runGuarded(
       candidatesTokens: meter.candidatesTokens,
       thoughtsTokens: meter.thoughtsTokens,
       ms: latencyMs,
+      ...(ctx.diag.captions ? { captions: ctx.diag.captions } : {}),
+      ...(status === "no_recipe" && ctx.diag.heard ? { heard: ctx.diag.heard } : {}),
     }),
   );
   await Promise.allSettled([
@@ -1269,9 +1323,26 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
       (oembed.limited || oembed.caption.length < MIN_CAPTION_CHARS)
     ) {
       embed = await tiktokEmbed(url, ctx.budget);
+      ctx.diag.captions = { oembed: oembed.caption.length, embed: embed.caption.length };
       if (oembed.limited && (embed.caption || embed.mediaUrl)) {
         ctx.diag.branch = `oEmbed ${oembed.status}: dibatasi, embed dipakai`;
         oembed = captionFrom(embed.caption, null, oembed.status, embed.cover || undefined);
+      } else if (embed.caption.trim().length > oembed.caption.length) {
+        // oEmbed sometimes answers with an empty or cut title while the embed
+        // page holds the whole caption, ingredients and amounts included.
+        ctx.diag.branch = "oEmbed pendek, keterangan embed dipakai";
+        oembed = {
+          ...captionFrom(
+            embed.caption,
+            null,
+            oembed.status,
+            oembed.thumbnail || embed.cover || undefined,
+          ),
+          parts: [
+            ...oembed.parts.filter((p) => !p.startsWith("keterangan:")),
+            `keterangan: ${embed.caption}`,
+          ],
+        };
       } else if (!oembed.thumbnail && embed.cover) {
         oembed = { ...oembed, thumbnail: embed.cover };
       }
@@ -1290,22 +1361,36 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
     if (!data.listen) {
       if (oembed.caption.length >= MIN_CAPTION_CHARS) {
         ctx.diag.branch = "oEmbed, keterangan cukup panjang";
-        return buildRecipe(ctx, url, usableEvidence(oembed.parts), oembed.thumbnail);
+        const fromCaption = await buildRecipe(
+          ctx,
+          url,
+          usableEvidence(oembed.parts),
+          oembed.thumbnail,
+        );
+        // A long caption can still hold no recipe (a title full of hashtags).
+        // Then the video itself is the recipe: listen, as with a short caption.
+        if (fromCaption.ok || fromCaption.kind !== "noRecipe") return fromCaption;
       }
       // Before listening, read the page itself.
       pageFetch = await fetchHtml(url, ctx.budget);
       const page = pageCaption(pageFetch.html);
-      if (page.caption.length >= MIN_CAPTION_CHARS) {
+      ctx.diag.captions = {
+        ...ctx.diag.captions,
+        page: page.caption.length,
+        html: pageFetch.html.length,
+      };
+      if (page.caption.length >= MIN_CAPTION_CHARS && page.caption.length > oembed.caption.length) {
         ctx.diag.branch = "oEmbed pendek, keterangan halaman dipakai";
-        return buildRecipe(
+        const fromPage = await buildRecipe(
           ctx,
           url,
           usableEvidence([...oembed.parts, ...page.parts]),
           oembed.thumbnail,
         );
+        if (fromPage.ok || fromPage.kind !== "noRecipe") return fromPage;
       }
       // No recipe in the words: go straight on to listening, no extra tap.
-      ctx.diag.branch = "keterangan terlalu pendek, langsung didengarkan";
+      ctx.diag.branch += " → keterangan tanpa resep, langsung didengarkan";
     }
 
     const { html, cookie } = pageFetch ?? (await fetchHtml(url, ctx.budget));
@@ -1327,6 +1412,21 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
         referer = "https://www.tiktok.com/";
         ctx.diag.branch = mediaUrl ? "berkas video (embed)" : "tidak ada berkas video (embed)";
       }
+      const youtubeId = !mediaUrl ? youtubeVideoId(url) : null;
+      if (youtubeId) {
+        ctx.diag.branch = "YouTube ditonton langsung oleh Gemini";
+        const heard = await transcribe(
+          { youtube: `https://www.youtube.com/watch?v=${youtubeId}` },
+          ctx.key,
+          ctx.meter,
+          ctx.budget,
+        );
+        spoken = heard.text;
+        if (spoken) {
+          ctx.diag.heard = spoken.slice(0, 600);
+          parts.push(`isi video (ucapan dan teks di layar): ${spoken}`);
+        }
+      }
       if (mediaUrl) {
         const media = await fetchMedia(mediaUrl, referer, mediaCookie, ctx.budget);
         ctx.diag.branch = media ? "berkas video" : "berkas video tidak bisa diunduh";
@@ -1336,7 +1436,8 @@ export async function linkOrTextImport(data: LinkInput): Promise<ImportResult> {
           const heard = await transcribe(media, ctx.key, ctx.meter, ctx.budget);
           spoken = heard.text;
           if (spoken) {
-            parts.push(`suara video: ${spoken}`);
+            ctx.diag.heard = spoken.slice(0, 600);
+            parts.push(`isi video (ucapan dan teks di layar): ${spoken}`);
             cover = (await foodFrame(media, heard.foodSeconds, ctx.budget)) ?? cover;
           }
         }
@@ -1396,7 +1497,7 @@ export async function uploadImport(data: FormData): Promise<ImportResult> {
     const built = await buildRecipe(
       ctx,
       canon.url,
-      usableEvidence([...oembed.parts, `suara video: ${spoken}`]),
+      usableEvidence([...oembed.parts, `isi video (ucapan dan teks di layar): ${spoken}`]),
       (await foodFrame({ bytes, mime }, heard.foodSeconds, ctx.budget)) ?? oembed.thumbnail,
     );
     return built.ok && notice ? { ...built, notice } : built;

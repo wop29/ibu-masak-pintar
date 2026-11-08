@@ -430,10 +430,21 @@ FAT = {
     "kaldu_sayur_cair": (0.1, U + "Soup, vegetable broth, ready to serve", Y),
     "tape_ketan": (0.3, "Perkiraan tape ketan", N),
     "tape_singkong": (0.3, T + "Tape singkong", N),
+    # --- added 30 Okt 2026 for the 213 Indonesian recipes ---
+    "petis": (0.2, T + "Petis udang (perkiraan)", N),
+    "kerupuk_putih": (0.3, "Perkiraan kerupuk putih (tapioka) mentah, belum digoreng", N),
+    "kerupuk_kulit": (5.0, "Perkiraan kerupuk kulit sapi mentah (kering), belum digoreng", N),
+    "genjer": (0.2, T + "Genjer (perkiraan)", N),
+    "ghee": (99.5, U + "Butter oil, anhydrous", Y),
+    "kecombrang": (1.0, T + "Kecombrang (perkiraan)", N),
+    "pasta_pandan": (0.0, "Perkiraan label pasta pandan (gula, air, perisa)", N),
+    "meses": (20.0, "Perkiraan label meses cokelat", N),
+    "daun_suji": (0.0, "Daun tidak dimakan (hanya airnya untuk warna)", Y),
 }
 
 # Canned/cooked legumes (CANNED100) use their cooked fat.
 CANNED_FAT = {
+    "mie_telur": 2.1,
     "kacang_arab": 2.6,
     "kacang_merah": 0.5,
     "lentil": 0.4,

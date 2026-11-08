@@ -164,6 +164,10 @@ const UNIT_ALIAS: Record<string, { unit: Unit; factor: number }> = {
   lembar: { unit: "lembar", factor: 1 },
   lbr: { unit: "lembar", factor: 1 },
   helai: { unit: "lembar", factor: 1 },
+  // Malay: "7 ketul ayam" is seven pieces; "2 tangkai daun kari" is two sprigs.
+  ketul: { unit: "potong", factor: 1 },
+  keping: { unit: "potong", factor: 1 },
+  tangkai: { unit: "batang", factor: 1 },
   ikat: { unit: "ikat", factor: 1 },
   papan: { unit: "papan", factor: 1 },
   potong: { unit: "potong", factor: 1 },
@@ -316,6 +320,8 @@ export interface RawImported {
   title: string;
   creator: string | null;
   servings: number | null;
+  /** Racik's estimate from the amounts (or plates seen) when the source never says. */
+  servingsEstimate?: number | null | undefined;
   timeMinutes: number | null;
   difficulty: "gampang" | "sedang" | "agak ribet" | null;
   note: string | null;
@@ -506,8 +512,9 @@ export function normaliseImported(
     title: raw.title,
     region: "impor",
     slots: ["lauk"],
-    serv: raw.servings ?? DEFAULT_SERV,
+    serv: raw.servings ?? raw.servingsEstimate ?? DEFAULT_SERV,
     servAssumed: raw.servings == null,
+    ...(raw.servings == null && raw.servingsEstimate != null ? { servEstimated: true } : {}),
     time: raw.timeMinutes ?? (fromSteps > 0 ? Math.max(10, fromSteps) : 30),
     diff: raw.difficulty ?? "sedang",
     spice: spiceLines >= 2 ? 3 : spiceLines === 1 ? 2 : 0,

@@ -780,7 +780,14 @@
   "risoles": 5,
   "sawi_asin": 1.5,
   "tempe_semangit": 20,
-  "tepung_gaplek": 1.5
+  "tepung_gaplek": 1.5,
+  "petis": 20.0,
+  "kerupuk_putih": 1.5,
+  "kerupuk_kulit": 60.0,
+  "genjer": 1.7,
+  "ghee": 0.3,
+  "kecombrang": 1.0,
+  "meses": 5.0
  },
  "SUBS": {
   "kemiri": "Kacang mete atau almond, jumlah sama. Sangrai dulu supaya wangi.",
@@ -1358,7 +1365,13 @@
   "risoles": 25,
   "sawi_asin": 3,
   "tempe_semangit": 9,
-  "tepung_gaplek": 88
+  "tepung_gaplek": 88,
+  "petis": 24.0,
+  "kerupuk_putih": 80.0,
+  "genjer": 7.7,
+  "kecombrang": 6.8,
+  "pasta_pandan": 50.0,
+  "meses": 70.0
  },
  "FIBER100": {
   "bayam": 2.2,
@@ -1606,7 +1619,8 @@
   "risoles": 1,
   "sawi_asin": 2,
   "tempe_semangit": 1.4,
-  "tepung_gaplek": 2
+  "tepung_gaplek": 2,
+  "kerupuk_putih": 0.5
  },
  "EDIBLE": {
   "ayam": 0.7,
@@ -1670,6 +1684,12 @@
    "C": 14.0,
    "F": 5.0,
    "L": 0.2
+  },
+  "mie_telur": {
+   "P": 4.5,
+   "C": 25.0,
+   "F": 1.2,
+   "L": 2.1
   }
  },
  "FAT100": {
@@ -2131,6 +2151,15 @@
   "risoles": 10,
   "sawi_asin": 0.2,
   "tempe_semangit": 10,
-  "tepung_gaplek": 0.5
+  "tepung_gaplek": 0.5,
+  "petis": 0.2,
+  "kerupuk_putih": 0.3,
+  "kerupuk_kulit": 5.0,
+  "genjer": 0.2,
+  "ghee": 99.5,
+  "kecombrang": 1.0,
+  "pasta_pandan": 0.0,
+  "meses": 20.0,
+  "daun_suji": 0.0
  }
 }

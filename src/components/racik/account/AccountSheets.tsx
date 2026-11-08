@@ -1,4 +1,9 @@
+import { useEffect, useState } from "react";
+import { Mail } from "lucide-react";
 import { BrandIcon } from "../BrandIcon";
+import { GoogleMark } from "../SignInOffer";
+import { enabledProviders, signInWith } from "@/lib/racik/backend/auth";
+import { useDesktopPointer } from "@/lib/racik/breakpoints";
 import { Button } from "@/components/ui/button";
 import { Sheet } from "@/components/racik/Sheet";
 import { t } from "@/lib/racik/i18n";
@@ -23,6 +28,9 @@ export function SaveSignInSheet({
   onSignIn: () => void;
   onLater: () => void;
 }) {
+  const desktop = useDesktopPointer();
+  if (desktop && kind === "save")
+    return <DesktopSavePitch open={open} onSignIn={onSignIn} onLater={onLater} />;
   return (
     <Sheet
       open={open}
@@ -34,19 +42,104 @@ export function SaveSignInSheet({
         <BrandIcon name="sinkron" className="size-9" />
         <p>
           {kind === "import" ? t("resep_dari_luar_ini_sudah") : t("resep_ini_sudah_tersimpan_di")}
-          
+
           {t("masuk_gratis_lalu_resep_simpanan")}
         </p>
       </div>
       <Button size="lg" className="mt-5 w-full" onClick={onSignIn}>
-        
         {t("masuk_atau_daftar_gratis")}
       </Button>
-      <Button variant="ghost" size="lg" className="mt-2 w-full text-muted-foreground" onClick={onLater}>
-        
+      <Button
+        variant="ghost"
+        size="lg"
+        className="mt-2 w-full text-muted-foreground"
+        onClick={onLater}
+      >
         {t("offer_later")}
       </Button>
-      <p className="mt-1 text-center text-label text-ink-3">{t("untuk_sekarang_resepnya_tetap_ada")}</p>
+      <p className="mt-1 text-center text-label text-ink-3">
+        {t("untuk_sekarang_resepnya_tetap_ada")}
+      </p>
+    </Sheet>
+  );
+}
+
+/**
+ * Computer, signed out, after Simpan: the same offer in one line, with Google
+ * (white outlined, per Google's branding) and email. The recipe is already
+ * saved on this computer either way.
+ */
+function DesktopSavePitch({
+  open,
+  onSignIn,
+  onLater,
+}: {
+  open: boolean;
+  onSignIn: () => void;
+  onLater: () => void;
+}) {
+  const [google, setGoogle] = useState(false);
+  const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    let live = true;
+    enabledProviders()
+      .then((p) => {
+        if (live) setGoogle(p.google);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [open]);
+  const toGoogle = async () => {
+    setBusy(true);
+    // Back to this recipe afterwards: /masuk reads where to go from here (the
+    // Supabase redirect allow-list holds plain /masuk, so no query on the link).
+    try {
+      sessionStorage.setItem("racik.masuk.next", window.location.pathname);
+    } catch {
+      /* private mode: she lands on home instead */
+    }
+    const err = await signInWith("google", `${window.location.origin}/masuk`);
+    setBusy(false);
+    if (err) onSignIn();
+  };
+  return (
+    <Sheet open={open} onClose={onLater} title={t("masuk_gratis_simpan_semua_perangkat")}>
+      <p className="read-line text-ink-2">{t("resep_ini_sudah_tersimpan_di_komputer")}</p>
+      <div className="mt-5 space-y-3">
+        {google ? (
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-14 w-full gap-3 rounded-2xl bg-card text-body font-extrabold text-ink-strong"
+            disabled={busy}
+            onClick={toGoogle}
+          >
+            <GoogleMark />
+            {t("continue_google")}
+          </Button>
+        ) : null}
+        <Button
+          size="lg"
+          variant="cta"
+          className="h-14 w-full gap-3 rounded-2xl text-body font-extrabold"
+          disabled={busy}
+          onClick={onSignIn}
+        >
+          <Mail className="size-5" strokeWidth={2.2} aria-hidden />
+          {t("masuk_dengan_email")}
+        </Button>
+      </div>
+      <Button
+        variant="ghost"
+        size="lg"
+        className="mt-2 w-full text-muted-foreground"
+        onClick={onLater}
+      >
+        {t("offer_later")}
+      </Button>
     </Sheet>
   );
 }
@@ -68,21 +161,15 @@ export function MergeLibrarySheet({
   return (
     <Sheet open={open} onClose={onLater} title={t("gabungkan_resep_di_hp_ini", { count })}>
       <p className="read-line text-ink-2">
-        
-        {t("ada")}{" "}{count} {" "}{t("resep_yang_kamu_simpan_di")}
+        {t("ada")} {count} {t("resep_yang_kamu_simpan_di")}
       </p>
       <Button size="lg" className="mt-5 w-full" onClick={onMerge}>
-        
         {t("gabungkan_ke_akunku")}
       </Button>
       <Button variant="outline" size="lg" className="mt-2 w-full" onClick={onReplace}>
-        
         {t("jangan_pakai_isi_akunku_saja")}
       </Button>
-      <p className="mt-2 text-label text-ink-3">
-        
-        {t("kalau_tidak_digabung_resep_di")}
-      </p>
+      <p className="mt-2 text-label text-ink-3">{t("kalau_tidak_digabung_resep_di")}</p>
     </Sheet>
   );
 }
@@ -122,8 +209,13 @@ export function ConfirmSheet({
         {busy ? t("sebentar") : confirmLabel}
       </Button>
       {extra}
-      <Button variant="ghost" size="lg" className="mt-2 w-full text-muted-foreground" disabled={busy} onClick={onCancel}>
-        
+      <Button
+        variant="ghost"
+        size="lg"
+        className="mt-2 w-full text-muted-foreground"
+        disabled={busy}
+        onClick={onCancel}
+      >
         {t("batal")}
       </Button>
     </Sheet>

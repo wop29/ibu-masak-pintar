@@ -18,8 +18,24 @@ export interface ProteinPart {
 type Nutrient = "P" | "C" | "F" | "L";
 const TABLE: Record<Nutrient, Record<string, number>> = { P: PROT100, C: CARB100, F: FIBER100, L: FAT100 };
 
-/** "kalengan, tiriskan dan bilas", "matang": the beans are already cooked. */
-const COOKED = /kalengan|kaleng|tiriskan|matang/;
+/**
+ * "kalengan, tiriskan dan bilas", "matang": the beans are already cooked.
+ * "mie basah": fresh noodles are sold already boiled, so they use cooked figures too.
+ */
+const COOKED = /kalengan|kaleng|tiriskan|matang|basah/;
+
+/**
+ * A frying bath: most of the oil stays in the pan. Only the share a fried food
+ * typically soaks up is eaten (an estimate; deep-fried foods take up roughly
+ * a tenth to a fifth of the bath in a home batch).
+ */
+const FRY_BATH_GRAMS = 250; // about 270 ml: more than goes into a batter or a tumis
+const FRY_KEPT = 0.15;
+
+/** "iga, tulang, dan tetelan", "dengan tulang": weighed with the bone in. */
+const WITH_BONE = /\b(tulang|iga)\b/;
+const BONELESS = /tanpa tulang|buang tulang/;
+const BONE_DEFAULT_EDIBLE = 0.6;
 
 /**
  * Per-100 g value for this line. Canned or cooked legumes use their cooked
@@ -40,8 +56,10 @@ export function edibleGrams(line: IngLine): number {
   const prep = line[2] ?? "";
   const unit = unitOf(line);
   const byWeight = unit === "gram" || unit === "ml";
-  let factor = byWeight && !BONE_IN_BY_WEIGHT.has(line[0]) ? 1 : (EDIBLE[line[0]] ?? 1);
+  const boneIn = byWeight && WITH_BONE.test(prep) && !BONELESS.test(prep);
+  let factor = byWeight && !BONE_IN_BY_WEIGHT.has(line[0]) && !boneIn ? 1 : (EDIBLE[line[0]] ?? (boneIn ? BONE_DEFAULT_EDIBLE : 1));
   if (line[0] === "udang" && /kepala/.test(prep)) factor = 0.7;
+  if (line[0] === "minyak_goreng" && (grams >= FRY_BATH_GRAMS || /menggoreng/.test(prep))) factor = FRY_KEPT;
   return grams * factor;
 }
 

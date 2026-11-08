@@ -1,7 +1,15 @@
 import { BrandIcon } from "@/components/racik/BrandIcon";
 import { createFileRoute, Link, notFound, useNavigate, useRouter } from "@tanstack/react-router";
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, BellRing, Check, Pause, Play, RotateCcw, Timer as TimerIcon } from "lucide-react";
+import {
+  ArrowLeft,
+  BellRing,
+  Check,
+  Pause,
+  Play,
+  RotateCcw,
+  Timer as TimerIcon,
+} from "lucide-react";
 import { Sheet } from "@/components/racik/Sheet";
 import { byId, ING } from "@/lib/racik/data";
 import { cookPlan, qtyDisplay, scaledQty, unitOf } from "@/lib/racik/engine";
@@ -144,7 +152,9 @@ function useAlarm(ringing: boolean) {
   useEffect(() => {
     const unlock = () => {
       try {
-        const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        const AC =
+          window.AudioContext ??
+          (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
         if (!AC) return;
         ctxRef.current ??= new AC();
         if (ctxRef.current.state === "suspended") void ctxRef.current.resume().catch(() => {});
@@ -198,21 +208,31 @@ function StepTimer({
   const left = secondsLeft(timer, seconds, now);
   const total = timer?.total ?? seconds;
   const start = (from: number) => onChange({ total, endsAt: Date.now() + from * 1000 });
-  const pct = state === "idle" ? 0 : Math.min(100, Math.max(0, ((total - left) / Math.max(1, total)) * 100));
+  const pct =
+    state === "idle" ? 0 : Math.min(100, Math.max(0, ((total - left) / Math.max(1, total)) * 100));
 
   if (state === "ringing") {
     return (
       <div role="alert" className="mt-6 rounded-3xl border-2 border-time bg-time-soft p-5">
         <p className="flex items-center gap-2 text-14 font-bold text-time-ink">
-          <BellRing className="size-5 animate-pulse" /> {" "}{t("waktunya_habis")}
+          <BellRing className="size-5 animate-pulse" /> {t("waktunya_habis")}
         </p>
-        <p className="mt-1 text-timer font-extrabold leading-none tabular-nums text-time-ink">00:00</p>
+        <p className="mt-1 text-timer font-extrabold leading-none tabular-nums text-time-ink">
+          00:00
+        </p>
         <div className="mt-4 flex gap-3">
-          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-time text-body font-extrabold text-primary-foreground">
-            <Check className="size-5" /> {" "}{t("sudah")}
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-time text-body font-extrabold text-primary-foreground"
+          >
+            <Check className="size-5" /> {t("sudah")}
           </button>
-          <button type="button" onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })} className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-time bg-card text-body font-extrabold text-time-ink">
-            
+          <button
+            type="button"
+            onClick={() => onChange({ total: total + 60, endsAt: Date.now() + 60_000 })}
+            className="flex min-h-[52px] flex-1 items-center justify-center rounded-xl border border-time bg-card text-body font-extrabold text-time-ink"
+          >
             {t("n1_menit")}
           </button>
         </div>
@@ -221,34 +241,61 @@ function StepTimer({
   }
 
   return (
-    <div className={`mt-6 rounded-3xl border bg-card p-5 shadow-card ${state === "running" ? "border-time" : "border-rule"}`}>
+    <div
+      className={`mt-6 rounded-3xl border bg-card p-5 shadow-card ${state === "running" ? "border-time" : "border-rule"}`}
+    >
       <p className="flex items-center gap-1.5 text-14 font-bold text-ink-3">
         <TimerIcon className="size-3.5" />
-        {state === "running" ? t("sedang_berjalan") : state === "paused" ? t("dijeda") : t("waktu_langkah_ini")}
+        {state === "running"
+          ? t("sedang_berjalan")
+          : state === "paused"
+            ? t("dijeda")
+            : t("waktu_langkah_ini")}
       </p>
-      <p className={`mt-1 text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-time" : "text-ink"}`}>{clock(left)}</p>
+      <p
+        className={`mt-1 text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-time" : "text-ink"}`}
+      >
+        {clock(left)}
+      </p>
       {state !== "idle" ? (
         <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-tint" aria-hidden>
-          <div className="h-full rounded-full bg-time transition-[width] duration-500" style={{ width: `${pct}%` }} />
+          <div
+            className="h-full rounded-full bg-time transition-[width] duration-500"
+            style={{ width: `${pct}%` }}
+          />
         </div>
       ) : null}
       <div className="mt-4 flex gap-3">
         {state === "running" ? (
-          <button type="button" onClick={() => onChange({ total, left })} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-extrabold text-ink">
-            <Pause className="size-5" /> {" "}{t("jeda")}
+          <button
+            type="button"
+            onClick={() => onChange({ total, left })}
+            className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-extrabold text-ink"
+          >
+            <Pause className="size-5" /> {t("jeda")}
           </button>
         ) : (
-          <button type="button" onClick={() => start(left > 0 ? left : seconds)} className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-primary px-4 text-body font-extrabold text-primary-foreground shadow-glow">
+          <button
+            type="button"
+            onClick={() => start(left > 0 ? left : seconds)}
+            className="flex min-h-[52px] flex-[1.4] items-center justify-center gap-2 rounded-xl bg-primary px-4 text-body font-extrabold text-primary-foreground shadow-glow"
+          >
             <Play className="size-5" /> {state === "paused" ? t("lanjutkan") : t("mulai_hitung")}
           </button>
         )}
         {state !== "idle" ? (
-          <button type="button" onClick={() => onChange(null)} className="flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-bold text-ink-2">
-            <RotateCcw className="size-4" /> {" "}{t("ulangi")}
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className="flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-bold text-ink-2"
+          >
+            <RotateCcw className="size-4" /> {t("ulangi")}
           </button>
         ) : null}
       </div>
-      {state === "running" ? <p className="mt-3 text-caption text-ink-3">{t("tetap_berjalan_walau_pindah_langkah")}</p> : null}
+      {state === "running" ? (
+        <p className="mt-3 text-caption text-ink-3">{t("tetap_berjalan_walau_pindah_langkah")}</p>
+      ) : null}
     </div>
   );
 }
@@ -279,12 +326,26 @@ function PrepRow({
   const local = localName(line[0], negara);
   return (
     <li>
-      <button type="button" onClick={onToggle} aria-pressed={on} className="read-line flex min-h-12 w-full items-start gap-3 py-2 text-left">
-        <span aria-hidden className={`mt-px flex size-[26px] shrink-0 items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-control-line"}`}>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-pressed={on}
+        className="read-line flex min-h-12 w-full items-start gap-3 py-2 text-left"
+      >
+        <span
+          aria-hidden
+          className={`mt-px flex size-[26px] shrink-0 items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-control-line"}`}
+        >
           {on ? <Check className="size-4" strokeWidth={3} /> : null}
         </span>
-        <span className={`min-w-0 [overflow-wrap:anywhere] ${on ? "text-ink-3 line-through" : "text-ink"}`}>
-          {qty == null ? <span className="text-ink-3">{t("secukupnya")}{" "}</span> : <span className="font-extrabold tabular-nums">{main} </span>}
+        <span
+          className={`min-w-0 [overflow-wrap:anywhere] ${on ? "text-ink-3 line-through" : "text-ink"}`}
+        >
+          {qty == null ? (
+            <span className="text-ink-3">{t("secukupnya")} </span>
+          ) : (
+            <span className="font-extrabold tabular-nums">{main} </span>
+          )}
           {ing.name}
           {local ? <span className="text-ink-3"> · {local}</span> : null}
           {line[2] ? <span className="text-ink-3">, {line[2]}</span> : null}
@@ -307,8 +368,10 @@ function Notice({ title, body, children }: { title: string; body: string; childr
   );
 }
 
-const primaryBtn = "flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 text-body font-extrabold text-primary-foreground shadow-glow";
-const outlineBtn = "flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-extrabold text-ink";
+const primaryBtn =
+  "flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 text-body font-extrabold text-primary-foreground shadow-glow";
+const outlineBtn =
+  "flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl border border-rule bg-card px-4 text-body font-extrabold text-ink";
 
 function ModeMasak() {
   const { recipe: shipped } = Route.useLoaderData();
@@ -346,7 +409,9 @@ function ModeMasak() {
   const timers = progress?.timers ?? {};
   const anyActive = Object.values(timers).some((t) => t.endsAt != null);
   const now = useNow(anyActive);
-  const ringing = Object.values(timers).some((t) => t.endsAt != null && t.endsAt <= now && now - t.endsAt < RING_FOR_MS);
+  const ringing = Object.values(timers).some(
+    (t) => t.endsAt != null && t.endsAt <= now && now - t.endsAt < RING_FOR_MS,
+  );
   useAlarm(ringing);
 
   const goto = useCallback(
@@ -375,13 +440,47 @@ function ModeMasak() {
 
   // Back with a timer counting asks first; the timers are wall-clock, so they keep running either way.
   const tryLeave = () => {
-    const running = Object.values(cookProgress(id)?.timers ?? {}).some((t) => t.endsAt != null && t.endsAt > Date.now());
+    const running = Object.values(cookProgress(id)?.timers ?? {}).some(
+      (t) => t.endsAt != null && t.endsAt > Date.now(),
+    );
     if (running) setLeaveOpen(true);
     else leave();
   };
 
+  // Keyboard (iPad keyboard or computer): → or Space next, ← back, Esc leaves.
+  // Off while a sheet is open (it has its own Esc) or a control would take the key.
+  const keyRef = useRef<(e: KeyboardEvent) => void>(() => {});
+  keyRef.current = (e) => {
+    if (
+      e.defaultPrevented ||
+      e.altKey ||
+      e.ctrlKey ||
+      e.metaKey ||
+      leaveOpen ||
+      allOpen ||
+      !stepCount
+    )
+      return;
+    const el = e.target as HTMLElement | null;
+    if (el?.closest("input, textarea, select, [contenteditable='true']")) return;
+    if (e.key === "ArrowRight" || (e.key === " " && !el?.closest("button, a"))) {
+      e.preventDefault();
+      if (i < stepCount - 1) goto(i + 1);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (i > 0) goto(i - 1);
+    } else if (e.key === "Escape") {
+      tryLeave();
+    }
+  };
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => keyRef.current(e);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   const plan = useMemo(() => (recipe ? cookPlan(recipe) : { perStep: [], rest: [] }), [recipe]);
-  const servings = recipe ? state.servings[recipe.id] ?? state.household : state.household;
+  const servings = recipe ? (state.servings[recipe.id] ?? state.household) : state.household;
 
   if (!recipe) {
     if (!ready) {
@@ -389,8 +488,12 @@ function ModeMasak() {
     }
     return (
       <Notice title={t("resepnya_tidak_ketemu")} body={t("resep_ini_tidak_ada_di_2")}>
-        <Link to="/buku" replace className={primaryBtn}>{t("buka_koleksi")}</Link>
-        <Link to="/" replace className={outlineBtn}>{t("ke_beranda")}</Link>
+        <Link to="/buku" replace className={primaryBtn}>
+          {t("buka_koleksi")}
+        </Link>
+        <Link to="/" replace className={outlineBtn}>
+          {t("ke_beranda")}
+        </Link>
       </Notice>
     );
   }
@@ -398,8 +501,12 @@ function ModeMasak() {
   if (!stepCount) {
     return (
       <Notice title={t("belum_ada_langkahnya")} body={t("resep_ini_belum_punya_cara")}>
-        <button type="button" onClick={leave} className={primaryBtn}>{t("lihat_bahan")}</button>
-        <Link to="/buku" replace className={outlineBtn}>{t("buka_koleksi")}</Link>
+        <button type="button" onClick={leave} className={primaryBtn}>
+          {t("lihat_bahan")}
+        </button>
+        <Link to="/buku" replace className={outlineBtn}>
+          {t("buka_koleksi")}
+        </Link>
       </Notice>
     );
   }
@@ -423,52 +530,97 @@ function ModeMasak() {
     });
   };
   const row = (line: IngLine) => (
-    <PrepRow key={keyOf(line)} line={line} recipe={recipe} servings={servings} satuan={state.satuan} negara={state.negara} on={isOn(line)} onToggle={() => toggle(line)} />
+    <PrepRow
+      key={keyOf(line)}
+      line={line}
+      recipe={recipe}
+      servings={servings}
+      satuan={state.satuan}
+      negara={state.negara}
+      on={isOn(line)}
+      onToggle={() => toggle(line)}
+    />
   );
 
   const otherTimers = Object.entries(timers)
     .map(([k, t]) => ({ step: Number(k), t }))
     .filter(({ step: s }) => s !== i && s < stepCount)
     // A ringing timer always makes the two visible rows; then by step.
-    .sort((a, b) => Number(timerState(b.t, now) === "ringing") - Number(timerState(a.t, now) === "ringing") || a.step - b.step);
+    .sort(
+      (a, b) =>
+        Number(timerState(b.t, now) === "ringing") - Number(timerState(a.t, now) === "ringing") ||
+        a.step - b.step,
+    );
 
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground text-ink">
+    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground text-ink tab:max-w-[720px]">
       <header className="sticky top-0 z-20 border-b border-rule bg-ground/95 pt-[env(safe-area-inset-top)] backdrop-blur-md">
         <div className="flex items-center gap-3 px-4 py-3">
-          <button type="button" onClick={tryLeave} aria-label={t("keluar_dari_mode_masak")} className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink">
+          <button
+            type="button"
+            onClick={tryLeave}
+            aria-label={t("keluar_dari_mode_masak")}
+            className="flex size-11 shrink-0 items-center justify-center rounded-full border border-rule bg-card text-ink"
+          >
             <ArrowLeft className="size-5" strokeWidth={2.4} />
           </button>
           <div className="min-w-0 flex-1">
             <p className="whitespace-nowrap text-15 font-bold text-ink-2">
-              
               {t("step_n_of", { n: i + 1, total: stepCount })}
             </p>
             <h1 className="line-clamp-2 text-15 font-extrabold leading-tight">{recipe.title}</h1>
           </div>
-          <button type="button" onClick={() => setAllOpen(true)} className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-rule bg-card px-4 text-14 font-extrabold text-primary">
-            <BrandIcon name="bahan" className="size-6 rounded-md" /> {" "}{t("bahan")}
+          <button
+            type="button"
+            onClick={() => setAllOpen(true)}
+            className="flex min-h-11 shrink-0 items-center gap-1.5 rounded-full border border-rule bg-card px-4 text-14 font-extrabold text-primary"
+          >
+            <BrandIcon name="bahan" className="size-6 rounded-md" /> {t("bahan")}
           </button>
         </div>
         <div className="h-1 bg-rule" aria-hidden>
-          <div className="h-full bg-primary transition-[width] duration-300" style={{ width: `${((i + 1) / stepCount) * 100}%` }} />
+          <div
+            className="h-full bg-primary transition-[width] duration-300"
+            style={{ width: `${((i + 1) / stepCount) * 100}%` }}
+          />
         </div>
       </header>
 
       <div className="flex-1 px-5 pt-6 pb-8">
         {resumedAt != null ? (
           <div className="mb-5 flex items-center justify-between gap-3 rounded-2xl bg-primary-soft px-4 py-2">
-            <p className="text-14 text-primary-deep">{t("melanjutkan_dari_langkah")}{" "}{resumedAt + 1}.</p>
-            <button type="button" onClick={() => goto(0)} className="-mr-2 min-h-11 shrink-0 px-2 text-14 font-extrabold text-primary">
-              
+            <p className="text-14 text-primary-deep">
+              {t("melanjutkan_dari_langkah")} {resumedAt + 1}.
+            </p>
+            <button
+              type="button"
+              onClick={() => goto(0)}
+              className="-mr-2 min-h-11 shrink-0 px-2 text-14 font-extrabold text-primary"
+            >
               {t("mulai_dari_awal")}
             </button>
           </div>
         ) : null}
 
-        <p className="text-28 font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">{step[0]}</p>
+        {i === 0 && recipe.alat?.length ? (
+          <p className="mb-4 text-14 text-ink-3">
+            {t("yang_dibutuhkan")} {recipe.alat.join(", ")}
+            {recipe.suhu ? ` · ${recipe.suhu}` : ""}
+          </p>
+        ) : null}
 
-        {step[1] ? <StepTimer seconds={step[1]} timer={timers[String(i)]} now={now} onChange={(t) => setTimer(i, t)} /> : null}
+        <p className="text-28 font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">
+          {step[0]}
+        </p>
+
+        {step[1] ? (
+          <StepTimer
+            seconds={step[1]}
+            timer={timers[String(i)]}
+            now={now}
+            onChange={(t) => setTimer(i, t)}
+          />
+        ) : null}
 
         {needed.length > 0 ? (
           <section className="mt-6 rounded-3xl border border-rule bg-card px-4 pt-4 pb-2 shadow-card">
@@ -485,8 +637,14 @@ function ModeMasak() {
             <ul className="mt-1 divide-y divide-rule">
               {extras.map(row)}
               {unmatched.map((txt, k) => (
-                <li key={`u${k}`} className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]">
-                  <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-control-line" />
+                <li
+                  key={`u${k}`}
+                  className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]"
+                >
+                  <span
+                    aria-hidden
+                    className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-control-line"
+                  />
                   <span>{txt}</span>
                 </li>
               ))}
@@ -497,7 +655,11 @@ function ModeMasak() {
 
       <div className="sticky bottom-0 z-20 border-t border-rule bg-card/95 px-5 pt-3 pb-[max(16px,env(safe-area-inset-bottom))] backdrop-blur-md">
         {otherTimers.length > 0 ? (
-          <div className="mb-3 flex flex-col gap-2" role="group" aria-label={t("penghitung_waktu_yang_berjalan")}>
+          <div
+            className="mb-3 flex flex-col gap-2"
+            role="group"
+            aria-label={t("penghitung_waktu_yang_berjalan")}
+          >
             {(trayOpen ? otherTimers : otherTimers.slice(0, 2)).map(({ step: s, t: timer }) => {
               const st = timerState(timer, now);
               const label = recipe.steps[s]?.[0] ?? "";
@@ -508,67 +670,116 @@ function ModeMasak() {
                     ? "border-time bg-card text-time-ink"
                     : "border-rule bg-card text-ink-2";
               return (
-                <button key={s} type="button" onClick={() => goto(s)} className={`flex min-h-11 w-full items-center gap-2.5 rounded-xl border px-3 text-left ${cls}`}>
-                  {st === "ringing" ? <BellRing className="size-4 shrink-0 animate-pulse" /> : st === "paused" ? <Pause className="size-4 shrink-0" /> : <TimerIcon className="size-4 shrink-0" />}
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => goto(s)}
+                  className={`flex min-h-11 w-full items-center gap-2.5 rounded-xl border px-3 text-left ${cls}`}
+                >
+                  {st === "ringing" ? (
+                    <BellRing className="size-4 shrink-0 animate-pulse" />
+                  ) : st === "paused" ? (
+                    <Pause className="size-4 shrink-0" />
+                  ) : (
+                    <TimerIcon className="size-4 shrink-0" />
+                  )}
                   <span className="min-w-0 flex-1 truncate text-14">
-                    <strong className="font-extrabold">{t("step_n", { n: s + 1 })}</strong> · {label}
+                    <strong className="font-extrabold">{t("step_n", { n: s + 1 })}</strong> ·{" "}
+                    {label}
                   </span>
                   <span className="shrink-0 text-15 font-extrabold tabular-nums">
-                    {st === "ringing" ? t("waktunya") : st === "paused" ? t("dijeda_2", { v1: clock(secondsLeft(timer, 0, now)) }) : clock(secondsLeft(timer, 0, now))}
+                    {st === "ringing"
+                      ? t("waktunya")
+                      : st === "paused"
+                        ? t("dijeda_2", { v1: clock(secondsLeft(timer, 0, now)) })
+                        : clock(secondsLeft(timer, 0, now))}
                   </span>
                 </button>
               );
             })}
             {otherTimers.length > 2 ? (
-              <button type="button" onClick={() => setTrayOpen((v) => !v)} aria-expanded={trayOpen} className="min-h-11 self-start px-1 text-14 font-bold text-primary">
-                {trayOpen ? t("tampilkan_lebih_sedikit") : t("lainnya_2", { v1: otherTimers.length - 2 })}
+              <button
+                type="button"
+                onClick={() => setTrayOpen((v) => !v)}
+                aria-expanded={trayOpen}
+                className="min-h-11 self-start px-1 text-14 font-bold text-primary"
+              >
+                {trayOpen
+                  ? t("tampilkan_lebih_sedikit")
+                  : t("lainnya_2", { v1: otherTimers.length - 2 })}
               </button>
             ) : null}
           </div>
         ) : null}
         <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={() => goto(Math.max(0, i - 1))}
-          disabled={i === 0}
-          className="flex min-h-[54px] flex-1 items-center justify-center rounded-xl border border-rule bg-card text-body font-extrabold text-ink disabled:border-dashed disabled:text-ink-3"
-        >
-          
-          {t("sebelumnya")}
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            if (last) {
-              logCooked(recipe.id);
-              clearCookProgress(recipe.id);
-              // Replace, so Back from the finish screen goes to the recipe, not to the last step again.
-              navigate({ to: "/resep/$id/selesai", params: { id: recipe.id }, replace: true });
-            } else {
-              goto(i + 1);
-            }
-          }}
-          className="flex min-h-[54px] flex-[1.4] items-center justify-center rounded-xl bg-primary text-body font-extrabold text-primary-foreground shadow-glow"
-        >
-          {last ? t("done") : t("continue_")}
-        </button>
+          <button
+            type="button"
+            onClick={() => goto(Math.max(0, i - 1))}
+            disabled={i === 0}
+            className="flex min-h-[54px] flex-1 items-center justify-center rounded-xl border border-rule bg-card text-body font-extrabold text-ink disabled:border-dashed disabled:text-ink-3"
+          >
+            {t("sebelumnya")}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (last) {
+                logCooked(recipe.id);
+                clearCookProgress(recipe.id);
+                // Replace, so Back from the finish screen goes to the recipe, not to the last step again.
+                navigate({ to: "/resep/$id/selesai", params: { id: recipe.id }, replace: true });
+              } else {
+                goto(i + 1);
+              }
+            }}
+            className="flex min-h-[54px] flex-[1.4] items-center justify-center rounded-xl bg-primary text-body font-extrabold text-primary-foreground shadow-glow"
+          >
+            {last ? t("done") : t("continue_")}
+          </button>
         </div>
       </div>
 
-      <Sheet open={leaveOpen} onClose={() => setLeaveOpen(false)} title={t("timer_masih_berjalan")} subtitle={t("keluar_dari_mode_masak_2")}>
+      <Sheet
+        open={leaveOpen}
+        onClose={() => setLeaveOpen(false)}
+        title={t("timer_masih_berjalan")}
+        subtitle={t("keluar_dari_mode_masak_2")}
+      >
         <p className="read-line text-ink-2">{t("timer_tetap_berjalan_walau_kamu")}</p>
         <div className="mt-5 flex flex-col gap-3">
-          <button type="button" onClick={() => setLeaveOpen(false)} className={primaryBtn}>{t("tetap_di_sini")}</button>
-          <button type="button" onClick={() => { setLeaveOpen(false); leave(); }} className={outlineBtn}>{t("leave")}</button>
+          <button type="button" onClick={() => setLeaveOpen(false)} className={primaryBtn}>
+            {t("tetap_di_sini")}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setLeaveOpen(false);
+              leave();
+            }}
+            className={outlineBtn}
+          >
+            {t("leave")}
+          </button>
         </div>
       </Sheet>
 
-      <Sheet open={allOpen} onClose={() => setAllOpen(false)} title={t("semua_bahan")} subtitle={t("takaran_untuk_porsi", { servings })}>
+      <Sheet
+        open={allOpen}
+        onClose={() => setAllOpen(false)}
+        title={t("semua_bahan")}
+        subtitle={t("takaran_untuk_porsi", { servings })}
+      >
         <ul className="divide-y divide-rule">
           {recipe.ings.map(row)}
           {unmatched.map((txt, k) => (
-            <li key={`su${k}`} className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]">
-              <span aria-hidden className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-control-line" />
+            <li
+              key={`su${k}`}
+              className="read-line flex min-h-12 items-start gap-3 py-2 [overflow-wrap:anywhere]"
+            >
+              <span
+                aria-hidden
+                className="mt-px size-[26px] shrink-0 rounded-full border-2 border-dashed border-control-line"
+              />
               <span>{txt}</span>
             </li>
           ))}

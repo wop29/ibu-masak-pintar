@@ -59824,7 +59824,7 @@
  },
  {
   "id": "sop_kaki_kambing",
-  "title": "Sop Kaki Kambing",
+  "title": "Sup Kaki Kambing",
   "region": "betawi",
   "slots": [
    "makan_siang",
@@ -60009,7 +60009,7 @@
  },
  {
   "id": "sop_konro",
-  "title": "Sop Konro",
+  "title": "Sup Konro",
   "region": "bugis",
   "slots": [
    "makan_siang",
@@ -70240,7 +70240,7 @@
  },
  {
   "id": "sayur_sop",
-  "title": "Sayur Sop",
+  "title": "Sayur Sup",
   "region": "nusantara",
   "slots": [
    "sayur",
@@ -72248,7 +72248,7 @@
    "makan_siang",
    "makan_malam"
   ],
-  "serv": 4,
+  "serv": 5,
   "time": 90,
   "diff": "agak ribet",
   "spice": 3,
@@ -77105,7 +77105,7 @@
  },
  {
   "id": "sop_ayam_klaten",
-  "title": "Sop Ayam Klaten",
+  "title": "Sup Ayam Klaten",
   "region": "jawa_tengah",
   "slots": [
    "makan_siang",
@@ -77322,7 +77322,7 @@
  },
  {
   "id": "sop_ikan_batam",
-  "title": "Sop Ikan Batam",
+  "title": "Sup Ikan Batam",
   "region": "melayu_deli",
   "slots": [
    "makan_siang",
@@ -77506,7 +77506,7 @@
  },
  {
   "id": "sop_jagung_telur",
-  "title": "Sop Jagung Telur",
+  "title": "Sup Jagung Telur",
   "region": "tionghoa",
   "slots": [
    "makan_siang",
@@ -85931,7 +85931,7 @@
    "minuman",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 120,
   "diff": "sedang",
   "spice": 0,

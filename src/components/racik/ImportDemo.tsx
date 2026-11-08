@@ -1,15 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import {
-  Camera,
-  Check,
-  ImageIcon,
-  Link2,
-  PenLine,
-  RotateCcw,
-  Upload,
-  X,
-} from "lucide-react";
+import { Camera, Check, ImageIcon, Link2, PenLine, RotateCcw, Upload, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import {
@@ -106,6 +97,7 @@ export function ImportDemo({ onImported }: { compact?: boolean; onImported?: () 
 /** A quiet "Tambah resep" row for Masak and Cari; opens the same import sheet as Koleksi. */
 export function ImportButton() {
   const [open, setOpen] = useState(false);
+  // Computers import too (Octavia, 30 Okt 2026, reversing the phone-only rule from earlier that day).
   return (
     <>
       <button
@@ -318,7 +310,9 @@ export function ImportSheet({
   // text tab so nothing she shared is thrown away.
   const sharedHandled = useRef(false);
   useEffect(() => {
-    if (!open || !shared || sharedHandled.current) return;
+    // Wait for saved recipes to load: the duplicate check needs them, or a
+    // shared link already in Koleksi is imported (and counted) a second time.
+    if (!open || !shared || !ready || sharedHandled.current) return;
     sharedHandled.current = true;
     const link = findVideoLink(`${shared.url ?? ""} ${shared.text ?? ""}`);
     if (link) {
@@ -328,9 +322,14 @@ export function ImportSheet({
     } else if (shared.text?.trim()) {
       setTab("keterangan");
       setCaption(shared.text.trim());
+    } else if (shared.url?.trim()) {
+      // Not a video link: show it in the field, so the "use a TikTok, Instagram or
+      // YouTube link" message explains why nothing happened.
+      setTab("tautan");
+      setUrl(shared.url.trim());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, shared]);
+  }, [open, shared, ready]);
 
   const showError = (code: ImportErrorCode, from: ImportSource) => {
     if (code === "quota") {
@@ -398,8 +397,11 @@ export function ImportSheet({
                 actions: [],
               }
             : {
-                title: t("keterangan_videonya_terlalu_pendek"),
-                body: t("tempel_teks_resep_lengkapnya_di"),
+                title: t("racik_belum_bisa_membaca_videonya"),
+                // Instagram never lets a server fetch the video itself, so say that plainly.
+                body: /instagram\.com/i.test(url)
+                  ? t("instagram_tidak_membagikan_videonya")
+                  : t("tempel_teks_resep_lengkapnya_di"),
                 actions: [],
               },
     });
@@ -757,7 +759,8 @@ export function ImportSheet({
                   {t("tempel_dari_clipboard")}
                 </Button>
                 <Button
-                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
+                  variant="cta"
+                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
                   disabled={!valid || resting}
                   onClick={() => void submitLink(false)}
                 >
@@ -786,7 +789,8 @@ export function ImportSheet({
                 </button>
                 {alert}
                 <Button
-                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow"
+                  variant="cta"
+                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold"
                   onClick={() => photoRef.current?.click()}
                 >
                   <Camera /> {MODE.foto.action}
@@ -842,7 +846,8 @@ export function ImportSheet({
                   {t("tempel_dari_clipboard")}
                 </Button>
                 <Button
-                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold shadow-glow disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
+                  variant="cta"
+                  className="mt-5 min-h-[54px] w-full rounded-xl text-body font-bold disabled:bg-rule disabled:text-ink-3 disabled:opacity-100 disabled:shadow-none"
                   disabled={!captionReady || resting}
                   onClick={() => void submitCaption()}
                 >
@@ -860,20 +865,10 @@ export function ImportSheet({
                 ) : null}
                 {needCaption && valid ? (
                   <>
+                    {/* Racik already listened on its own; offering it again would only fail again. */}
                     <Button
                       variant="outline"
                       className="mt-5 min-h-12 w-full rounded-xl text-14 font-bold"
-                      onClick={() => void submitLink(true)}
-                    >
-                      <BrandIcon name="suara" className="size-6 rounded-md" />{" "}
-                      {t("dengarkan_suara_videonya")}
-                    </Button>
-                    <p className="mt-1.5 text-label text-ink-3">
-                      {t("bisa_sampai_satu_menit_racik")}
-                    </p>
-                    <Button
-                      variant="outline"
-                      className="mt-3 min-h-12 w-full rounded-xl text-14 font-bold"
                       onClick={() => fileRef.current?.click()}
                     >
                       <Upload /> {t("unggah_videonya")}
@@ -1019,4 +1014,3 @@ export function ImportSheet({
 
 /** How long the import button rests after the service itself failed. */
 const OUTAGE_REST_MS = 3 * 60_000;
-

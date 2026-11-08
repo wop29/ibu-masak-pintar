@@ -61,9 +61,9 @@ export function ImportProgress({ source }: { source: ImportSource }) {
         src={illustration}
         alt=""
         aria-hidden
-        width={715}
-        height={348}
-        className="mx-auto -mt-1 w-full max-w-[340px]"
+        width={1106}
+        height={970}
+        className="mx-auto -mt-1 w-full max-w-[260px]"
       />
 
       <div className="mt-2 text-center" aria-live="polite">
@@ -82,7 +82,7 @@ export function ImportProgress({ source }: { source: ImportSource }) {
               <div className="flex items-center gap-2.5">
                 {done ? (
                   <span aria-hidden className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary">
-                    <svg viewBox="0 0 24 24" className="size-3.5 text-primary-deep" fill="none" stroke="currentColor" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round">
+                    <svg viewBox="0 0 24 24" className="size-3.5 text-primary-foreground" fill="none" stroke="currentColor" strokeWidth={3.2} strokeLinecap="round" strokeLinejoin="round">
                       <path d="M5 12.5l4.5 4.5L19 7.5" />
                     </svg>
                   </span>

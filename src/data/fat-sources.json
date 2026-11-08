@@ -1834,5 +1834,41 @@
  "tepung_gaplek": {
   "src": "Perkiraan (singkong kering)",
   "yakin": false
+ },
+ "petis": {
+  "src": "TKPI 2017 (panganku.org): Petis udang (perkiraan)",
+  "yakin": false
+ },
+ "kerupuk_putih": {
+  "src": "Perkiraan kerupuk putih (tapioka) mentah, belum digoreng",
+  "yakin": false
+ },
+ "kerupuk_kulit": {
+  "src": "Perkiraan kerupuk kulit sapi mentah (kering), belum digoreng",
+  "yakin": false
+ },
+ "genjer": {
+  "src": "TKPI 2017 (panganku.org): Genjer (perkiraan)",
+  "yakin": false
+ },
+ "ghee": {
+  "src": "USDA FDC SR Legacy: Butter oil, anhydrous",
+  "yakin": true
+ },
+ "kecombrang": {
+  "src": "TKPI 2017 (panganku.org): Kecombrang (perkiraan)",
+  "yakin": false
+ },
+ "pasta_pandan": {
+  "src": "Perkiraan label pasta pandan (gula, air, perisa)",
+  "yakin": false
+ },
+ "meses": {
+  "src": "Perkiraan label meses cokelat",
+  "yakin": false
+ },
+ "daun_suji": {
+  "src": "Daun tidak dimakan (hanya airnya untuk warna)",
+  "yakin": true
  }
 }

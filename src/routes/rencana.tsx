@@ -22,7 +22,7 @@ function Rencana() {
     navigate({ search: {}, replace: true });
   }, [navigate]);
   return (
-    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24">
+    <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24 tab:max-w-[1280px] tab:px-6 tab:pb-12 desk:px-8">
       <header className="border-b border-rule-soft bg-card px-5 pb-5 pt-[calc(3.5rem+env(safe-area-inset-top))]">
         <div className="flex items-start justify-between">
           <h1 className="text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong">{t("tab_plan")}</h1>

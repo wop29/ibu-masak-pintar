@@ -50,10 +50,19 @@ describe("foreign units", () => {
     expect(readUnit(word)).toEqual({ kind: "unit", unit, factor });
   });
 
-  it.each(["to taste", "pinch", "a pinch", "dash", "as needed", "secubit", "secukup rasa", "kurot", "konti", "ayon sa panlasa", "sedikit"])(
-    "%s is vague",
-    (word) => expect(readUnit(word).kind).toBe("vague"),
-  );
+  it.each([
+    "to taste",
+    "pinch",
+    "a pinch",
+    "dash",
+    "as needed",
+    "secubit",
+    "secukup rasa",
+    "kurot",
+    "konti",
+    "ayon sa panlasa",
+    "sedikit",
+  ])("%s is vague", (word) => expect(readUnit(word).kind).toBe("vague"));
 
   it("does not guess from a bare 'sudu', a lone letter or 'fl'", () => {
     expect(readUnit("sudu").kind).toBe("unknown");
@@ -125,9 +134,21 @@ const ENGLISH = {
   ingredients: [
     { name: "Bawang putih", quantity: 6, unit: "cloves", preparation: "cincang", pengganti: null },
     { name: "Ayam", quantity: 1.5, unit: "lb", preparation: "paha tanpa tulang", pengganti: null },
-    { name: "Krim kental", quantity: 1, unit: "cup", preparation: null, pengganti: "Santan kental kemasan, jumlah sama." },
+    {
+      name: "Krim kental",
+      quantity: 1,
+      unit: "cup",
+      preparation: null,
+      pengganti: "Santan kental kemasan, jumlah sama.",
+    },
     { name: "Kecap asin", quantity: 2, unit: "tbsp", preparation: null, pengganti: null },
-    { name: "Keju parmesan parut", quantity: 2, unit: "oz", preparation: null, pengganti: "Keju cheddar parut, jumlah sama." },
+    {
+      name: "Keju parmesan parut",
+      quantity: 2,
+      unit: "oz",
+      preparation: null,
+      pengganti: "Keju cheddar parut, jumlah sama.",
+    },
     { name: "Garam", quantity: null, unit: "to taste", preparation: null, pengganti: null },
   ],
   steps: [
@@ -151,7 +172,13 @@ const TAGALOG = {
     { name: "toyo", quantity: 0.5, unit: "tasa", preparation: null, pengganti: null },
     { name: "bawang putih", quantity: 1, unit: "ulo", preparation: "dinikdik", pengganti: null },
     { name: "Cuka masak", quantity: 3, unit: "kutsara", preparation: null, pengganti: null },
-    { name: "Dahon ng laurel", quantity: 3, unit: "piraso", preparation: null, pengganti: "Daun salam, 2 lembar." },
+    {
+      name: "Dahon ng laurel",
+      quantity: 3,
+      unit: "piraso",
+      preparation: null,
+      pengganti: "Daun salam, 2 lembar.",
+    },
   ],
   steps: [
     { text: "Rendam ayam dengan kecap asin dan bawang putih 30 menit.", seconds: 1800 },
@@ -163,7 +190,11 @@ describe("end to end from a mocked model reply", () => {
   it("English: converts amounts, keeps swaps and the language", () => {
     const raw = parseModelRecipe(JSON.stringify(ENGLISH));
     expect(raw).not.toBeNull();
-    const r = normaliseImported({ ...raw!, title: raw!.title! }, "https://example.com", "import-en");
+    const r = normaliseImported(
+      { ...raw!, title: raw!.title! },
+      "https://example.com",
+      "import-en",
+    );
     const line = (id: string) => r.ings.find((l) => l[0] === id);
     expect(line("bawang_putih")?.[1]).toBe(6);
     expect(line("ayam")?.[5]).toBe("gram");
@@ -198,7 +229,11 @@ describe("end to end from a mocked model reply", () => {
 
   it("an Indonesian source gets no language line and no swaps", () => {
     const raw = parseModelRecipe(
-      JSON.stringify({ ...ENGLISH, bahasaAsal: null, ingredients: ENGLISH.ingredients.map((i) => ({ ...i, pengganti: null })) }),
+      JSON.stringify({
+        ...ENGLISH,
+        bahasaAsal: null,
+        ingredients: ENGLISH.ingredients.map((i) => ({ ...i, pengganti: null })),
+      }),
     )!;
     const r = normaliseImported({ ...raw, title: raw.title! }, "", "import-id");
     expect(r.bahasaAsal).toBeUndefined();
@@ -211,5 +246,13 @@ describe("end to end from a mocked model reply", () => {
       JSON.stringify({ ...old, ingredients: old.ingredients.map(({ pengganti: _p, ...i }) => i) }),
     );
     expect(raw).not.toBeNull();
+  });
+});
+
+describe("Malay piece units", () => {
+  it("reads ketul, keping and tangkai as countable units", () => {
+    expect(readUnit("ketul")).toEqual({ kind: "unit", unit: "potong", factor: 1 });
+    expect(readUnit("keping")).toEqual({ kind: "unit", unit: "potong", factor: 1 });
+    expect(readUnit("tangkai")).toEqual({ kind: "unit", unit: "batang", factor: 1 });
   });
 });

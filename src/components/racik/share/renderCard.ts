@@ -14,16 +14,16 @@ export const CARD_SIZE: Record<CardFormat, { w: number; h: number }> = {
 };
 
 const C = {
-  ground: "#f8faf1",
-  card: "#ffffff",
-  ink: "#1a1a1a",
-  ink2: "#5a5a5a",
-  ink3: "#6b7280",
-  rule: "#dbe8db",
-  primary: "#15803d",
-  deep: "#0f3d2e",
-  soft: "#e8f7ea",
-  line: "#bfe8cc",
+  ground: "#f8f4ea",
+  card: "#fffdf8",
+  ink: "#1c2620",
+  ink2: "#6b4e3d",
+  ink3: "#7a6555",
+  rule: "#e6dfd0",
+  primary: "#1f3d2e",
+  deep: "#1f3d2e",
+  soft: "#e4ece3",
+  line: "#c9d6c6",
 };
 const FONT = '"Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
 
