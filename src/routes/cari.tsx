@@ -17,6 +17,7 @@ import {
   search,
 } from "@/lib/racik/engine";
 import { DIET_SHELVES } from "@/lib/racik/diet";
+import { browseTile, MAIN_GROUPS } from "@/lib/racik/browse";
 import { useRacik } from "@/lib/racik/state";
 import type { Recipe } from "@/lib/racik/types";
 import { PHOTO, thumbOf } from "@/components/racik/photos";
@@ -234,38 +235,15 @@ function filipinoShelves(filipino: Recipe[]): Omit<Tile, "key">[] {
   ];
 }
 
-const MAIN: { label: string; ids: string[] }[] = [
-  {
+/** The protein groups (shared with the wide home, so the counts match): every fish and seafood, every meat. */
+const MAIN: { label: string; ids: string[] }[] = MAIN_GROUPS.filter((g) => g.id !== "sayur").map(
+  (g) => ({
     get label() {
-      return t("ayam");
+      return g.label();
     },
-    ids: ["ayam_utuh", "ayam"],
-  },
-  {
-    get label() {
-      return t("ikan_udang");
-    },
-    ids: ["ikan_kembung", "ikan_cakalang", "udang"],
-  },
-  {
-    get label() {
-      return t("telur");
-    },
-    ids: ["telur"],
-  },
-  {
-    get label() {
-      return t("tahu_tempe");
-    },
-    ids: ["tahu", "tempe"],
-  },
-  {
-    get label() {
-      return t("daging");
-    },
-    ids: ["daging_sapi"],
-  },
-];
+    ids: [...g.ids],
+  }),
+);
 const withAny = (pool: Recipe[], ids: string[]) =>
   pool.filter((r) => r.ings.some((l) => ids.includes(l[0])));
 
@@ -423,10 +401,13 @@ function Eksplor() {
         recipes: pool.filter((r) => kitchen.every((id) => r.ings.some((l) => l[0] === id))),
       };
     if (!tileKey) return null;
+    // Cards on the tablet/desktop home: "≤ 15 menit", "Ikan & Udang", ...
+    const browse = browseTile(tileKey, nusantara);
+    if (browse) return { key: tileKey, ...browse };
     for (const { def } of shelves)
       for (const tile of def.items) if (tile.key === tileKey) return tile;
     return null;
-  }, [tileKey, kitchen, pool, shelves]);
+  }, [tileKey, kitchen, pool, shelves, nusantara]);
 
   const ingredientRecipes = pool.filter((r) =>
     selected.every((id) => r.ings.some((line) => line[0] === id)),

@@ -213,7 +213,7 @@ function StepTimer({
 
   if (state === "ringing") {
     return (
-      <div role="alert" className="mt-6 rounded-3xl border-2 border-time bg-time-soft p-5">
+      <div role="alert" className="rk-breathe mt-6 rounded-3xl border-2 border-time bg-time-soft p-5">
         <p className="flex items-center gap-2 text-14 font-bold text-time-ink">
           <BellRing className="size-5 animate-pulse" /> {t("waktunya_habis")}
         </p>
@@ -252,19 +252,45 @@ function StepTimer({
             ? t("dijeda")
             : t("waktu_langkah_ini")}
       </p>
-      <p
-        className={`mt-1 text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-time" : "text-ink"}`}
-      >
-        {clock(left)}
-      </p>
-      {state !== "idle" ? (
-        <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-tint" aria-hidden>
-          <div
-            className="h-full rounded-full bg-time transition-[width] duration-500"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-      ) : null}
+      <div className="mt-2 flex items-center gap-4">
+        {/* A slow ring with a little steam while it runs. Calm on purpose: she is cooking. */}
+        <span aria-hidden className="relative size-16 shrink-0">
+          <svg
+            className={`absolute -top-5 left-1/2 -ml-[15px] ${state === "running" ? "rk-steam" : ""}`}
+            width="30"
+            height="20"
+            viewBox="0 0 30 20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <path className="rk-wisp text-ink-3" d="M7 18c-3-4 3-6 0-10s1-6 0-8" />
+            <path className="rk-wisp text-ink-3" d="M15 18c-3-4 3-6 0-10s1-6 0-8" />
+            <path className="rk-wisp text-ink-3" d="M23 18c-3-4 3-6 0-10s1-6 0-8" />
+          </svg>
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="26" fill="none" strokeWidth="7" className="stroke-tint" />
+            <circle
+              cx="32"
+              cy="32"
+              r="26"
+              fill="none"
+              strokeWidth="7"
+              strokeLinecap="round"
+              strokeDasharray="163.36"
+              strokeDashoffset={(163.36 * (1 - pct / 100)).toFixed(2)}
+              transform="rotate(-90 32 32)"
+              className="rk-arc stroke-time"
+            />
+          </svg>
+        </span>
+        <p
+          className={`text-timer font-extrabold leading-none tracking-[-0.02em] tabular-nums ${state === "running" ? "text-time" : "text-ink"}`}
+        >
+          {clock(left)}
+        </p>
+      </div>
       <div className="mt-4 flex gap-3">
         {state === "running" ? (
           <button
@@ -381,6 +407,12 @@ function ModeMasak() {
   const router = useRouter();
   const recipe: Recipe | undefined = shipped ?? state.imported.find((item) => item.id === id);
   const [i, setI] = useState(0);
+  // Which way the step text slides in: forward on Lanjut, back on Sebelumnya.
+  const prevStep = useRef(0);
+  const stepDir = i >= prevStep.current ? "fwd" : "back";
+  useEffect(() => {
+    prevStep.current = i;
+  }, [i]);
   const [resumedAt, setResumedAt] = useState<number | null>(null);
   const [allOpen, setAllOpen] = useState(false);
   const [trayOpen, setTrayOpen] = useState(false);
@@ -609,7 +641,10 @@ function ModeMasak() {
           </p>
         ) : null}
 
-        <p className="text-28 font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere]">
+        <p
+          key={`step-${i}`}
+          className={`text-28 font-bold leading-[1.42] tracking-[-0.015em] [overflow-wrap:anywhere] ${stepDir === "back" ? "rk-step-back" : "rk-step-fwd"}`}
+        >
           {step[0]}
         </p>
 

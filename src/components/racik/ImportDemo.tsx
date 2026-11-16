@@ -58,7 +58,7 @@ import { ImportProgress } from "./ImportProgress";
 import { BrandIcon } from "./BrandIcon";
 import { t, type Key } from "@/lib/racik/i18n";
 
-type Tab = "tautan" | "keterangan" | "foto";
+export type Tab = "tautan" | "keterangan" | "foto";
 
 /** The green "Tambah Resep" card used in Koleksi and /ambil; opens the shared import sheet. */
 export function ImportDemo({ onImported }: { compact?: boolean; onImported?: () => void }) {
@@ -165,11 +165,18 @@ export function ImportSheet({
   onClose,
   onImported,
   shared,
+  start,
 }: {
   open: boolean;
   onClose: () => void;
   onImported?: () => void;
   shared?: { url?: string; text?: string } | undefined;
+  /**
+   * Opened from the wide home's add-recipe panel: a pasted link (starts at
+   * once), a tab, or a file picker. `n` changes on every request.
+   */
+  start?:
+    { n: number; url?: string; text?: string; tab?: Tab; pick?: "video" | "foto" } | undefined;
 }) {
   useEffect(() => {
     if (!open) return;
@@ -330,6 +337,25 @@ export function ImportSheet({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, shared, ready]);
+
+  const startSeen = useRef(0);
+  useEffect(() => {
+    if (!open || !start || !ready || start.n === startSeen.current) return;
+    startSeen.current = start.n;
+    setError(null);
+    setStage((s) => (s === "working" || s === "listening" ? s : "form"));
+    if (start.url) {
+      setTab("tautan");
+      setUrl(start.url);
+      void submitLink(false, start.url);
+      return;
+    }
+    if (start.tab) setTab(start.tab);
+    if (start.text) setCaption(start.text);
+    if (start.pick === "video") fileRef.current?.click();
+    if (start.pick === "foto") photoRef.current?.click();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, start, ready]);
 
   const showError = (code: ImportErrorCode, from: ImportSource) => {
     if (code === "quota") {

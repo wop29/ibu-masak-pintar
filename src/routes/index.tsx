@@ -5,6 +5,9 @@ import { AppTabs } from "@/components/racik/AppTabs";
 import { RecipeList, ViewToggle } from "@/components/racik/RecipeList";
 import { ImportButton } from "@/components/racik/ImportDemo";
 import { Onboarding } from "@/components/racik/Onboarding";
+import { WideHome } from "@/components/racik/WideHome";
+import { DishDeck } from "@/components/racik/DishDeck";
+import { Roll } from "@/components/racik/motion";
 import { Sheet } from "@/components/racik/Sheet";
 import { suggestionPool } from "@/lib/racik/data";
 import { currentSlot, matchesFilter, preferProteins, suggest } from "@/lib/racik/recommend";
@@ -137,6 +140,8 @@ function MasakApa() {
   const [picked, setPicked] = useState<SlotId | null>(null);
   const [slotSheet, setSlotSheet] = useState(false);
   const [filters, setFilters] = useState<string[]>([]);
+  // Phone: the suggestions open as a deck of cards; the list is one tap away.
+  const [asList, setAsList] = useState(false);
   // Land the feed on what she said matters most, once; after that it is hers to change.
   const priorityApplied = useRef(false);
   useEffect(() => {
@@ -184,144 +189,182 @@ function MasakApa() {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ground pb-24 tab:max-w-[1280px] tab:px-6 tab:pb-12 desk:px-8">
-      <header className="border-b border-rule-soft bg-card px-5 pb-4 pt-[calc(2.75rem+env(safe-area-inset-top))] tab:grid tab:grid-cols-[minmax(0,1fr)_auto] tab:items-end tab:gap-x-8 tab:border-0 tab:bg-transparent tab:pb-2 tab:pt-8">
-        <p className="mb-0.5 text-15 font-bold text-primary tab:col-start-1">{hello}</p>
-        <h1 className="mb-1 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong tab:col-start-1 desk:text-34">
-          {t("masak_apa")}
-          <button
-            type="button"
-            onClick={() => setSlotSheet(true)}
-            aria-haspopup="dialog"
-            aria-label={t("ganti_waktu_makan_sekarang", { label: slotInfo.label })}
-            className="inline-flex items-baseline gap-1 rounded-lg text-primary underline decoration-2 underline-offset-4"
-          >
-            {slotInfo.phrase}
-            <ChevronDown aria-hidden className="size-6 self-center" strokeWidth={2.6} />
-          </button>
-          ?
-        </h1>
-        <div className="mt-3 mb-3 flex items-center justify-between gap-3 tab:col-start-2 tab:row-span-2 tab:row-start-1 tab:my-0 tab:gap-5 tab:rounded-2xl tab:border tab:border-rule tab:bg-card tab:py-2.5 tab:pl-4 tab:pr-2.5">
-          <div className="min-w-0">
-            <p className="text-14 font-bold">
-              {t("masak_untuk")}
-              {t("for_people", { n: state.household })}
-            </p>
-            <p className="text-caption leading-snug text-ink-3">
-              {t("takaran_resep_ikut_jumlah_ini")}
-            </p>
-          </div>
-          <div className="flex shrink-0 items-center rounded-xl border border-rule bg-ground p-[3px]">
-            <button
-              type="button"
-              onClick={() => setHousehold(state.household - 1)}
-              aria-label={t("kurangi_jumlah_orang")}
-              className="flex size-11 items-center justify-center rounded-lg bg-card text-primary disabled:text-ink-3"
-              disabled={state.household <= 1}
-            >
-              <Minus className="size-5" />
-            </button>
-            <span
-              aria-live="polite"
-              className="w-[42px] text-center text-15 font-extrabold tabular-nums"
-            >
-              {state.household}
-            </span>
-            <button
-              type="button"
-              onClick={() => setHousehold(state.household + 1)}
-              aria-label={t("tambah_jumlah_orang")}
-              className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:bg-tint disabled:text-ink-3"
-              disabled={state.household >= MAX_PORTIONS}
-            >
-              <Plus className="size-5" />
-            </button>
-          </div>
-        </div>
-        <div className="contents tab:col-span-2 tab:mt-6 tab:flex tab:items-stretch tab:gap-4">
-          <Link
-            to="/cari"
-            className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-rule-strong bg-tint px-3.5 py-3 tab:flex-1 desk:hidden"
-          >
-            <Search aria-hidden className="size-4 text-ink-faint" />
-            <span className="text-15 text-ink-2">{t("search_placeholder")}</span>
-          </Link>
-          <div className="mt-3 tab:mt-0 tab:flex-1">
-            <ImportButton />
-          </div>
-        </div>
-      </header>
-
-      <div className="pt-4">
-        <div
-          role="group"
-          aria-label={t("sesuaikan_saran")}
-          className="no-scrollbar flex gap-2 overflow-x-auto px-5 tab:flex-wrap tab:overflow-visible"
-        >
-          {FILTERS.map((f) => {
-            const active = filters.includes(f.id);
-            return (
-              <button
-                key={f.id}
-                type="button"
-                aria-pressed={active}
-                onClick={() => toggle(f.id)}
-                className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}
-              >
-                {active ? (
-                  <Check
-                    aria-hidden
-                    className="mr-1 inline size-4 align-[-3px]"
-                    strokeWidth={2.6}
-                  />
-                ) : null}
-                {t(f.key)}
-              </button>
-            );
-          })}
-          {filters.length ? (
-            <button
-              type="button"
-              onClick={() => setFilters([])}
-              className="min-h-11 shrink-0 whitespace-nowrap px-2 text-label font-bold text-primary"
-            >
-              {t("hapus_semua")}
-            </button>
-          ) : null}
-        </div>
+      {/* Tablet and computer: the home from Octavia's desktop mockup (8 Nov 2026). */}
+      <div className="hidden tab:block">
+        <WideHome suggestions={list} />
       </div>
-
-      <section className="flex-1 px-5">
-        <div className="flex items-center justify-between py-3">
-          <h2 className="heading-sm">{t("suggestions")}</h2>
-          <div className="flex items-center gap-2">
+      {/* Phone: unchanged. `contents` keeps the flex layout exactly as before. */}
+      <div className="contents tab:hidden">
+        <header className="border-b border-rule-soft bg-card px-5 pb-4 pt-[calc(2.75rem+env(safe-area-inset-top))] tab:grid tab:grid-cols-[minmax(0,1fr)_auto] tab:items-end tab:gap-x-8 tab:border-0 tab:bg-transparent tab:pb-2 tab:pt-8">
+          <p className="mb-0.5 text-15 font-bold text-primary tab:col-start-1">{hello}</p>
+          <h1 className="mb-1 text-hero font-extrabold leading-[1.1] tracking-[-0.03em] text-ink-strong tab:col-start-1 desk:text-34">
+            {t("masak_apa")}
+            <span className="whitespace-nowrap">
             <button
               type="button"
-              onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })}
-              className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-14 font-bold text-primary"
+              onClick={() => setSlotSheet(true)}
+              aria-haspopup="dialog"
+              aria-label={t("ganti_waktu_makan_sekarang", { label: slotInfo.label })}
+              className="inline-flex items-baseline gap-1 rounded-lg text-primary underline decoration-2 underline-offset-4"
             >
-              <RotateCcw className="size-3" strokeWidth={2.5} /> {t("shuffle")}
+              {slotInfo.phrase}
+              <ChevronDown aria-hidden className="size-6 self-center" strokeWidth={2.6} />
             </button>
-            <ViewToggle />
+            ?
+            </span>
+          </h1>
+          <div className="mt-3 mb-3 flex items-center justify-between gap-3 tab:col-start-2 tab:row-span-2 tab:row-start-1 tab:my-0 tab:gap-5 tab:rounded-2xl tab:border tab:border-rule tab:bg-card tab:py-2.5 tab:pl-4 tab:pr-2.5">
+            <div className="min-w-0">
+              <span aria-hidden className="mb-1 flex pl-1.5">
+                {Array.from({ length: 8 }, (_, i) => (
+                  <span
+                    key={i}
+                    className="rk-dot -ml-1.5 size-4 rounded-full border-2 border-card"
+                    style={{
+                      background: ["#E6B44C", "#D64E3B", "#7FA98A", "#6B4E3D"][i % 4],
+                      transform: i < state.household ? "scale(1)" : "scale(0)",
+                      opacity: i < state.household ? 1 : 0,
+                    }}
+                  />
+                ))}
+              </span>
+              <p className="text-14 font-bold">
+                {t("masak_untuk")}
+                {t("for_people", { n: state.household })}
+              </p>
+              <p className="text-caption leading-snug text-ink-3">
+                {t("takaran_resep_ikut_jumlah_ini")}
+              </p>
+            </div>
+            <div className="flex shrink-0 items-center rounded-xl border border-rule bg-ground p-[3px]">
+              <button
+                type="button"
+                onClick={() => setHousehold(state.household - 1)}
+                aria-label={t("kurangi_jumlah_orang")}
+                className="flex size-11 items-center justify-center rounded-lg bg-card text-primary disabled:text-ink-3"
+                disabled={state.household <= 1}
+              >
+                <Minus className="size-5" />
+              </button>
+              <span
+                aria-live="polite"
+                className="w-[42px] text-center text-15 font-extrabold tabular-nums"
+              >
+                <Roll value={state.household} />
+              </span>
+              <button
+                type="button"
+                onClick={() => setHousehold(state.household + 1)}
+                aria-label={t("tambah_jumlah_orang")}
+                className="flex size-11 items-center justify-center rounded-lg bg-primary text-primary-foreground disabled:bg-tint disabled:text-ink-3"
+                disabled={state.household >= MAX_PORTIONS}
+              >
+                <Plus className="size-5" />
+              </button>
+            </div>
+          </div>
+          <div className="contents tab:col-span-2 tab:mt-6 tab:flex tab:items-stretch tab:gap-4">
+            <Link
+              to="/cari"
+              className="flex min-h-12 w-full items-center gap-3 rounded-xl border border-rule-strong bg-tint px-3.5 py-3 tab:flex-1 desk:hidden"
+            >
+              <Search aria-hidden className="size-4 text-ink-faint" />
+              <span className="text-15 text-ink-2">{t("search_placeholder")}</span>
+            </Link>
+            <div className="mt-3 tab:mt-0 tab:flex-1">
+              <ImportButton />
+            </div>
+          </div>
+        </header>
+
+        <div className="pt-4">
+          <div
+            role="group"
+            aria-label={t("sesuaikan_saran")}
+            className="no-scrollbar flex gap-2 overflow-x-auto px-5 tab:flex-wrap tab:overflow-visible"
+          >
+            {FILTERS.map((f) => {
+              const active = filters.includes(f.id);
+              return (
+                <button
+                  key={f.id}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => toggle(f.id)}
+                  className={`min-h-11 shrink-0 whitespace-nowrap rounded-full px-3.5 text-label font-semibold transition-colors ${active ? "bg-primary text-primary-foreground" : "border border-rule bg-card text-icon-muted"}`}
+                >
+                  {active ? (
+                    <Check
+                      aria-hidden
+                      className="mr-1 inline size-4 align-[-3px]"
+                      strokeWidth={2.6}
+                    />
+                  ) : null}
+                  {t(f.key)}
+                </button>
+              );
+            })}
+            {filters.length ? (
+              <button
+                type="button"
+                onClick={() => setFilters([])}
+                className="min-h-11 shrink-0 whitespace-nowrap px-2 text-label font-bold text-primary"
+              >
+                {t("hapus_semua")}
+              </button>
+            ) : null}
           </div>
         </div>
-        {list.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 py-12">
-            <p className="text-center text-15 text-ink-3">{t("no_match")}</p>
-            <button
-              type="button"
-              onClick={() => {
-                setFilters([]);
-                setPicked(null);
-              }}
-              className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary"
-            >
-              {t("clear_filters")}
-            </button>
+
+        <section className="flex-1 px-5">
+          <div className="flex items-center justify-between py-3">
+            <h2 className="heading-sm">{t("suggestions")}</h2>
+            <div className="flex items-center gap-2">
+              {asList ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => update({ suggestionSeed: state.suggestionSeed + 1 })}
+                    className="-my-2 flex min-h-11 items-center gap-1.5 px-1 text-14 font-bold text-primary"
+                  >
+                    <RotateCcw className="size-3" strokeWidth={2.5} /> {t("shuffle")}
+                  </button>
+                  <ViewToggle />
+                </>
+              ) : null}
+              <button
+                type="button"
+                onClick={() => setAsList((v) => !v)}
+                className="-my-2 min-h-11 px-1 text-14 font-bold text-primary"
+              >
+                {asList ? t("deck_lihat_kartu") : t("deck_lihat_daftar")}
+              </button>
+            </div>
           </div>
-        ) : (
-          <RecipeList recipes={list} />
-        )}
-      </section>
+          {list.length === 0 ? (
+            <div className="flex flex-col items-center gap-3 py-12">
+              <p className="text-center text-15 text-ink-3">{t("no_match")}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setFilters([]);
+                  setPicked(null);
+                }}
+                className="rounded-full border-[1.5px] border-primary px-5 py-2.5 text-caption font-bold text-primary"
+              >
+                {t("clear_filters")}
+              </button>
+            </div>
+          ) : asList ? (
+            <RecipeList recipes={list} />
+          ) : (
+            <DishDeck
+              recipes={list}
+              onShuffle={() => update({ suggestionSeed: state.suggestionSeed + 1 })}
+            />
+          )}
+        </section>
+      </div>
       <Sheet open={slotSheet} onClose={() => setSlotSheet(false)} title={t("masak_untuk_kapan")}>
         <div role="radiogroup" aria-label={t("waktu_makan")} className="grid grid-cols-2 gap-2.5">
           {SLOTS.map((x) => (

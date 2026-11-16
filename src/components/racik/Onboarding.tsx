@@ -5,6 +5,8 @@ import { useRacik } from "@/lib/racik/state";
 import { SignInOffer } from "@/components/racik/SignInOffer";
 import { BrandIcon } from "@/components/racik/BrandIcon";
 import { Splash, WelcomeSlides } from "@/components/racik/WelcomeIntro";
+import { LanguageToggle } from "./LanguageSwitch";
+import { forgetOnboarding, useRemembered } from "@/lib/racik/remember";
 import { t } from "@/lib/racik/i18n";
 import protAyam from "@/assets/brand/onboarding/protein-ayam.webp";
 import protIkan from "@/assets/brand/onboarding/protein-ikan.webp";
@@ -71,7 +73,7 @@ function Person({ on }: { on: boolean }) {
 
 function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => void }) {
   const { state, update } = useRacik();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useRemembered("onboarding.step", 0);
   const q = QUESTIONS[step] ?? QUESTIONS[0]!;
   const last = step === QUESTIONS.length - 1;
   const toggle = (key: "priorities" | "proteins", v: string) =>
@@ -87,6 +89,7 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-rule" aria-hidden>
           <div className="h-full rounded-full bg-primary transition-[width] duration-300" style={{ width: `${((step + 1) / QUESTIONS.length) * 100}%` }} />
         </div>
+        <LanguageToggle />
         <button type="button" onClick={onDone} className="min-h-11 px-1 text-caption font-extrabold text-ink-2 underline underline-offset-[3px]">{t("skip")}</button>
       </div>
 
@@ -204,8 +207,11 @@ function Preferences({ onBack, onDone }: { onBack: () => void; onDone: () => voi
 export function Onboarding() {
   const { update } = useRacik();
   const navigate = useNavigate();
-  const [phase, setPhase] = useState<"splash" | "slides" | "questions" | "signin">("splash");
-  const finish = () => update({ intro: true });
+  const [phase, setPhase] = useRemembered<"splash" | "slides" | "questions" | "signin">("onboarding.phase", "splash");
+  const finish = () => {
+    forgetOnboarding();
+    update({ intro: true });
+  };
   const toSlides = useCallback(() => setPhase((p) => (p === "splash" ? "slides" : p)), []);
   const signIn = () => { finish(); navigate({ to: "/masuk" }); };
 

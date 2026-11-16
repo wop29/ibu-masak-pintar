@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { CalendarDays, Check, ChevronDown, Home, Minus, Plus, Undo2, X } from "lucide-react";
 import { BrandIcon } from "./BrandIcon";
+import { bahan, CheckDot } from "./motion";
 import { thumbOf } from "./photos";
 import { RecipePhoto } from "./RecipePhoto";
 import { Sheet } from "./Sheet";
@@ -93,12 +94,53 @@ export function RencanaView({
   const [showHave, setShowHave] = useState(false);
   const [dayFor, setDayFor] = useState<string | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
+  // Phone and iPad: Rencana and Belanja are two halves of one tab (audit 16 Nov 2026).
+  const [view, setView] = useState<"rencana" | "belanja">("rencana");
+  // Ticked items strike through first, then move down to "Sudah dibeli".
+  const [leaving, setLeaving] = useState<string[]>([]);
+  const [justMoved, setJustMoved] = useState<string | null>(null);
+  const [celebrate, setCelebrate] = useState(false);
+  const leaveTimers = useRef<number[]>([]);
+  useEffect(() => () => leaveTimers.current.forEach((x) => window.clearTimeout(x)), []);
   const planned = resolvedPlan(state);
   const all = shoppingList(planned, state.negara);
   // "Sudah ada di rumah" is remembered per ingredient, so it survives portion changes.
   const atHome = all.filter((i) => state.pantryHave.includes(i.id));
   const list = all.filter((i) => !state.pantryHave.includes(i.id));
   const done = list.filter((i) => state.planChecked.includes(i.key)).length;
+  const bought = list.filter((i) => state.planChecked.includes(i.key) && !leaving.includes(i.key));
+  const allDone = list.length > 0 && done === list.length;
+  // Celebrate only when she finishes the list now, never on opening a finished one.
+  const wasDone = useRef(allDone);
+  useEffect(() => {
+    if (allDone && !wasDone.current && leaving.length === 0) setCelebrate(true);
+    if (leaving.length === 0) wasDone.current = allDone;
+  }, [allDone, leaving.length]);
+  const ratio = list.length ? done / list.length : 0;
+  const nudge =
+    ratio >= 1
+      ? t("belanja_nudge_selesai")
+      : ratio >= 0.8
+        ? t("belanja_nudge_hampir")
+        : ratio >= 0.5
+          ? t("belanja_nudge_setengah")
+          : t("belanja_nudge_mulai");
+  const tick = (key: string) => {
+    if (state.planChecked.includes(key)) {
+      update((s) => ({ planChecked: s.planChecked.filter((x) => x !== key) }));
+      return;
+    }
+    if (leaving.includes(key)) return;
+    setLeaving((l) => [...l, key]);
+    leaveTimers.current.push(
+      window.setTimeout(() => {
+        update((s) => ({
+          planChecked: s.planChecked.includes(key) ? s.planChecked : [...s.planChecked, key],
+        }));
+        setLeaving((l) => l.filter((x) => x !== key));
+      }, 540),
+    );
+  };
   const toggleHave = (id: string) =>
     update((s) => ({
       pantryHave: s.pantryHave.includes(id)
@@ -139,6 +181,7 @@ export function RencanaView({
         return day == null ? rest : { ...rest, day };
       }),
     }));
+    setJustMoved(id);
     setDayFor(null);
   };
   // Count only entries that still resolve, so a deleted recipe can never leave the plan "full".
@@ -220,8 +263,8 @@ export function RencanaView({
 
   const row = ({ recipe, servings, day }: PlannedRecipe) => (
     <div
-      key={recipe.id}
-      className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl border border-rule-strong bg-card p-3"
+      key={`${recipe.id}-${day ?? "x"}`}
+      className={`flex flex-wrap items-center gap-x-3 gap-y-2 rounded-2xl border border-rule-strong bg-card p-3 ${justMoved === recipe.id ? "rk-drop-in" : ""}`}
     >
       <Link
         to="/resep/$id"
@@ -292,8 +335,42 @@ export function RencanaView({
   return (
     <div>
       {/* Computer: the week on the left, the shopping list beside it and always in view. */}
+      <div
+        role="tablist"
+        aria-label={t("seg_rencana")}
+        className="relative mx-5 mt-4 flex rounded-full bg-tint p-1 desk:hidden"
+      >
+        <span
+          aria-hidden
+          className="rk-tab-ind absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] rounded-full bg-card shadow-card"
+          style={{ transform: view === "belanja" ? "translateX(100%)" : "none" }}
+        />
+        <button
+          type="button"
+          role="tab"
+          aria-selected={view === "rencana"}
+          onClick={() => setView("rencana")}
+          className="relative min-h-11 flex-1 text-15 font-extrabold text-ink-strong"
+        >
+          {t("seg_rencana")}
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={view === "belanja"}
+          onClick={() => setView("belanja")}
+          className="relative flex min-h-11 flex-1 items-center justify-center gap-1.5 text-15 font-extrabold text-ink-strong"
+        >
+          {t("seg_belanja")}
+          {list.length - done > 0 ? (
+            <span className="inline-flex h-[22px] min-w-[24px] items-center justify-center rounded-full bg-primary px-1.5 text-caption text-primary-foreground">
+              {list.length - done}
+            </span>
+          ) : null}
+        </button>
+      </div>
       <div className="desk:grid desk:grid-cols-[minmax(0,1fr)_minmax(0,440px)] desk:items-start desk:gap-10">
-        <div className="flex flex-col gap-3 px-5 pt-4">
+        <div className={`flex-col gap-3 px-5 pt-4 ${view === "belanja" ? "hidden desk:flex" : "flex rk-fade-up"}`}>
           <div className="flex items-start justify-between gap-4">
             <div>
               <h2 className="text-17 font-extrabold">{t("rencana_masak")}</h2>
@@ -359,7 +436,7 @@ export function RencanaView({
           ) : null}
         </div>
 
-        <div className="desk:sticky desk:top-20 desk:max-h-[calc(100dvh-6rem)] desk:overflow-y-auto">
+        <div className={`desk:sticky desk:top-20 desk:block desk:max-h-[calc(100dvh-6rem)] desk:overflow-y-auto ${view === "rencana" ? "hidden" : "rk-fade-up"}`}>
           {planned.length ? (
             <>
               <div className="mx-5 mt-5 rounded-2xl border border-rule-strong bg-card p-4">
@@ -369,7 +446,7 @@ export function RencanaView({
                       {planned.length} {t("resep_3")} {list.length} {t("bahan_3")}
                     </p>
                     <p className="mt-0.5 text-caption text-ink-3">
-                      {done} {t("sudah_dibeli")}
+                      {done} {t("sudah_dibeli")} · {nudge}
                     </p>
                   </div>
                   <p className="text-caption font-extrabold text-primary">
@@ -381,8 +458,8 @@ export function RencanaView({
                   aria-hidden
                 >
                   <div
-                    className="h-full rounded-full bg-primary transition-[width]"
-                    style={{ width: `${list.length ? (done / list.length) * 100 : 0}%` }}
+                    className="rk-fill h-full rounded-full bg-primary"
+                    style={{ transform: `scaleX(${ratio})` }}
                   />
                 </div>
               </div>
@@ -396,57 +473,42 @@ export function RencanaView({
                   <h2 className="heading-sm">{t("daftar_belanja")}</h2>
                 </div>
                 {GROUPS.map(({ cat, label }) => {
-                  const rows = list.filter((x) => x.cat === cat);
+                  const rows = list.filter(
+                    (x) => x.cat === cat && (!state.planChecked.includes(x.key) || leaving.includes(x.key)),
+                  );
                   if (!rows.length) return null;
                   return (
                     <div key={cat} className="mb-5">
                       <h3 className="meta-label mb-2">{label}</h3>
                       <div className="overflow-hidden rounded-2xl border border-rule-strong bg-card">
                         {rows.map((item) => {
-                          const on = state.planChecked.includes(item.key);
+                          const on = state.planChecked.includes(item.key) || leaving.includes(item.key);
                           return (
                             <div
                               key={item.key}
-                              className="flex items-start gap-1 border-b border-rule-soft px-4 py-3 last:border-b-0"
+                              className={`flex items-start gap-1 border-b border-rule-soft px-4 py-3 last:border-b-0 ${on ? "rk-on rk-leave" : ""}`}
                             >
                               <button
                                 type="button"
                                 aria-pressed={on}
-                                onClick={() =>
-                                  update((s) => ({
-                                    planChecked: on
-                                      ? s.planChecked.filter((x) => x !== item.key)
-                                      : [...s.planChecked, item.key],
-                                  }))
-                                }
+                                onClick={() => tick(item.key)}
                                 className="flex min-h-11 min-w-0 flex-1 items-start gap-3 py-0.5 text-left"
                               >
-                                <span
-                                  aria-hidden
-                                  className={`mt-0.5 flex size-[22px] shrink-0 items-center justify-center rounded-full ${on ? "bg-primary" : "border-2 border-control-line"}`}
-                                >
-                                  {on ? (
-                                    <Check
-                                      className="size-3 text-primary-foreground"
-                                      strokeWidth={3}
-                                    />
-                                  ) : null}
+                                <span className="mt-0.5">
+                                  <CheckDot on={on} />
                                 </span>
                                 <span className="min-w-0 flex-1 [overflow-wrap:anywhere]">
                                   <span
-                                    className={`block text-15 ${on ? "text-ink-3 line-through" : "text-ink-strong"}`}
+                                    className={`block text-15 transition-colors duration-200 ${on ? "text-ink-3" : "text-ink-strong"}`}
                                   >
+                                    <span className="rk-strike">
                                     <b>{item.qtyText}</b>
                                     {item.plusTaste ? (
                                       <span className="text-ink-3"> {t("secukupnya_2")}</span>
                                     ) : null}{" "}
                                     {item.name}
-                                  </span>
-                                  {on ? (
-                                    <span className="mt-0.5 block text-caption font-bold text-ink-3">
-                                      {t("sudah_dibeli_2")}
                                     </span>
-                                  ) : null}
+                                  </span>
                                   {item.buy && !on ? (
                                     <span className="mt-1 inline-flex rounded-full bg-primary-soft px-2 py-0.5 text-micro font-bold text-primary-deep">
                                       {t("beli")} {item.buy}
@@ -479,6 +541,29 @@ export function RencanaView({
                     </div>
                   );
                 })}
+                {bought.length ? (
+                  <div className="mb-5">
+                    <h3 className="meta-label mb-2">{t("belanja_sudah_dibeli_n", { n: bought.length })}</h3>
+                    <div className="overflow-hidden rounded-2xl border border-rule bg-card/60">
+                      {bought.map((item) => (
+                        <button
+                          key={item.key}
+                          type="button"
+                          aria-pressed
+                          onClick={() => tick(item.key)}
+                          className="rk-on rk-fade-up flex min-h-12 w-full items-center gap-3 border-b border-rule-soft px-4 py-2 text-left last:border-b-0"
+                        >
+                          <CheckDot on />
+                          <span className="min-w-0 flex-1 text-14 text-ink-3">
+                            <span className="rk-strike">
+                              <b>{item.qtyText}</b> {item.name}
+                            </span>
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
                 {atHome.length ? (
                   <div className="mb-5">
                     <button
@@ -555,6 +640,57 @@ export function RencanaView({
         </div>
       </div>
 
+      {celebrate ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+          <button
+            type="button"
+            aria-label={t("tutup")}
+            onClick={() => setCelebrate(false)}
+            className="absolute inset-0 bg-[rgb(20_32_25/0.5)] rk-fade-up"
+          />
+          <span aria-hidden className="pointer-events-none absolute inset-0">
+            {["cabai", "bawang-merah", "daun-jeruk", "tomat", "bawang-putih", "jeruk-nipis", "serai", "kemiri"].map(
+              (name, i) => (
+                <img
+                  key={name}
+                  src={bahan(name)}
+                  alt=""
+                  className="rk-burst"
+                  style={{ "--a": `${i * 45 - 90}deg`, animationDelay: `${(i % 3) * 60}ms` } as CSSProperties}
+                />
+              ),
+            )}
+          </span>
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("belanja_lengkap")}
+            className="rk-card-pop relative w-full max-w-[360px] rounded-[28px] bg-ground px-6 pt-7 pb-5 text-center shadow-raised"
+          >
+            <h2 className="text-28 font-extrabold text-ink-strong">{t("belanja_lengkap")}</h2>
+            <p className="mt-1.5 text-15 font-bold text-ink-2">
+              {t("belanja_lengkap_isi", { n: planned.length })}
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setCelebrate(false);
+                setView("rencana");
+              }}
+              className="rk-press mt-5 min-h-[52px] w-full rounded-full bg-primary text-15 font-extrabold text-primary-foreground"
+            >
+              {t("belanja_lihat_rencana")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setCelebrate(false)}
+              className="mt-1 min-h-11 w-full text-14 font-bold text-primary"
+            >
+              {t("tutup")}
+            </button>
+          </div>
+        </div>
+      ) : null}
       <Sheet
         open={Boolean(dayFor && dayEntry)}
         onClose={() => setDayFor(null)}

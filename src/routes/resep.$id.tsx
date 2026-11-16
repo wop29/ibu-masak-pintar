@@ -7,6 +7,7 @@ import { PHOTO, previewPhotoOf } from "@/components/racik/photos";
 import { RecipePhoto } from "@/components/racik/RecipePhoto";
 import { useSnackbar } from "@/components/racik/Snackbar";
 import { BrandIcon } from "@/components/racik/BrandIcon";
+import { Roll, Sparks } from "@/components/racik/motion";
 import { NutritionBlock } from "@/components/racik/NutritionBlock";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, Minus, Play, Plus } from "lucide-react";
@@ -82,6 +83,9 @@ function DetailResep() {
   // Signed out: the first heart (and every few after) offers to keep favourites in an account.
   const askAccount = useRequireAccountForSave();
   const snackbar = useSnackbar();
+  // Motion: the heart pops with a ring of dots on save, Tambah ke Rencana settles in.
+  const [heartKey, setHeartKey] = useState(0);
+  const [planKey, setPlanKey] = useState(0);
   const navigate = useNavigate();
   const imported = state.imported.find((item) => item.id === id);
   const recipe = shipped ?? imported;
@@ -130,6 +134,7 @@ function DetailResep() {
       return;
     }
     toggleSaved(recipe.id);
+    setHeartKey((v) => v + 1);
     // Computer: every Simpan while signed out shows the short sign-in pitch.
     if (desktop) promptSaveSignIn("save", { force: true });
     else askAccount("save");
@@ -138,6 +143,7 @@ function DetailResep() {
   const videoUrl =
     imported?.sourceUrl && isVideoLink(imported.sourceUrl) ? imported.sourceUrl : null;
   const addToPlan = () => {
+    setPlanKey((v) => v + 1);
     update((s) => ({
       plan: [...s.plan.filter((p) => findRecipe(p.id, s.imported)), { id: recipe.id, servings }],
     }));
@@ -173,8 +179,21 @@ function DetailResep() {
           aria-label={saved ? t("hapus_dari_favorit_2") : t("simpan_ke_favorit")}
           className="absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 size-11 overflow-hidden rounded-2xl shadow-float tab:top-5"
         >
-          <BrandIcon name={saved ? "disukai" : "favorit"} className="size-11 rounded-2xl" />
+          <BrandIcon
+            key={heartKey}
+            name={saved ? "disukai" : "favorit"}
+            className={`size-11 rounded-2xl ${heartKey ? "rk-heart" : ""}`}
+          />
         </button>
+        {heartKey ? (
+          <span
+            key={`s-${heartKey}`}
+            aria-hidden
+            className="pointer-events-none absolute top-[calc(3rem+env(safe-area-inset-top))] right-5 size-11 tab:top-5"
+          >
+            <Sparks distance={38} />
+          </span>
+        ) : null}
       </div>
 
       <div className="relative -mt-[22px] px-5 tab:px-8 desk:px-10">
@@ -264,7 +283,11 @@ function DetailResep() {
                 onClick={addToPlan}
                 className="mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-rule text-14 font-bold text-primary disabled:text-ink-3"
               >
-                <BrandIcon name="tambah-rencana" className="size-6 rounded-md" />
+                <BrandIcon
+                  key={planKey}
+                  name="tambah-rencana"
+                  className={`size-6 rounded-md ${planKey ? "rk-drop-in" : ""}`}
+                />
                 {recipe.incomplete
                   ? t("belum_bisa_masuk_rencana")
                   : planned
@@ -303,7 +326,7 @@ function DetailResep() {
               <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-tint py-1.5 pr-1.5 pl-4">
                 <p className="flex items-center gap-2 text-15 tabular-nums">
                   <BrandIcon name="porsi-orang" className="size-7" />
-                  {t("untuk")} <b className="font-extrabold">{servings}</b> {t("portions")}
+                  {t("untuk")} <b className="font-extrabold"><Roll value={servings} /></b> {t("portions")}
                 </p>
                 <div className="flex items-center gap-2">
                   <button
@@ -417,7 +440,7 @@ function DetailResep() {
               <Minus className="size-4" />
             </button>
             <span className="min-w-6 text-center text-15 font-extrabold tabular-nums">
-              {servings}
+              <Roll value={servings} />
             </span>
             <button
               type="button"

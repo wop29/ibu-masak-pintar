@@ -88,6 +88,7 @@
   --color-tint: var(--tint);
   --color-dark: var(--dark);
   --color-notice: var(--notice);
+  --color-hero-peach: var(--hero-peach);
   --color-primary-soft: var(--primary-soft);
   --color-primary-line: var(--primary-line);
   --color-glow: var(--glow);
@@ -136,6 +137,7 @@
   --glow: rgba(31, 61, 46, 0.22);
   --dark: #1f3d2e;
   --notice: #fbefd2; /* Kunyit wash */
+  --hero-peach: #fce6dc; /* add-recipe panel on the wide home (Octavia's desktop mockup, 8 Nov 2026) */
 
   /* Strongest text (titles, list names). */
   --ink-strong: #1f3d2e; /* Daun titles */
@@ -443,6 +445,78 @@ html.teks-paling_besar {
   *, *::before, *::after {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 }
+
+/* Motion layer (16 Nov 2026): playful but grown-up. Transform and opacity
+   only, 150 to 460 ms, celebrations only at peaks (save, list done, cooked).
+   The reduced-motion rule above switches all of it off. */
+@keyframes rkRoll { from { transform: translateY(70%); opacity: 0; } to { transform: none; opacity: 1; } }
+.rk-roll { display: inline-block; animation: rkRoll 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes rkHeart { 0% { transform: scale(1); } 35% { transform: scale(1.3); } 100% { transform: scale(1); } }
+.rk-heart { animation: rkHeart 380ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes rkSpark {
+  0% { opacity: 0; transform: rotate(var(--a)) translateY(0) scale(0.3); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--a)) translateY(var(--d, -34px)) scale(1); }
+}
+.rk-spark { position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; margin: -3.5px; border-radius: 999px; pointer-events: none; animation: rkSpark 600ms cubic-bezier(0.15, 0.75, 0.25, 1) both; }
+@keyframes rkBump { 0% { transform: scale(0.4); opacity: 0; } 40% { transform: scale(1.25); opacity: 1; } 70% { transform: scale(1); } 85% { opacity: 1; } 100% { transform: translateY(-6px); opacity: 0; } }
+.rk-bump { animation: rkBump 1800ms cubic-bezier(0.34, 1.56, 0.64, 1) 250ms both; }
+.rk-tab-ind { transition: transform 420ms cubic-bezier(0.34, 1.45, 0.64, 1); }
+.rk-press { transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.rk-press:active { transform: scale(0.95); }
+.rk-deck-card { transition: transform 460ms cubic-bezier(0.34, 1.35, 0.64, 1), opacity 280ms ease-out; }
+.rk-deck-card.rk-dragging { transition: none; }
+@keyframes rkShake { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-2.5deg) translateY(-4px); } 55% { transform: rotate(2deg); } 80% { transform: rotate(-1deg); } }
+.rk-shake { animation: rkShake 420ms ease-in-out; }
+@keyframes rkToss {
+  0% { opacity: 0; transform: rotate(var(--a)) translateY(0) scale(0.3); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--a)) translateY(-180px) scale(1) rotate(200deg); }
+}
+.rk-toss { position: absolute; left: 50%; top: 55%; width: 48px; height: 48px; margin: -24px; pointer-events: none; animation: rkToss 950ms cubic-bezier(0.15, 0.75, 0.25, 1) both; }
+.rk-dot { transition: transform 360ms cubic-bezier(0.34, 1.6, 0.64, 1), opacity 200ms ease-out; }
+.rk-check-bg { transform: scale(0); transition: transform 300ms cubic-bezier(0.34, 1.6, 0.64, 1); }
+.rk-check-path { stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset 240ms ease-out 80ms; }
+.rk-on .rk-check-bg { transform: scale(1); }
+.rk-on .rk-check-path { stroke-dashoffset: 0; }
+.rk-strike { position: relative; }
+.rk-strike::after { content: ""; position: absolute; left: -2px; right: -2px; top: 0.72em; height: 2px; border-radius: 2px; background: currentColor; transform: scaleX(0); transform-origin: left center; transition: transform 300ms cubic-bezier(0.6, 0.1, 0.3, 1); }
+.rk-on .rk-strike::after { transform: scaleX(1); }
+@keyframes rkLeave { to { opacity: 0; transform: translateX(24px); } }
+.rk-leave { animation: rkLeave 240ms ease-in 300ms both; }
+@keyframes rkFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.rk-fade-up { animation: rkFadeUp 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.rk-fill { transform-origin: left center; transition: transform 560ms cubic-bezier(0.34, 1.25, 0.64, 1); }
+@keyframes rkCardPop { from { opacity: 0; transform: translateY(40px) scale(0.9); } to { opacity: 1; transform: none; } }
+.rk-card-pop { animation: rkCardPop 460ms cubic-bezier(0.34, 1.4, 0.64, 1) both; }
+@keyframes rkBurst {
+  0% { opacity: 0; transform: rotate(var(--a)) translateY(0) scale(0.3); }
+  15% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--a)) translateY(-220px) scale(1) rotate(220deg); }
+}
+.rk-burst { position: absolute; left: 50%; top: 40%; width: 46px; height: 46px; margin: -23px; pointer-events: none; animation: rkBurst 1300ms cubic-bezier(0.15, 0.75, 0.25, 1) both; }
+@keyframes rkStepFwd { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: none; } }
+@keyframes rkStepBack { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: none; } }
+.rk-step-fwd { animation: rkStepFwd 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.rk-step-back { animation: rkStepBack 300ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.rk-arc { transition: stroke-dashoffset 900ms linear; }
+@keyframes rkBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+.rk-breathe { animation: rkBreathe 1.6s ease-in-out infinite; }
+@keyframes rkRise { 0% { opacity: 0; transform: translateY(6px); } 30% { opacity: 0.7; } 100% { opacity: 0; transform: translateY(-16px); } }
+.rk-wisp { opacity: 0; }
+.rk-steam .rk-wisp { animation: rkRise 2.4s ease-out infinite; }
+.rk-steam .rk-wisp:nth-child(2) { animation-delay: 0.8s; }
+.rk-steam .rk-wisp:nth-child(3) { animation-delay: 1.6s; }
+@keyframes rkPlate { from { opacity: 0; transform: scale(0.6) rotate(-20deg); } to { opacity: 1; transform: none; } }
+.rk-plate { animation: rkPlate 700ms cubic-bezier(0.34, 1.35, 0.64, 1) both; }
+@keyframes rkGarnish { from { opacity: 0; scale: 0.2; } to { opacity: 1; scale: 1; } }
+.rk-garnish { animation: rkGarnish 640ms cubic-bezier(0.34, 1.5, 0.64, 1) both; }
+@keyframes rkDropIn { 0% { opacity: 0; transform: translateY(-40px) scale(0.7); } 60% { opacity: 1; transform: translateY(3px) scale(1.03); } 100% { transform: none; } }
+.rk-drop-in { animation: rkDropIn 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }

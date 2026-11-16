@@ -6,6 +6,15 @@ import { useRacik } from "@/lib/racik/state";
 import { shrinkPhoto } from "@/lib/racik/store";
 import { Button } from "@/components/ui/button";
 import { PHOTO } from "@/components/racik/photos";
+import { RecipePhoto } from "@/components/racik/RecipePhoto";
+import { bahan } from "@/components/racik/motion";
+
+const GARNISH = [
+  { name: "cabai", x: 0, y: 30, w: 58, r: -30, d: 450 },
+  { name: "daun-jeruk", x: 200, y: 10, w: 52, r: 25, d: 530 },
+  { name: "bawang-merah", x: 206, y: 170, w: 46, r: 10, d: 610 },
+  { name: "serai", x: 4, y: 176, w: 60, r: 40, d: 690 },
+];
 import { ShareSheet } from "@/components/racik/share/ShareSheet";
 import { recordEvent } from "@/lib/racik/backend/share";
 import { shareTargetOf } from "@/components/racik/share/target";
@@ -84,8 +93,29 @@ function Selesai() {
 
   return (
     <main className="mx-auto min-h-dvh w-full max-w-[430px] px-5 pb-16 pt-10">
-      <p className="text-15 font-bold text-primary">{t("sudah_dimasak")}</p>
-      <h1 className="font-display text-28 mt-1 leading-[1.15]">{recipe.title}</h1>
+      {/* The peak-end moment (motion layer, 16 Nov 2026): the dish lands, a few
+          ingredients settle around it, then the calm page below. */}
+      <div aria-hidden className="relative mx-auto h-[248px] w-[260px]">
+        <span className="rk-plate absolute top-[24px] left-[40px] block size-[180px] overflow-hidden rounded-full border-[5px] border-card bg-tint shadow-raised">
+          <RecipePhoto src={recipe.photoUrl ?? PHOTO[recipe.id]} title={recipe.title} />
+        </span>
+        {GARNISH.map((g) => (
+          <img
+            key={g.name}
+            src={bahan(g.name)}
+            alt=""
+            className="rk-garnish absolute"
+            style={{ left: g.x, top: g.y, width: g.w, rotate: `${g.r}deg`, animationDelay: `${g.d}ms` }}
+          />
+        ))}
+      </div>
+      <p className="mt-2 text-center text-15 font-bold text-primary">{t("sudah_dimasak")}</p>
+      <h1 className="rk-fade-up mt-1 text-center font-display text-34 leading-[1.1] [animation-delay:300ms]">
+        {t("selamat_makan")}
+      </h1>
+      <p className="rk-fade-up mt-1.5 text-center text-15 text-ink-2 [animation-delay:380ms]">
+        {t("selamat_makan_isi", { title: recipe.title, n: state.servings[recipe.id] ?? state.household })}
+      </p>
 
       <h2 className="mt-6 text-head font-extrabold">{t("foto_hasil_masakanmu")}</h2>
       <Button

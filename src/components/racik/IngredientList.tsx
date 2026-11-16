@@ -4,7 +4,7 @@ import { qtyDisplay, scaledQty, undividable, unitOf } from "@/lib/racik/engine";
 import type { IngLine, Recipe, SatuanMode } from "@/lib/racik/types";
 import { NEGARA, localName, localSub, type Negara } from "@/lib/racik/locale";
 import { Sheet } from "./Sheet";
-import { Check } from "lucide-react";
+import { CheckDot } from "./motion";
 import { t } from "@/lib/racik/i18n";
 
 function QtyText({
@@ -26,7 +26,7 @@ function QtyText({
   const { main, hint } = qtyDisplay(line[0], qty, unitOf(line), satuan, negara);
   return (
     <span>
-      <span className="font-bold tabular-nums">{main}</span>
+      <span key={servings} className="rk-roll font-bold tabular-nums">{main}</span>
       {hint ? <span className="text-primary"> {hint}</span> : null}
     </span>
   );
@@ -74,11 +74,9 @@ export function IngredientList({
                   onClick={() => setTicked((t) => (t.includes(i) ? t.filter((x) => x !== i) : [...t, i]))}
                   className="-m-[11px] mt-[-9px] shrink-0 p-[11px]"
                 >
-                  <span className={`flex size-[22px] items-center justify-center rounded-full ${on ? "bg-primary text-primary-foreground" : "border-2 border-control-line"}`}>
-                    {on ? <Check className="size-3" strokeWidth={3} /> : null}
-                  </span>
+                  <CheckDot on={on} />
                 </button>
-                <div className={`min-w-0 flex-1 [overflow-wrap:anywhere] ${on ? "text-ink-3 line-through" : ""}`}>
+                <div className={`min-w-0 flex-1 [overflow-wrap:anywhere] transition-colors duration-200 ${on ? "text-ink-3 line-through" : ""}`}>
                   <QtyText line={line} recipe={recipe} servings={servings} satuan={satuan} negara={negara} />{" "}
                   <span>{ing.name}</span>
                   {local ? <span className="text-ink-3"> · {local}</span> : null}

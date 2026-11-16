@@ -4,6 +4,8 @@ import { fmtKcal, fmtProtein, isSeasoning, kcalPerPortion, proteinPerPortion, qt
 import { photosOf, thumbOf } from "@/components/racik/photos";
 import { t } from "@/lib/racik/i18n";
 import wordmark from "@/assets/brand/wordmark/racik-wordmark.svg";
+import { LanguageToggle } from "./LanguageSwitch";
+import { useRemembered } from "@/lib/racik/remember";
 
 /**
  * First run, in the style of SideChef's onboarding (Mobbin reference, 6 Nov
@@ -267,7 +269,7 @@ const SLIDES = [
 ];
 
 export function WelcomeSlides({ onStart, onSignIn }: { onStart: () => void; onSignIn: () => void }) {
-  const [i, setI] = useState(0);
+  const [i, setI] = useRemembered("onboarding.slide", 0);
   const touchX = useRef<number | null>(null);
   const stage = useFit(390, 470);
   const last = i === SLIDES.length - 1;
@@ -292,7 +294,8 @@ export function WelcomeSlides({ onStart, onSignIn }: { onStart: () => void; onSi
         <path d="M0 120 C60 90 140 110 170 170 C200 230 150 290 70 300 C30 305 10 320 0 330 Z" fill="#F1EBDD" />
       </svg>
 
-      <div className="relative z-10 flex shrink-0 justify-end px-4 pt-[calc(0.75rem+env(safe-area-inset-top))]">
+      <div className="relative z-10 flex shrink-0 items-center justify-between px-4 pt-[calc(0.75rem+env(safe-area-inset-top))]">
+        <LanguageToggle />
         <button type="button" onClick={() => setI(SLIDES.length - 1)} className={`min-h-10 rounded-full bg-card/90 px-3.5 text-14 font-extrabold text-ink-2 ${last ? "invisible" : ""}`}>{t("skip")}</button>
       </div>
 
