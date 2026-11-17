@@ -1870,5 +1870,193 @@
  "daun_suji": {
   "src": "Daun tidak dimakan (hanya airnya untuk warna)",
   "yakin": true
+ },
+ "asam_sunti": {
+  "src": "Proxy: asam kandis kering (nilai perkiraan Racik untuk buah asam kering); TKPI 2017 NR0040 'Asam sunti/belimbing wuluh, kering' ada tapi tidak bisa dibaca",
+  "yakin": false
+ },
+ "biji_botor": {
+  "src": "USDA FDC SR Legacy: Winged beans, mature seeds, raw (fdc 174283)",
+  "yakin": true
+ },
+ "biji_kaskas": {
+  "src": "USDA FDC SR Legacy: Spices, poppy seed (fdc 171330)",
+  "yakin": true
+ },
+ "biskuit_gabin": {
+  "src": "Proxy: biskuit marie (label, nilai Racik biskuit_marie)",
+  "yakin": false
+ },
+ "blewah": {
+  "src": "USDA FDC SR Legacy: Melons, cantaloupe, raw (fdc 169092); berat = 1 melon medium 552 g",
+  "yakin": true
+ },
+ "buah_segar": {
+  "src": "tidak dihitung: jenis buah tidak ditentukan (campuran, secukupnya untuk penyajian)",
+  "yakin": false
+ },
+ "cabai_gendot": {
+  "src": "Proxy: USDA FDC SR Legacy: Peppers, hot chili, red, raw (fdc 170106); berat per buah perkiraan (cabai gendot seukuran habanero)",
+  "yakin": false
+ },
+ "cakwe": {
+  "src": "tidak dihitung: tidak ada data komposisi cakwe yang bisa diakses (TKPI AP0480 tidak terbaca); berat per potong perkiraan",
+  "yakin": false
+ },
+ "ceri_merah_manisan": {
+  "src": "USDA FDC SR Legacy: Maraschino cherries, canned, drained (fdc 167766); berat 1 buah = 5 g (FNDDS Cherries, maraschino, fdc 2709229)",
+  "yakin": true
+ },
+ "daun_asam_muda": {
+  "src": "Proxy: USDA FDC SR Legacy: Sweet potato leaves, raw (nilai Racik daun_ubi_jalar); tidak ada data daun asam muda",
+  "yakin": false
+ },
+ "daun_geganti": {
+  "src": "tidak dihitung: daun aromatik, 1 lembar, tidak ada data komposisi; berat per lembar mengikuti daun jeruk Racik (1 g)",
+  "yakin": false
+ },
+ "daun_kesum": {
+  "src": "Proxy: USDA FDC SR Legacy: Coriander (cilantro) leaves, raw (fdc 169997)",
+  "yakin": false
+ },
+ "daun_kosambi": {
+  "src": "tidak dihitung: dipakai untuk mengasap daging, tidak dimakan",
+  "yakin": false
+ },
+ "daun_labu": {
+  "src": "Proxy: USDA FDC SR Legacy: Sweet potato leaves, raw (nilai Racik daun_ubi_jalar); entri USDA Pumpkin leaves tidak bisa diambil (API dibatasi). Berat 1 ikat mengikuti bayam Racik (200 g)",
+  "yakin": false
+ },
+ "daun_mangkokan": {
+  "src": "Proxy: USDA FDC SR Legacy: Sweet potato leaves, raw (nilai Racik daun_ubi_jalar); berat per lembar perkiraan",
+  "yakin": false
+ },
+ "ikan_barakuda": {
+  "src": "Proxy: ikan tenggiri (TKPI 2017 Ikan tenggiri, segar, nilai Racik); TKPI GR0085 'Barakuda obtuse' tidak terbaca",
+  "yakin": false
+ },
+ "ikan_baung": {
+  "src": "Proxy: ikan lele (TKPI 2017 Ikan lele, segar, nilai Racik); berat per ekor perkiraan baung sedang",
+  "yakin": false
+ },
+ "ikan_tuna_segar": {
+  "src": "USDA FDC SR Legacy: Fish, tuna, fresh, yellowfin, raw (fdc 175159)",
+  "yakin": true
+ },
+ "jagung_putih_tumbuk": {
+  "src": "Proxy: USDA FDC SR Legacy: Cornmeal, whole-grain, yellow (fdc 169697); jagung pipil kering, warna berbeda",
+  "yakin": false
+ },
+ "jagung_putren": {
+  "src": "Proxy: USDA FDC SR Legacy: Corn, sweet, yellow, raw (nilai Racik jagung_manis)",
+  "yakin": false
+ },
+ "janur": {
+  "src": "tidak dihitung: pembungkus/cetakan, tidak dimakan",
+  "yakin": false
+ },
+ "jeroan_kambing": {
+  "src": "Proxy: rata-rata USDA FDC SR Legacy: Beef tripe, raw dan Beef lungs, raw (nilai Racik babat dan paru_sapi); TKPI FR0078 'Jeroan kambing' tidak terbaca",
+  "yakin": false
+ },
+ "jeruk_purut": {
+  "src": "Proxy: USDA FDC SR Legacy: Limes, raw (fdc 168155); berat per buah mengikuti jeruk nipis Racik (40 g)",
+  "yakin": false
+ },
+ "kacang_beras": {
+  "src": "Proxy: USDA FDC SR Legacy: Beans, adzuki, mature seeds, raw (fdc 173727), kerabat Vigna terdekat",
+  "yakin": false
+ },
+ "kacang_kenari": {
+  "src": "Proxy: USDA FDC SR Legacy: Nuts, pilinuts, dried (fdc 170590), Canarium ovatum; serat tidak dilaporkan",
+  "yakin": false
+ },
+ "kakao_nibs": {
+  "src": "Proxy: USDA FDC SR Legacy: Baking chocolate, unsweetened, squares (fdc 167568) = biji kakao giling tanpa gula",
+  "yakin": false
+ },
+ "kedaung": {
+  "src": "tidak dihitung: tidak ada data komposisi biji kedaung; dipakai sedikit (1/2 sdm). Berat sdm perkiraan 15 ml x ~0,55 g/ml",
+  "yakin": false
+ },
+ "kerupuk_ikan_mentah": {
+  "src": "Proxy: kerupuk udang mentah (perkiraan Racik kerupuk_udang); TKPI BP0131 'Kerupuk ikan' tidak terbaca. Berat per buah mengikuti kerupuk_udang Racik",
+  "yakin": false
+ },
+ "kulit_melinjo": {
+  "src": "tidak dihitung: tidak ada proksi yang layak; TKPI 2017 DR0119 'Kulit melinjo' ada tapi tidak bisa dibaca",
+  "yakin": false
+ },
+ "kupang": {
+  "src": "Proxy: USDA FDC SR Legacy: Mollusks, mussel, blue, raw (nilai Racik kerang_hijau; karbohidrat dari entri yang sama)",
+  "yakin": false
+ },
+ "lento_singkong": {
+  "src": "tidak dihitung: gorengan campuran singkong dan kacang, resep berbeda-beda; berat per buah perkiraan",
+  "yakin": false
+ },
+ "leunca": {
+  "src": "Proxy: USDA FDC SR Legacy: Eggplant, raw (fdc 169228); TKPI DR0127 'Lumai/leunca' tidak terbaca",
+  "yakin": false
+ },
+ "lidah_buaya": {
+  "src": "tidak dihitung: gel lidah buaya hampir seluruhnya air dan tidak ada data komposisi yang bisa diakses (TKPI DR0300 tidak terbaca); berat per pelepah perkiraan",
+  "yakin": false
+ },
+ "lobak_asin_manis": {
+  "src": "tidak dihitung: lobak awetan bergaram dan bergula, kadar air/gula sangat bervariasi; entri USDA Radishes, oriental, dried tidak bisa diambil (API dibatasi)",
+  "yakin": false
+ },
+ "micin": {
+  "src": "Senyawa murni natrium glutamat (C5H8NO4Na, Wikipedia: Monosodium glutamate): 0 g protein/karbohidrat/lemak/serat. Berat sdt perkiraan 5 ml x ~0,8 g/ml kristal",
+  "yakin": true
+ },
+ "mie_glosor": {
+  "src": "Proxy: kwetiau basah (nilai perkiraan Racik kwetiau); mi glosor dijual basah dari pati",
+  "yakin": false
+ },
+ "rum": {
+  "src": "USDA FDC SR Legacy: Alcoholic beverage, distilled, rum, 80 proof (fdc 174817); berat sdm dari FNDDS Rum 1 fl oz = 28 g (fdc 2710703)",
+  "yakin": true
+ },
+ "sambal": {
+  "src": "tidak dihitung: jenis sambal tidak ditentukan (isi, minyak, dan gula berbeda-beda). Berat sdm 15 ml x ~1 g/ml",
+  "yakin": false
+ },
+ "sambal_rawit": {
+  "src": "Proxy: USDA FDC SR Legacy: Peppers, hot chili, red, raw (fdc 170106); sambal rawit sebagian besar cabai. Berat sdm 15 ml x ~1 g/ml",
+  "yakin": false
+ },
+ "sambal_soto": {
+  "src": "Proxy: USDA FDC SR Legacy: Peppers, hot chili, red, raw (fdc 170106); sambal soto = cabai rebus dihaluskan. Berat sdm 15 ml x ~1 g/ml",
+  "yakin": false
+ },
+ "tai_angin": {
+  "src": "tidak dihitung: lumut kerak (usnea) sebagai rempah, dipakai sedikit, tidak ada data komposisi. Berat sdm perkiraan (sangat ringan)",
+  "yakin": false
+ },
+ "takokak": {
+  "src": "Proxy: USDA FDC SR Legacy: Eggplant, raw (fdc 169228); TKPI DR0188 'Cimongkak/tekokak' tidak terbaca",
+  "yakin": false
+ },
+ "tepung_tang_mien": {
+  "src": "Proxy: USDA FDC SR Legacy: Cornstarch (fdc 169698), pati murni",
+  "yakin": false
+ },
+ "terubuk": {
+  "src": "Proxy: USDA FDC SR Legacy: Bamboo shoots, raw (nilai Racik rebung), sama-sama tunas rumput muda",
+  "yakin": false
+ },
+ "timun_suri": {
+  "src": "Proxy: USDA FDC SR Legacy: Cucumber, with peel, raw (fdc 168409); berat per buah perkiraan timun suri sedang",
+  "yakin": false
+ },
+ "umbut_rotan": {
+  "src": "Proxy: USDA FDC SR Legacy: Hearts of palm, canned (fdc 168569); rotan termasuk palem",
+  "yakin": false
+ },
+ "usus_sapi": {
+  "src": "Proxy: USDA FDC SR Legacy: Beef, variety meats and by-products, tripe, raw (via infobox Wikipedia 'Tripe'); usus biasanya lebih berlemak. TKPI FP0240 'Daleman (babat-usus), sapi' tidak terbaca",
+  "yakin": false
  }
 }

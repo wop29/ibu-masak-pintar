@@ -1,0 +1,1201 @@
+{
+ "_about": "New ingredients for 234 Indonesian recipes from the SEA acquisition (17 Nov 2026). Nutrition per 100 g; yakin false = proxy/estimate.",
+ "ingredients": [
+  {
+   "id": "asam_sunti",
+   "name": "Asam sunti",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "belimbing wuluh kering",
+    "dried bilimbi",
+    "asam sunti aceh"
+   ],
+   "em": "🟤"
+  },
+  {
+   "id": "biji_botor",
+   "name": "Biji botor",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "sdm",
+   "staple": 0,
+   "aliases": [
+    "winged bean seed",
+    "botor",
+    "biji kecipir",
+    "biji botor sangrai"
+   ],
+   "em": "🫘"
+  },
+  {
+   "id": "biji_kaskas",
+   "name": "Biji kaskas",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "sdt",
+   "staple": 0,
+   "aliases": [
+    "poppy seed",
+    "kaskas",
+    "khas khas",
+    "biji poppy",
+    "biji opium"
+   ],
+   "em": "⚪"
+  },
+  {
+   "id": "biskuit_gabin",
+   "name": "Biskuit gabin",
+   "cat": "sembako",
+   "halal": "cert",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "gabin crackers",
+    "gabin",
+    "biskuit kotak",
+    "biskuit gabin kotak"
+   ],
+   "em": "🍘"
+  },
+  {
+   "id": "blewah",
+   "name": "Blewah",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "cantaloupe",
+    "rock melon",
+    "melon blewah",
+    "garbis"
+   ],
+   "em": "🍈"
+  },
+  {
+   "id": "buah_segar",
+   "name": "Buah segar",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "fresh fruit",
+    "sliced fruit",
+    "buah potong",
+    "buah"
+   ],
+   "em": "🍉"
+  },
+  {
+   "id": "cabai_gendot",
+   "name": "Cabai gendot",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "gendot chili",
+    "cabe gendot",
+    "cabai bulat"
+   ],
+   "em": "🌶️"
+  },
+  {
+   "id": "cakwe",
+   "name": "Cakwe",
+   "cat": "sembako",
+   "halal": "cert",
+   "unit": "potong",
+   "staple": 0,
+   "aliases": [
+    "youtiao",
+    "Chinese fried dough",
+    "cakue",
+    "you tiao"
+   ],
+   "em": "🥖"
+  },
+  {
+   "id": "ceri_merah_manisan",
+   "name": "Ceri merah manisan",
+   "cat": "sembako",
+   "halal": "cert",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "maraschino cherry",
+    "candied red cherry",
+    "manisan ceri",
+    "ceri merah",
+    "cherry merah",
+    "ceri koktail"
+   ],
+   "em": "🍒"
+  },
+  {
+   "id": "daun_asam_muda",
+   "name": "Daun asam muda",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "young tamarind leaves",
+    "sinom",
+    "daun asem enom",
+    "pucuk asam",
+    "daun asam jawa muda",
+    "tamarind leaves"
+   ],
+   "em": "🌿"
+  },
+  {
+   "id": "daun_geganti",
+   "name": "Daun geganti",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "geganti",
+    "geganti leaf",
+    "daun geganti segar"
+   ],
+   "em": "🌿"
+  },
+  {
+   "id": "daun_kesum",
+   "name": "Daun kesum",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "vietnamese coriander",
+    "daun laksa",
+    "daun kesom",
+    "kesum",
+    "laksa leaf",
+    "rau ram"
+   ],
+   "em": "🌿"
+  },
+  {
+   "id": "daun_kosambi",
+   "name": "Daun kosambi",
+   "cat": "lain",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kosambi leaves",
+    "daun kesambi",
+    "daun kusambi",
+    "kesambi",
+    "kusambi"
+   ],
+   "em": "🍂"
+  },
+  {
+   "id": "daun_labu",
+   "name": "Daun labu",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "ikat",
+   "staple": 0,
+   "aliases": [
+    "pumpkin leaves",
+    "pumpkin flowers",
+    "daun dan bunga labu",
+    "pucuk labu",
+    "daun labu kuning",
+    "bunga labu",
+    "pumpkin leaf"
+   ],
+   "em": "🥬"
+  },
+  {
+   "id": "daun_mangkokan",
+   "name": "Daun mangkokan",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "mangkokan leaf",
+    "daun mangkok",
+    "mangkokan",
+    "polyscias"
+   ],
+   "em": "🍃"
+  },
+  {
+   "id": "ikan_barakuda",
+   "name": "Ikan barakuda",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "barracuda",
+    "ikan alu-alu",
+    "ikan senuk",
+    "ikan alu alu",
+    "barakuda"
+   ],
+   "em": "🐟"
+  },
+  {
+   "id": "ikan_baung",
+   "name": "Ikan baung",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "ekor",
+   "staple": 0,
+   "aliases": [
+    "baung",
+    "ikan sungai",
+    "asian redtail catfish",
+    "ikan baung segar",
+    "keben",
+    "rengkik"
+   ],
+   "em": "🐟"
+  },
+  {
+   "id": "ikan_tuna_segar",
+   "name": "Ikan tuna segar",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "fresh tuna",
+    "tuna segar",
+    "ikan tuna",
+    "yellowfin tuna",
+    "tuna sirip kuning"
+   ],
+   "em": "🐟"
+  },
+  {
+   "id": "jagung_putih_tumbuk",
+   "name": "Jagung putih tumbuk",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "white hominy corn",
+    "jagung bose",
+    "jagung putih kupas",
+    "jagung pipil putih",
+    "white corn"
+   ],
+   "em": "🌽"
+  },
+  {
+   "id": "jagung_putren",
+   "name": "Jagung putren",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "baby corn",
+    "jagung muda",
+    "putren",
+    "jagung semi",
+    "jagung acar"
+   ],
+   "em": "🌽"
+  },
+  {
+   "id": "janur",
+   "name": "Janur",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "lembar",
+   "staple": 0,
+   "aliases": [
+    "young coconut leaf",
+    "daun kelapa muda",
+    "janur kuning",
+    "janur kelapa"
+   ],
+   "em": "🌴"
+  },
+  {
+   "id": "jeroan_kambing",
+   "name": "Jeroan kambing",
+   "cat": "daging",
+   "halal": "cert",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "goat offal",
+    "babat kambing",
+    "usus kambing",
+    "paru kambing"
+   ],
+   "em": "🍖"
+  },
+  {
+   "id": "jeruk_purut",
+   "name": "Jeruk purut",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "makrut lime",
+    "kaffir lime",
+    "jeruk limo purut",
+    "limau purut"
+   ],
+   "em": "🍋"
+  },
+  {
+   "id": "kacang_beras",
+   "name": "Kacang beras",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "rice bean",
+    "kacang nasi",
+    "kacang uci"
+   ],
+   "em": "🫘"
+  },
+  {
+   "id": "kacang_kenari",
+   "name": "Kacang kenari",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "canarium nut",
+    "kenari maluku",
+    "java almond",
+    "pili nut",
+    "kenari banda",
+    "canarium"
+   ],
+   "em": "🌰"
+  },
+  {
+   "id": "kakao_nibs",
+   "name": "Kakao nibs",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "cacao nibs",
+    "biji kakao",
+    "cocoa nibs",
+    "nibs kakao",
+    "cacao nib"
+   ],
+   "em": "🍫"
+  },
+  {
+   "id": "kedaung",
+   "name": "Kedaung",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "sdm",
+   "staple": 0,
+   "aliases": [
+    "kedaung seed",
+    "parkia timoriana",
+    "biji kedaung",
+    "kedawung",
+    "kedaung sangrai"
+   ],
+   "em": "🟤"
+  },
+  {
+   "id": "kerupuk_ikan_mentah",
+   "name": "Kerupuk ikan mentah",
+   "cat": "sembako",
+   "halal": "cert",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "raw fish crackers",
+    "kerupuk ikan belum digoreng",
+    "kerupuk ikan",
+    "fish cracker"
+   ],
+   "em": "🍘"
+  },
+  {
+   "id": "kulit_melinjo",
+   "name": "Kulit melinjo",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "melinjo skin",
+    "kulit tangkil",
+    "kulit so"
+   ],
+   "em": "🟠"
+  },
+  {
+   "id": "kupang",
+   "name": "Kupang",
+   "cat": "daging",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "kupang beras",
+    "kupang clam",
+    "kerang kupang",
+    "kupang putih",
+    "kupang merah"
+   ],
+   "em": "🦪"
+  },
+  {
+   "id": "lento_singkong",
+   "name": "Lento singkong",
+   "cat": "lain",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "cassava fritter",
+    "lento",
+    "lento kacang"
+   ],
+   "em": "🧆"
+  },
+  {
+   "id": "leunca",
+   "name": "Leunca",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "black nightshade berries",
+    "ranti",
+    "lumai",
+    "solanum nigrum"
+   ],
+   "em": "🫐"
+  },
+  {
+   "id": "lidah_buaya",
+   "name": "Lidah buaya",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "batang",
+   "staple": 0,
+   "aliases": [
+    "aloe vera",
+    "aloe",
+    "gel lidah buaya"
+   ],
+   "em": "🌵"
+  },
+  {
+   "id": "lobak_asin_manis",
+   "name": "Lobak asin manis",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "sweet preserved radish",
+    "chai poh",
+    "calpo manis",
+    "caipo",
+    "lobak asin",
+    "chai po"
+   ],
+   "em": "🥢"
+  },
+  {
+   "id": "micin",
+   "name": "Micin (MSG)",
+   "cat": "bumbu",
+   "halal": "cert",
+   "unit": "sdt",
+   "staple": 0,
+   "aliases": [
+    "MSG",
+    "monosodium glutamat",
+    "vetsin",
+    "micin",
+    "penyedap rasa",
+    "ajinomoto"
+   ],
+   "em": "🧂"
+  },
+  {
+   "id": "mie_glosor",
+   "name": "Mie glosor",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "mi glosor",
+    "mi golosor",
+    "mie golosor",
+    "mi glosor bogor",
+    "mi tapioka basah"
+   ],
+   "em": "🍜"
+  },
+  {
+   "id": "rum",
+   "name": "Rum",
+   "cat": "lain",
+   "halal": "haram",
+   "unit": "sdm",
+   "staple": 0,
+   "aliases": [
+    "rhum",
+    "rum hitam",
+    "dark rum"
+   ],
+   "em": "🥃"
+  },
+  {
+   "id": "sambal",
+   "name": "Sambal",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "sdm",
+   "staple": 0,
+   "aliases": [
+    "chili sambal",
+    "sambal pelengkap",
+    "sambal ulek"
+   ],
+   "em": "🌶️"
+  },
+  {
+   "id": "sambal_rawit",
+   "name": "Sambal rawit",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "sdm",
+   "staple": 0,
+   "aliases": [
+    "bird's eye chili sambal",
+    "sambal cabai rawit"
+   ],
+   "em": "🌶️"
+  },
+  {
+   "id": "sambal_soto",
+   "name": "Sambal soto",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "sdm",
+   "staple": 0,
+   "aliases": [
+    "soto chili sauce",
+    "sambal rebus"
+   ],
+   "em": "🌶️"
+  },
+  {
+   "id": "tai_angin",
+   "name": "Tai angin",
+   "cat": "bumbu",
+   "halal": "halal",
+   "unit": "sdm",
+   "staple": 0,
+   "aliases": [
+    "usnea",
+    "usnea lichen",
+    "lumut janggut",
+    "kayu angin"
+   ],
+   "em": "🌾"
+  },
+  {
+   "id": "takokak",
+   "name": "Takokak",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "pea eggplant",
+    "rimbang",
+    "terong pipit",
+    "cepoka",
+    "tekokak",
+    "cimongkak"
+   ],
+   "em": "🟢"
+  },
+  {
+   "id": "tepung_tang_mien",
+   "name": "Tepung tang mien",
+   "cat": "sembako",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "wheat starch",
+    "tepung tangmien",
+    "tang mien",
+    "tepung tang mein",
+    "pati gandum"
+   ],
+   "em": "🌾"
+  },
+  {
+   "id": "terubuk",
+   "name": "Terubuk",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "sugarcane flower",
+    "tebu telur",
+    "trubuk",
+    "tebu endog",
+    "bunga tebu"
+   ],
+   "em": "🌾"
+  },
+  {
+   "id": "timun_suri",
+   "name": "Timun suri",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "buah",
+   "staple": 0,
+   "aliases": [
+    "snake melon",
+    "mentimun suri",
+    "ketimun suri"
+   ],
+   "em": "🥒"
+  },
+  {
+   "id": "umbut_rotan",
+   "name": "Umbut rotan",
+   "cat": "sayur",
+   "halal": "halal",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "young rattan shoot",
+    "singkah uwei",
+    "rotan muda",
+    "umbut rotan muda"
+   ],
+   "em": "🎋"
+  },
+  {
+   "id": "usus_sapi",
+   "name": "Usus sapi",
+   "cat": "daging",
+   "halal": "cert",
+   "unit": "gram",
+   "staple": 0,
+   "aliases": [
+    "beef intestine",
+    "usus sapi bersih"
+   ],
+   "em": "🍖"
+  }
+ ],
+ "tables": {
+  "BERAT": {
+   "asam_sunti": 3,
+   "biji_botor": 11,
+   "biji_kaskas": 2.8,
+   "biskuit_gabin": 8,
+   "blewah": 552,
+   "cabai_gendot": 8,
+   "cakwe": 40,
+   "ceri_merah_manisan": 5,
+   "daun_geganti": 1,
+   "daun_labu": 200,
+   "daun_mangkokan": 2,
+   "ikan_baung": 500,
+   "jeruk_purut": 40,
+   "kedaung": 8,
+   "kerupuk_ikan_mentah": 5,
+   "lento_singkong": 25,
+   "micin": 4,
+   "rum": 14,
+   "sambal": 15,
+   "sambal_rawit": 15,
+   "sambal_soto": 15,
+   "tai_angin": 4,
+   "timun_suri": 1000
+  },
+  "PROT100": {
+   "asam_sunti": 1,
+   "biji_botor": 29.6,
+   "biji_kaskas": 18.0,
+   "biskuit_gabin": 7.0,
+   "blewah": 0.84,
+   "cabai_gendot": 1.87,
+   "ceri_merah_manisan": 0.22,
+   "daun_asam_muda": 3.0,
+   "daun_kesum": 2.13,
+   "daun_labu": 3.0,
+   "daun_mangkokan": 3.0,
+   "ikan_barakuda": 21,
+   "ikan_baung": 17,
+   "ikan_tuna_segar": 24.4,
+   "jagung_putih_tumbuk": 8.12,
+   "jagung_putren": 3.3,
+   "jeroan_kambing": 14,
+   "jeruk_purut": 0.7,
+   "kacang_beras": 19.9,
+   "kacang_kenari": 10.8,
+   "kakao_nibs": 14.3,
+   "kerupuk_ikan_mentah": 6,
+   "kupang": 12,
+   "leunca": 0.98,
+   "micin": 0,
+   "mie_glosor": 2,
+   "rum": 0,
+   "sambal_rawit": 1.87,
+   "sambal_soto": 1.87,
+   "takokak": 0.98,
+   "tepung_tang_mien": 0.26,
+   "terubuk": 2.6,
+   "timun_suri": 0.65,
+   "umbut_rotan": 2.52,
+   "usus_sapi": 12.07
+  },
+  "CARB100": {
+   "asam_sunti": 60,
+   "biji_botor": 41.7,
+   "biji_kaskas": 28.1,
+   "biskuit_gabin": 75.0,
+   "blewah": 8.16,
+   "cabai_gendot": 8.81,
+   "ceri_merah_manisan": 42.0,
+   "daun_asam_muda": 6.0,
+   "daun_kesum": 3.67,
+   "daun_labu": 6.0,
+   "daun_mangkokan": 6.0,
+   "ikan_tuna_segar": 0,
+   "jagung_putih_tumbuk": 76.9,
+   "jagung_putren": 19,
+   "jeroan_kambing": 0,
+   "jeruk_purut": 10.5,
+   "kacang_beras": 62.9,
+   "kacang_kenari": 3.98,
+   "kakao_nibs": 28.4,
+   "kerupuk_ikan_mentah": 68,
+   "kupang": 3.7,
+   "leunca": 5.88,
+   "micin": 0,
+   "mie_glosor": 25,
+   "rum": 0,
+   "sambal_rawit": 8.81,
+   "sambal_soto": 8.81,
+   "takokak": 5.88,
+   "tepung_tang_mien": 91.3,
+   "terubuk": 5,
+   "timun_suri": 3.63,
+   "umbut_rotan": 4.62,
+   "usus_sapi": 0
+  },
+  "FAT100": {
+   "asam_sunti": 0.5,
+   "biji_botor": 16.3,
+   "biji_kaskas": 41.6,
+   "biskuit_gabin": 13.0,
+   "blewah": 0.19,
+   "cabai_gendot": 0.44,
+   "ceri_merah_manisan": 0.21,
+   "daun_asam_muda": 0.3,
+   "daun_kesum": 0.52,
+   "daun_labu": 0.3,
+   "daun_mangkokan": 0.3,
+   "ikan_barakuda": 2.6,
+   "ikan_baung": 4.8,
+   "ikan_tuna_segar": 0.49,
+   "jagung_putih_tumbuk": 3.59,
+   "jagung_putren": 1.4,
+   "jeroan_kambing": 3.1,
+   "jeruk_purut": 0.2,
+   "kacang_beras": 0.53,
+   "kacang_kenari": 79.6,
+   "kakao_nibs": 52.3,
+   "kerupuk_ikan_mentah": 2.5,
+   "kupang": 2.2,
+   "leunca": 0.18,
+   "micin": 0,
+   "mie_glosor": 0.6,
+   "rum": 0,
+   "sambal_rawit": 0.44,
+   "sambal_soto": 0.44,
+   "takokak": 0.18,
+   "tepung_tang_mien": 0.05,
+   "terubuk": 0.3,
+   "timun_suri": 0.11,
+   "umbut_rotan": 0.62,
+   "usus_sapi": 3.69
+  },
+  "FIBER100": {
+   "asam_sunti": 10,
+   "biji_botor": 25.9,
+   "biji_kaskas": 19.5,
+   "biskuit_gabin": 2.0,
+   "blewah": 0.9,
+   "cabai_gendot": 1.5,
+   "ceri_merah_manisan": 3.2,
+   "daun_asam_muda": 3.0,
+   "daun_kesum": 2.8,
+   "daun_labu": 3.0,
+   "daun_mangkokan": 3.0,
+   "ikan_tuna_segar": 0,
+   "jagung_putih_tumbuk": 7.3,
+   "jagung_putren": 2.7,
+   "jeroan_kambing": 0,
+   "jeruk_purut": 2.8,
+   "kacang_beras": 12.7,
+   "kakao_nibs": 16.6,
+   "kerupuk_ikan_mentah": 0.5,
+   "kupang": 0,
+   "leunca": 3.0,
+   "micin": 0,
+   "mie_glosor": 0.9,
+   "rum": 0,
+   "sambal_rawit": 1.5,
+   "sambal_soto": 1.5,
+   "takokak": 3.0,
+   "tepung_tang_mien": 0.9,
+   "terubuk": 2.2,
+   "timun_suri": 0.5,
+   "umbut_rotan": 2.4,
+   "usus_sapi": 0
+  },
+  "SUBS": {
+   "asam_sunti": "Ganti 1 buah dengan 2 buah belimbing wuluh segar atau 1/2 sdt asam jawa.",
+   "biji_botor": "Ganti dengan kacang tanah sangrai; aromanya sedikit berbeda.",
+   "biji_kaskas": "Ganti dengan kemiri sangrai atau wijen putih.",
+   "biskuit_gabin": "Ganti dengan biskuit krekers tawar (cream crackers).",
+   "blewah": "Ganti dengan melon kuning atau melon hijau.",
+   "buah_segar": "Pakai buah apa saja yang ada: pepaya, melon, nanas, atau stroberi.",
+   "cabai_gendot": "Ganti dengan cabai hijau besar ditambah beberapa cabai rawit.",
+   "cakwe": "Ganti dengan roti goreng atau kerupuk.",
+   "ceri_merah_manisan": "Ganti dengan potongan stroberi atau cukup dilewati (hanya hiasan).",
+   "daun_asam_muda": "Ganti dengan daun kedondong muda, atau sedikit asam jawa untuk rasa asam.",
+   "daun_geganti": "Ganti dengan daun kemangi atau sedikit daun mint.",
+   "daun_kesum": "Ganti dengan campuran daun ketumbar dan daun mint.",
+   "daun_kosambi": "Ganti dengan serbuk kayu atau sabut kelapa untuk mengasap.",
+   "daun_labu": "Ganti dengan daun singkong muda atau bayam.",
+   "daun_mangkokan": "Ganti dengan daun kemangi atau daun singkong muda.",
+   "ikan_barakuda": "Ganti dengan ikan tenggiri, cakalang, atau tuna.",
+   "ikan_baung": "Ganti dengan ikan patin atau ikan lele.",
+   "ikan_tuna_segar": "Ganti dengan ikan tongkol atau cakalang.",
+   "jagung_putih_tumbuk": "Ganti dengan jagung pipil kuning kering yang ditumbuk.",
+   "jagung_putren": "Ganti dengan jagung manis pipil.",
+   "janur": "Ganti dengan daun pisang yang dibentuk corong.",
+   "jeroan_kambing": "Ganti dengan jeroan sapi (babat dan paru) atau daging kambing.",
+   "jeruk_purut": "Ganti dengan jeruk nipis ditambah 2 lembar daun jeruk.",
+   "kacang_beras": "Ganti dengan kacang merah kecil atau kacang tolo.",
+   "kacang_kenari": "Ganti dengan kacang almond atau kacang mete.",
+   "kakao_nibs": "Ganti dengan cokelat hitam cincang (70% ke atas).",
+   "kedaung": "Ganti dengan kemiri sangrai, atau dilewati.",
+   "kerupuk_ikan_mentah": "Ganti dengan kerupuk udang mentah.",
+   "kulit_melinjo": "Ganti dengan kacang panjang atau dilewati.",
+   "kupang": "Ganti dengan kerang hijau kecil atau kerang tahu.",
+   "lento_singkong": "Ganti dengan perkedel singkong atau kerupuk.",
+   "leunca": "Ganti dengan takokak atau terong hijau kecil.",
+   "lidah_buaya": "Ganti dengan nata de coco atau kolang-kaling.",
+   "lobak_asin_manis": "Ganti dengan udang kering cincang atau acar lobak.",
+   "micin": "Ganti dengan sedikit kaldu bubuk atau gula dan garam.",
+   "mie_glosor": "Ganti dengan mi kuning basah atau bihun yang sudah direndam.",
+   "rum": "Ganti dengan pasta atau essence rum non-alkohol, atau 1/2 sdt vanili.",
+   "sambal": "Pakai sambal atau saus sambal apa saja yang ada.",
+   "sambal_rawit": "Ganti dengan cabai rawit ulek dan sedikit garam.",
+   "sambal_soto": "Ganti dengan cabai rawit rebus yang diulek dengan sedikit garam.",
+   "tai_angin": "Bisa dilewati; aromanya tidak tergantikan.",
+   "takokak": "Ganti dengan terong hijau bulat kecil atau leunca.",
+   "tepung_tang_mien": "Ganti dengan tepung maizena atau tepung tapioka.",
+   "terubuk": "Ganti dengan jagung putren atau rebung.",
+   "timun_suri": "Ganti dengan melon hijau atau blewah.",
+   "umbut_rotan": "Ganti dengan umbut kelapa atau rebung.",
+   "usus_sapi": "Ganti dengan babat sapi atau usus ayam."
+  }
+ },
+ "fat_sources": {
+  "asam_sunti": {
+   "src": "Proxy: asam kandis kering (nilai perkiraan Racik untuk buah asam kering); TKPI 2017 NR0040 'Asam sunti/belimbing wuluh, kering' ada tapi tidak bisa dibaca",
+   "yakin": false
+  },
+  "biji_botor": {
+   "src": "USDA FDC SR Legacy: Winged beans, mature seeds, raw (fdc 174283)",
+   "yakin": true
+  },
+  "biji_kaskas": {
+   "src": "USDA FDC SR Legacy: Spices, poppy seed (fdc 171330)",
+   "yakin": true
+  },
+  "biskuit_gabin": {
+   "src": "Proxy: biskuit marie (label, nilai Racik biskuit_marie)",
+   "yakin": false
+  },
+  "blewah": {
+   "src": "USDA FDC SR Legacy: Melons, cantaloupe, raw (fdc 169092); berat = 1 melon medium 552 g",
+   "yakin": true
+  },
+  "buah_segar": {
+   "src": "tidak dihitung: jenis buah tidak ditentukan (campuran, secukupnya untuk penyajian)",
+   "yakin": false
+  },
+  "cabai_gendot": {
+   "src": "Proxy: USDA FDC SR Legacy: Peppers, hot chili, red, raw (fdc 170106); berat per buah perkiraan (cabai gendot seukuran habanero)",
+   "yakin": false
+  },
+  "cakwe": {
+   "src": "tidak dihitung: tidak ada data komposisi cakwe yang bisa diakses (TKPI AP0480 tidak terbaca); berat per potong perkiraan",
+   "yakin": false
+  },
+  "ceri_merah_manisan": {
+   "src": "USDA FDC SR Legacy: Maraschino cherries, canned, drained (fdc 167766); berat 1 buah = 5 g (FNDDS Cherries, maraschino, fdc 2709229)",
+   "yakin": true
+  },
+  "daun_asam_muda": {
+   "src": "Proxy: USDA FDC SR Legacy: Sweet potato leaves, raw (nilai Racik daun_ubi_jalar); tidak ada data daun asam muda",
+   "yakin": false
+  },
+  "daun_geganti": {
+   "src": "tidak dihitung: daun aromatik, 1 lembar, tidak ada data komposisi; berat per lembar mengikuti daun jeruk Racik (1 g)",
+   "yakin": false
+  },
+  "daun_kesum": {
+   "src": "Proxy: USDA FDC SR Legacy: Coriander (cilantro) leaves, raw (fdc 169997)",
+   "yakin": false
+  },
+  "daun_kosambi": {
+   "src": "tidak dihitung: dipakai untuk mengasap daging, tidak dimakan",
+   "yakin": false
+  },
+  "daun_labu": {
+   "src": "Proxy: USDA FDC SR Legacy: Sweet potato leaves, raw (nilai Racik daun_ubi_jalar); entri USDA Pumpkin leaves tidak bisa diambil (API dibatasi). Berat 1 ikat mengikuti bayam Racik (200 g)",
+   "yakin": false
+  },
+  "daun_mangkokan": {
+   "src": "Proxy: USDA FDC SR Legacy: Sweet potato leaves, raw (nilai Racik daun_ubi_jalar); berat per lembar perkiraan",
+   "yakin": false
+  },
+  "ikan_barakuda": {
+   "src": "Proxy: ikan tenggiri (TKPI 2017 Ikan tenggiri, segar, nilai Racik); TKPI GR0085 'Barakuda obtuse' tidak terbaca",
+   "yakin": false
+  },
+  "ikan_baung": {
+   "src": "Proxy: ikan lele (TKPI 2017 Ikan lele, segar, nilai Racik); berat per ekor perkiraan baung sedang",
+   "yakin": false
+  },
+  "ikan_tuna_segar": {
+   "src": "USDA FDC SR Legacy: Fish, tuna, fresh, yellowfin, raw (fdc 175159)",
+   "yakin": true
+  },
+  "jagung_putih_tumbuk": {
+   "src": "Proxy: USDA FDC SR Legacy: Cornmeal, whole-grain, yellow (fdc 169697); jagung pipil kering, warna berbeda",
+   "yakin": false
+  },
+  "jagung_putren": {
+   "src": "Proxy: USDA FDC SR Legacy: Corn, sweet, yellow, raw (nilai Racik jagung_manis)",
+   "yakin": false
+  },
+  "janur": {
+   "src": "tidak dihitung: pembungkus/cetakan, tidak dimakan",
+   "yakin": false
+  },
+  "jeroan_kambing": {
+   "src": "Proxy: rata-rata USDA FDC SR Legacy: Beef tripe, raw dan Beef lungs, raw (nilai Racik babat dan paru_sapi); TKPI FR0078 'Jeroan kambing' tidak terbaca",
+   "yakin": false
+  },
+  "jeruk_purut": {
+   "src": "Proxy: USDA FDC SR Legacy: Limes, raw (fdc 168155); berat per buah mengikuti jeruk nipis Racik (40 g)",
+   "yakin": false
+  },
+  "kacang_beras": {
+   "src": "Proxy: USDA FDC SR Legacy: Beans, adzuki, mature seeds, raw (fdc 173727), kerabat Vigna terdekat",
+   "yakin": false
+  },
+  "kacang_kenari": {
+   "src": "Proxy: USDA FDC SR Legacy: Nuts, pilinuts, dried (fdc 170590), Canarium ovatum; serat tidak dilaporkan",
+   "yakin": false
+  },
+  "kakao_nibs": {
+   "src": "Proxy: USDA FDC SR Legacy: Baking chocolate, unsweetened, squares (fdc 167568) = biji kakao giling tanpa gula",
+   "yakin": false
+  },
+  "kedaung": {
+   "src": "tidak dihitung: tidak ada data komposisi biji kedaung; dipakai sedikit (1/2 sdm). Berat sdm perkiraan 15 ml x ~0,55 g/ml",
+   "yakin": false
+  },
+  "kerupuk_ikan_mentah": {
+   "src": "Proxy: kerupuk udang mentah (perkiraan Racik kerupuk_udang); TKPI BP0131 'Kerupuk ikan' tidak terbaca. Berat per buah mengikuti kerupuk_udang Racik",
+   "yakin": false
+  },
+  "kulit_melinjo": {
+   "src": "tidak dihitung: tidak ada proksi yang layak; TKPI 2017 DR0119 'Kulit melinjo' ada tapi tidak bisa dibaca",
+   "yakin": false
+  },
+  "kupang": {
+   "src": "Proxy: USDA FDC SR Legacy: Mollusks, mussel, blue, raw (nilai Racik kerang_hijau; karbohidrat dari entri yang sama)",
+   "yakin": false
+  },
+  "lento_singkong": {
+   "src": "tidak dihitung: gorengan campuran singkong dan kacang, resep berbeda-beda; berat per buah perkiraan",
+   "yakin": false
+  },
+  "leunca": {
+   "src": "Proxy: USDA FDC SR Legacy: Eggplant, raw (fdc 169228); TKPI DR0127 'Lumai/leunca' tidak terbaca",
+   "yakin": false
+  },
+  "lidah_buaya": {
+   "src": "tidak dihitung: gel lidah buaya hampir seluruhnya air dan tidak ada data komposisi yang bisa diakses (TKPI DR0300 tidak terbaca); berat per pelepah perkiraan",
+   "yakin": false
+  },
+  "lobak_asin_manis": {
+   "src": "tidak dihitung: lobak awetan bergaram dan bergula, kadar air/gula sangat bervariasi; entri USDA Radishes, oriental, dried tidak bisa diambil (API dibatasi)",
+   "yakin": false
+  },
+  "micin": {
+   "src": "Senyawa murni natrium glutamat (C5H8NO4Na, Wikipedia: Monosodium glutamate): 0 g protein/karbohidrat/lemak/serat. Berat sdt perkiraan 5 ml x ~0,8 g/ml kristal",
+   "yakin": true
+  },
+  "mie_glosor": {
+   "src": "Proxy: kwetiau basah (nilai perkiraan Racik kwetiau); mi glosor dijual basah dari pati",
+   "yakin": false
+  },
+  "rum": {
+   "src": "USDA FDC SR Legacy: Alcoholic beverage, distilled, rum, 80 proof (fdc 174817); berat sdm dari FNDDS Rum 1 fl oz = 28 g (fdc 2710703)",
+   "yakin": true
+  },
+  "sambal": {
+   "src": "tidak dihitung: jenis sambal tidak ditentukan (isi, minyak, dan gula berbeda-beda). Berat sdm 15 ml x ~1 g/ml",
+   "yakin": false
+  },
+  "sambal_rawit": {
+   "src": "Proxy: USDA FDC SR Legacy: Peppers, hot chili, red, raw (fdc 170106); sambal rawit sebagian besar cabai. Berat sdm 15 ml x ~1 g/ml",
+   "yakin": false
+  },
+  "sambal_soto": {
+   "src": "Proxy: USDA FDC SR Legacy: Peppers, hot chili, red, raw (fdc 170106); sambal soto = cabai rebus dihaluskan. Berat sdm 15 ml x ~1 g/ml",
+   "yakin": false
+  },
+  "tai_angin": {
+   "src": "tidak dihitung: lumut kerak (usnea) sebagai rempah, dipakai sedikit, tidak ada data komposisi. Berat sdm perkiraan (sangat ringan)",
+   "yakin": false
+  },
+  "takokak": {
+   "src": "Proxy: USDA FDC SR Legacy: Eggplant, raw (fdc 169228); TKPI DR0188 'Cimongkak/tekokak' tidak terbaca",
+   "yakin": false
+  },
+  "tepung_tang_mien": {
+   "src": "Proxy: USDA FDC SR Legacy: Cornstarch (fdc 169698), pati murni",
+   "yakin": false
+  },
+  "terubuk": {
+   "src": "Proxy: USDA FDC SR Legacy: Bamboo shoots, raw (nilai Racik rebung), sama-sama tunas rumput muda",
+   "yakin": false
+  },
+  "timun_suri": {
+   "src": "Proxy: USDA FDC SR Legacy: Cucumber, with peel, raw (fdc 168409); berat per buah perkiraan timun suri sedang",
+   "yakin": false
+  },
+  "umbut_rotan": {
+   "src": "Proxy: USDA FDC SR Legacy: Hearts of palm, canned (fdc 168569); rotan termasuk palem",
+   "yakin": false
+  },
+  "usus_sapi": {
+   "src": "Proxy: USDA FDC SR Legacy: Beef, variety meats and by-products, tripe, raw (via infobox Wikipedia 'Tripe'); usus biasanya lebih berlemak. TKPI FP0240 'Daleman (babat-usus), sapi' tidak terbaca",
+   "yakin": false
+  }
+ },
+ "regions": [
+  {
+   "id": "jambi_riau",
+   "name": "Melayu Riau & Jambi",
+   "desc": "Masakan Melayu pesisir: ikan sungai, tempoyak, gulai kuning."
+  },
+  {
+   "id": "bengkulu",
+   "name": "Bengkulu",
+   "desc": "Pesisir barat Sumatra: ikan laut, rebung, bumbu asam pedas."
+  },
+  {
+   "id": "kalimantan_barat",
+   "name": "Kalimantan Barat",
+   "desc": "Pontianak: perpaduan Melayu, Dayak dan Tionghoa."
+  },
+  {
+   "id": "dayak",
+   "name": "Dayak & Kalimantan Tengah",
+   "desc": "Ikan sungai, rebung, daun singkong, bumbu sederhana."
+  },
+  {
+   "id": "kutai",
+   "name": "Kutai & Kalimantan Timur",
+   "desc": "Masakan Melayu Kutai dan pesisir Kalimantan Timur."
+  },
+  {
+   "id": "gorontalo",
+   "name": "Gorontalo",
+   "desc": "Jagung, ikan, kelapa, rasa gurih pedas."
+  },
+  {
+   "id": "toraja",
+   "name": "Toraja",
+   "desc": "Masakan pegunungan Sulawesi Selatan, banyak dimasak dalam bambu."
+  },
+  {
+   "id": "sulawesi_tenggara",
+   "name": "Sulawesi Tengah & Tenggara",
+   "desc": "Palu dan Kendari: sagu, ikan, kuah bening asam."
+  },
+  {
+   "id": "ntt",
+   "name": "Nusa Tenggara Timur",
+   "desc": "Jagung, se'i, ikan, bumbu sederhana khas Timor dan Flores."
+  },
+  {
+   "id": "sumbawa",
+   "name": "Sumbawa & Bima",
+   "desc": "Masakan Nusa Tenggara Barat bagian timur."
+  },
+  {
+   "id": "maluku_utara",
+   "name": "Maluku Utara",
+   "desc": "Ternate dan Tidore: ikan, sagu, kenari, rempah."
+  },
+  {
+   "id": "cirebon",
+   "name": "Cirebon",
+   "desc": "Pertemuan rasa Jawa dan Sunda di pesisir utara."
+  },
+  {
+   "id": "banten",
+   "name": "Banten",
+   "desc": "Masakan Banten: rabeg, sambal, ikan pesisir."
+  }
+ ]
+}

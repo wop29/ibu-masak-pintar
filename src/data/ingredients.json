@@ -6921,5 +6921,725 @@
    "gaplek"
   ],
   "em": "🌾"
+ },
+ {
+  "id": "asam_sunti",
+  "name": "Asam sunti",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "belimbing wuluh kering",
+   "dried bilimbi",
+   "asam sunti aceh"
+  ],
+  "em": "🟤"
+ },
+ {
+  "id": "biji_botor",
+  "name": "Biji botor",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "winged bean seed",
+   "botor",
+   "biji kecipir",
+   "biji botor sangrai"
+  ],
+  "em": "🫘"
+ },
+ {
+  "id": "biji_kaskas",
+  "name": "Biji kaskas",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdt",
+  "staple": 0,
+  "aliases": [
+   "poppy seed",
+   "kaskas",
+   "khas khas",
+   "biji poppy",
+   "biji opium"
+  ],
+  "em": "⚪"
+ },
+ {
+  "id": "biskuit_gabin",
+  "name": "Biskuit gabin",
+  "cat": "sembako",
+  "halal": "cert",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "gabin crackers",
+   "gabin",
+   "biskuit kotak",
+   "biskuit gabin kotak"
+  ],
+  "em": "🍘"
+ },
+ {
+  "id": "blewah",
+  "name": "Blewah",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "cantaloupe",
+   "rock melon",
+   "melon blewah",
+   "garbis"
+  ],
+  "em": "🍈"
+ },
+ {
+  "id": "buah_segar",
+  "name": "Buah segar",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "fresh fruit",
+   "sliced fruit",
+   "buah potong",
+   "buah"
+  ],
+  "em": "🍉"
+ },
+ {
+  "id": "cabai_gendot",
+  "name": "Cabai gendot",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "gendot chili",
+   "cabe gendot",
+   "cabai bulat"
+  ],
+  "em": "🌶️"
+ },
+ {
+  "id": "cakwe",
+  "name": "Cakwe",
+  "cat": "sembako",
+  "halal": "cert",
+  "unit": "potong",
+  "staple": 0,
+  "aliases": [
+   "youtiao",
+   "Chinese fried dough",
+   "cakue",
+   "you tiao"
+  ],
+  "em": "🥖"
+ },
+ {
+  "id": "ceri_merah_manisan",
+  "name": "Ceri merah manisan",
+  "cat": "sembako",
+  "halal": "cert",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "maraschino cherry",
+   "candied red cherry",
+   "manisan ceri",
+   "ceri merah",
+   "cherry merah",
+   "ceri koktail"
+  ],
+  "em": "🍒"
+ },
+ {
+  "id": "daun_asam_muda",
+  "name": "Daun asam muda",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "young tamarind leaves",
+   "sinom",
+   "daun asem enom",
+   "pucuk asam",
+   "daun asam jawa muda",
+   "tamarind leaves"
+  ],
+  "em": "🌿"
+ },
+ {
+  "id": "daun_geganti",
+  "name": "Daun geganti",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "geganti",
+   "geganti leaf",
+   "daun geganti segar"
+  ],
+  "em": "🌿"
+ },
+ {
+  "id": "daun_kesum",
+  "name": "Daun kesum",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "vietnamese coriander",
+   "daun laksa",
+   "daun kesom",
+   "kesum",
+   "laksa leaf",
+   "rau ram"
+  ],
+  "em": "🌿"
+ },
+ {
+  "id": "daun_kosambi",
+  "name": "Daun kosambi",
+  "cat": "lain",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kosambi leaves",
+   "daun kesambi",
+   "daun kusambi",
+   "kesambi",
+   "kusambi"
+  ],
+  "em": "🍂"
+ },
+ {
+  "id": "daun_labu",
+  "name": "Daun labu",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "ikat",
+  "staple": 0,
+  "aliases": [
+   "pumpkin leaves",
+   "pumpkin flowers",
+   "daun dan bunga labu",
+   "pucuk labu",
+   "daun labu kuning",
+   "bunga labu",
+   "pumpkin leaf"
+  ],
+  "em": "🥬"
+ },
+ {
+  "id": "daun_mangkokan",
+  "name": "Daun mangkokan",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "mangkokan leaf",
+   "daun mangkok",
+   "mangkokan",
+   "polyscias"
+  ],
+  "em": "🍃"
+ },
+ {
+  "id": "ikan_barakuda",
+  "name": "Ikan barakuda",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "barracuda",
+   "ikan alu-alu",
+   "ikan senuk",
+   "ikan alu alu",
+   "barakuda"
+  ],
+  "em": "🐟"
+ },
+ {
+  "id": "ikan_baung",
+  "name": "Ikan baung",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "ekor",
+  "staple": 0,
+  "aliases": [
+   "baung",
+   "ikan sungai",
+   "asian redtail catfish",
+   "ikan baung segar",
+   "keben",
+   "rengkik"
+  ],
+  "em": "🐟"
+ },
+ {
+  "id": "ikan_tuna_segar",
+  "name": "Ikan tuna segar",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "fresh tuna",
+   "tuna segar",
+   "ikan tuna",
+   "yellowfin tuna",
+   "tuna sirip kuning"
+  ],
+  "em": "🐟"
+ },
+ {
+  "id": "jagung_putih_tumbuk",
+  "name": "Jagung putih tumbuk",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "white hominy corn",
+   "jagung bose",
+   "jagung putih kupas",
+   "jagung pipil putih",
+   "white corn"
+  ],
+  "em": "🌽"
+ },
+ {
+  "id": "jagung_putren",
+  "name": "Jagung putren",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "baby corn",
+   "jagung muda",
+   "putren",
+   "jagung semi",
+   "jagung acar"
+  ],
+  "em": "🌽"
+ },
+ {
+  "id": "janur",
+  "name": "Janur",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "lembar",
+  "staple": 0,
+  "aliases": [
+   "young coconut leaf",
+   "daun kelapa muda",
+   "janur kuning",
+   "janur kelapa"
+  ],
+  "em": "🌴"
+ },
+ {
+  "id": "jeroan_kambing",
+  "name": "Jeroan kambing",
+  "cat": "daging",
+  "halal": "cert",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "goat offal",
+   "babat kambing",
+   "usus kambing",
+   "paru kambing"
+  ],
+  "em": "🍖"
+ },
+ {
+  "id": "jeruk_purut",
+  "name": "Jeruk purut",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "makrut lime",
+   "kaffir lime",
+   "jeruk limo purut",
+   "limau purut"
+  ],
+  "em": "🍋"
+ },
+ {
+  "id": "kacang_beras",
+  "name": "Kacang beras",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "rice bean",
+   "kacang nasi",
+   "kacang uci"
+  ],
+  "em": "🫘"
+ },
+ {
+  "id": "kacang_kenari",
+  "name": "Kacang kenari",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "canarium nut",
+   "kenari maluku",
+   "java almond",
+   "pili nut",
+   "kenari banda",
+   "canarium"
+  ],
+  "em": "🌰"
+ },
+ {
+  "id": "kakao_nibs",
+  "name": "Kakao nibs",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "cacao nibs",
+   "biji kakao",
+   "cocoa nibs",
+   "nibs kakao",
+   "cacao nib"
+  ],
+  "em": "🍫"
+ },
+ {
+  "id": "kedaung",
+  "name": "Kedaung",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "kedaung seed",
+   "parkia timoriana",
+   "biji kedaung",
+   "kedawung",
+   "kedaung sangrai"
+  ],
+  "em": "🟤"
+ },
+ {
+  "id": "kerupuk_ikan_mentah",
+  "name": "Kerupuk ikan mentah",
+  "cat": "sembako",
+  "halal": "cert",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "raw fish crackers",
+   "kerupuk ikan belum digoreng",
+   "kerupuk ikan",
+   "fish cracker"
+  ],
+  "em": "🍘"
+ },
+ {
+  "id": "kulit_melinjo",
+  "name": "Kulit melinjo",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "melinjo skin",
+   "kulit tangkil",
+   "kulit so"
+  ],
+  "em": "🟠"
+ },
+ {
+  "id": "kupang",
+  "name": "Kupang",
+  "cat": "daging",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "kupang beras",
+   "kupang clam",
+   "kerang kupang",
+   "kupang putih",
+   "kupang merah"
+  ],
+  "em": "🦪"
+ },
+ {
+  "id": "lento_singkong",
+  "name": "Lento singkong",
+  "cat": "lain",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "cassava fritter",
+   "lento",
+   "lento kacang"
+  ],
+  "em": "🧆"
+ },
+ {
+  "id": "leunca",
+  "name": "Leunca",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "black nightshade berries",
+   "ranti",
+   "lumai",
+   "solanum nigrum"
+  ],
+  "em": "🫐"
+ },
+ {
+  "id": "lidah_buaya",
+  "name": "Lidah buaya",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "batang",
+  "staple": 0,
+  "aliases": [
+   "aloe vera",
+   "aloe",
+   "gel lidah buaya"
+  ],
+  "em": "🌵"
+ },
+ {
+  "id": "lobak_asin_manis",
+  "name": "Lobak asin manis",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "sweet preserved radish",
+   "chai poh",
+   "calpo manis",
+   "caipo",
+   "lobak asin",
+   "chai po"
+  ],
+  "em": "🥢"
+ },
+ {
+  "id": "micin",
+  "name": "Micin (MSG)",
+  "cat": "bumbu",
+  "halal": "cert",
+  "unit": "sdt",
+  "staple": 0,
+  "aliases": [
+   "MSG",
+   "monosodium glutamat",
+   "vetsin",
+   "micin",
+   "penyedap rasa",
+   "ajinomoto"
+  ],
+  "em": "🧂"
+ },
+ {
+  "id": "mie_glosor",
+  "name": "Mie glosor",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "mi glosor",
+   "mi golosor",
+   "mie golosor",
+   "mi glosor bogor",
+   "mi tapioka basah"
+  ],
+  "em": "🍜"
+ },
+ {
+  "id": "rum",
+  "name": "Rum",
+  "cat": "lain",
+  "halal": "haram",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "rhum",
+   "rum hitam",
+   "dark rum"
+  ],
+  "em": "🥃"
+ },
+ {
+  "id": "sambal",
+  "name": "Sambal",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "chili sambal",
+   "sambal pelengkap",
+   "sambal ulek"
+  ],
+  "em": "🌶️"
+ },
+ {
+  "id": "sambal_rawit",
+  "name": "Sambal rawit",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "bird's eye chili sambal",
+   "sambal cabai rawit"
+  ],
+  "em": "🌶️"
+ },
+ {
+  "id": "sambal_soto",
+  "name": "Sambal soto",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "soto chili sauce",
+   "sambal rebus"
+  ],
+  "em": "🌶️"
+ },
+ {
+  "id": "tai_angin",
+  "name": "Tai angin",
+  "cat": "bumbu",
+  "halal": "halal",
+  "unit": "sdm",
+  "staple": 0,
+  "aliases": [
+   "usnea",
+   "usnea lichen",
+   "lumut janggut",
+   "kayu angin"
+  ],
+  "em": "🌾"
+ },
+ {
+  "id": "takokak",
+  "name": "Takokak",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "pea eggplant",
+   "rimbang",
+   "terong pipit",
+   "cepoka",
+   "tekokak",
+   "cimongkak"
+  ],
+  "em": "🟢"
+ },
+ {
+  "id": "tepung_tang_mien",
+  "name": "Tepung tang mien",
+  "cat": "sembako",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "wheat starch",
+   "tepung tangmien",
+   "tang mien",
+   "tepung tang mein",
+   "pati gandum"
+  ],
+  "em": "🌾"
+ },
+ {
+  "id": "terubuk",
+  "name": "Terubuk",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "sugarcane flower",
+   "tebu telur",
+   "trubuk",
+   "tebu endog",
+   "bunga tebu"
+  ],
+  "em": "🌾"
+ },
+ {
+  "id": "timun_suri",
+  "name": "Timun suri",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "buah",
+  "staple": 0,
+  "aliases": [
+   "snake melon",
+   "mentimun suri",
+   "ketimun suri"
+  ],
+  "em": "🥒"
+ },
+ {
+  "id": "umbut_rotan",
+  "name": "Umbut rotan",
+  "cat": "sayur",
+  "halal": "halal",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "young rattan shoot",
+   "singkah uwei",
+   "rotan muda",
+   "umbut rotan muda"
+  ],
+  "em": "🎋"
+ },
+ {
+  "id": "usus_sapi",
+  "name": "Usus sapi",
+  "cat": "daging",
+  "halal": "cert",
+  "unit": "gram",
+  "staple": 0,
+  "aliases": [
+   "beef intestine",
+   "usus sapi bersih"
+  ],
+  "em": "🍖"
  }
 ]

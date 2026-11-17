@@ -133,5 +133,70 @@
   "id": "filipina",
   "name": "Filipina",
   "desc": "Asam, asin, manis berimbang: cuka, kecap asin, kalamansi, santan."
+ },
+ {
+  "id": "jambi_riau",
+  "name": "Melayu Riau & Jambi",
+  "desc": "Masakan Melayu pesisir: ikan sungai, tempoyak, gulai kuning."
+ },
+ {
+  "id": "bengkulu",
+  "name": "Bengkulu",
+  "desc": "Pesisir barat Sumatra: ikan laut, rebung, bumbu asam pedas."
+ },
+ {
+  "id": "kalimantan_barat",
+  "name": "Kalimantan Barat",
+  "desc": "Pontianak: perpaduan Melayu, Dayak dan Tionghoa."
+ },
+ {
+  "id": "dayak",
+  "name": "Dayak & Kalimantan Tengah",
+  "desc": "Ikan sungai, rebung, daun singkong, bumbu sederhana."
+ },
+ {
+  "id": "kutai",
+  "name": "Kutai & Kalimantan Timur",
+  "desc": "Masakan Melayu Kutai dan pesisir Kalimantan Timur."
+ },
+ {
+  "id": "gorontalo",
+  "name": "Gorontalo",
+  "desc": "Jagung, ikan, kelapa, rasa gurih pedas."
+ },
+ {
+  "id": "toraja",
+  "name": "Toraja",
+  "desc": "Masakan pegunungan Sulawesi Selatan, banyak dimasak dalam bambu."
+ },
+ {
+  "id": "sulawesi_tenggara",
+  "name": "Sulawesi Tengah & Tenggara",
+  "desc": "Palu dan Kendari: sagu, ikan, kuah bening asam."
+ },
+ {
+  "id": "ntt",
+  "name": "Nusa Tenggara Timur",
+  "desc": "Jagung, se'i, ikan, bumbu sederhana khas Timor dan Flores."
+ },
+ {
+  "id": "sumbawa",
+  "name": "Sumbawa & Bima",
+  "desc": "Masakan Nusa Tenggara Barat bagian timur."
+ },
+ {
+  "id": "maluku_utara",
+  "name": "Maluku Utara",
+  "desc": "Ternate dan Tidore: ikan, sagu, kenari, rempah."
+ },
+ {
+  "id": "cirebon",
+  "name": "Cirebon",
+  "desc": "Pertemuan rasa Jawa dan Sunda di pesisir utara."
+ },
+ {
+  "id": "banten",
+  "name": "Banten",
+  "desc": "Masakan Banten: rabeg, sambal, ikan pesisir."
  }
 ]
