@@ -43,9 +43,9 @@ describe("mergeNeeds", () => {
   it("keeps an unconvertible unit as its own row", () => {
     const rows = mergeNeeds("santan", [
       { qty: 200, unit: "ml", recipe: "A" },
-      { qty: 1, unit: "bungkus", recipe: "B" },
+      { qty: 1, unit: "kotak", recipe: "B" },
     ]);
-    expect(rows.map((r) => r.unit).sort()).toEqual(["bungkus", "ml"]);
+    expect(rows.map((r) => r.unit).sort()).toEqual(["kotak", "ml"]);
   });
 });
 

@@ -1,4 +1,4 @@
-import { BERAT, ING } from "../data";
+import { BERAT, BERAT_UNIT, ING } from "../data";
 import type { IngLine, Unit } from "../types";
 
 export const COUNTABLE: Unit[] = [
@@ -40,6 +40,8 @@ export function isCountable(unit: Unit): boolean {
  */
 export function gramsFor(id: string, qty: number, u: Unit): number {
   if (u === "gram" || u === "ml") return qty;
+  const perUnit = BERAT_UNIT[`${id}:${u}`];
+  if (perUnit != null) return qty * perUnit;
   // A spoon override on something the ontology counts another way (a sdm of
   // chopped herbs, a sdt of lemon juice): weigh the spoon, not the bunch.
   const own = ING[id]?.unit;

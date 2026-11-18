@@ -32,6 +32,7 @@ export const REG: Record<string, Region> = Object.fromEntries(REGIONS.map((r) =>
 const tables = tablesRaw as unknown as {
   TAKAR: Record<string, [number, string]>;
   BERAT: Record<string, number>;
+  BERAT_UNIT: Record<string, number>;
   PROT100: Record<string, number>;
   CARB100: Record<string, number>;
   FIBER100: Record<string, number>;
@@ -46,6 +47,11 @@ const tables = tablesRaw as unknown as {
 
 export const TAKAR = tables.TAKAR;
 export const BERAT = tables.BERAT;
+/**
+ * Grams per unit where one ingredient is counted in more than one way
+ * ("kol:lembar" a leaf, "kol:buah" a whole cabbage). Checked before BERAT.
+ */
+export const BERAT_UNIT = tables.BERAT_UNIT;
 export const PROT100 = tables.PROT100;
 export const CARB100 = tables.CARB100;
 export const FIBER100 = tables.FIBER100;

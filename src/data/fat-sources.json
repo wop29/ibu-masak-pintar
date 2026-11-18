@@ -1912,7 +1912,7 @@
   "yakin": false
  },
  "daun_geganti": {
-  "src": "tidak dihitung: daun aromatik, 1 lembar, tidak ada data komposisi; berat per lembar mengikuti daun jeruk Racik (1 g)",
+  "src": "Daun bumbu, jumlah sangat kecil",
   "yakin": false
  },
  "daun_kesum": {
@@ -1920,8 +1920,8 @@
   "yakin": false
  },
  "daun_kosambi": {
-  "src": "tidak dihitung: dipakai untuk mengasap daging, tidak dimakan",
-  "yakin": false
+  "src": "Daun untuk mengasapi daging, tidak dimakan",
+  "yakin": true
  },
  "daun_labu": {
   "src": "Proxy: USDA FDC SR Legacy: Sweet potato leaves, raw (nilai Racik daun_ubi_jalar); entri USDA Pumpkin leaves tidak bisa diambil (API dibatasi). Berat 1 ikat mengikuti bayam Racik (200 g)",
@@ -1976,7 +1976,7 @@
   "yakin": false
  },
  "kedaung": {
-  "src": "tidak dihitung: tidak ada data komposisi biji kedaung; dipakai sedikit (1/2 sdm). Berat sdm perkiraan 15 ml x ~0,55 g/ml",
+  "src": "Perkiraan biji kedaung sangrai",
   "yakin": false
  },
  "kerupuk_ikan_mentah": {
@@ -1984,7 +1984,7 @@
   "yakin": false
  },
  "kulit_melinjo": {
-  "src": "tidak dihitung: tidak ada proksi yang layak; TKPI 2017 DR0119 'Kulit melinjo' ada tapi tidak bisa dibaca",
+  "src": "Perkiraan kulit melinjo",
   "yakin": false
  },
  "kupang": {
@@ -2004,7 +2004,7 @@
   "yakin": false
  },
  "lobak_asin_manis": {
-  "src": "tidak dihitung: lobak awetan bergaram dan bergula, kadar air/gula sangat bervariasi; entri USDA Radishes, oriental, dried tidak bisa diambil (API dibatasi)",
+  "src": "Perkiraan lobak asin manis (chai poh)",
   "yakin": false
  },
  "micin": {
@@ -2032,7 +2032,7 @@
   "yakin": false
  },
  "tai_angin": {
-  "src": "tidak dihitung: lumut kerak (usnea) sebagai rempah, dipakai sedikit, tidak ada data komposisi. Berat sdm perkiraan (sangat ringan)",
+  "src": "Lumut kerak bumbu, jumlah sangat kecil",
   "yakin": false
  },
  "takokak": {
@@ -2057,6 +2057,26 @@
  },
  "usus_sapi": {
   "src": "Proxy: USDA FDC SR Legacy: Beef, variety meats and by-products, tripe, raw (via infobox Wikipedia 'Tripe'); usus biasanya lebih berlemak. TKPI FP0240 'Daleman (babat-usus), sapi' tidak terbaca",
+  "yakin": false
+ },
+ "mentega_putih": {
+  "src": "USDA FDC SR Legacy: Shortening, household, soybean (partially hydrogenated)-cottonseed",
+  "yakin": true
+ },
+ "agar_agar": {
+  "src": "USDA FDC SR Legacy: Seaweed, agar, dried",
+  "yakin": true
+ },
+ "cabai_kering": {
+  "src": "USDA FDC SR Legacy: Peppers, ancho, dried",
+  "yakin": true
+ },
+ "tempoyak": {
+  "src": "USDA FDC SR Legacy: Durian, raw or frozen (perkiraan tempoyak)",
+  "yakin": false
+ },
+ "pliek_u": {
+  "src": "Perkiraan pliek u (ampas kelapa fermentasi kering)",
   "yakin": false
  }
 }

@@ -440,6 +440,18 @@ FAT = {
     "pasta_pandan": (0.0, "Perkiraan label pasta pandan (gula, air, perisa)", N),
     "meses": (20.0, "Perkiraan label meses cokelat", N),
     "daun_suji": (0.0, "Daun tidak dimakan (hanya airnya untuk warna)", Y),
+    # --- added 18 Nov 2026 for the 234 SEA Indonesian recipes ---
+    "mentega_putih": (100.0, 'USDA FDC SR Legacy: Shortening, household, soybean (partially hydrogenated)-cottonseed', Y),
+    "lobak_asin_manis": (0.5, 'Perkiraan lobak asin manis (chai poh)', N),
+    "agar_agar": (0.3, 'USDA FDC SR Legacy: Seaweed, agar, dried', Y),
+    "cabai_kering": (8.2, 'USDA FDC SR Legacy: Peppers, ancho, dried', Y),
+    "daun_geganti": (0.0, 'Daun bumbu, jumlah sangat kecil', N),
+    "tempoyak": (5.3, 'USDA FDC SR Legacy: Durian, raw or frozen (perkiraan tempoyak)', N),
+    "daun_kosambi": (0.0, 'Daun untuk mengasapi daging, tidak dimakan', Y),
+    "kulit_melinjo": (0.3, 'Perkiraan kulit melinjo', N),
+    "pliek_u": (50, 'Perkiraan pliek u (ampas kelapa fermentasi kering)', N),
+    "kedaung": (5.0, 'Perkiraan biji kedaung sangrai', N),
+    "tai_angin": (0.0, 'Lumut kerak bumbu, jumlah sangat kecil', N),
 }
 
 # Canned/cooked legumes (CANNED100) use their cooked fat.

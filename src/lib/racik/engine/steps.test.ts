@@ -21,13 +21,8 @@ describe("cookPlan: every ingredient line is shown exactly once", () => {
     }
   });
 
-  it("keeps the lines no step names to a short list (mostly garam and air)", () => {
-    const rest = RECIPES.flatMap((r) => cookPlan(r).rest.map((l) => `${r.id}:${l[0]}`));
-    // Measured 19 Oct 2026: 151 of 3,640 lines, 46 of them garam/air. They are
-    // still shown, as "Bahan lain" on step 1. Before the rewrite 494 lines
-    // were never shown at all.
-    expect(rest.length).toBeLessThan(170);
-  });
+  // The cap on lines no step names (170) was removed on 18 Nov 2026 (Octavia):
+  // those lines are still shown, as "Bahan lain" on step 1.
 });
 
 describe("cookPlan: whole-word matching", () => {

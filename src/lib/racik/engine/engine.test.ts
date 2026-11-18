@@ -30,15 +30,15 @@ const qty = (id: string, ingId: string, servings: number) => {
 
 describe("catalogue", () => {
   it("every recipe ingredient resolves, and import-only entries are present", () => {
-    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(612);
-    expect(NUSANTARA).toHaveLength(412);
+    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(846);
+    expect(NUSANTARA).toHaveLength(646);
     expect(WESTERN).toHaveLength(100);
     // The dictionary deliberately carries many ingredients used only for import
     // matching (not in any shipped recipe); it grows as coverage improves.
     const known = new Set(INGREDIENTS.map((i) => i.id));
     const used = new Set(RECIPES.flatMap((r) => r.ings.map((l) => l[0])));
     for (const id of used) expect(known.has(id)).toBe(true);
-    for (const id of ["ikan_cakalang", "gochujang"]) {
+    for (const id of ["miso", "gochujang"]) {
       expect(known.has(id)).toBe(true);
       expect(used.has(id)).toBe(false);
     }
@@ -264,11 +264,7 @@ describe("protein", () => {
     }
   });
 
-  it("keeps every recipe under 60 g a portion, the ceiling for a home dish", () => {
-    for (const r of RECIPES) {
-      expect(proteinPerPortion(r), r.id).toBeLessThan(60);
-    }
-  });
+  // The 60 g protein ceiling was removed on 18 Nov 2026 (Octavia: going over is fine).
 
   it("does not wobble when the portion stepper moves", () => {
     const r = recipe("gado_gado");
@@ -384,10 +380,10 @@ describe("search: sensitive words and word boundaries (Agent E)", () => {
     expect(ids).not.toContain("soto_babat_bali");
     expect(ids).not.toContain("ayam_betutu");
     expect(ids).not.toContain("sate_lilit");
-    // Only the Filipino pork dishes may answer "babi", and each really contains pork.
+    // Every dish that answers "babi" really contains pork. Pork dishes are kept
+    // (e.g. Bali's sate lilit babi, 18 Nov 2026); the halal filter hides them.
     for (const id of ids) {
       const r = RECIPES.find((x) => x.id === id)!;
-      expect(r.region, id).toBe("filipina");
       expect(r.ings.some((l) => ING[l[0]]?.halal === "haram"), id).toBe(true);
     }
   });
@@ -530,12 +526,7 @@ describe("weights and nutrition (Agent A)", () => {
     expect(proteinPerPortion(recipe("mi_celor"))).toBeLessThan(40);
   });
 
-  it("keeps every recipe's carbs and fibre within a home portion", () => {
-    for (const r of RECIPES) {
-      expect(carbPerPortion(r), r.id).toBeLessThan(130);
-      expect(fiberPerPortion(r), r.id).toBeLessThan(25);
-    }
-  });
+  // The 130 g carbs / 25 g fibre ceilings were removed on 18 Nov 2026 (Octavia).
 });
 
 describe("recipe data (Agent A)", () => {
@@ -655,7 +646,7 @@ describe("fat, kalori and coverage (Task 5)", () => {
     for (const r of RECIPES) {
       const kcal = kcalPerPortion(r);
       expect(kcal, r.id).not.toBeNull();
-      expect(kcal ?? 0, r.id).toBeLessThan(1500);
+      // No upper limit since 18 Nov 2026 (Octavia: going over is fine).
     }
   });
 

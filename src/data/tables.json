@@ -845,7 +845,15 @@
   "terubuk": 2.6,
   "timun_suri": 0.65,
   "umbut_rotan": 2.52,
-  "usus_sapi": 12.07
+  "usus_sapi": 12.07,
+  "mentega_putih": 0,
+  "lobak_asin_manis": 1.5,
+  "agar_agar": 6.2,
+  "cabai_kering": 11.9,
+  "tempoyak": 1.5,
+  "kulit_melinjo": 2.5,
+  "pliek_u": 7,
+  "kedaung": 20
  },
  "SUBS": {
   "kemiri": "Kacang mete atau almond, jumlah sama. Sangrai dulu supaya wangi.",
@@ -1509,7 +1517,15 @@
   "terubuk": 5,
   "timun_suri": 3.63,
   "umbut_rotan": 4.62,
-  "usus_sapi": 0
+  "usus_sapi": 0,
+  "mentega_putih": 0,
+  "lobak_asin_manis": 30,
+  "agar_agar": 80.9,
+  "cabai_kering": 51.4,
+  "tempoyak": 27.1,
+  "kulit_melinjo": 15,
+  "pliek_u": 20,
+  "kedaung": 40
  },
  "FIBER100": {
   "bayam": 2.2,
@@ -1569,7 +1585,7 @@
   "kolang_kaling": 1.6,
   "cincau": 6,
   "selasih": 25,
-  "agar_agar": 80,
+  "agar_agar": 7.7,
   "bawang_putih": 2.1,
   "bawang_merah": 1.7,
   "bawang_bombay": 1.7,
@@ -1790,7 +1806,12 @@
   "terubuk": 2.2,
   "timun_suri": 0.5,
   "umbut_rotan": 2.4,
-  "usus_sapi": 0
+  "usus_sapi": 0,
+  "lobak_asin_manis": 2,
+  "cabai_kering": 21.6,
+  "tempoyak": 3.8,
+  "kulit_melinjo": 4,
+  "pliek_u": 15
  },
  "EDIBLE": {
   "ayam": 0.7,
@@ -1816,7 +1837,13 @@
   "ikan_nila": 0.5,
   "ikan_tongkol": 0.6,
   "belut": 0.7,
-  "kaki_babi": 0.6
+  "kaki_babi": 0.6,
+  "melon": 0.6,
+  "semangka": 0.55,
+  "ikan_gabus": 0.55,
+  "ikan_kakap": 0.5,
+  "labu_kuning": 0.75,
+  "pepaya": 0.65
  },
  "CANNED100": {
   "kacang_arab": {
@@ -2365,6 +2392,51 @@
   "terubuk": 0.3,
   "timun_suri": 0.11,
   "umbut_rotan": 0.62,
-  "usus_sapi": 3.69
+  "usus_sapi": 3.69,
+  "mentega_putih": 100.0,
+  "lobak_asin_manis": 0.5,
+  "agar_agar": 0.3,
+  "cabai_kering": 8.2,
+  "daun_geganti": 0.0,
+  "tempoyak": 5.3,
+  "daun_kosambi": 0.0,
+  "kulit_melinjo": 0.3,
+  "pliek_u": 50,
+  "kedaung": 5.0,
+  "tai_angin": 0.0
+ },
+ "BERAT_UNIT": {
+  "santan:bungkus": 65,
+  "kelapa_parut:butir": 300,
+  "kelapa_parut:buah": 300,
+  "tepung_hunkwe:bungkus": 70,
+  "melon:buah": 1500,
+  "semangka:buah": 4000,
+  "kol:lembar": 25,
+  "kol:buah": 1000,
+  "ikan_gabus:ekor": 500,
+  "oncom:papan": 200,
+  "ikan_kakap:ekor": 600,
+  "ubi_jalar:buah": 200,
+  "udang:ekor": 12,
+  "labu_kuning:buah": 1500,
+  "daun_talas:lembar": 30,
+  "kecipir:buah": 15,
+  "kapri:kaleng": 240,
+  "susu_evaporasi:kaleng": 380,
+  "jamur_kuping:buah": 10,
+  "pepaya:buah": 1000,
+  "susu_kental_manis:kaleng": 370,
+  "susu_kental_manis:sachet": 40,
+  "kemangi:batang": 3,
+  "kemangi:lembar": 0.3,
+  "kacang_panjang:batang": 15,
+  "ikan_baung:potong": 100,
+  "gula_merah:potong": 50,
+  "ragi_instan:sachet": 11,
+  "ayam:ekor": 1000,
+  "ayam:buah": 250,
+  "kaldu_bubuk:sachet": 9,
+  "nanas_muda:buah": 600
  }
 }

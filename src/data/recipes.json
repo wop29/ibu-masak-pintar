@@ -13751,7 +13751,7 @@
     "lembar besar",
     null,
     null,
-    null
+    "lembar"
    ],
    [
     "kentang",
@@ -60527,7 +60527,7 @@
    "makan_siang",
    "makan_malam"
   ],
-  "serv": 4,
+  "serv": 6,
   "time": 90,
   "diff": "sedang",
   "spice": 2,
@@ -79872,7 +79872,7 @@
    "camilan",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 10,
   "time": 90,
   "diff": "gampang",
   "spice": 0,
@@ -88277,7 +88277,7 @@
    "kue",
    "sarapan"
   ],
-  "serv": 4,
+  "serv": 10,
   "time": 90,
   "diff": "sedang",
   "spice": 0,
@@ -89852,7 +89852,7 @@
    "jajan",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 10,
   "time": 75,
   "diff": "sedang",
   "spice": 0,
@@ -89946,7 +89946,7 @@
    "camilan",
    "sarapan"
   ],
-  "serv": 4,
+  "serv": 10,
   "time": 240,
   "diff": "agak ribet",
   "spice": 3,
@@ -90290,7 +90290,7 @@
    "sarapan",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 10,
   "time": 150,
   "diff": "sedang",
   "spice": 0,
@@ -90359,7 +90359,7 @@
     "dibagi: 50 gram; secukupnya (untuk olesan loyang dan roti)",
     null,
     null,
-    null
+    "gram"
    ],
    [
     "kayu_manis_bubuk",
@@ -90460,7 +90460,7 @@
     "kupas, iris",
     null,
     null,
-    null
+    "buah"
    ],
    [
     "timun",
@@ -90670,7 +90670,7 @@
    "jajan",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 7,
   "time": 60,
   "diff": "gampang",
   "spice": 0,
@@ -91800,7 +91800,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 15,
   "time": 75,
   "diff": "sedang",
   "spice": 0,
@@ -92220,7 +92220,7 @@
   "slots": [
    "kue"
   ],
-  "serv": 4,
+  "serv": 12,
   "time": 80,
   "diff": "gampang",
   "spice": 0,
@@ -92550,7 +92550,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 20,
   "time": 840,
   "diff": "agak ribet",
   "spice": 0,
@@ -92721,7 +92721,7 @@
    "jajan",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 40,
   "diff": "gampang",
   "spice": 0,
@@ -92849,7 +92849,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 12,
   "time": 210,
   "diff": "sedang",
   "spice": 0,
@@ -92939,7 +92939,7 @@
    "sarapan",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 60,
   "diff": "gampang",
   "spice": 0,
@@ -93040,7 +93040,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 20,
   "time": 120,
   "diff": "sedang",
   "spice": 0,
@@ -93256,7 +93256,7 @@
   "slots": [
    "kue"
   ],
-  "serv": 4,
+  "serv": 12,
   "time": 180,
   "diff": "sedang",
   "spice": 0,
@@ -93369,7 +93369,7 @@
   "slots": [
    "kue"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 75,
   "diff": "sedang",
   "spice": 0,
@@ -93414,7 +93414,7 @@
     "lelehkan",
     null,
     null,
-    null
+    "gram"
    ],
    [
     "vanila_cair",
@@ -93808,7 +93808,7 @@
    "kue",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 16,
   "time": 500,
   "diff": "agak ribet",
   "spice": 0,
@@ -94012,7 +94012,7 @@
    "kue",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 16,
   "time": 180,
   "diff": "agak ribet",
   "spice": 0,
@@ -94350,7 +94350,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 12,
   "time": 75,
   "diff": "sedang",
   "spice": 0,
@@ -94615,7 +94615,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 60,
   "diff": "sedang",
   "spice": 0,
@@ -94958,7 +94958,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 16,
   "time": 75,
   "diff": "sedang",
   "spice": 0,
@@ -95076,7 +95076,7 @@
    "kue",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 16,
   "time": 90,
   "diff": "agak ribet",
   "spice": 0,
@@ -95225,7 +95225,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 16,
   "time": 75,
   "diff": "sedang",
   "spice": 0,
@@ -95758,7 +95758,7 @@
    "kue",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 12,
   "time": 80,
   "diff": "sedang",
   "spice": 0,
@@ -97631,7 +97631,7 @@
   "slots": [
    "minuman"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 90,
   "diff": "gampang",
   "spice": 0,
@@ -97827,7 +97827,7 @@
    "minuman",
    "jajan"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 60,
   "diff": "sedang",
   "spice": 0,
@@ -98099,7 +98099,7 @@
    "minuman",
    "camilan"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 90,
   "diff": "sedang",
   "spice": 0,
@@ -101833,7 +101833,7 @@
     null,
     null,
     null,
-    null
+    "buah"
    ],
    [
     "cabai_merah",
@@ -104959,7 +104959,7 @@
  },
  {
   "id": "mi_caluk",
-  "title": "Mi Caluk",
+  "title": "Mie Caluk",
   "region": "aceh",
   "slots": [
    "sarapan",
@@ -105145,7 +105145,7 @@
    "makan_siang",
    "makan_malam"
   ],
-  "serv": 1,
+  "serv": 2,
   "time": 30,
   "diff": "sedang",
   "spice": 0,
@@ -106173,7 +106173,7 @@
    "sarapan",
    "makan_siang"
   ],
-  "serv": 2,
+  "serv": 3,
   "time": 40,
   "diff": "gampang",
   "spice": 2,
@@ -109674,11 +109674,11 @@
   "ings": [
    [
     "ikan_cakalang",
+    300,
+    "segar (atau tuna/salmon), fillet, potong dadu kecil; sumber: 100-500 gram",
     null,
-    "segar (atau tuna/salmon), fillet, potong dadu kecil",
-    "100-500 gram",
     null,
-    null
+    "gram"
    ],
    [
     "air",
@@ -114721,7 +114721,7 @@
    "sarapan",
    "makan_siang"
   ],
-  "serv": 4,
+  "serv": 6,
   "time": 120,
   "diff": "sedang",
   "spice": 3,
@@ -115358,11 +115358,11 @@
    ],
    [
     "asam_jawa",
-    1500,
-    "air asam",
     null,
+    "larutkan dengan air untuk air asam",
+    "secukupnya",
     null,
-    "ml"
+    null
    ],
    [
     "garam",
@@ -115430,11 +115430,11 @@
    ],
    [
     "air",
+    1500,
+    "dibagi: 1,5 liter untuk air asam jawa; secukupnya untuk merebus daging",
     null,
-    "untuk merebus daging",
-    "secukupnya",
     1,
-    null
+    "ml"
    ]
   ],
   "steps": [
@@ -116517,13 +116517,13 @@
  },
  {
   "id": "sop_mutiara_banjarmasin",
-  "title": "Sop Mutiara Banjarmasin",
+  "title": "Sup Mutiara Banjarmasin",
   "region": "banjar",
   "slots": [
    "makan_siang",
    "makan_malam"
   ],
-  "serv": 4,
+  "serv": 8,
   "time": 90,
   "diff": "sedang",
   "spice": 0,
@@ -116722,7 +116722,7 @@
  },
  {
   "id": "sop_saudara",
-  "title": "Sop Saudara",
+  "title": "Sup Saudara",
   "region": "bugis",
   "slots": [
    "makan_siang",
@@ -116940,7 +116940,7 @@
  },
  {
   "id": "sop_senerek",
-  "title": "Sop Senerek",
+  "title": "Sup Senerek",
   "region": "jawa_tengah",
   "slots": [
    "makan_siang",
