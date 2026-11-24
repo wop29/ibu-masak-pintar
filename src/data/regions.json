@@ -198,5 +198,10 @@
   "id": "banten",
   "name": "Banten",
   "desc": "Masakan Banten: rabeg, sambal, ikan pesisir."
+ },
+ {
+  "id": "asia_timur",
+  "name": "Jepang & Korea",
+  "desc": "Masakan rumahan Jepang dan Korea yang populer di Indonesia."
  }
 ]

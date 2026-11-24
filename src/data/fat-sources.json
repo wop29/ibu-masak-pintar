@@ -2078,5 +2078,281 @@
  "pliek_u": {
   "src": "Perkiraan pliek u (ampas kelapa fermentasi kering)",
   "yakin": false
+ },
+ "pasta_kacang_merah": {
+  "src": "tidak dihitung: tidak ada data pasta kacang merah manis yang bisa diambil (pencarian FDC 'adzuki sweetened' dibatasi API); kacang merah kering bukan proksi yang layak karena gulanya",
+  "yakin": false
+ },
+ "gula_cokelat": {
+  "src": "USDA FDC SR Legacy: Sugars, brown (fdc 168833)",
+  "yakin": true
+ },
+ "mizuame": {
+  "src": "Proxy: USDA FDC SR Legacy: Syrups, malt (fdc 169660); berat 1 sdm = 21 g dari entri yang sama",
+  "yakin": false
+ },
+ "gula_zarame": {
+  "src": "Proxy: USDA FDC SR Legacy: Sugars, granulated (fdc 169655), gula kristal kasar sama-sama sukrosa; berat 1 sdm = 3 x 1 sdt 4,2 g",
+  "yakin": false
+ },
+ "pati_kentang": {
+  "src": "Proxy: USDA FDC SR Legacy: Cornstarch (fdc 169698, nilai batch sebelumnya), sama-sama pati murni",
+  "yakin": false
+ },
+ "roti_ciabatta": {
+  "src": "Proxy: USDA FDC SR Legacy: Bread, french or vienna (nilai Racik roti_baguette); berat 1 buah perkiraan mengikuti roti_baguette Racik (250 g). Catatan: resep Panini Ayam Pesto menyebut sekitar 448 g",
+  "yakin": false
+ },
+ "fillet_anchovy_kaleng": {
+  "src": "Proxy: USDA FDC SR Legacy: sardine canned in oil (nilai Racik sarden). Tanpa BERAT: 1 fillet sekitar 4 g (perkiraan), di bawah batas validator untuk satuan potong (10-200 g)",
+  "yakin": false
+ },
+ "furikake": {
+  "src": "Proxy: USDA FDC SR Legacy: Seeds, sesame seeds, whole, dried (nilai Racik wijen), furikake sebagian besar wijen dan nori. Berat sdm perkiraan 15 ml x ~0,45 g/ml",
+  "yakin": false
+ },
+ "buttermilk": {
+  "src": "USDA FDC SR Legacy: Milk, buttermilk, fluid, cultured, lowfat (fdc 170874)",
+  "yakin": true
+ },
+ "tteok": {
+  "src": "tidak dihitung: tidak ada data kue beras Korea yang bisa diambil (FDC dibatasi API); nasi atau beras mentah bukan proksi yang layak karena kadar airnya berbeda jauh",
+  "yakin": false
+ },
+ "biskuit_oreo": {
+  "src": "Proxy: biskuit marie (label, nilai Racik biskuit_marie); Oreo lebih berlemak karena krim. Berat per keping perkiraan 11 g (label Oreo sekitar 3 keping 34 g)",
+  "yakin": false
+ },
+ "keju_mascarpone": {
+  "src": "Proxy: USDA FDC SR Legacy: Cheese, cream (nilai Racik cream_cheese); mascarpone sedikit lebih berlemak",
+  "yakin": false
+ },
+ "biskuit_egg_drop": {
+  "src": "Proxy: biskuit marie (label, nilai Racik biskuit_marie). Tanpa BERAT: isi per bungkus tidak diketahui",
+  "yakin": false
+ },
+ "jelly_bubuk": {
+  "src": "Proxy: USDA FDC SR Legacy: Seaweed, agar, dried (nilai Racik agar_agar). Berat sdt perkiraan 5 ml x ~0,5 g/ml bubuk",
+  "yakin": false
+ },
+ "jeruk_bali": {
+  "src": "Proxy: USDA FDC SR Legacy: Oranges, raw (nilai Racik jeruk)",
+  "yakin": false
+ },
+ "marmer_cake": {
+  "src": "tidak dihitung: tidak ada data bolu marmer yang bisa diambil (FDC dibatasi API) dan berat per potong tidak pasti",
+  "yakin": false
+ },
+ "biskuit_speculaas": {
+  "src": "Proxy: biskuit marie (label, nilai Racik biskuit_marie). Berat per keping perkiraan 7 g (biskuit speculoos kemasan sekitar 6-8 g)",
+  "yakin": false
+ },
+ "buah_koktail_kalengan": {
+  "src": "Proxy: USDA FDC SR Legacy: Rambutan, canned, syrup pack (nilai Racik rambutan), sama-sama buah kaleng dalam sirup",
+  "yakin": false
+ },
+ "cendol": {
+  "src": "tidak dihitung: cendol siap pakai dari tepung beras/hunkwe, kadar air berbeda-beda; tidak ada data komposisi yang bisa diambil",
+  "yakin": false
+ },
+ "klepon": {
+  "src": "tidak dihitung: jajan olahan (ketan, gula merah, kelapa), resep berbeda-beda; berat per buah perkiraan 15 g",
+  "yakin": false
+ },
+ "keju_oles": {
+  "src": "Proxy: keju lembaran olahan (label, nilai Racik keju_slice); keju oles biasanya lebih rendah protein",
+  "yakin": false
+ },
+ "kacang_pinus": {
+  "src": "USDA FDC SR Legacy: Nuts, pine nuts, dried (fdc 170591)",
+  "yakin": true
+ },
+ "angkak": {
+  "src": "tidak dihitung: beras fermentasi untuk pewarna, dipakai sangat sedikit; tidak ada data komposisi. Berat sdt perkiraan 5 ml x ~0,8 g/ml butiran beras",
+  "yakin": false
+ },
+ "kulit_ayam": {
+  "src": "USDA FDC SR Legacy: Chicken, skin (drumsticks and thighs), raw (fdc 172855)",
+  "yakin": true
+ },
+ "kulit_tart_siap_pakai": {
+  "src": "Proxy: USDA FDC SR Legacy: Crackers, graham (nilai Racik graham_cracker); kulit tart pastry lebih berlemak. Berat 1 kulit tart mini perkiraan 10 g",
+  "yakin": false
+ },
+ "kaldu_sapi_cair": {
+  "src": "Proxy: USDA FDC SR Legacy: Soup, chicken broth, ready-to-serve (nilai Racik kaldu_ayam_cair)",
+  "yakin": false
+ },
+ "biskuit_digestive": {
+  "src": "Proxy: USDA FDC SR Legacy: Crackers, graham, plain or honey (nilai Racik graham_cracker); digestive sedikit lebih berlemak",
+  "yakin": false
+ },
+ "karamel_kaleng": {
+  "src": "USDA FDC SR Legacy: Dulce de Leche (fdc 173461)",
+  "yakin": true
+ },
+ "saus_karamel": {
+  "src": "Proxy: USDA FDC SR Legacy: Dulce de Leche (fdc 173461). Berat sdm perkiraan 15 ml x ~1,3 g/ml",
+  "yakin": false
+ },
+ "adonan_shortcrust_siap_pakai": {
+  "src": "tidak dihitung: tidak ada data adonan pastry yang bisa diambil (FDC dibatasi API); biskuit bukan proksi yang layak karena kadar air dan lemaknya berbeda",
+  "yakin": false
+ },
+ "cream_of_tartar": {
+  "src": "tidak dihitung: dipakai 1/4-1/2 sdt sebagai penstabil putih telur; nilai FDC tidak berhasil diambil. Berat sdt perkiraan 3 g",
+  "yakin": false
+ },
+ "jus_nanas": {
+  "src": "Proxy: USDA FDC SR Legacy: Pineapple, raw (fdc 169124); serat dikosongkan karena jus hampir tanpa serat",
+  "yakin": false
+ },
+ "krim_asam": {
+  "src": "USDA FDC SR Legacy: Cream, sour, cultured (fdc 171257)",
+  "yakin": true
+ },
+ "kacang_pecan": {
+  "src": "USDA FDC SR Legacy: Nuts, pecans (fdc 170182)",
+  "yakin": true
+ },
+ "selai_ceri": {
+  "src": "Proxy: USDA FDC SR Legacy: Jams and preserves, umum (nilai Racik selai_stroberi)",
+  "yakin": false
+ },
+ "lidah_sapi": {
+  "src": "USDA FDC SR Legacy: Beef, variety meats and by-products, tongue, raw (fdc 170196); berat 1 lidah utuh perkiraan 1 kg",
+  "yakin": true
+ },
+ "bumbu_spekuk": {
+  "src": "Proxy: USDA FDC SR Legacy: Spices, cinnamon, ground (nilai Racik kayu_manis_bubuk), kayu manis bahan utama bumbu spekuk. Berat sdm = 3 x sdt 2,6 g",
+  "yakin": false
+ },
+ "kacang_polong_kering": {
+  "src": "USDA FDC SR Legacy: Peas, green, split, mature seeds, raw (fdc 172428)",
+  "yakin": true
+ },
+ "pasta_perisa_cokelat": {
+  "src": "tidak dihitung: pasta perisa dipakai sedikit untuk warna dan aroma, komposisi tidak tersedia",
+  "yakin": false
+ },
+ "cokelat_filling": {
+  "src": "Proxy: selai cokelat hazelnut (label, nilai Racik selai_coklat_hazelnut)",
+  "yakin": false
+ },
+ "ekstrak_almond": {
+  "src": "Proxy: USDA FDC SR Legacy: Vanilla extract (nilai Racik vanila_cair); berat sdt mengikuti vanila_cair Racik",
+  "yakin": false
+ },
+ "selai_raspberry": {
+  "src": "Proxy: USDA FDC SR Legacy: Jams and preserves, umum (nilai Racik selai_stroberi)",
+  "yakin": false
+ },
+ "biskuit_cokelat": {
+  "src": "Proxy: biskuit marie (label, nilai Racik biskuit_marie)",
+  "yakin": false
+ },
+ "roti_brioche": {
+  "src": "Proxy: USDA FDC SR Legacy: Rolls, hamburger or hot dog, plain (nilai Racik roti_burger); brioche lebih kaya mentega. Berat 1 buah 400 g sesuai resep French Toast Brioche (400-450 g)",
+  "yakin": false
+ },
+ "roti_sourdough": {
+  "src": "USDA FDC SR Legacy: Bread, french or vienna (includes sourdough) (nilai Racik roti_baguette). Berat 1 lembar tebal 1,5 cm perkiraan 40 g",
+  "yakin": true
+ },
+ "patty_sosis_sapi": {
+  "src": "Proxy: sosis sapi/ayam (label, nilai Racik sosis); berat per patty perkiraan mengikuti sosis Racik (40 g)",
+  "yakin": false
+ },
+ "saus_pesto": {
+  "src": "tidak dihitung: tidak ada data saus pesto yang bisa diambil (FDC dibatasi API). Berat sdm perkiraan 15 ml x ~1 g/ml",
+  "yakin": false
+ },
+ "mentaiko": {
+  "src": "tidak dihitung: tidak ada data telur ikan yang bisa diambil; dipakai sangat sedikit. Berat sdt perkiraan 5 ml x ~1 g/ml",
+  "yakin": false
+ },
+ "abon_sapi": {
+  "src": "tidak dihitung: abon berbeda-beda kadar gula dan minyaknya; tidak ada data yang bisa diambil",
+  "yakin": false
+ },
+ "bumbu_balado_bubuk": {
+  "src": "Proxy: USDA FDC SR Legacy: Spices, chili powder (nilai Racik cabai_bubuk); bumbu balado bubuk juga berisi gula dan garam. Berat sdm = 3 x sdt 2,5 g",
+  "yakin": false
+ },
+ "saus_cokelat": {
+  "src": "tidak dihitung: tidak ada data saus cokelat yang bisa diambil (FDC dibatasi API). Berat sdm perkiraan 15 ml x ~1,3 g/ml",
+  "yakin": false
+ },
+ "saus_sweet_chili": {
+  "src": "Proxy: USDA FDC SR Legacy: Catsup (nilai Racik saus_tomat), sama-sama saus manis kental; berat sdm mengikuti saus_tomat Racik",
+  "yakin": false
+ },
+ "eomuk": {
+  "src": "Proxy: nugget ikan (label, nilai Racik nugget_ikan), sama-sama olahan ikan bertepung yang digoreng. Berat per lembar perkiraan 30 g",
+  "yakin": false
+ },
+ "daun_perilla": {
+  "src": "Proxy: USDA FDC SR Legacy: Basil, fresh (nilai Racik kemangi/daun_basil). Berat per lembar perkiraan 1,5 g",
+  "yakin": false
+ },
+ "lobak_acar_kuning": {
+  "src": "Proxy: USDA FDC SR Legacy: Radishes, oriental, raw (nilai Racik lobak); acar lobak ada tambahan gula dan garam. Berat 1 batang potongan kimbap perkiraan 15 g",
+  "yakin": false
+ },
+ "akar_burdock": {
+  "src": "tidak dihitung: ueong dimasak dengan kecap dan gula, tidak ada data yang bisa diambil. Berat 1 batang potongan kimbap perkiraan 10 g",
+  "yakin": false
+ },
+ "saus_tonkatsu": {
+  "src": "Proxy: USDA FDC SR Legacy: Catsup (nilai Racik saus_tomat), saus tonkatsu berbahan tomat dan buah; berat sdm mengikuti saus_tomat Racik",
+  "yakin": false
+ },
+ "aonori": {
+  "src": "tidak dihitung: dipakai sebagai taburan secukupnya, tidak ada data yang bisa diambil. Berat sdt perkiraan (serpihan sangat ringan)",
+  "yakin": false
+ },
+ "jahe_merah_acar": {
+  "src": "Proxy: USDA FDC SR Legacy: Ginger root, raw (nilai Racik jahe). Berat sdm perkiraan untuk irisan acar (10 g)",
+  "yakin": false
+ },
+ "tenkasu": {
+  "src": "tidak dihitung: remah adonan goreng, kadar minyak tidak pasti; tidak ada data",
+  "yakin": false
+ },
+ "saus_takoyaki": {
+  "src": "Proxy: USDA FDC SR Legacy: Catsup (nilai Racik saus_tomat); berat sdm mengikuti saus_tomat Racik",
+  "yakin": false
+ },
+ "molase": {
+  "src": "Proxy: USDA FDC SR Legacy: Honey (nilai Racik madu), sama-sama sirup gula pekat. Berat 1 sdm = 21 g sesuai resep sumber Oatmeal Raisin Cookies",
+  "yakin": false
+ },
+ "kulit_jeruk_manisan": {
+  "src": "tidak dihitung: tidak ada data kulit jeruk manisan yang bisa diambil; proksi buah manisan lain berbeda jauh kadar gulanya",
+  "yakin": false
+ },
+ "bread_improver": {
+  "src": "tidak dihitung: bahan tambahan (enzim dan pengemulsi), dipakai 2-3 g per adonan",
+  "yakin": false
+ },
+ "fettuccine": {
+  "src": "USDA FDC SR Legacy: Pasta, dry, enriched (nilai Racik spageti)",
+  "yakin": true
+ },
+ "beras_arborio": {
+  "src": "USDA FDC SR Legacy: Rice, white, medium-grain, raw (nilai Racik beras_jepang); arborio termasuk beras medium-grain",
+  "yakin": true
+ },
+ "garam_seledri": {
+  "src": "Proxy: garam (nilai Racik garam); garam seledri sebagian besar garam. Berat sdt mengikuti garam Racik",
+  "yakin": false
+ },
+ "penne": {
+  "src": "USDA FDC SR Legacy: Pasta, dry, enriched (nilai Racik spageti)",
+  "yakin": true
+ },
+ "gula_cair": {
+  "src": "Proxy dihitung: sirup gula 1:1 (berat) dari USDA FDC SR Legacy: Sugars, granulated (fdc 169655) = 50 g karbohidrat per 100 g",
+  "yakin": false
  }
 }

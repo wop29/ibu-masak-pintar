@@ -45,6 +45,11 @@ export const CHECK_IDS: ReadonlySet<string> = new Set([
   "mirin",
   "saus_teriyaki",
   "vanila_cair",
+  "ekstrak_almond",
+  // added with the Barat, Kue & Tren batch (24 Nov 2026)
+  "kaldu_sapi_cair",
+  "patty_sosis_sapi",
+  "abon_sapi",
 ]);
 
 /**
