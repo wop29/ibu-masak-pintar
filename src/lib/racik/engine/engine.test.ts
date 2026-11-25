@@ -30,7 +30,7 @@ const qty = (id: string, ingId: string, servings: number) => {
 
 describe("catalogue", () => {
   it("every recipe ingredient resolves, and import-only entries are present", () => {
-    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(846);
+    expect(RECIPES.filter((r) => !r.imported)).toHaveLength(1177);
     expect(NUSANTARA).toHaveLength(646);
     expect(WESTERN).toHaveLength(100);
     // The dictionary deliberately carries many ingredients used only for import

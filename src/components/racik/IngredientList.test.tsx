@@ -5,8 +5,8 @@ import { RECIPES } from "@/lib/racik/data";
 import { IngredientList } from "./IngredientList";
 
 describe("IngredientList", () => {
-  it("renders every ingredient line in all 846 shipped recipes", () => {
-    expect(RECIPES).toHaveLength(846);
+  it("renders every ingredient line in all 1177 shipped recipes", () => {
+    expect(RECIPES).toHaveLength(1177);
 
     for (const recipe of RECIPES) {
       const html = renderToStaticMarkup(
